@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'nexalight';
+    src: url('../fonts/fonts/nexa_light-webfont.woff2') format('woff2'),
+         url('../fonts/fonts/nexa_light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'nexabold';
+    src: url('../fonts/fonts/nexa_bold-webfont.woff2') format('woff2'),
+         url('../fonts/fonts/nexa_bold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'titiliumlight';
+    src: url('../fonts/fonts/titillium-light-webfont.woff2') format('woff2'),
+         url('../fonts/fonts/titillium-light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'titiliumbold';
+    src: url('../fonts/fonts/titillium-bold-webfont.woff2') format('woff2'),
+         url('../fonts/fonts/titillium-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'titiliumregular';
+    src: url('../fonts/fonts/titillium-regular-webfont.woff2') format('woff2'),
+         url('../fonts/fonts/titillium-regular-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'bigjohn';
+    src: url('../fonts/fonts2/big_john-webfont.woff2') format('woff2'),
+         url('../fonts/fonts2/big_john-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'slimjoe';
+    src: url('../fonts/fonts2/slim_joe-webfont.woff2') format('woff2'),
+         url('../fonts/fonts2/slim_joe-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'elianto';
+    src: url('../fonts/fonts2/elianto-regular-webfont.woff2') format('woff2'),
+         url('../fonts/fonts2/elianto-regular-webfont.woff') format('woff');
+}

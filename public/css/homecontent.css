@@ -1,0 +1,106 @@
+@font-face {
+    font-family:Font2 !important;
+    src: local('D:/mppl-app/public/fonts/hanson-bold-webfont.woff2') format('woff2'),
+    local('D:/mppl-app/public/fonts/hanson-bold-webfont.woff') format('woff'),   
+    local('D:/mppl-app/public/fonts/Hanson-Bold.ttf') format('truetype') !important;
+}
+
+.servercontainer{
+    min-height: 180vh;
+    width: 89vw;
+    display: flex;
+    
+}
+
+div.servercontainer .container{
+background-color:rgba(51, 99, 123, 0.3);
+min-height: 100%;
+width: 100%;
+border-radius: 5px;
+}
+
+div.d-flex .logincontainer{
+    min-height: 102vh;
+    width: 98%;
+    background-color: rgba(51, 99, 123, 0.3);
+    border-radius: 5px;
+}
+
+.logocontent{
+   max-width: 35vw;
+   height: auto;
+}
+
+.logologin{
+    max-width: 25vw;
+    height: auto;
+}
+
+.serverinformation{
+    font-family:cyber;
+    color: #f2e702;
+    font-size: 25pt !important;
+    -webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: #01ffff;
+}
+
+.descriptionserver{
+    font-family: 'Segoe UI';
+    color: #fff42c;
+    font-size: 12pt;
+
+}
+
+.bulletgif{
+    max-width: 2vw;
+    height: auto;
+}
+
+
+.flex-column{
+    min-width: 35vw;
+    max-height: 180vh;
+}
+
+.fb-page{
+    max-width: 500vw;
+}
+
+.customtextforlabel{
+    font-family:cyber;
+    color: #f2e702;
+    font-size: 20pt !important;
+    -webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: #01ffff;
+}
+
+.customtextbox{
+    min-width: 30vw;
+}
+
+.customforbutton{
+    min-width: 30vw;
+    background-color:#fff42c;
+    border: none;
+    font-family: cyber!important;
+    color: #183947 !important;
+    font-size: 15pt !important
+}
+
+.customforbutton:hover{
+    background-color:#183947;
+    border: none;
+    color: #fff42c !important;
+    
+}
+
+@media (min-width:600px){
+    .servercontainer{
+        min-height: 165vh;
+    }
+    div.d-flex .logincontainer{
+        min-height:82.5vh;
+        width: 98%;
+    }
+
+}

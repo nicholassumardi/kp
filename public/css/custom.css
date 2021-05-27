@@ -1,0 +1,62 @@
+.nav-link{
+    font-family: titiliumlight;
+}
+.aboutme{
+font-family: bigjohn;
+-webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #0A123F;
+color: #F15658;
+}
+
+.aboutmedesc{
+    font-family: nexalight;
+   
+}
+
+.custombutton{
+    font-family: titiliumlight;
+    background-color:#F15658 ;
+    color: #ffff;
+    border: none;
+}
+
+.custombutton:hover{
+    background-color: #0A123F;
+    color: #ffff;
+}
+
+hr.solid{
+    width: 15vw;
+    color: #F15658;
+    border-width:5px ;
+}
+.padding{
+    padding-top: 1rem;
+}
+.logohero{
+    width: 100vw;
+    height: auto;
+    z-index: -1;
+  
+}
+.logo{
+    max-width: 4vw;
+    height: auto;
+}
+
+body{
+background-image:url('../images/bg.jpg');
+background-size: cover;
+overflow: auto;
+position: absolute;
+}
+
+@media (min-width:600px){
+    body{
+        width: 100%;
+        min-height: 100vh;
+    }
+   
+
+}
+    
