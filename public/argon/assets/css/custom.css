@@ -1,0 +1,21 @@
+.bg-primary{
+   background-color:#5CC3BF !important;
+}
+
+a
+{
+    text-decoration: none;
+
+    color: #5CC3BF;
+    background-color: transparent;
+}
+a:hover
+{
+    text-decoration: none; 
+
+    color: #46a09d;
+}
+
+.btn-neutral{
+   color: #5CC3BF;
+}

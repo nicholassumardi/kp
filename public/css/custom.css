@@ -2,7 +2,7 @@
     font-family: titiliumlight;
 }
 .aboutme{
-font-family: bigjohn;
+font-family: nexabold;
 -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #0A123F;
 color: #F15658;
@@ -10,7 +10,7 @@ color: #F15658;
 
 .aboutmedesc{
     font-family: nexalight;
-   
+    color: #0A123F;
 }
 
 .custombutton{
