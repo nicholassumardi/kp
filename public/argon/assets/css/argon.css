@@ -6634,8 +6634,8 @@ input[type='button'].btn-block
     z-index: 3;
 
     color: #fff;
-    border-color: #5e72e4; 
-    background-color: #5e72e4;
+    border-color: #5CC3BF; 
+    background-color: #5CC3BF;
 }
 
 .page-item.disabled .page-link
@@ -7339,7 +7339,7 @@ a.badge:focus
 }
 
 .media-body
-{
+{   
     flex: 1 1;
 }
 
@@ -17991,6 +17991,7 @@ a.text-darker:focus
     body
     {
         min-width: 992px !important;
+        
     }
     .container
     {
@@ -19932,7 +19933,7 @@ a.btn-icon-only
 
 .footer
 {
-    position: absolute;
+    
     width: 95%;
     bottom: 0;
     height: 0%;

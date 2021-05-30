@@ -1,5 +1,5 @@
- <!-- Main content -->
- <div class="main-content" id="panel">
+<!-- Main content -->
+<div class="main-content" id="panel">
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
         <div class="container-fluid">
@@ -161,8 +161,7 @@
                             aria-expanded="false">
                             <i class="ni ni-ungroup"></i>
                         </a>
-                        <div
-                            class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
                             <div class="row shortcuts px-4">
                                 <a href="#!" class="col-4 shortcut-item">
                                     <span class="shortcut-media avatar rounded-circle bg-gradient-red">
@@ -224,18 +223,6 @@
                             <a href="#!" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
                                 <span>My profile</span>
-                            </a>
-                            <a href="#!" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="#!" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a>
-                            <a href="#!" class="dropdown-item">
-                                <i class="ni ni-support-16"></i>
-                                <span>Support</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#!" class="dropdown-item">

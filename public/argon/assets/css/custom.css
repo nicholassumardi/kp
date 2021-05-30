@@ -19,3 +19,7 @@ a:hover
 .btn-neutral{
    color: #5CC3BF;
 }
+
+.active{
+    color: #5CC3BF !important;
+}

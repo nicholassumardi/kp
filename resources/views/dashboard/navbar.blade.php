@@ -20,18 +20,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="icons.html">
-                            <i class="ni ni-planet text-orange"></i>
-                            <span class="nav-link-text">Icons</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="map.html">
-                            <i class="ni ni-pin-3 text-primary"></i>
-                            <span class="nav-link-text">Google</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="profile.html">
                             <i class="ni ni-single-02 text-yellow"></i>
                             <span class="nav-link-text">Profile</span>
@@ -40,7 +28,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="tables.html">
                             <i class="ni ni-bullet-list-67 text-default"></i>
-                            <span class="nav-link-text">Tables</span>
+                            <span class="nav-link-text">Schedules</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -52,13 +40,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="register.html">
                             <i class="ni ni-circle-08 text-pink"></i>
-                            <span class="nav-link-text">Register</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="upgrade.html">
-                            <i class="ni ni-send text-dark"></i>
-                            <span class="nav-link-text">Upgrade</span>
+                            <span class="nav-link-text">Register Test</span>
                         </a>
                     </li>
                 </ul>

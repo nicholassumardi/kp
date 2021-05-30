@@ -1,37 +1,42 @@
 .nav-link{
-    font-family: titiliumlight;
+    font-family: nexalight;
 }
 .aboutme{
-font-family: nexabold;
--webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: #0A123F;
-color: #F15658;
+font-family: lemonmedium;
+color: #ffff;
 }
 
 .aboutmedesc{
     font-family: nexalight;
-    color: #0A123F;
+    color: #ffff;
+    font-size: 13pt;
 }
 
 .custombutton{
     font-family: titiliumlight;
-    background-color:#F15658 ;
-    color: #ffff;
+    background-color:#F5B531;
+    color: #f4fffb;       
+    border-radius: 50px;
     border: none;
 }
 
 .custombutton:hover{
-    background-color: #0A123F;
-    color: #ffff;
+    background-color: #f3c976;
+    color: #f4fffb;
 }
 
 hr.solid{
     width: 15vw;
-    color: #F15658;
+    color: #f4fffb;
     border-width:5px ;
 }
 .padding{
     padding-top: 1rem;
+}
+
+div.row .container{
+    max-width: 30vw;
+    height: auto;
 }
 .logohero{
     width: 100vw;
@@ -42,6 +47,17 @@ hr.solid{
 .logo{
     max-width: 4vw;
     height: auto;
+}
+
+.social>i {
+    padding: 1%;
+    font-size: 15px;
+    color:#ffff;
+}
+
+.social>i:hover {
+    color: #F8B732;
+    cursor: pointer
 }
 
 body{
