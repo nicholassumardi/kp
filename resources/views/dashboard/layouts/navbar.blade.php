@@ -14,13 +14,13 @@
                 <!-- Nav items -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.html">
+                        <a class="nav-link active" href="/admin">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profile.html">
+                        <a class="nav-link" href="/profile">
                             <i class="ni ni-single-02 text-yellow"></i>
                             <span class="nav-link-text">Profile</span>
                         </a>

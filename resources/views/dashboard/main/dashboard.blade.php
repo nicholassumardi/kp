@@ -1,5 +1,7 @@
 @extends('dashboard/layouts/app')
-
+@section('indicator')
+    Dashboard
+@endsection
 @section('content')
     {{-- CONTENT --}}
 <div class="container-fluid mt--6">
