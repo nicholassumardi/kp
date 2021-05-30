@@ -22,15 +22,15 @@
 </head>
 
 <body>
-    @include('dashboard/navbar')
+    @include('dashboard/layouts/navbar')
 
-    @include('dashboard/feature')
+    @include('dashboard/layouts/features')
 
-    @include('dashboard/header')
+    @include('dashboard/layouts/header')
 
     @yield('content')
 
-    @include('dashboard/footer')
+    @include('dashboard/layouts/footer')
     <!-- Argon Scripts -->
     <!-- Core -->
     <script src="{{asset('argon/assets/vendor/jquery/dist/jquery.min.js')}}"></script>
