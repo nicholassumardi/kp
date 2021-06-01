@@ -1,0 +1,18 @@
+.card-register {
+    background-color: #f5f5f5;
+}
+
+.logo-register {
+    margin-top: -75px;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-picture-view {
+    width: 250px;
+    height: 250px;
+}
+
+.button:hover {
+    opacity: 0.7;
+}

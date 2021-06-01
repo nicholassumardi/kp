@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home');
 Route::view('admin', 'dashboard.main.dashboard');
 Route::view('profile', 'dashboard.main.profile');
+Route::view('register', 'register.index')->name('register');
+Route::view('sign-in', 'sign-in.index')->name('sign-in');
