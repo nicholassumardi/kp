@@ -17,9 +17,10 @@ Profile
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body pt-0">
                     <div class="row">
-                        
+
                     </div>
                     <div class="text-center mt-5">
                         <h5 class="h3">
@@ -42,6 +43,9 @@ Profile
                         <div class="col-8">
                             <h3 class="mb-0">Edit profile </h3>
                         </div>
+                        <div class="col-4 text-right">
+                            <a href="#!" class="btn btn-sm btn-primary">Edit Profile</a>
+                          </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -60,23 +64,23 @@ Profile
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Email address</label>
                                         <input type="email" id="input-email" class="form-control"
-                                            placeholder="jesse@example.com">
+                                            placeholder="john@gmail.com">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-first-name">First name</label>
+                                        <label class="form-control-label" for="input-first-name">Name</label>
                                         <input type="text" id="input-first-name" class="form-control"
                                             placeholder="First name" value="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-last-name">Last name</label>
-                                        <input type="text" id="input-last-name" class="form-control"
-                                            placeholder="Last name" value="">
+                                        <label class="form-control-label" for="input-last-name">NPM</label>
+                                        <input type="text" id="input-last-name" class="form-control" placeholder="NPM"
+                                            value="">
                                     </div>
                                 </div>
                             </div>
@@ -95,27 +99,21 @@ Profile
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-city">City</label>
                                         <input type="text" id="input-city" class="form-control" placeholder="City"
                                             value="">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-country">Country</label>
                                         <input type="text" id="input-country" class="form-control" placeholder="Country"
                                             value="">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-country">Postal code</label>
-                                        <input type="number" id="input-postal-code" class="form-control"
-                                            placeholder="Postal code">
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <hr class="my-4" />

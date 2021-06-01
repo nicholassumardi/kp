@@ -26,8 +26,8 @@
         </div>
     </div>
 
-    <div class="row col-sm" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400" data-aos-once="true">
-        <div class="container ms-2 text-center">
+    <div class="row col-l" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400" data-aos-once="true">
+        <div class="container ms-1 text-center">
             <div class="social mt-2 mb-3"> <i class="mx-2 fa fa-facebook-official fa-lg"></i> <i
                     class="mx-2 fa fa-instagram fa-lg"></i> <i class="mx-2 fa fa-twitter fa-lg"></i> <i
                     class="mx-2 fa fa-linkedin-square fa-lg"></i> </div>

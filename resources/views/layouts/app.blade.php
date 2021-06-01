@@ -20,7 +20,7 @@
    @stack('css')
 
 
-    <title>{{!empty($title_page) ? $title_page:''}} ITATS Language Center</title>
+    <title>{{!empty($title_page) ? $title_page:''}} ITATS LANGUAGE CENTER</title>
 
  
 
@@ -43,6 +43,15 @@
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script>
         AOS.init();
+        $(document).ready(function () {
+        $(document).click(function (event) {
+            var click = $(event.target);
+            var _open = $(".navbar-collapse").hasClass("show");
+            if (_open === true && !click.hasClass("navbar-toggler")) {
+                $(".navbar-toggler").click();
+            }
+        });
+    });
     </script>
 </body>
 

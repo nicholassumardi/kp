@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home');
 Route::view('admin', 'dashboard.main.dashboard');
 Route::view('profile', 'dashboard.main.profile');
+Route::view('schedules', 'dashboard.main.schedules');

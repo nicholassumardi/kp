@@ -44,6 +44,16 @@
     <script src="{{asset('argon/assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
     <!-- Argon JS -->
     <script src="{{asset('argon/assets/js/argon.js?v=1.2.0')}}"></script>
+
+    <script>
+         $(document).ready(function () {
+        $(document).click(function (event) {
+            var click = $(event.target);
+
+           $(".g-sidenav-pinned").removeClass("g-sidenav-pinned") 
+        });
+    });
+    </script>
 </body>
 
 </html>
