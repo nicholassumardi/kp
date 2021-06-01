@@ -1,0 +1,29 @@
+.card-sign-in {
+    background-color: #f5f5f5;
+}
+
+.logo-sign-in {
+    margin-top: -75px;
+    width: 150px;
+    height: 150px;
+}
+
+.button:hover {
+    opacity: 0.7;
+}
+
+.text-register {
+    text-decoration: none;
+}
+
+.text-register:link {
+    color: #339999;
+}
+
+.text-register:visited {
+    color:  #339999;
+}
+
+.text-register:hover {
+    text-decoration: underline;
+}
