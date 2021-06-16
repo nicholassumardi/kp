@@ -28,3 +28,45 @@ a:hover
     background-color: #5CC3BF !important;
     border: none;
 }
+
+.btn-outline-secondary{
+    border: 1px solid rgb(212, 206, 206) !important;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+
+ul{
+    list-style-type: none;
+}
+.ultext{
+    color: rgba(0, 0, 0, .6);
+}
+
+
+.sidebar-wrapper{}#sidebar:not(.active)~#main{margin-left:0}
+
+.sidebar-wrapper .menu .sidebar-link{display:flex;align-items:center;border-radius:.5rem;transition:all .5s;text-decoration:none;color:rgba(0, 0, 0, .6);}
+
+
+.sidebar-wrapper .menu .sidebar-link:hover{background-color:#f0f1f5}
+
+.sidebar-wrapper .menu .sidebar-item{list-style:none;margin-top:.5rem;position:relative}.sidebar-wrapper .menu .sidebar-item.has-sub .sidebar-link:after{content:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><path stroke="gray" stroke-width="1" d="M6 9l6 6 6-6"/></svg>');position:absolute;color:#ccc;right:15px;top:12px;display:block}.sidebar-wrapper .menu .sidebar-item.active .sidebar-link{background-color:#5CC3BF}
+
+.sidebar-wrapper .menu .sidebar-item.active .sidebar-link span{color:#fff}
+.sidebar-wrapper .menu .sidebar-item.active .sidebar-link i,.sidebar-wrapper .menu .sidebar-item.active .sidebar-link svg{fill:#fff;color:#fff}.sidebar-wrapper .menu .sidebar-item.active .sidebar-link.has-sub:after{content:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><path stroke="%23fff" stroke-width="1" d="M6 9l6 6 6-6"/></svg>')}
+
+.sidebar-wrapper .menu .submenu{list-style:none;display:none;transition:max-height 2s cubic-bezier(0,.55,.45,1);overflow:hidden}
+
+.sidebar-wrapper .menu .submenu.active{max-height:999px;display:block}
+
+.sidebar-wrapper .menu .submenu .submenu-item.active{position:relative}
+
+.sidebar-wrapper .menu .submenu .submenu-item.active>a{color:#5CC3BF;font-weight:700}
+.sidebar-wrapper .menu .submenu .submenu-item a{padding:.7rem 2rem;display:block;color:rgba(0, 0, 0, .6);font-size:.85rem;font-weight:600;letter-spacing:.5px;transition:all .3s}
+
+.sidebar-wrapper .menu .submenu .submenu-item a:hover{margin-left:.3rem}@media screen and (max-width:1199px){.sidebar-wrapper{position:absolute;left:-300px}
+
+.sidebar-wrapper .sidebar-toggler.x{display:block}}

@@ -1,0 +1,45 @@
+body{
+    background-image:url('../images/bg2.jpg');
+    background-size: cover;
+    overflow: auto;
+    position: absolute;
+    }
+    
+    @media (min-width:600px){
+        body{
+            width: 100%;
+            min-height: 100vh;
+        }
+       
+    
+}
+.custombutton{
+    font-family: titiliumlight;
+    background-color:#F5B531;
+    color: #f4fffb;       
+    border-radius: 50px;
+    border: none;
+}
+
+.custombutton:hover{
+    background-color: #f3c976;
+    color: #f4fffb;
+}
+.customtext{
+    font-family: titiliumlight;
+}
+.customicon{
+    background-color: #ffff;
+}
+.customheading{
+    font-family: titiliumbold;
+    color: #ffff;
+    }
+
+.custompicture{
+    min-width: 1vw !important;
+    height: auto;
+}
+::-ms-reveal {
+    display: none !important;
+}

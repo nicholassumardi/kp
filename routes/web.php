@@ -13,10 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home');
-Route::view('admin', 'dashboard.main.dashboard');
-Route::view('profile', 'dashboard.main.profile');
-Route::view('schedules', 'dashboard.main.schedules');
-Route::view('register', 'register.index')->name('register');
-Route::view('sign_in', 'sign-in.index')->name('sign-in');
+// FRONTPAGES
+Route::view('/', 'frontpages.home.index');
+Route::view('register', 'frontpages.account.register.index')->name('register');
+Route::view('sign_in', 'frontpages.account.sign-in.index')->name('sign-in');
+
+// DASHBOARD STUDENT
+Route::view('student', 'student.main.dashboard');
+Route::view('profile', 'student.main.profile');
+Route::view('schedules', 'student.main.schedules');
+Route::view('registerCourses', 'student.main.registerCourses');
+
+// DASHBOARD ADMIN
+Route::view('admin', 'admin.main.dashboard');
+Route::view('profileAdmin', 'admin.main.profile');
+Route::view('addSchedules', 'admin.main.schedules');
+Route::view('addCourse', 'admin.main.course');
+Route::view('addNews', 'admin.main.news');
+
 

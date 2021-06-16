@@ -27,3 +27,9 @@
 .text-register:hover {
     text-decoration: underline;
 }
+.card-header{
+    background-color: white !important;
+}
+.card-body{
+    background-color: white !important;
+}
