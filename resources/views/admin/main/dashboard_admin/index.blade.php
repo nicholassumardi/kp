@@ -92,32 +92,36 @@ Dashboard
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">Course Name</th>
+                                <th scope="col" class="sort" data-sort="name">Type</th>
                                 <th scope="col" class="sort" data-sort="budget">Students</th>
                                 <th scope="col" class="sort" data-sort="status">Action</th>
                             </tr>
                         </thead>
                         <tbody class="list">
                             <tr>
-                                <th scope="row">
+                                <td scope="row">
                                     <div class="media-body">
                                         <span class="name mb-0 text-sm">English Course</span>
                                     </div>
+
+                                <td>
+                                    Pre Test
+                                </td>
+                                <td class="budget">
+                                    {{mt_rand(00,99)}}
+                                </td>
+                                <td class="">
+                                    <a href="/admin/show" class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-eye"></i></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
-                </th>
-                <td class="budget">
-                    {{mt_rand(00,99)}}
-                </td>
-                <td class="">
-                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
-                </td>
-                </tr>
-
-                </tbody>
-                </table>
             </div>
+
+
+
         </div>
-
-
-
-    </div>
-    @endsection
+        @endsection

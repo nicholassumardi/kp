@@ -42,7 +42,7 @@
                                 <a href="/addCourse" class="ultext">Courses</a>
                             </li>
                             <li class="submenu-item ">
-                                <a href="" class="ultext">Courses Type</a>
+                                <a href="/coursesType" class="ultext">Courses Type</a>
                             </li>
                         </ul>
                     </li>

@@ -32,20 +32,6 @@
                             <div class="row mb-3">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                    <label for="email" class="form-label fw-bold customtext">Email</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text customicon">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                        <input type="email" class="form-control" id="email" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-2"></div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-2"></div>
-                                <div class="col-8">
                                     <label for="name" class="form-label fw-bold customtext">Name</label>
                                     <div class="input-group">
                                         <span class="input-group-text customicon ">
@@ -57,6 +43,20 @@
                                 <div class="col-2"></div>
                             </div>
 
+                            <div class="row mb-3">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <label for="email" class="form-label fw-bold customtext">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text customicon">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <input type="email" class="form-control" id="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            
                             <div class="row mb-3">
                                 <div class="col-2"></div>
                                 <div class="col-8">

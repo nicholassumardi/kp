@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/iconly/bold.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
-   
+    <link rel="stylesheet" href="{{asset('mazer/assets/css/pages/app.css')}}">
 
    
     {{-- DATATABLES --}}

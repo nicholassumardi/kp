@@ -25,10 +25,15 @@ Route::view('schedules', 'student.main.schedules');
 Route::view('registerCourses', 'student.main.registerCourses');
 
 // DASHBOARD ADMIN
-Route::view('admin', 'admin.main.dashboard');
-Route::view('profileAdmin', 'admin.main.profile');
-Route::view('addSchedules', 'admin.main.schedules');
-Route::view('addCourse', 'admin.main.course');
-Route::view('addNews', 'admin.main.news');
+Route::view('admin', 'admin.main.dashboard_admin.index');
+Route::view('profileAdmin', 'admin.main.profile_admin.index');
+Route::view('addSchedules', 'admin.main.schedules_admin.index');
+Route::view('addCourse', 'admin.main.courses_admin.courses.index');
+Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
+Route::view('addNews', 'admin.main.news_admin.index');
 
 
+//COURSES TEST VIEW
+Route::view('addCourse/create', 'admin.main.courses_admin.courses.create');
+Route::view('coursesType/create', 'admin.main.courses_admin.courses_type.create');
+Route::view('admin/show', 'admin.main.dashboard_admin.show');

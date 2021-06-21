@@ -14,7 +14,9 @@
 
     <div class="row">
         <div class="col-sm-5 aboutmedesc" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi debitis, ex similique est totam temporibus modi sit nemo? Molestiae dolorem obcaecati suscipit id iusto maiores nulla reprehenderit cupiditate, neque recusandae!
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi debitis, ex similique est totam
+                temporibus modi sit nemo? Molestiae dolorem obcaecati suscipit id iusto maiores nulla reprehenderit
+                cupiditate, neque recusandae!
             </p>
         </div>
     </div>
@@ -22,15 +24,18 @@
     <div class="row mt-2 mb-3" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400"
         data-aos-once="true">
         <div class="col-sm">
-            <a href="/sign_in"><button type="button" class="btn btn-lg col-sm-4 custombutton shadow">Sign In</button></a>
+            <a href="/sign_in"><button type="button" class="btn btn-lg col-sm-4 custombutton shadow">Sign
+                    In</button></a>
         </div>
     </div>
 
     <div class="row col-l" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400" data-aos-once="true">
         <div class="container ms-1 text-center">
-            <div class="social mt-2 mb-3"> <i class="mx-2 fa fa-facebook-official fa-lg"></i> <i
-                    class="mx-2 fa fa-instagram fa-lg"></i> <i class="mx-2 fa fa-twitter fa-lg"></i> <i
-                    class="mx-2 fa fa-linkedin-square fa-lg"></i> </div>
+            <div class="social mt-2 mb-3">
+                <a href="" class="aboutmedesc">
+                    <i class="mx-2 fa fa-instagram fa-lg"></i> Follow Us On Instagram
+                </a>
+            </div>
         </div>
     </div>
 
