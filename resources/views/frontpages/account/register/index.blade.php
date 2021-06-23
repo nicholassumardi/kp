@@ -28,7 +28,9 @@
                         <h3 class="fw-bold customtext">Register</h3>
                     </div>
                     <div class="card-body">
-                        <form>                   
+                        <form action="{{ route('register.store') }}" method="POST">                   
+                            @csrf
+
                             <div class="row mb-3">
                                 <div class="col-2"></div>
                                 <div class="col-8">
@@ -37,7 +39,7 @@
                                         <span class="input-group-text customicon ">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" id="name" placeholder="Name">
+                                        <input type="text" class="form-control" name="nama" id="name" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="col-2"></div>
@@ -51,7 +53,7 @@
                                         <span class="input-group-text customicon">
                                             <i class="fas fa-envelope"></i>
                                         </span>
-                                        <input type="email" class="form-control" id="email" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="col-2"></div>
@@ -65,7 +67,7 @@
                                         <span class="input-group-text customicon ">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" id="npm" placeholder="NPM">
+                                        <input type="text" class="form-control" name="npm" id="npm" placeholder="NPM">
                                     </div>
                                 </div>
                                 <div class="col-2"></div>
@@ -79,7 +81,7 @@
                                         <span class="input-group-text customicon">
                                             <i class="fas fa-key"></i>
                                         </span>
-                                        <input type="password" class="form-control" id="password"
+                                        <input type="password" class="form-control" name="password" id="password"
                                             placeholder="Password">
                                         <span class="input-group-text customicon " onclick="showPasswordRegister();">
                                             <i class="fas fa-eye-slash d-block" id="eye-slash"></i>
@@ -94,7 +96,7 @@
 
                             <div class="row mb-5">
                                 <div class="col-4"></div>
-                                <button type="button"
+                                <button type="submit"
                                     class="col-4 btn btn-lg bg-warning rounded-pill shadow button custombutton">Register</button>
                                 <div class="col-4"></div>
                             </div>

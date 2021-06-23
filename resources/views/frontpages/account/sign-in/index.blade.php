@@ -27,7 +27,9 @@
                         <h3 class="fw-bold customtext">Sign In</h3>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="{{ route('login.authenticate') }}" method="POST">
+                            @csrf
+                            
                             <div class="row mb-3">
                                 <div class="col-2"></div>
                                 <div class="col-8">
@@ -36,7 +38,7 @@
                                         <span class="input-group-text customicon">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" id="npm" placeholder="NPM">
+                                        <input type="text" class="form-control" name="username" id="npm" placeholder="NPM">
                                     </div>
                                 </div>
                                 <div class="col-2"></div>
@@ -50,7 +52,7 @@
                                         <span class="input-group-text customicon">
                                             <i class="fas fa-key"></i>
                                         </span>
-                                        <input type="password" class="form-control" id="password"
+                                        <input type="password" class="form-control" name="password" id="password"
                                             placeholder="Password">
                                         <span class="input-group-text customicon" onclick="showPasswordSignIn();">
                                             <i class="fas fa-eye-slash d-block" id="eye-slash"></i>
@@ -62,7 +64,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4"></div>
-                                <button type="button"
+                                <button type="submit"
                                     class="col-4 btn btn-lg bg-warning  shadow button custombutton">Sign
                                     In</button>
                                 <div class="col-4"></div>
@@ -70,7 +72,7 @@
                             <div class="row text-center">
                                 <div class="col-2"></div>
                                 <p class="col-8 fs-5 customtext">Dont have a account? <a class="text-register"
-                                        href="{{ route('register') }}">Register Now</a></p>
+                                        href="{{ route('register.create') }}">Register Now</a></p>
                                 <div class="col-2"></div>
                             </div>
                         </form>
