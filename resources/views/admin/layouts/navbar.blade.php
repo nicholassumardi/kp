@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('addSchedules') ? ' active' : ''}}" href="/addSchedules">
+                        <a class="nav-link  {{request()->is('Schedules') ? ' active' : ''}}" href="/Schedules">
                             <i class="ni ni-calendar-grid-58 text-green"></i>
                             <span class="nav-link-text">Schedules</span>
                         </a>

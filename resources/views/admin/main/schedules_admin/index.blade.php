@@ -7,8 +7,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
-            <h3 class="mb-0">News</h3>
-            <a href="#" class="btn btn-primary btn-sm">Add Schedules</a>
+            <h3 class="mb-0">Schedules</h3>
+            <a href="/addSchedules" class="btn btn-primary btn-sm">Add Schedules</a>
         </div>
         
 
@@ -24,8 +24,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>20-12-2021</td>
-                            <td>New Register Open Now</td>
+                            <td>English Course</td>
+                            <td>Saturday, 15:00 - 16:00 </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pen-fill text-green"></i></a>
                                 <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-trash2-fill text-red"></i></a>
