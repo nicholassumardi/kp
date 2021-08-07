@@ -24,7 +24,7 @@
     <div class="row mt-2 mb-3" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400"
         data-aos-once="true">
         <div class="col-sm">
-            <a href="/sign_in"><button type="button" class="btn btn-lg col-sm-4 custombutton shadow">Sign
+            <a href="/sign-in"><button type="button" class="btn btn-lg col-sm-4 custombutton shadow">Sign
                     In</button></a>
         </div>
     </div>
@@ -32,7 +32,7 @@
     <div class="row col-l" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400" data-aos-once="true">
         <div class="container ms-1 text-center">
             <div class="social mt-2 mb-3">
-                <a href="" class="aboutmedesc">
+                <a target="_blank" href="https://www.instagram.com/pusbaitats/?hl=en" class="aboutmedesc">
                     <i class="mx-2 fa fa-instagram fa-lg"></i> Follow Us On Instagram
                 </a>
             </div>

@@ -9,7 +9,7 @@
           <a class="nav-link {{request()->is('/') ? ' active' : ''}}" aria-current="page" href="#">About</a>
           <a class="nav-link {{request()->is('/news') ? ' active' : ''}}" href="#">News</a>
           <a class="nav-link" href="/register">Register</a>
-          <a class="nav-link" href="/sign_in">Sign In</a>
+          <a class="nav-link" href="/sign-in">Sign In</a>
         </div>
       </div>
     </div>

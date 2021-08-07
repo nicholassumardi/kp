@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->boolean('status')->default(1);
             $table->unsignedBigInteger('tipe_user_id')->default(3);
             $table->foreign('tipe_user_id')->references('id_tipe_user')->on('tipe_user');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 
