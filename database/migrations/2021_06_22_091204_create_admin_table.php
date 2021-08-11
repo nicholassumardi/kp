@@ -20,7 +20,7 @@ class CreateAdminTable extends Migration
             $table->string('alamat');
             $table->string('kota', 100);
             $table->string('negara', 100);
-            $table->string('path_foto')->default('default.jpg');
+            $table->string('path_foto')->default('images/profile/admin/default.png');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id_user')->on('user');
             //$table->timestamps();

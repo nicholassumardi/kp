@@ -80,7 +80,7 @@ Dashboard
                     ) {
                         swalWithBootstrapButtons.fire(
                             'Berhasil Dibatalkan !',
-                            'Anda membatalkan menonaktifkan Admin...',
+                            'Anda membatalkan aktifkan Admin...',
                             'error'
                         )
                     }

@@ -1,6 +1,6 @@
 @extends('admin/layouts/app')
-@section('indicator')
-    News
+@section('path')
+News
 @endsection
 @section('content')
 <div class="container-fluid mt--6">

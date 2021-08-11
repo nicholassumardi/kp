@@ -7,25 +7,27 @@
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
     <title>{{!empty($title_page) ? $title_page:''}} ITATS LANGUAGE CENTER</title>
-    
+
 
     {{-- LOGO --}}
     <link rel="icon" href="{{asset('images/logo2.png')}}" type="image/png">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('mazer/assets/images/favicon.svg')}}" type="image/x-icon">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-   
+
     <!-- Icons -->
     <link rel="stylesheet" href="{{asset('argon/assets/vendor/nucleo/css/nucleo.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('argon/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}"
         type="text/css">
-  
-    
+   
+    <link rel="stylesheet" href="{{asset('css/customprofileadmin.css')}}">
+
+
     <!-- Argon CSS -->
     <link rel="stylesheet" href="{{asset('argon/assets/css/argon.css?v=1.2.0')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('argon/assets/css/custom.css')}}" type="text/css">
@@ -36,7 +38,7 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/css/pages/app.css')}}">
 
-   
+
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 </head>
@@ -51,7 +53,7 @@
     @yield('content')
 
     @include('admin/layouts/footer')
-   
+
     <!-- Core -->
     <script src="{{asset('argon/assets/vendor/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{asset('argon/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
@@ -72,7 +74,7 @@
     <script src="{{asset('mazer/assets/vendors/apexcharts/apexcharts.js')}}"></script>
     <script src="{{asset('mazer/assets/js/pages/dashboard.js')}}"></script>
     <script src="{{asset('mazer/assets/js/main.js')}}"></script>
-   
+
 
     <!-- Page level plugins -->
     <script src="{{asset('datatables/jquery.dataTables.js')}}"></script>
@@ -89,6 +91,8 @@
         });
     });
     </script>
+
+    @stack('js')
 </body>
 
 </html>

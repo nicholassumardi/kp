@@ -37,8 +37,8 @@ a:hover
     pointer-events: none;
 }
 .custompicture{
-    max-width: 15vw !important;
-    height: auto;
+    max-width: 170px !important;
+    min-height: 170px !important;
 }
 
 ul{

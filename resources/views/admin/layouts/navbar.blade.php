@@ -21,7 +21,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{request()->is('profileAdmin') ? ' active' : ''}}" href="/profileAdmin">
+                        <a class="nav-link {{request()->is('profileAdmin') ? ' active' : ''}}" href="{{route('profileAdmin.show', Auth::id())}}">
                             <i class="ni ni-single-02 text-yellow"></i>
                             <span class="nav-link-text">Profile</span>
                         </a>

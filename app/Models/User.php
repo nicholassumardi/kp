@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -13,4 +10,9 @@ class User extends Authenticatable
     protected $primaryKey = 'id_user';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function admin()
+    {
+        return $this->hasMany(Admin::class, 'user_id', 'id_user');
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\SuperAdminController;
 
 /*
@@ -38,7 +39,7 @@ Route::view('registerCourses', 'student.main.registerCourses');
 // DASHBOARD ADMIN
 // Route::view('admin', 'admin.main.dashboard_admin.index')->name('admin.index');
 Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
-Route::view('profileAdmin', 'admin.main.profile_admin.index');
+Route::resource('profileAdmin', ProfileAdminController::class);
 Route::view('Schedules', 'admin.main.schedules_admin.index');
 Route::view('addCourse', 'admin.main.courses_admin.courses.index');
 Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
