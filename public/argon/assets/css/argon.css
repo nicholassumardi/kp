@@ -18127,6 +18127,7 @@ a.text-darker:focus
 
 .avatar
 {
+    
     font-size: 1rem;
 
     display: inline-flex;
@@ -18136,7 +18137,7 @@ a.text-darker:focus
 
     color: #fff;
     border-radius: .375rem;
-    background-color: #adb5bd;
+   
 
     align-items: center;
     justify-content: center;
@@ -18164,6 +18165,7 @@ a.text-darker:focus
 
 .avatar-sm
 {
+    
     font-size: .875rem; 
 
     width: 36px;
@@ -18980,7 +18982,7 @@ a.btn-icon-only
     position: absolute;
     left: 50%;
 
-    max-width: 140px;
+    max-width: 170px;
 
     transition: all .15s ease; 
     transform: translate(-50%, -50%) scale(1);

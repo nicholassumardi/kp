@@ -21,7 +21,7 @@ class CreateMahasiswaTable extends Migration
             $table->string('alamat')->nullable();
             $table->string('kota', 100)->nullable();
             $table->string('negara', 100)->nullable();
-            $table->string('path_foto')->default('default.jpg');
+            $table->string('path_foto')->default('images/profile/mahasiswa/default.png');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id_user')->on('user');
             //$table->timestamps();

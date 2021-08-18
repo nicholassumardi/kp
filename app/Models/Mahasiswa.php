@@ -10,4 +10,9 @@ class Mahasiswa extends Model
     protected $primaryKey = 'id_mahasiswa';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'user_id');
+    }
 }

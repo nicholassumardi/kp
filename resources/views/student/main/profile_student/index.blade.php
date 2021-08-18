@@ -1,10 +1,10 @@
-@extends('admin/layouts/app')
+@extends('student/layouts/app')
 @section('path')
 Profile
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
-    <form action="{{route('profileAdmin.update', Auth::id())}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('profileStudent.update', Auth::id())}}" method="POST" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="row">
@@ -16,8 +16,8 @@ Profile
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    {{-- <img src="{{asset('argon/assets/img/theme/team-6.jpg')}}" class="rounded-circle"> --}}
-                                    <img src="{{ asset('storage/' . $admin->path_foto) }}" class="rounded-circle customprofilepicture">
+                                    <img src="{{ asset('storage/' . $mahasiswa->path_foto) }}"
+                                        class="rounded-circle customprofilepicture">
                                 </a>
                             </div>
                         </div>
@@ -29,11 +29,11 @@ Profile
                         </div>
                         <div class="text-center mt-5">
                             <h5 class="h3">
-                                {{$admin->nama}}<span class="font-weight-light">, {{$admin->umur}}</span>
+                                {{$mahasiswa->nama}}<span class="font-weight-light">, {{$mahasiswa->umur}}</span>
                             </h5>
 
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>{{ $admin->kota }}, {{ $admin->negara }}
+                                <i class="ni location_pin mr-2"></i>{{ $mahasiswa->kota }}, {{ $mahasiswa->negara }}
                             </div>
                             <div>
                                 <i class="ni education_hat mr-2"></i>Institut Teknologi Adhi Tama Surabaya
@@ -63,7 +63,7 @@ Profile
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-username">Name</label>
                                             <input type="text" id="name" class="form-control" placeholder="Full Name"
-                                                value="{{$admin->nama}}" name="nama" required>
+                                                value="{{$mahasiswa->nama}}" name="nama" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -79,7 +79,7 @@ Profile
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-first-name">Age</label>
                                             <input type="number" id="age" class="form-control" placeholder="Age"
-                                                value="{{$admin->umur}}" name="umur" required>
+                                                value="{{$mahasiswa->umur}}" name="umur" required>
                                         </div>
                                     </div>
 
@@ -111,7 +111,7 @@ Profile
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address">Address</label>
                                             <input id="input-address" class="form-control" placeholder="Home Address"
-                                                value="{{$admin->alamat}}" type="text" name="alamat" required>
+                                                value="{{$mahasiswa->alamat}}" type="text" name="alamat" required>
                                         </div>
                                     </div>
                                 </div>
@@ -120,14 +120,14 @@ Profile
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-city">City</label>
                                             <input type="text" id="input-city" class="form-control" placeholder="City"
-                                                value="{{$admin->kota}}" name="kota" required>
+                                                value="{{$mahasiswa->kota}}" name="kota" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-country">Country</label>
                                             <input type="text" id="input-country" class="form-control"
-                                                placeholder="Country" value="{{$admin->negara}}" name="negara" required>
+                                                placeholder="Country" value="{{$mahasiswa->negara}}" name="negara" required>
                                         </div>
                                     </div>
 
@@ -139,7 +139,7 @@ Profile
                             <div class="d-flex flex-column justify-content-center">
                                 <div class="row mb-5 mx-auto">
                                     <div class="col">
-                                        <img src="{{ asset('storage/' . $admin->path_foto) }}"
+                                        <img src="{{ asset('storage/' . $mahasiswa->path_foto) }}"
                                             class="rounded-circle customprofilepicture" id="profile-picture-view">
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@ Profile
 
     @push('js')
     <script>
-    function showPassword() {
+        function showPassword() {
         if ($("#newpassword").attr("type") === "password") {
             $("#newpassword").attr("type", "text");
             $("#eye-slash")

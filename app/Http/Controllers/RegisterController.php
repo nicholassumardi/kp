@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function create(Request $request)
     {
-        if (Auth::check() == 1) {
+        if (Auth::check()) {
             return redirect()->back();
         } else {
             return view('frontpages.account.register.index');

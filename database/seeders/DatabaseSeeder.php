@@ -59,6 +59,15 @@ class DatabaseSeeder extends Seeder
             'tipe_user_id' => 3
         ]);
 
+        DB::table('admin')->insert([
+            'nama' => 'Admin Nicholas',
+            'umur' => 21,
+            'alamat' => 'Grand Delta Sari',
+            'kota' => 'Sidoarjo',
+            'negara' => 'Indonesia',
+            'user_id' => 2
+        ]);
+
         DB::table('mahasiswa')->insert([
             'nama' => 'Bima Kurnia Adam',
             'umur' => 21,

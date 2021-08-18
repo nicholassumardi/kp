@@ -1,5 +1,5 @@
 @extends('student/layouts/app')
-@section('indicator')
+@section('path')
     Dashboard
 @endsection
 @section('content')

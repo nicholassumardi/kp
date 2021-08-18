@@ -11,12 +11,15 @@ class MahasiswaController extends Controller
     public function index()
     {
         // True jika ada user yang login dan status masih aktif.
-        if (Auth::check() == 1) {
+        if (Auth::check()) {
             // True jika user yang login adalah admin.
-            if (Auth::user()->tipe_user_id == 3) {
-                return view('student.main.dashboard');
-            } else {
-                return redirect()->back();
+            if (Auth::user()->tipe_user_id === 3) {
+                $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
+                return view('student.main.dashboard_student.index',  $this->dataView);
+            } elseif (Auth::user()->tipe_user_id === 1) {
+                return redirect()->route('super-admin.index');
+            } elseif (Auth::user()->tipe_user_id === 2) {
+                return redirect()->route('admin.index');
             }
         } else {
             return redirect()->route('/');

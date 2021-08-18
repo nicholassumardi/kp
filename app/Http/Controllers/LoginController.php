@@ -9,9 +9,9 @@ use App\Models\Mahasiswa;
 
 class LoginController extends Controller
 {
-    public function showLoginForm(Request $request)
+    public function showLoginForm()
     {
-        if (Auth::check() == 1) {
+        if (Auth::check()) {
             return redirect()->back();
         } else {
             return view('frontpages.account.sign-in.index');
@@ -21,32 +21,26 @@ class LoginController extends Controller
     public function isSuperAdmin($username, $password)
     {
         // True jika data login benar.
-        $isSuperAdmin = Auth::attempt([
+        return Auth::attempt([
             'email' => $username,
             'password' => $password,
             'tipe_user_id' => 1
         ]);
-
-        return $isSuperAdmin;
     }
 
     public function isAdmin($username, $password)
     {
         // True jika data login benar.
-        $isAdmin = Auth::attempt([
+        return Auth::attempt([
             'email' => $username,
             'password' => $password,
             'status' => 1,
             'tipe_user_id' => 2
         ]);
-
-        return $isAdmin;
     }
 
     public function isMahasiswa($username, $password)
     {
-        $isMahasiswa = false;
-
         // True jika data login menggunakan email benar.
         if (Auth::attempt([
             'email' => $username,
@@ -54,7 +48,7 @@ class LoginController extends Controller
             'status' => 1,
             'tipe_user_id' => 3
         ])) {
-            $isMahasiswa = true;
+            return true;
         } else { // True jika data login menggunakan NPM benar.
             $mahasiswa = Mahasiswa::where('npm', $username)->first();
 
@@ -67,12 +61,12 @@ class LoginController extends Controller
                     'status' => 1,
                     'tipe_user_id' => 3
                 ])) {
-                    $isMahasiswa = true;
+                    return true;
                 }
             }
         }
 
-        return $isMahasiswa;
+        return false;
     }
 
     public function authenticate(Request $request)
@@ -97,7 +91,7 @@ class LoginController extends Controller
             return redirect()->route('student.index');
         }
 
-        return back()->withErrors(['error' => 'Login gagal.']);
+        return redirect()->back();
     }
 
     public function logout()

@@ -16,13 +16,16 @@ class SuperAdminController extends Controller
     public function index()
     {
         $listAdmin = User::where('tipe_user_id', 2)->get();
+        
         // True jika ada user yang login dan status masih aktif.
-        if (Auth::check() == 1) {
+        if (Auth::check()) {
             // True jika user yang login adalah Super Admin.
-            if (Auth::user()->tipe_user_id == 1) {
+            if (Auth::user()->tipe_user_id === 1) {
                 return view('superAdmin.main.dashboard.index', compact('listAdmin'));
-            } else {
-                return redirect()->back();
+            } elseif (Auth::user()->tipe_user_id === 2) {
+                return redirect()->route('admin.index');
+            } elseif (Auth::user()->tipe_user_id === 3) {
+                return redirect()->route('student.index');
             }
         } else {
             return redirect()->route('/');

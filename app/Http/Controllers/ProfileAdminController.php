@@ -18,7 +18,8 @@ class ProfileAdminController extends Controller
      */
     public function index()
     {
-     
+        $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
+        return view('admin.main.profile_admin.index', $this->dataView);
     }
 
     /**
@@ -51,9 +52,12 @@ class ProfileAdminController extends Controller
     public function show($id)
     {
         $this->dataView['admin'] = Admin::where('user_id', $id)->first();
-        $this->dataView['user'] = User::whereHas('admin', function (Builder $query) use ($id) {
-            $query->where('user_id', $id);
-        })->first();
+        $this->dataView['user'] = User::whereHas(
+            'admin', 
+            function (Builder $query) use ($id) {
+                $query->where('user_id', $id);
+            }
+        )->first();
         return view('admin.main.profile_admin.index', $this->dataView);
     }
 
@@ -95,18 +99,7 @@ class ProfileAdminController extends Controller
                 'kota' => $request->kota,
                 'negara' => $request->negara,
                 'path_foto' => $request->file->store('images/profile/admin', 'public')
-            ]);
-
-            if ($request->has('newpassword')) {
-                User::where('id_user', $id)->update([
-                    'email' => $request->email, 
-                    'password' => Hash::make($request->newpassword)
-                ]);
-            } else {
-                User::where('id_user', $id)->update([
-                    'email' => $request->email
-                ]);
-            }
+            ]); 
         } else { // Jika foto tidak ada
             $request->validate([
                 'nama' => 'required',
@@ -124,17 +117,18 @@ class ProfileAdminController extends Controller
                 'kota' => $request->kota,
                 'negara' => $request->negara
             ]);
+        }
 
-            if ($request->has('newpassword')) {
-                User::where('id_user', $id)->update([
-                    'email' => $request->email, 
-                    'password' => Hash::make($request->newpassword)
-                ]);
-            } else {
-                User::where('id_user', $id)->update([
-                    'email' => $request->email
-                ]);
-            }
+        // Jika password ada, input email dan password.
+        if ($request->has('newpassword')) {
+            User::where('id_user', $id)->update([
+                'email' => $request->email, 
+                'password' => Hash::make($request->newpassword)
+            ]);
+        } else { // Input email saja
+            User::where('id_user', $id)->update([
+                'email' => $request->email
+            ]);
         }
 
         return redirect()->back()

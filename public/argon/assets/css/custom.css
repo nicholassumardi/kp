@@ -36,9 +36,17 @@ a:hover
 .disabled{
     pointer-events: none;
 }
-.custompicture{
-    max-width: 170px !important;
-    min-height: 170px !important;
+.customprofilepicture{
+    border-radius: 50%;
+    height: 170px;
+    width: 170px;
+}
+
+.customprofilepicture2{
+    border-radius: 50%;
+    height: 36px;
+    width: 36px;
+
 }
 
 ul{

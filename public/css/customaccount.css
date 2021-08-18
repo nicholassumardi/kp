@@ -37,8 +37,8 @@ body{
     }
 
 .custompicture{
-    min-width: 1vw !important;
-    height: auto;
+    max-width: 170px !important;
+    min-height: 170px !important;
 }
 ::-ms-reveal {
     display: none !important;

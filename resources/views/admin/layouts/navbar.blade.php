@@ -32,20 +32,26 @@
                             <span class="nav-link-text">Schedules</span>
                         </a>
                     </li>
-                    <li class="nav-item sidebar-item  has-sub">
+                    <li class="nav-item">
+                        <a class="nav-link  {{request()->is('addCourse') ? ' active' : ''}}" href="{{route('addCourse.index')}}">
+                            <i class="ni ni-ruler-pencil text-pink"></i>
+                            <span class="nav-link-text">Add Course</span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item sidebar-item  has-sub">
                         <a class="sidebar-link nav-link  {{request()->is('addCourse') ? ' active' : ''}} sidebar-link " href="">
                             <i class="ni ni-ruler-pencil text-pink"></i>
                             <span class="nav-link-text">Courses</span>
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item">
-                                <a href="/addCourse" class="ultext">Courses</a>
+                                <a href="{{route('addCourse.index')}}" class="ultext">Courses</a>
                             </li>
                             <li class="submenu-item ">
                                 <a href="/coursesType" class="ultext">Courses Type</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link  {{request()->is('addNews') ? ' active' : ''}}" href="/addNews">
                             <i class="bi bi-newspaper text-gray"></i>
