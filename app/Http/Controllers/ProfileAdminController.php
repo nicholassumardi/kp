@@ -18,8 +18,20 @@ class ProfileAdminController extends Controller
      */
     public function index()
     {
-        $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        return view('admin.main.profile_admin.index', $this->dataView);
+        // True jika ada user yang login.
+        if (Auth::check()) {
+            // True jika user yang login adalah admin.
+            if (Auth::user()->tipe_user_id === 2) {
+                $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
+                return view('admin.main.profile_admin.index', $this->dataView);
+            } elseif (Auth::user()->tipe_user_id === 1) {
+                return redirect()->route('super-admin.index');
+            } elseif (Auth::user()->tipe_user_id === 3) {
+                return redirect()->route('student.index');
+            }
+        } else {
+            return redirect()->route('/');
+        }
     }
 
     /**
@@ -51,14 +63,26 @@ class ProfileAdminController extends Controller
      */
     public function show($id)
     {
-        $this->dataView['admin'] = Admin::where('user_id', $id)->first();
-        $this->dataView['user'] = User::whereHas(
-            'admin', 
-            function (Builder $query) use ($id) {
-                $query->where('user_id', $id);
+        // True jika ada user yang login.
+        if (Auth::check()) {
+            // True jika user yang login adalah admin.
+            if (Auth::user()->tipe_user_id === 2) {
+                $this->dataView['admin'] = Admin::where('user_id', $id)->first();
+                $this->dataView['user'] = User::whereHas(
+                    'admin', 
+                    function (Builder $query) use ($id) {
+                        $query->where('user_id', $id);
+                    }
+                )->first();
+                return view('admin.main.profile_admin.index', $this->dataView);
+            } elseif (Auth::user()->tipe_user_id === 1) {
+                return redirect()->route('super-admin.index');
+            } elseif (Auth::user()->tipe_user_id === 3) {
+                return redirect()->route('student.index');
             }
-        )->first();
-        return view('admin.main.profile_admin.index', $this->dataView);
+        } else {
+            return redirect()->route('/');
+        }
     }
 
     /**
@@ -120,7 +144,7 @@ class ProfileAdminController extends Controller
         }
 
         // Jika password ada, input email dan password.
-        if ($request->has('newpassword')) {
+        if ($request->filled('newpassword')) {
             User::where('id_user', $id)->update([
                 'email' => $request->email, 
                 'password' => Hash::make($request->newpassword)

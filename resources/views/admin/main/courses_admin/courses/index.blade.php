@@ -14,7 +14,7 @@ Profile
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered invisible" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Course Name</th>
@@ -25,15 +25,17 @@ Profile
                     <tbody>
                         @foreach ($dataadmin as $da)
                         <tr>
-                            <td>{{$da->nama_kursus}} @if (isset($da->tipe_kursus)) {{ '- ' . $da->tipe_kursus }} @endif</td>
-                            
+                            <td>{{$da->nama_kursus}} @if (isset($da->tipe_kursus)) {{ '- ' . $da->tipe_kursus }} @endif
+                            </td>
+
                             <td class="text-center">
                                 <li class="btn btn-sm {{$da->status==1?'btn-success':'btn-danger'}} disabled">
                                     {{$da->status==1?'Active':'Inactive'}}</li>
                             </td>
 
                             <td class="text-center">
-                                <a href="{{route('addCourse.edit',$da->id_kursus)}}" class="btn btn-sm btn-outline-secondary"><i
+                                <a href="{{route('addCourse.edit',$da->id_kursus)}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-pen-fill text-green"></i></a>
                                 <a href="#" class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-trash2-fill text-red"></i></a>
@@ -50,3 +52,11 @@ Profile
 
 </div>
 @endsection
+@push('js')
+<script>
+    $(function () {
+        // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
+        $("#dataTable").removeClass("invisible");
+    });
+</script>
+@endpush

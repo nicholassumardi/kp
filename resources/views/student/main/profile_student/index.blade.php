@@ -90,7 +90,7 @@ Profile
                                             <div class="input-group">
                                                 <input type="password" id="newpassword" class="form-control"
                                                     placeholder="New Password" value="" name="newpassword">
-                                                <span class="input-group-text customicon" onclick="showPassword();">
+                                                <span class="input-group-text customicon" id="show-hide-password">
                                                     <i class="fas fa-eye-slash d-block" id="eye-slash"></i>
                                                     <i class="fas fa-eye d-none" id="eye"></i>
                                                 </span>
@@ -140,13 +140,12 @@ Profile
                                 <div class="row mb-5 mx-auto">
                                     <div class="col">
                                         <img src="{{ asset('storage/' . $mahasiswa->path_foto) }}"
-                                            class="rounded-circle customprofilepicture" id="profile-picture-view">
+                                            class="rounded-circle customprofilepicture" id="profile-picture-view" data-old-src="{{ asset('storage/' . $mahasiswa->path_foto) }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3 mx-auto">
                                     <div class="col-12">
-                                        <input class="form-control customicon" type="file" id="profile-picture-browse"
-                                            onchange="changeProfilePictureInput();" name="file">
+                                        <input class="form-control customicon" type="file" id="profile-picture-browse" name="file">
                                     </div>
                                 </div>
                             </div>
@@ -160,38 +159,40 @@ Profile
 
     @push('js')
     <script>
-        function showPassword() {
-        if ($("#newpassword").attr("type") === "password") {
-            $("#newpassword").attr("type", "text");
-            $("#eye-slash")
-                .removeClass("d-block")
-                .addClass("d-none");
-            $("#eye")
-                .removeClass("d-none")
-                .addClass("d-block");
-        } else {
-            $("#newpassword").attr("type", "password");
-            $("#eye-slash")
-                .removeClass("d-none")
-                .addClass("d-block");
-            $("#eye")
-                .removeClass("d-block")
-                .addClass("d-none");
-        }
-    };
-    function changeProfilePictureInput() {
-    var input = $("#profile-picture-browse")[0];
+        $(function() {
+            $("#show-hide-password").on("click", function() {
+                const newPassword = $("#newpassword");
+                const eyeSlash = $("#eye-slash");
+                const eye = $("#eye");
 
-    if (input.files && input.files[0]) {
-        var fileReader = new FileReader();
+                if (newPassword.attr("type") === "password") {
+                    newPassword.attr("type", "text");
+                    eyeSlash.removeClass("d-block").addClass("d-none");
+                    eye.removeClass("d-none").addClass("d-block");
+                } else {
+                    newPassword.attr("type", "password");
+                    eye.removeClass("d-block").addClass("d-none");
+                    eyeSlash.removeClass("d-none").addClass("d-block");
+                }
+            });
 
-        fileReader.onload = function (e) {
-            $("#profile-picture-view")
-                .attr("src", e.target.result)
-        };
+            $("#profile-picture-browse").on("change", function() {
+                const profilePicture = $("#profile-picture-view");
+                const file = $(this)[0].files[0];
 
-        fileReader.readAsDataURL(input.files[0]);
-    }
-}
+                // Jika memilih file
+                if (file !== undefined) {
+                    const fileReader = new FileReader();
+
+                    fileReader.onload = function (e) {
+                        profilePicture.attr("src", e.target.result);
+                    };
+
+                    fileReader.readAsDataURL(file);
+                } else { // Jika tidak memilih file
+                    profilePicture.attr("src", profilePicture.data("oldSrc"));
+                }
+            });
+        });
     </script>
     @endpush

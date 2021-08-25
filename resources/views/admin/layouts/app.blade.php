@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{asset('argon/assets/vendor/nucleo/css/nucleo.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('argon/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}"
         type="text/css">
-   
+
     <link rel="stylesheet" href="{{asset('css/customprofileadmin.css')}}">
 
 
@@ -38,9 +38,9 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/css/pages/app.css')}}">
 
-
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+        
 </head>
 
 <body>

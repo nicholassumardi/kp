@@ -11,5 +11,10 @@ class Course extends Model
     protected $table = 'kursus';
     protected $primaryKey = 'id_kursus';
     protected $guarded = [];
-    public $timestamps = true;
+
+
+    public function jadwal()
+    {
+        return $this->hasMany(Schedules::class, 'kursus_id', 'id_kursus');
+    }
 }

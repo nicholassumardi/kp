@@ -9,7 +9,7 @@ class Admin extends Model
     protected $table = 'admin';
     protected $primaryKey = 'id_admin';
     protected $guarded = [];
-    public $timestamps = false;
+
 
     public function user()
     {

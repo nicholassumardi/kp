@@ -27,17 +27,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('Schedules') ? ' active' : ''}}" href="/Schedules">
+                        <a class="nav-link  {{request()->is('addCourse') ? ' active' : ''}}" href="{{route('addCourse.index')}}">
+                            <i class="ni ni-ruler-pencil text-pink"></i>
+                            <span class="nav-link-text">Course</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {{request()->is('Schedules') ? ' active' : ''}}" href="{{route('schedules.index')}}">
                             <i class="ni ni-calendar-grid-58 text-green"></i>
                             <span class="nav-link-text">Schedules</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link  {{request()->is('addCourse') ? ' active' : ''}}" href="{{route('addCourse.index')}}">
-                            <i class="ni ni-ruler-pencil text-pink"></i>
-                            <span class="nav-link-text">Add Course</span>
-                        </a>
-                    </li>
+                   
                     {{-- <li class="nav-item sidebar-item  has-sub">
                         <a class="sidebar-link nav-link  {{request()->is('addCourse') ? ' active' : ''}} sidebar-link " href="">
                             <i class="ni ni-ruler-pencil text-pink"></i>

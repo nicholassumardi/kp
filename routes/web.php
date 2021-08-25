@@ -5,9 +5,11 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseAdminController;
+use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileMahasiswaController;
+use App\Http\Controllers\SchedulesController;
 use App\Http\Controllers\SuperAdminController;
 
 /*
@@ -36,17 +38,22 @@ Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::get('student', [MahasiswaController::class, 'index'])->name('student.index');
 Route::resource('profileStudent', ProfileMahasiswaController::class);
 Route::view('schedules', 'student.main.schedules');
-Route::view('registerCourses', 'student.main.registerCourses');
+Route::resource('registerCourses', CourseStudentController::class);
+Route::get('courses/{id}/schedules', [CourseStudentController::class, 'getSchedules']);
+Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'getCourse']);
+// Route::get('courses/{id}/id', [CourseStudentController::class, 'getIdKursus'])->name('getIdKursus');
 
 // DASHBOARD ADMIN
 // Route::view('admin', 'admin.main.dashboard_admin.index')->name('admin.index');
 Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 Route::resource('profileAdmin', ProfileAdminController::class);
-Route::view('Schedules', 'admin.main.schedules_admin.index');
+Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
-Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
 Route::view('addNews', 'admin.main.news_admin.index');
-Route::view('addSchedules','admin.main.schedules_admin.create');
+// Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
+// Route::view('addSchedules','admin.main.schedules_admin.create');
+
+
 
 //COURSES TEST VIEW
 // Route::view('addCourse/create', 'admin.main.courses_admin.courses.create');

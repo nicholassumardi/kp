@@ -19,8 +19,6 @@ class CreateKursusTable extends Migration
             $table->foreign('admin_id')->references('id_admin')->on('admin')->cascadeOnDelete();
             $table->string('nama_kursus');
             $table->string('tipe_kursus')->nullable();
-            $table->bigInteger('jadwal_id')->unsigned()->nullable();
-            $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal')->cascadeOnDelete();
             $table->tinyInteger('status')->default(1)->comment('1 = Aktif, 0 = Tidak Aktif');
             $table->tinyInteger('bukti_pembayaran')->default(1)->comment('1 = Ya, 0 = Tidak');
             $table->timestamps();

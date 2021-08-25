@@ -14,10 +14,22 @@ class CreateDetailKursusTable extends Migration
     public function up()
     {
         Schema::create('detail_kursus', function (Blueprint $table) {
+            // $table->bigInteger('mahasiswa_id')->unsigned();
+            // $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->cascadeOnDelete();
+            // $table->bigInteger('kursus_id')->unsigned();
+            // $table->foreign('kursus_id')->references('id_kursus')->on('kursus')->cascadeOnDelete();
+            // $table->bigInteger('jadwal_id')->unsigned();
+            // $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal')->cascadeOnDelete();
+            // $table->timestamps();
+
             $table->bigInteger('mahasiswa_id')->unsigned();
             $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->cascadeOnDelete();
             $table->bigInteger('kursus_id')->unsigned();
             $table->foreign('kursus_id')->references('id_kursus')->on('kursus')->cascadeOnDelete();
+            $table->bigInteger('jadwal_id')->unsigned();
+            $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal')->cascadeOnDelete();
+            $table->string('path_foto_kuitansi');
+            $table->string('path_foto_mahasiswa')->nullable();
             $table->timestamps();
         });
     }

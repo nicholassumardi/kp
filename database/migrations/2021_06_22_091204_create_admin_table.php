@@ -23,7 +23,7 @@ class CreateAdminTable extends Migration
             $table->string('path_foto')->default('images/profile/admin/default.png');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id_user')->on('user');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

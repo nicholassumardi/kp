@@ -18,8 +18,20 @@ class ProfileMahasiswaController extends Controller
      */
     public function index()
     {
-        $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
-        return view('mahasiswa.layouts.features', $this->dataView);
+        // True jika ada user yang login dan status masih aktif.
+        if (Auth::check()) {
+            // True jika user yang login adalah mahasiswa.
+            if (Auth::user()->tipe_user_id === 3) {
+                $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
+                return view('mahasiswa.layouts.features', $this->dataView);
+            } elseif (Auth::user()->tipe_user_id === 1) {
+                return redirect()->route('super-admin.index');
+            } elseif (Auth::user()->tipe_user_id === 2) {
+                return redirect()->route('admin.index');
+            }
+        } else {
+            return redirect()->route('/');
+        }
     }
 
     /**
@@ -51,11 +63,26 @@ class ProfileMahasiswaController extends Controller
      */
     public function show($id)
     {
-        $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', $id)->first();
-        $this->dataView['user'] = User::whereHas('mahasiswa', function (Builder $query) use ($id) {
-            $query->where('user_id', $id);
-        })->first();
-        return view('student.main.profile_student.index', $this->dataView);
+        // True jika ada user yang login dan status masih aktif.
+        if (Auth::check()) {
+            // True jika user yang login adalah mahasiswa.
+            if (Auth::user()->tipe_user_id === 3) {
+                $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', $id)->first();
+                $this->dataView['user'] = User::whereHas(
+                    'mahasiswa', 
+                    function (Builder $query) use ($id) {
+                        $query->where('user_id', $id);
+                    }
+                )->first();
+                return view('student.main.profile_student.index', $this->dataView);
+            } elseif (Auth::user()->tipe_user_id === 1) {
+                return redirect()->route('super-admin.index');
+            } elseif (Auth::user()->tipe_user_id === 2) {
+                return redirect()->route('admin.index');
+            }
+        } else {
+            return redirect()->route('/');
+        }
     }
 
     /**
@@ -117,7 +144,7 @@ class ProfileMahasiswaController extends Controller
         }
 
         // Jika password ada, input email dan password.
-        if ($request->has('newpassword')) {
+        if ($request->filled('newpassword')) {
             User::where('id_user', $id)->update([
                 'email' => $request->email, 
                 'password' => Hash::make($request->newpassword)

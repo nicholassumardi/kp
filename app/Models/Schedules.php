@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Schedules extends Model
+{
+    use HasFactory;
+    protected $table = 'jadwal';
+    protected $primaryKey = 'id_jadwal';
+    protected $guarded = [];
+    
+    
+    public function kursus()
+    {
+        return $this->belongsTo(Course::class, 'id_kursus', 'kursus_id');
+    }
+}

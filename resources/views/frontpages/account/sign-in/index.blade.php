@@ -54,7 +54,7 @@
                                         </span>
                                         <input type="password" class="form-control" name="password" id="password"
                                             placeholder="Password">
-                                        <span class="input-group-text customicon" onclick="showPasswordSignIn();">
+                                        <span class="input-group-text customicon" id="show-hide-password">
                                             <i class="fas fa-eye-slash d-block" id="eye-slash"></i>
                                             <i class="fas fa-eye d-none" id="eye"></i>
                                         </span>
@@ -79,9 +79,30 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
 @endsection
+
+@push('js')
+    <script>
+        $(function() {
+            $("#show-hide-password").on("click", function() {
+                const password = $("#password");
+                const eyeSlash = $("#eye-slash");
+                const eye = $("#eye");
+
+                if (password.attr("type") === "password") {
+                    password.attr("type", "text");
+                    eyeSlash.removeClass("d-block").addClass("d-none");
+                    eye.removeClass("d-none").addClass("d-block");
+                } else {
+                    password.attr("type", "password");
+                    eye.removeClass("d-block").addClass("d-none");
+                    eyeSlash.removeClass("d-none").addClass("d-block");
+                }
+            });
+        });
+    </script>
+@endpush

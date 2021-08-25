@@ -37,8 +37,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('js/register/register.js') }}"></script>
-    <script src="{{ asset('js/sign-in/sign-in.js') }}"></script>
      <!-- Argon Scripts -->
     <!-- Core -->
     <script src="{{asset('argon/assets/vendor/jquery/dist/jquery.min.js')}}"></script>
@@ -56,6 +54,8 @@
     <script>
         AOS.init();
     </script>
+
+    @stack('js')
 </body>
 
 </html>
