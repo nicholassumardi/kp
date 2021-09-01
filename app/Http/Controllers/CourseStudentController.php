@@ -8,7 +8,6 @@ use App\Models\Mahasiswa;
 use App\Models\ProofOfPayment;
 use App\Models\Schedules;
 use Illuminate\Http\Request;
-use Response;
 use Illuminate\Support\Facades\Auth;
 
 class CourseStudentController extends Controller
@@ -120,24 +119,27 @@ class CourseStudentController extends Controller
         //
     }
 
-    public function getSchedules($id)
+    public function getSchedules(Request $request, $id)
 	{
-        $jadwal = Schedules::where('kursus_id', '=', $id)->get();
+        // Jika request ajax
+        if ($request->ajax()) {
+            $jadwal = Schedules::where('kursus_id', '=', $id)->get();
         
-        return Response::json($jadwal);
+            return response()->json($jadwal);
+        }
+        // Jika request bukan ajax, throw halaman 403.
+        return abort(403);
 	}
 
-    public function getCourse($id)
+    public function getCourse(Request $request, $id)
 	{
-        $kursus = Course::where('id_kursus', '=', $id)->get();
+        // Jika request ajax
+        if ($request->ajax()) {
+            $kursus = Course::where('id_kursus', '=', $id)->get();
         
-        return Response::json($kursus);
+            return response()->json($kursus);
+        }
+        // Jika request bukan ajax, throw halaman 403.
+        return abort(403);
 	}
-
-    // public function getIdKursus($id)
-	// {
-    //     $this->dataView['id_kursus'] = Course::where('id_kursus', '=', $id)->first();
-        
-    //     return view('student.main.register_student.create', $this->dataView);
-	// }
 }

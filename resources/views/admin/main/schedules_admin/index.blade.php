@@ -27,7 +27,7 @@ Schedules
                         @foreach ($nama_kursus as $key => $nk)
 
                         <tr>
-                            <td>{{$nk->nama_kursus}}</td>
+                            <td>{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</td>
                             <td>{{$jadwal[$key]->hari}},
                                 {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal[$key]->jadwal_mulai)->format('H:i')}}
                                 -

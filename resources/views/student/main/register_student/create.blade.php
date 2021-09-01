@@ -25,7 +25,7 @@ Register Courses
 
                                     <select class="form-control" id="courses-dropdown" name="kursus_id">
                                         @foreach ($nama_kursus as $nk)
-                                        <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}}</option>
+                                        <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -42,18 +42,18 @@ Register Courses
                                 </div>
                             </div>
 
-                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->bukti_pembayaran === 1 ? 'mb-4' : 'mb-5' }}">
+                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->bukti_pembayaran === 1 ? 'mb-4' : 'mb-5' }}" id="container-foto-bukti-pembayaran">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Pembayaran</label>
-                                    <input class="form-control customicon" type="file" id="" name="path_foto_kuitansi">
+                                    <input class="form-control customicon" type="file" name="path_foto_kuitansi">
                                     <small class="form-text text-muted">* Foto harus discan dan dalam keadaan landscape.</small>
                                 </div>
                             </div>
 
-                            <div class="row mt-3 mb-5 justify-content-center" id="container-foto-mahasiswa" data-bukti-pembayaran="{{ $kursus_index_pertama->bukti_pembayaran }}">
+                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama->bukti_pembayaran !== 1 ? 'd-none' : '' }}" id="container-foto-mahasiswa">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Mahasiswa</label>
-                                    <input class="form-control customicon" type="file" id="" name="path_foto_mahasiswa">
+                                    <input class="form-control customicon" type="file" name="path_foto_mahasiswa">
                                     <small class="form-text text-muted">
                                         * Foto harus 3x4 dengan background merah.
                                         <br>
@@ -81,16 +81,14 @@ Register Courses
             $("#courses-dropdown").on("change", function() {
                 // Ubah dropdown schedules
                 $.getJSON(
-                    "/courses/" + $(this).val() + "/schedules", 
-                    function(jsonData) {
-                        console.log(jsonData);   
-                        let select = "<select class='form-control' id='courses-session'>";
+                    `api/courses/${ $(this).val() }/schedules`, 
+                    function(jsonData) {  
+                        let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
                         $.each(jsonData, function(i, jadwal) {
-                            select += "<option value='" 
-                            + jadwal.kursus_id 
-                            + "'>" 
-                            + jadwal.hari 
-                            + `, ${jadwal.jadwal_mulai.substring(0, 5)} - ${jadwal.jadwal_selesai.substring(0, 5)}</option>`;
+                            select += `<option value='${jadwal.kursus_id}'>`
+                            + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
+                            + `${jadwal.jadwal_selesai.substring(0, 5)}`
+                            + "</option>";
                         });
                         select += "</select>";
                         $("#courses-session").html(select);
@@ -99,23 +97,22 @@ Register Courses
 
                 // Hide dan show foto mahasiswa
                 $.getJSON(
-                    "/courses/" + $(this).val() + "/bukti_pembayaran", 
+                    `api/courses/${ $(this).val() }`, 
                     function(jsonData) {
-                        let kursus = jsonData[0];
+                        const kursus = jsonData[0];
+                        const containerFotoMahasiswa = $("#container-foto-mahasiswa");
+                        const containerFotoBuktiPembayaran = $("#container-foto-bukti-pembayaran");
+
                         if (kursus.bukti_pembayaran === 1) {
-                            $("#container-foto-mahasiswa").show();
+                            containerFotoMahasiswa.removeClass("d-none");
+                            containerFotoBuktiPembayaran.removeClass("mb-5").addClass("mb-4");
                         } else {
-                            $("#container-foto-mahasiswa").hide();
+                            containerFotoMahasiswa.addClass("d-none");
+                            containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
                         }
-                        
                     }
                 );
             });
-
-            // Hide dan show foto mahasiswa saat page diload
-            if ($("#container-foto-mahasiswa").data("buktiPembayaran") === 0) {
-                $("#container-foto-mahasiswa").hide();
-            }
         });
     </script>
     @endpush

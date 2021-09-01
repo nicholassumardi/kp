@@ -69,7 +69,6 @@ Dashboard
                 confirmButtonText: "Ya!",
                 cancelButtonText: "Batal !",
                 reverseButtons: true,
-                allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Ubah value dari input status
@@ -93,7 +92,6 @@ Dashboard
                 confirmButtonText: "Ya!",
                 cancelButtonText: "Batal !",
                 reverseButtons: true,
-                allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Ubah value dari input status

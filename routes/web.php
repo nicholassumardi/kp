@@ -6,10 +6,12 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseAdminController;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileMahasiswaController;
 use App\Http\Controllers\SchedulesController;
+use App\Http\Controllers\SchedulesStudentController;
 use App\Http\Controllers\SuperAdminController;
 
 /*
@@ -37,18 +39,20 @@ Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 // Route::view('student', 'student.main.dashboard')->name('student-index');
 Route::get('student', [MahasiswaController::class, 'index'])->name('student.index');
 Route::resource('profileStudent', ProfileMahasiswaController::class);
-Route::view('schedules', 'student.main.schedules');
+Route::resource('schedules-show', SchedulesStudentController::class);
 Route::resource('registerCourses', CourseStudentController::class);
+Route::get('schedule/{id}/schedules', [SchedulesStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/schedules', [CourseStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'getCourse']);
 // Route::get('courses/{id}/id', [CourseStudentController::class, 'getIdKursus'])->name('getIdKursus');
 
 // DASHBOARD ADMIN
 // Route::view('admin', 'admin.main.dashboard_admin.index')->name('admin.index');
-Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+Route::resource('admin', DashboardAdminController::class);
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
+Route::patch('send-komentar/{id}', [DashboardAdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
 Route::view('addNews', 'admin.main.news_admin.index');
 // Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
 // Route::view('addSchedules','admin.main.schedules_admin.create');

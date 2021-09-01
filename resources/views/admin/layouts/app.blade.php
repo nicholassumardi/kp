@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/css/pages/app.css')}}">
+    <link rel="stylesheet" href="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.min.css')}}">
 
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
@@ -75,6 +76,9 @@
     <script src="{{asset('mazer/assets/js/pages/dashboard.js')}}"></script>
     <script src="{{asset('mazer/assets/js/main.js')}}"></script>
 
+    <!-- Sweet Alert -->
+    <script src="{{asset('mazer/assets/js/extensions/sweetalert2.js')}}"></script>
+    <script src="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
 
     <!-- Page level plugins -->
     <script src="{{asset('datatables/jquery.dataTables.js')}}"></script>

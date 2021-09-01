@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('courses')->group(function () {
+    Route::get('{id}/schedules', [CourseStudentController::class, 'getSchedules']);
+    Route::get('{id}', [CourseStudentController::class, 'getCourse']);
 });

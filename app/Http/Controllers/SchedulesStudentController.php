@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Course;
+use App\Models\Mahasiswa;
+use App\Models\Schedules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Response;
 
-class SuperAdminController extends Controller
+class SchedulesStudentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth.super-admin')->only(['index']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +18,10 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        $listAdmin = User::where('tipe_user_id', 2)->get();
-        return view('superAdmin.main.dashboard.index', compact('listAdmin'));
+        $this->dataView['nama_kursus'] = Course::all();
+        $this->dataView['id_kursus'] = Schedules::all();
+        $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
+        return view('student.main.schedules.index', $this->dataView);
     }
 
     /**
@@ -75,12 +76,7 @@ class SuperAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // mengubah data berdasarkan request dan parameter yang dikirimkan
-        User::where('id_user', $id )->update(['status' => $request->status]);
-         
-        // setelah berhasil mengubah data
-        return redirect()->route('super-admin.index')
-        ->with('success','Post created successfully.');
+        //
     }
 
     /**

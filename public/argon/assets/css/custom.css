@@ -48,6 +48,16 @@ a:hover
     width: 36px;
 
 }
+.customfotoprofile{
+    height: 120px;
+    width: 120px;
+}
+
+
+.custombuktipembayaran{
+    height: 120px;
+    width: 200px;
+}
 
 ul{
     list-style-type: none;
