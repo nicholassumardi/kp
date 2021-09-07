@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.admin')->only(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,20 +22,8 @@ class ProfileAdminController extends Controller
      */
     public function index()
     {
-        // True jika ada user yang login.
-        if (Auth::check()) {
-            // True jika user yang login adalah admin.
-            if (Auth::user()->tipe_user_id === 2) {
-                $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-                return view('admin.main.profile_admin.index', $this->dataView);
-            } elseif (Auth::user()->tipe_user_id === 1) {
-                return redirect()->route('super-admin.index');
-            } elseif (Auth::user()->tipe_user_id === 3) {
-                return redirect()->route('student.index');
-            }
-        } else {
-            return redirect()->route('/');
-        }
+        $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
+        return view('admin.main.profile_admin.index', $this->dataView);
     }
 
     /**
@@ -63,26 +55,14 @@ class ProfileAdminController extends Controller
      */
     public function show($id)
     {
-        // True jika ada user yang login.
-        if (Auth::check()) {
-            // True jika user yang login adalah admin.
-            if (Auth::user()->tipe_user_id === 2) {
-                $this->dataView['admin'] = Admin::where('user_id', $id)->first();
-                $this->dataView['user'] = User::whereHas(
-                    'admin', 
-                    function (Builder $query) use ($id) {
-                        $query->where('user_id', $id);
-                    }
-                )->first();
-                return view('admin.main.profile_admin.index', $this->dataView);
-            } elseif (Auth::user()->tipe_user_id === 1) {
-                return redirect()->route('super-admin.index');
-            } elseif (Auth::user()->tipe_user_id === 3) {
-                return redirect()->route('student.index');
+        $this->dataView['admin'] = Admin::where('user_id', $id)->first();
+        $this->dataView['user'] = User::whereHas(
+            'admin',
+            function (Builder $query) use ($id) {
+                $query->where('user_id', $id);
             }
-        } else {
-            return redirect()->route('/');
-        }
+        )->first();
+        return view('admin.main.profile_admin.index', $this->dataView);
     }
 
     /**
@@ -123,7 +103,7 @@ class ProfileAdminController extends Controller
                 'kota' => $request->kota,
                 'negara' => $request->negara,
                 'path_foto' => $request->file->store('images/profile/admin', 'public')
-            ]); 
+            ]);
         } else { // Jika foto tidak ada
             $request->validate([
                 'nama' => 'required',
@@ -146,7 +126,7 @@ class ProfileAdminController extends Controller
         // Jika password ada, input email dan password.
         if ($request->filled('newpassword')) {
             User::where('id_user', $id)->update([
-                'email' => $request->email, 
+                'email' => $request->email,
                 'password' => Hash::make($request->newpassword)
             ]);
         } else { // Input email saja
@@ -156,7 +136,7 @@ class ProfileAdminController extends Controller
         }
 
         return redirect()->back()
-            ->with('success','Post updated successfully.');
+            ->with('success', 'Post updated successfully.');
     }
 
     /**

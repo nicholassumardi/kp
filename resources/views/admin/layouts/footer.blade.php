@@ -3,26 +3,11 @@
   <div class="row align-items-center justify-content-lg-center">
     <div class="col-lg-6">
       <div class="copyright text-center  text-lg-left  text-muted">
-        &copy; 2020 <a href="#" class="font-weight-bold ml-1" target="_blank">Creative
-          Tim</a>
+        &copy; 2020 <a href="https://www.instagram.com/pusbaitats/?hl=en" class="font-weight-bold ml-1" target="_blank">Pusba ITATS</a>
       </div>
     </div>
     <div class="col-lg-6">
-      <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-        <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">Creative Tim</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link"
-            target="_blank">MIT License</a>
-        </li>
-      </ul>
+      
     </div>
   </div>
 </footer>

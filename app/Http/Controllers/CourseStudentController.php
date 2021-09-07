@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseStudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.student')->only(['index']);
+    }
     /**
      * Display a listing of the resource.
      *

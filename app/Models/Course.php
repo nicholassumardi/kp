@@ -17,4 +17,10 @@ class Course extends Model
     {
         return $this->hasMany(Schedules::class, 'kursus_id', 'id_kursus');
     }
+
+    public function mahasiswa()
+    {
+        return $this->belongsToMany(Mahasiswa::class, 'detail_kursus', 'kursus_id', 'mahasiswa_id')
+            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+    }
 }

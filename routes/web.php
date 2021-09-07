@@ -6,8 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseAdminController;
 use App\Http\Controllers\CourseStudentController;
-use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileMahasiswaController;
 use App\Http\Controllers\SchedulesController;
@@ -48,12 +49,18 @@ Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'ge
 
 // DASHBOARD ADMIN
 // Route::view('admin', 'admin.main.dashboard_admin.index')->name('admin.index');
-Route::resource('admin', DashboardAdminController::class);
+Route::resource('admin', AdminController::class)->except([
+    'create', 'store' 
+]);;
+Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'update'])->name('admin.update');
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
-Route::patch('send-komentar/{id}', [DashboardAdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
-Route::view('addNews', 'admin.main.news_admin.index');
+Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [DashboardAdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
+Route::get('PdfDemo/{id_mahasiswa}/{id_kursus}', [PdfController::class, 'makePDF'])->name('generate.pdf');
+Route::resource('addNews', NewsController::class);
+
+// Route::get('/sample-pdf{insteadOf}', [PdfController::class, 'downloadPDF'])->name('download');
 // Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
 // Route::view('addSchedules','admin.main.schedules_admin.create');
 

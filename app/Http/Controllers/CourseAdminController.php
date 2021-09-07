@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.admin')->only(['index','create','edit']);
+    }
+
     /**
      * Display a listing of the resource.
      *

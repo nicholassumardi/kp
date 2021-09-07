@@ -38,9 +38,11 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/css/pages/app.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('mazer/assets/vendors/summernote/summernote-lite.min.css')}}">
 
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    
         
 </head>
 
@@ -69,12 +71,14 @@
 
     <!-- Argon JS -->
     <script src="{{asset('argon/assets/js/argon.js?v=1.2.0')}}"></script>
-
+    <script src="{{asset('argon/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+    
     <!-- Mazer JS -->
     <script src="{{asset('mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('mazer/assets/vendors/apexcharts/apexcharts.js')}}"></script>
     <script src="{{asset('mazer/assets/js/pages/dashboard.js')}}"></script>
     <script src="{{asset('mazer/assets/js/main.js')}}"></script>
+    <script src="{{asset('mazer/assets/vendors/summernote/summernote-lite.min.js')}}"></script>
 
     <!-- Sweet Alert -->
     <script src="{{asset('mazer/assets/js/extensions/sweetalert2.js')}}"></script>
@@ -83,6 +87,8 @@
     <!-- Page level plugins -->
     <script src="{{asset('datatables/jquery.dataTables.js')}}"></script>
     <script src="{{asset('datatables/dataTables.bootstrap4.js')}}"></script>
+   
+
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>

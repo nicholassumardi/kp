@@ -20,27 +20,30 @@ Students Data
                             <th>Name</th>
                             <th>Year</th>
                             <th>Course Name</th>
-                            <th>Photo</th>
+                            <th>Status</th>
+                            {!! $kursus->bukti_pembayaran == 1 ? '<th>Photo</th>' : '' !!}
                             <th>Payment Proof (Receipt)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($nama_mahasiswa as $key => $nm)
+                        @foreach ($kursus->mahasiswa as $mahasiswa)
                         <tr>
-                            <td>{{$nm->nama}}</td>
-                            <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data_kursus[$key]->created_at)->year}}
+                            <td>{{$mahasiswa->nama}}</td>
+                            <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
                             </td>
-                            <td class="text-center">{{$nama_kursus[$key]->nama_kursus}}</td>
+                            <td class="text-center">{{$kursus->nama_kursus}}</td>
                             <td class="text-center"><i
-                                    class="btn btn-sm {{$data_kursus[$key]->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                    {{$data_kursus[$key]->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
-                            <td><img src="{{ asset('storage/' . $data_kursus[$key]->path_foto_mahasiswa) }}" alt=""
-                                    class=" text-center customfotoprofile"></td>
-                            <td><img src="{{ asset('storage/' . $data_kursus[$key]->path_foto_kuitansi) }}" alt=""
+                                    class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
+                                    {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
+                            
+                                    @if ($kursus->bukti_pembayaran === 1)
+                                       <td><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa)}}" class='text-center customfotoprofile'></td> 
+                                    @endif
+                            <td><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
                             <td class="text-center">
-                                <form action="{{route('admin.update', $data_kursus[$key]->mahasiswa_id)}}" method="POST"
+                                <form action="{{route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')
@@ -48,50 +51,19 @@ Students Data
                                         <i class="bi bi-check-square text-green"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal"
-                                        data-target="#exampleModal">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar" data-toggle="modal"
+                                        data-target="#modal-komentar"
+                                        data-action="{{route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>
 
 
-                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i
+                                    <a href="{{route('generate.pdf', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}"
+                                        class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-printer-fill text-indigo"></i></a>
                                 </form>
                             </td>
                         </tr>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{route('admin.sendKomentar', $data_kursus[$key]->mahasiswa_id)}}"
-                                            id="form-send" method="POST">
-                                            @csrf
-                                            @method('PATCH')
-                                            <div class="form-group text-start">
-                                                <label for="message-text"
-                                                    class="col-form-label text-start"><b>Message:</b></label>
-                                                <textarea class="form-control width:500px;" id="message-text"
-                                                    name="komentar"></textarea>
-                                            </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="btn-send">Send</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                         @endforeach
 
                     </tbody>
@@ -99,10 +71,36 @@ Students Data
             </div>
         </div>
     </div>
-
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="modal-komentar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form-send" method="POST">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body">
+                    <div class="form-group text-start">
+                        <label for="message-text" class="col-form-label text-start"><b>Message:</b></label>
+                        <textarea class="form-control width:500px;" id="message-text" name="komentar"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btn-send">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -135,13 +133,15 @@ Students Data
             });
         });
 
-        // // Button kirim komentar
-        // $("#btn-send").on("click", function () {
+        // Button kirim komentar
+        $("#dataTable").on("click", ".btn-komentar", function () {
+            $("#form-send").attr("action", $(this).data("action")); 
+        });
 
-        //         $('#form-send').attr('action', '');
-        //         $(this).parent().submit(); // Submit form
-        //     });
-        // });
+        $("#modal-komentar").on("hidden.bs.modal", function () {
+            $("#form-send").attr("action", ""); 
+            $("#message-text").val(""); 
+        });
     });
 </script>
 @endpush

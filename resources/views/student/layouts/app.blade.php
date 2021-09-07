@@ -18,9 +18,11 @@
 
     <!-- Argon CSS -->
     <link rel="stylesheet" href="{{asset('argon/assets/css/argon.css?v=1.2.0')}}" type="text/css">
-   
-     <!-- CUSTOM CSS -->
-     <link rel="stylesheet" href="{{asset('argon/assets/css/custom.css')}}" type="text/css">
+
+     <!-- Mazer CSS -->
+    <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{asset('argon/assets/css/custom.css')}}" type="text/css">
 </head>
 
 <body>

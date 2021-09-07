@@ -18,7 +18,7 @@ Dashboard
                         </div>
                         <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-0">Total Courses</h5>
-                            <span class="text-success mr-2">2</span>
+                            <span class="text-success mr-2">{{ $kursus_count }}</span>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ Dashboard
                         </div>
                         <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-0">Active Courses</h5>
-                            <span class="text-success mr-2">2</span>
+                            <span class="text-success mr-2">{{ $kursus_aktif_count }}</span>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ Dashboard
                         </div>
                         <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-0">Total Students</h5>
-                            <span class="text-success mr-2">2</span>
+                            <span class="text-success mr-2">{{ $mahasiswa_count }}</span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ Dashboard
                         </div>
                         <div class="col">
                             <h5 class="card-title text-uppercase text-muted mb-0">Active Students</h5>
-                            <span class="text-success mr-2">2</span>
+                            <span class="text-success mr-2">{{ $mahasiswa_aktif_count }}</span>
                         </div>
                     </div>
                 </div>
@@ -92,22 +92,23 @@ Dashboard
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">Course Name</th>
-                                <th scope="col" class="sort" data-sort="budget">Students</th>
+                                <th scope="col" class="sort" data-sort="budget">Status</th>
                                 <th scope="col" class="sort" data-sort="status">Action</th>
                             </tr>
                         </thead>
-                        @foreach ($data_kursus as $datakursus)
+                        @foreach ($data_kursus as $da)
                         <tbody class="list">
                             <tr>
                                 <td scope="row">
                                     <div class="media-body">
-                                        <span class="name mb-0 text-sm">{{$datakursus->nama_kursus}} @if (isset($datakursus->tipe_kursus)) {{ '- ' . $datakursus->tipe_kursus }} @endif</span>
+                                        <span class="name mb-0 text-sm">{{$da->nama_kursus}} @if (isset($da->tipe_kursus)) {{ '- ' . $da->tipe_kursus }} @endif</span>
                                     </div>
                                 <td class="budget">
-                                    {{mt_rand(00,99)}}
+                                    <li class="btn btn-sm {{$da->status==1?'btn-success':'btn-danger'}} disabled">
+                                        {{$da->status==1?'Active':'Inactive'}}</li>
                                 </td>
                                 <td class="">
-                                    <a href="{{route('admin.edit', $datakursus->id_kursus)}}" class="btn btn-sm btn-outline-secondary"><i
+                                    <a href="{{route('admin.edit', $da->id_kursus)}}" class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
                             </tr>

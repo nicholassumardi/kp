@@ -29,65 +29,45 @@ Schedules
                             </th>
                             <td class="budget">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="view-schedules btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModalCenter" id="view-schedules" value="{{$nk->id_kursus}}">
+                                <button type="button" class="view-schedules btn btn-primary" value="{{$nk->id_kursus}}">
                                     View Schedules
                                 </button>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="schedules">Schedules</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="modal-body">
-                                         
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="close btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                         @endforeach
-
                         </tbody>
-
                     </table>
 
                     <!-- Card footer -->
                     <div class="card-footer py-4">
                         <nav aria-label="">
                             <ul class="pagination justify-content-end mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">
-                                        <i class="fas fa-angle-left"></i>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
+                                {!! $nama_kursus->links() !!}
                             </ul>
                         </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-schedules" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="schedules">Schedules</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center" id="modal-body">
+                        {{-- data disini --}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="close btn btn-secondary"
+                            data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -98,18 +78,20 @@ Schedules
         <script>
             $(function() {
                 $(".view-schedules").on("click", function() {
-                    // Ubah dropdown schedules
                     $.getJSON(
                         `/api/courses/${ $(this).val() }/schedules`, 
                         function(jsonData) {
-                            let select = "<div class='modal-body' id='modal-body'>";
+                            let div = "<div class='modal-body' id='modal-body'>";
                             $.each(jsonData, function(i, jadwal) {
-                                select += "<p>"
+                                div += "<p>"
                                 + jadwal.hari 
-                                + `, ${jadwal.jadwal_mulai.substring(0, 5)} - ${jadwal.jadwal_selesai.substring(0, 5)}</p>`;
+                                + `, ${jadwal.jadwal_mulai.substring(0, 5)} - `
+                                + `${jadwal.jadwal_selesai.substring(0, 5)}`
+                                + "</p>";
                             });
-                            select += "</div>";
-                            $("#modal-body").html(select);
+                            div += "</div>";
+                            $("#modal-body").html(div);
+                            $("#modal-schedules").modal("show");
                         }
                     );
                 });

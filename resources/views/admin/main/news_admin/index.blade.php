@@ -8,7 +8,7 @@ News
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <h3 class="mb-0">News</h3>
-            <a href="#" class="btn btn-primary btn-sm">Add News</a>
+            <a href="{{route('addNews.create')}}" class="btn btn-primary btn-sm">Add News</a>
         </div>
         
 
