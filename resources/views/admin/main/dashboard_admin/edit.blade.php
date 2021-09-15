@@ -6,10 +6,30 @@ Students Data
 <div class="container-fluid mt--6">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between">
-            <h3 class="mb-0">Students Data</h3>
-            <a href="{{route('admin.index')}}" class="btn btn-primary btn-sm"><i class="bi bi-arrow-left"></i>Back</a>
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="mb-0">Students Data</h3>
+                </div>
+                <div class="col ml-xl-5"> 
+                        <a href="{{route('admin.index')}}" class="btn btn-primary btn-sm"><i
+                        class="bi bi-arrow-left"></i>Back</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>{{$kursus->nama_kursus}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>{{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_mulai)->format('H:i')}}
+                        -
+                        {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_selesai)->format('H:i')}}</p>                    
+                </div>
+            </div>
         </div>
+
 
 
         <div class="card-body">
@@ -36,23 +56,25 @@ Students Data
                             <td class="text-center"><i
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
-                            
-                                    @if ($kursus->bukti_pembayaran === 1)
-                                       <td><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa)}}" class='text-center customfotoprofile'></td> 
-                                    @endif
+
+                            @if ($kursus->bukti_pembayaran === 1)
+                            <td><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa)}}"
+                                    class='text-center customfotoprofile'></td>
+                            @endif
                             <td><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
                             <td class="text-center">
-                                <form action="{{route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form
+                                    action="{{route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')
                                     <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
                                         <i class="bi bi-check-square text-green"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar" data-toggle="modal"
-                                        data-target="#modal-komentar"
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
                                         data-action="{{route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>

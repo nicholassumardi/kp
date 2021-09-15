@@ -33,12 +33,12 @@
                             <div class="row mb-3">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                    <label for="npm" class="form-label fw-bold customtext">NPM</label>
+                                    <label for="npm" class="form-label fw-bold customtext">NPM/ EMAIL</label>
                                     <div class="input-group">
                                         <span class="input-group-text customicon">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" name="username" id="npm" placeholder="NPM">
+                                        <input type="text" class="form-control" name="username" id="npm" placeholder="NPM/ EMAIL">
                                     </div>
                                 </div>
                                 <div class="col-2"></div>

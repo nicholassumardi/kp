@@ -13,12 +13,12 @@ class Mahasiswa extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
 
     public function kursus()
     {
         return $this->belongsToMany(Course::class, 'detail_kursus', 'mahasiswa_id', 'kursus_id')
-            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+            ->withPivot('jadwal_id','path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
     }
 }

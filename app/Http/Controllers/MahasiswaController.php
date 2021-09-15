@@ -18,6 +18,13 @@ class MahasiswaController extends Controller
     {
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
         $this->dataView['kursus'] = Mahasiswa::where('user_id', Auth::id())->first()->kursus()->paginate(4);
+        // foreach ($this->dataView['kursus'] as $k) {
+        //     foreach ($k->jadwal as $j) {
+        //         // if ($k->pivot->jadwal_id === $j->id_jadwal){
+        //             dump($j->id_jadwal);
+        //         // }
+        //     }
+        // }
 
         return view('student.main.dashboard_student.index',  $this->dataView);
     }

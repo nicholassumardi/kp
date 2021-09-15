@@ -54,7 +54,7 @@ class CourseAdminController extends Controller
         Course::create([
             'admin_id' => $idAdmin->id_admin,
             'nama_kursus' => $request->nama_kursus,
-            'tipe_kursus' => $request->tipe_kursus,
+            'deskripsi' => $request->deskripsi,
             'status' => $request->status,
             'bukti_pembayaran' => $request->bukti_pembayaran
 
@@ -106,7 +106,7 @@ class CourseAdminController extends Controller
         Course::where('id_kursus', $id)->update([
             'admin_id' => $idAdmin->id_admin,
             'nama_kursus' => $request->nama_kursus,
-            'tipe_kursus' => $request->tipe_kursus,
+            'deskripsi' => $request->deskripsi,
             'status' => $request->status,
             'bukti_pembayaran' => $request->bukti_pembayaran
         ]);

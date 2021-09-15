@@ -21,6 +21,12 @@ class Course extends Model
     public function mahasiswa()
     {
         return $this->belongsToMany(Mahasiswa::class, 'detail_kursus', 'kursus_id', 'mahasiswa_id')
-            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+            ->withPivot('jadwal_id', 'path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
     }
+
+    // public function jdwl()
+    // {
+    //     return $this->belongsToMany(Schedules::class, 'detail_kursus', 'kursus_id', 'jadwal_id')
+    //         ->withPivot('jadwal_id', 'path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+    // }
 }

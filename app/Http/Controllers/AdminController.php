@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Mahasiswa;
+use App\Models\Schedules;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,8 @@ class AdminController extends Controller
     public function index()
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        $this->dataView['data_kursus'] = Course::where('status', 1)->get();
+        $this->dataView['data_kursus'] = Schedules::get();  
+      
         $this->dataView['kursus_count'] = Course::count();
         $this->dataView['kursus_aktif_count'] = Course::where('status', 1)->count();
         $this->dataView['mahasiswa_count'] = Mahasiswa::count();
@@ -74,11 +76,17 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_jadwal, $id_kursus)
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        $this->dataView['kursus'] = Course::where('id_kursus', $id)->first();
-
+        $this->dataView['kursus'] = Course::where('id_kursus', $id_kursus)->first();
+        // $this->dataView['jadwal'] = Schedules::select('hari', 'jadwal_mulai', 'jadwal_selesai')
+        // ->join('kursus', 'kursus.id_kursus', '=', 'jadwal.kursus_id')
+        // ->where('id_jadwal', $id_jadwal)
+        // ->get();
+        $this->dataView['detail_kursus'] = CourseDetail::where('jadwal_id', $id_jadwal)
+            ->where('kursus_id', $id_kursus);
+        $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id_jadwal)->first(); 
         return view('admin.main.dashboard_admin.edit', $this->dataView);
     }
 

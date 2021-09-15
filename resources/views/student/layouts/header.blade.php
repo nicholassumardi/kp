@@ -12,8 +12,11 @@
                                 <li class="breadcrumb-item active" aria-current="page">@yield('path')</li>
                         </ol>
                     </nav>
+      
                 </div>
             </div>
+          @include('student/layouts/flash-messages')
         </div>
     </div>
 </div>
+

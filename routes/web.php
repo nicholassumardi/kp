@@ -50,8 +50,9 @@ Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'ge
 // DASHBOARD ADMIN
 // Route::view('admin', 'admin.main.dashboard_admin.index')->name('admin.index');
 Route::resource('admin', AdminController::class)->except([
-    'create', 'store' 
+    'create', 'store', 'edit' 
 ]);;
+Route::get('admin-edit/{id_jadwal}/{id_kursus}', [AdminController::class, 'edit'])->name('admin.edit');
 Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'update'])->name('admin.update');
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);

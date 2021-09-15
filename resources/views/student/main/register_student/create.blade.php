@@ -3,6 +3,7 @@
 Register Courses
 @endsection
 @section('content')
+
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col">
@@ -73,6 +74,7 @@ Register Courses
             </div>
         </div>
     </div>
+
     @endsection
     
     @push('js')
@@ -85,7 +87,7 @@ Register Courses
                     function(jsonData) {  
                         let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
                         $.each(jsonData, function(i, jadwal) {
-                            select += `<option value='${jadwal.kursus_id}'>`
+                            select += `<option value='${jadwal.id_jadwal}'>`
                             + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
                             + `${jadwal.jadwal_selesai.substring(0, 5)}`
                             + "</option>";
@@ -113,6 +115,7 @@ Register Courses
                     }
                 );
             });
+           
         });
     </script>
     @endpush

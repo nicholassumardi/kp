@@ -37,7 +37,6 @@ class CourseStudentController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -57,25 +56,40 @@ class CourseStudentController extends Controller
 
         $mahasiswa = Mahasiswa::where('user_id', Auth::id())->first();
 
-        if ($request->hasFile('path_foto_mahasiswa')) { // Jika foto mahasiswa ada
-            CourseDetail::create([
-                'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-                'kursus_id' => $request->kursus_id,
-                'jadwal_id' => $request->jadwal_id,
-                'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
-                'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
-            ]);
-        } else {
-            CourseDetail::create([
-                'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-                'kursus_id' => $request->kursus_id,
-                'jadwal_id' => $request->jadwal_id,
-                'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
-            ]);
+        $isMahasiswaBelumTerdaftarKursus = CourseDetail::where('mahasiswa_id', $mahasiswa->id_mahasiswa)
+            ->where('kursus_id', $request->kursus_id)
+            ->doesntExist();
+            
+        // Jika mahasiswa belum terdaftar kursus, maka dapat melakukan registrasi.
+        if ($isMahasiswaBelumTerdaftarKursus) {
+            if ($request->hasFile('path_foto_mahasiswa')) { // Jika foto mahasiswa ada
+                CourseDetail::create([
+                    'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                    'kursus_id' => $request->kursus_id,
+                    'jadwal_id' => $request->jadwal_id,
+                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                    'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                ]);
+                
+            } 
+            // Jika foto mahasiswa tidak ada
+            else {
+                CourseDetail::create([
+                    'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                    'kursus_id' => $request->kursus_id,
+                    'jadwal_id' => $request->jadwal_id,
+                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                ]);
+            }
+
+            return redirect()->route('registerCourses.index')
+                ->with('success', 'Registrasi berhasil!');
+        } 
+        // Jika mahasiswa sudah terdaftar kursus, maka gagal registrasi.
+        else {
+            return redirect()->route('registerCourses.index')
+                ->with('error', 'Registrasi gagal, Anda sudah terdaftar pada kursus ini!');
         }
-        
-        return redirect()->route('registerCourses.index')
-            ->with('success','Post updated successfully.');
     }
 
     /**
@@ -124,26 +138,26 @@ class CourseStudentController extends Controller
     }
 
     public function getSchedules(Request $request, $id)
-	{
+    {
         // Jika request ajax
         if ($request->ajax()) {
             $jadwal = Schedules::where('kursus_id', '=', $id)->get();
-        
+
             return response()->json($jadwal);
         }
         // Jika request bukan ajax, throw halaman 403.
         return abort(403);
-	}
+    }
 
     public function getCourse(Request $request, $id)
-	{
+    {
         // Jika request ajax
         if ($request->ajax()) {
             $kursus = Course::where('id_kursus', '=', $id)->get();
-        
+
             return response()->json($kursus);
         }
         // Jika request bukan ajax, throw halaman 403.
         return abort(403);
-	}
+    }
 }

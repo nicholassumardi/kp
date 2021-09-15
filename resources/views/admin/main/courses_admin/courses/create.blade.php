@@ -10,64 +10,66 @@ Course
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between">
                     <h3 class="mb-0">Add Course</h3>
-                    <a href="{{route('addCourse.index')}}" class="btn btn-outline-success btn-sm"><i class="bi bi-arrow-left"></i> Back</a>
+                    <a href="{{route('addCourse.index')}}" class="btn btn-outline-success btn-sm"><i
+                            class="bi bi-arrow-left"></i> Back</a>
                 </div>
-            <div class="card-body p-5">
-                <div class="form-group row">
-                    <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                        <h4>Course
-                            Name <span class="text-danger">*</span></h4>
-                    </label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" required name="nama_kursus" placeholder="Course Name">
+                <div class="card-body p-5">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>Course
+                                Name <span class="text-danger">*</span></h4>
+                        </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" required name="nama_kursus"
+                                placeholder="Course Name">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>Description</h4>
+                        </label>
+                        <div class="col-sm-7">
+                            <textarea name="" class="form-control" name="deskripsi"
+                                placeholder="Description"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>Course Status <span class="text-danger">*</span></h4>
+                        </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="" name="status">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+
                     </div>
 
-                </div>
-                <div class="form-group row">
-                    <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                        <h4>Course
-                            Type</h4>
-                    </label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="tipe_kursus" placeholder="Course Type">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>Need Proof of payment ? <span class="text-danger">*</span></h4>
+                        </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="" name="bukti_pembayaran">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
                     </div>
-
                 </div>
-                <div class="form-group row">
-                    <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                        <h4>Course Status <span class="text-danger">*</span></h4>
-                    </label>
-                    <div class="col-sm-7">
-                        <select class="form-control" id="" name="status">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
-                        </select>
+
+                <div class="card-footer">
+                    <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save</button>
                     </div>
-
                 </div>
 
-                <div class="form-group row">
-                    <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                        <h4>Need Proof of payment ? <span class="text-danger">*</span></h4>
-                    </label>
-                    <div class="col-sm-7">
-                        <select class="form-control" id="" name="bukti_pembayaran">
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-                    </div>
-
-                </div>
             </div>
-
-            <div class="card-footer">
-                <div class="d-flex justify-content-end">
-                    <button type="reset" class="btn btn-outline-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save</button>
-                </div>
-            </div>
-
-        </div>
 
     </form>
 </div>

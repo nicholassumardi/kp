@@ -92,23 +92,32 @@ Dashboard
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">Course Name</th>
+                                <th scope="col" class="sort" data-sort="name">Schedule</th>
                                 <th scope="col" class="sort" data-sort="budget">Status</th>
                                 <th scope="col" class="sort" data-sort="status">Action</th>
                             </tr>
                         </thead>
                         @foreach ($data_kursus as $da)
-                        <tbody class="list">
+                       <tbody class="list">
                             <tr>
                                 <td scope="row">
                                     <div class="media-body">
-                                        <span class="name mb-0 text-sm">{{$da->nama_kursus}} @if (isset($da->tipe_kursus)) {{ '- ' . $da->tipe_kursus }} @endif</span>
+                                        <span class="name mb-0 text-sm">  {{$da->kursus->nama_kursus}} @if (isset($da->kursus->tipe_kursus)) {{ '- ' . $da->kursus->tipe_kursus }} @endif</span>
                                     </div>
+                                </td>
+                                <td scope="row">
+                                    <div class="media-body">
+                                        {{\Carbon\Carbon::createFromFormat('H:i:s',$da->jadwal_mulai)->format('H:i')}}
+                                -
+                                {{\Carbon\Carbon::createFromFormat('H:i:s',$da->jadwal_selesai)->format('H:i')}}
+                                    </div>
+                                </td>
                                 <td class="budget">
-                                    <li class="btn btn-sm {{$da->status==1?'btn-success':'btn-danger'}} disabled">
-                                        {{$da->status==1?'Active':'Inactive'}}</li>
+                                    <li class="btn btn-sm {{$da->kursus->status==1?'btn-success':'btn-danger'}} disabled">
+                                        {{$da->kursus->status==1?'Active':'Inactive'}}</li>
                                 </td>
                                 <td class="">
-                                    <a href="{{route('admin.edit', $da->id_kursus)}}" class="btn btn-sm btn-outline-secondary"><i
+                                    <a href="{{route('admin.edit', ['id_jadwal' => $da->id_jadwal, 'id_kursus' => $da->kursus->id_kursus])}}" class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
