@@ -16,8 +16,8 @@ Course
                 <div class="card-body p-5">
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                            <h4>Course
-                                Name <span class="text-danger">*</span></h4>
+                            <h3>Course
+                                Name <span class="text-danger">*</span></h3>
                         </label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control" required name="nama_kursus"
@@ -27,17 +27,17 @@ Course
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                            <h4>Description</h4>
+                            <h3>Description</h3>
                         </label>
                         <div class="col-sm-7">
-                            <textarea name="" class="form-control" name="deskripsi"
+                            <textarea class="form-control" name="deskripsi"
                                 placeholder="Description"></textarea>
                         </div>
 
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                            <h4>Course Status <span class="text-danger">*</span></h4>
+                            <h3>Course Status <span class="text-danger">*</span></h3>
                         </label>
                         <div class="col-sm-7">
                             <select class="form-control" id="" name="status">
@@ -50,10 +50,10 @@ Course
 
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                            <h4>Need Proof of payment ? <span class="text-danger">*</span></h4>
+                            <h3>English Certificate needed ? <span class="text-danger">*</span></h3>
                         </label>
                         <div class="col-sm-7">
-                            <select class="form-control" id="" name="bukti_pembayaran">
+                            <select class="form-control" id="" name="sertifikat">
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>

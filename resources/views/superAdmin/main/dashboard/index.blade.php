@@ -31,9 +31,9 @@ Dashboard
                                     @method('PATCH')
                                     <input type="hidden" class="js-status" name="status">
 
-                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate" value="1"><i class="bi bi-check-circle-fill text-green"></i></button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate" value="1"><i class="bi bi-check-square text-green"></i></button>
 
-                                    <button type="button" class="btn btn-outline-danger btn-sm js-btn-inactivate" value="0"><i class="bi bi-trash"></i></button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm js-btn-inactivate" value="0"><i class="bi bi-x-square text-danger"></i></button>
                                 </form>
                             </td>
                         </tr>

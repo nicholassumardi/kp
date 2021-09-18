@@ -52,6 +52,7 @@ Schedules
                         </div>
 
                     </div>
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
                             <h4>End Time <span class="text-danger">*</span></h4>
@@ -61,7 +62,17 @@ Schedules
                                 <input type="time" id="" class="form-control" name="jadwal_selesai" value="{{$jadwal->jadwal_selesai}}" required>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>Number of Participant <span class="text-danger">*</span></h4>
+                        </label>
+    
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control" name="batas_partisipan">
+                        </div>
+    
                     </div>
                 </div>
 

@@ -18,10 +18,10 @@ class CreateJadwalTable extends Migration
             $table->bigInteger('kursus_id')->unsigned();
             $table->foreign('kursus_id')->references('id_kursus')->on('kursus')->cascadeOnDelete();
             $table->string('hari');
-            $table->integer('partisipan_saat_ini');
-            $table->integer('batas_partisipan');
             $table->time('jadwal_mulai');
             $table->time('jadwal_selesai');
+            $table->integer('partisipan_saat_ini')->default(0);
+            $table->integer('batas_partisipan');
             $table->timestamps();
         });
     }

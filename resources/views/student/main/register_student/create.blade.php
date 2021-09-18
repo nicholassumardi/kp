@@ -26,7 +26,7 @@ Register Courses
 
                                     <select class="form-control" id="courses-dropdown" name="kursus_id">
                                         @foreach ($nama_kursus as $nk)
-                                        <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</option>
+                                        <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}} @if(isset ($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -37,21 +37,32 @@ Register Courses
                                     <label for="session">Session</label>
                                     <select class="form-control" id="courses-session" name="jadwal_id">
                                         @foreach ($jadwal as $jdwl)
-                                        <option value="{{$jdwl->id_jadwal}}">{{$jdwl->hari}}, {{\Carbon\Carbon::createFromFormat('H:i:s',$jdwl->jadwal_mulai)->format('H:i')}} - {{\Carbon\Carbon::createFromFormat('H:i:s',$jdwl->jadwal_selesai)->format('H:i')}}</option>
+                                        <option value="{{$jdwl->id_jadwal}}">{{$jdwl->hari}},
+                                            {{\Carbon\Carbon::createFromFormat('H:i:s',$jdwl->jadwal_mulai)->format('H:i')}}
+                                            -
+                                            {{\Carbon\Carbon::createFromFormat('H:i:s',$jdwl->jadwal_selesai)->format('H:i')}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->bukti_pembayaran === 1 ? 'mb-4' : 'mb-5' }}" id="container-foto-bukti-pembayaran">
+                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'mb-4' : 'mb-4' }}"
+                                id="container-foto-bukti-pembayaran">
                                 <div class="col-xl-10">
-                                    <label for="form-control">Foto Bukti Pembayaran</label>
+                                    <label for="form-control">Foto Bukti Pembayaran (Kuitansi)</label>
                                     <input class="form-control customicon" type="file" name="path_foto_kuitansi">
-                                    <small class="form-text text-muted">* Foto harus discan dan dalam keadaan landscape.</small>
+                                    <small class="form-text text-muted">
+                                        * Foto harus discan dan dalam keadaan
+                                        landscape.
+                                        <br>
+                                        * Foto harus dalam format JPEG atau PNG.
+                                    </small>
                                 </div>
                             </div>
 
-                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama->bukti_pembayaran !== 1 ? 'd-none' : '' }}" id="container-foto-mahasiswa">
+                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'mb-4' : 'mb-4' }}"
+                                id="container-foto-mahasiswa">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Mahasiswa</label>
                                     <input class="form-control customicon" type="file" name="path_foto_mahasiswa">
@@ -59,10 +70,26 @@ Register Courses
                                         * Foto harus 3x4 dengan background merah.
                                         <br>
                                         * Foto harus dalam keadaan portrait.
+                                        <br>
+                                        * Foto harus dalam format JPEG atau PNG.
                                     </small>
                                 </div>
                             </div>
-                            
+
+                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'd-none' : '' }}"
+                                id="container-sertifikat">
+                                <div class="col-xl-10">
+                                    <label for="form-control">Foto Bukti Seritifkat English Course</label>
+                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat">
+                                    <small class="form-text text-muted">
+                                        * Foto harus discan dan dalam keadaan
+                                        landscape.
+                                        <br>
+                                        * Foto harus dalam format JPEG atau PNG.
+                                    </small>
+                                </div>
+                            </div>
+
                             <div class="row justify-content-center mb-5">
                                 <div class="col-xl-10">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
@@ -76,7 +103,7 @@ Register Courses
     </div>
 
     @endsection
-    
+
     @push('js')
     <script>
         $(function() {
@@ -102,15 +129,19 @@ Register Courses
                     `api/courses/${ $(this).val() }`, 
                     function(jsonData) {
                         const kursus = jsonData[0];
-                        const containerFotoMahasiswa = $("#container-foto-mahasiswa");
                         const containerFotoBuktiPembayaran = $("#container-foto-bukti-pembayaran");
-
-                        if (kursus.bukti_pembayaran === 1) {
-                            containerFotoMahasiswa.removeClass("d-none");
+                        const containerFotoMahasiswa = $("#container-foto-mahasiswa");
+                        const containerSertifikat = $("#container-sertifikat");
+                        
+                        if (kursus.sertifikat === 1) {
                             containerFotoBuktiPembayaran.removeClass("mb-5").addClass("mb-4");
+                            containerFotoMahasiswa.removeClass("mb-5").addClass("mb-4");
+                            containerSertifikat.removeClass("d-none");
                         } else {
-                            containerFotoMahasiswa.addClass("d-none");
                             containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
+                            containerFotoMahasiswa.removeClass("mb-4").addClass("mb-5");
+                            containerSertifikat.addClass("d-none");
+                            
                         }
                     }
                 );
@@ -119,4 +150,3 @@ Register Courses
         });
     </script>
     @endpush
-    

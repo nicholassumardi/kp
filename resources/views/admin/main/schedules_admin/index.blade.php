@@ -20,6 +20,7 @@ Schedules
                         <tr>
                             <th>Course Name</th>
                             <th>Schedules</th>
+                            <th>Maximum Participants</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,6 +35,7 @@ Schedules
                                 {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal[$key]->jadwal_selesai)->format('H:i')}}
                             </td>
 
+                            <td>{{ $jadwal[$key]->batas_partisipan }}</td>
 
                             <td class="d-flex justify-content-center">
                                 <a href="{{route('schedules.edit',$jadwal[$key]->id_jadwal)}}"

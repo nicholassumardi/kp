@@ -45,22 +45,27 @@ class CourseAdminController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
+        
         $request->validate([
             'nama_kursus'=>'required',
             'status'=>'required',
-            'bukti_pembayaran' => 'required'
+            'sertifikat' => 'required',
         ]);
+
         $idAdmin = Admin::where('user_id', Auth::id())->first();
+        
         Course::create([
             'admin_id' => $idAdmin->id_admin,
             'nama_kursus' => $request->nama_kursus,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'bukti_pembayaran' => $request->bukti_pembayaran
+            'sertifikat' => $request->sertifikat
 
         ]);
+
         return redirect()->route('addCourse.index')
-        ->with('success','Post updated successfully.');
+            ->with('success', 'Course created successfully.');
     }
 
     /**
@@ -99,7 +104,7 @@ class CourseAdminController extends Controller
         $request->validate([
             'nama_kursus'=>'required',
             'status'=>'required',
-            'bukti_pembayaran' => 'required',
+            'sertifikat' => 'required',
         ]);
         $idAdmin = Admin::where('user_id', Auth::id())->first();
         
@@ -108,10 +113,10 @@ class CourseAdminController extends Controller
             'nama_kursus' => $request->nama_kursus,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'bukti_pembayaran' => $request->bukti_pembayaran
+            'sertifikat' => $request->sertifikat
         ]);
         return redirect()->route('addCourse.index')
-        ->with('success','Post updated successfully.');
+        ->with('success','Course updated successfully.');
         
     }
 

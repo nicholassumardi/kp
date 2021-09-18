@@ -24,7 +24,7 @@ Schedules
                         <tr class="text-center">
                             <th scope="row">
                                 <div class="media-body">
-                                    <span class="name mb-0 text-sm">{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</span>
+                                    <span class="name mb-0 text-sm">{{$nk->nama_kursus}}</span>
                                 </div>
                             </th>
                             <td class="budget">
@@ -84,9 +84,11 @@ Schedules
                             let div = "<div class='modal-body' id='modal-body'>";
                             $.each(jsonData, function(i, jadwal) {
                                 div += "<p>"
-                                + jadwal.hari 
+                                + `<b> ${jadwal.hari} `
                                 + `, ${jadwal.jadwal_mulai.substring(0, 5)} - `
-                                + `${jadwal.jadwal_selesai.substring(0, 5)}`
+                                + `${jadwal.jadwal_selesai.substring(0, 5)}</b> | `
+                                + `<b>${jadwal.partisipan_saat_ini} / `
+                                + `${jadwal.batas_partisipan}</b>`
                                 + "</p>";
                             });
                             div += "</div>";

@@ -19,8 +19,9 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        $listAdmin = User::where('tipe_user_id', 2)->get();
-        return view('superAdmin.main.dashboard.index', compact('listAdmin'));
+        $this->dataView['listAdmin'] = User::where('tipe_user_id', 2)->get();
+
+        return view('superAdmin.main.dashboard.index', $this->dataView);
     }
 
     /**
@@ -80,7 +81,7 @@ class SuperAdminController extends Controller
          
         // setelah berhasil mengubah data
         return redirect()->route('super-admin.index')
-        ->with('success','Post created successfully.');
+            ->with('success','Status updated successfully.');
     }
 
     /**

@@ -18,6 +18,7 @@ Profile
                     <thead>
                         <tr>
                             <th>Course Name</th>
+                            <th>Description</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -25,7 +26,12 @@ Profile
                     <tbody>
                         @foreach ($dataadmin as $da)
                         <tr>
-                            <td>{{$da->nama_kursus}} @if (isset($da->tipe_kursus)) {{ '- ' . $da->tipe_kursus }} @endif
+                            <td>
+                                {{$da->nama_kursus}}
+                            </td>
+
+                            <td>
+                                {{$da->deskripsi}}
                             </td>
 
                             <td class="text-center">

@@ -27,7 +27,6 @@ class AdminController extends Controller
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['data_kursus'] = Schedules::get();  
-      
         $this->dataView['kursus_count'] = Course::count();
         $this->dataView['kursus_aktif_count'] = Course::where('status', 1)->count();
         $this->dataView['mahasiswa_count'] = Mahasiswa::count();
@@ -80,13 +79,9 @@ class AdminController extends Controller
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['kursus'] = Course::where('id_kursus', $id_kursus)->first();
-        // $this->dataView['jadwal'] = Schedules::select('hari', 'jadwal_mulai', 'jadwal_selesai')
-        // ->join('kursus', 'kursus.id_kursus', '=', 'jadwal.kursus_id')
-        // ->where('id_jadwal', $id_jadwal)
-        // ->get();
-        $this->dataView['detail_kursus'] = CourseDetail::where('jadwal_id', $id_jadwal)
-            ->where('kursus_id', $id_kursus);
         $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id_jadwal)->first(); 
+        $this->dataView['mahasiswa_count'] = count($this->dataView['kursus']->mahasiswa); 
+        
         return view('admin.main.dashboard_admin.edit', $this->dataView);
     }
 
@@ -101,11 +96,11 @@ class AdminController extends Controller
     {
 
         CourseDetail::where('mahasiswa_id', $id_mahasiswa)
-        ->where('kursus_id', $id_kursus)
-        ->update(['status_verifikasi' => 1]);
+            ->where('kursus_id', $id_kursus)
+            ->update(['status_verifikasi' => 1]);
       
         return redirect()->back()
-            ->with('success','Post updated successfully.');
+            ->with('success', 'Status updated successfully.');
     }
 
     /**
@@ -130,6 +125,6 @@ class AdminController extends Controller
             ->update(['komentar' => $request->komentar]);
       
         return redirect()->back()
-            ->with('success','Post updated successfully.');
+            ->with('success', 'Comment has been sent.');
     }
 }

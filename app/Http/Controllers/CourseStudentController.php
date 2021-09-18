@@ -26,7 +26,7 @@ class CourseStudentController extends Controller
         $this->dataView['nama_kursus'] = Course::all();
         $this->dataView['jadwal'] = Schedules::where('kursus_id', Course::min('id_kursus'))->get();
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
-        $this->dataView['kursus_index_pertama'] = Course::select('bukti_pembayaran')->first();
+        $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();
         return view('student.main.register_student.create', $this->dataView);
     }
 
@@ -47,48 +47,98 @@ class CourseStudentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'kursus_id' => 'required',
             'jadwal_id' => 'required',
-            'path_foto_kuitansi' => 'required|mimes:jpeg,png'
+            'path_foto_kuitansi' => 'required',
         ]);
 
+        // Variabel
         $mahasiswa = Mahasiswa::where('user_id', Auth::id())->first();
-
+        $jadwal = Schedules::where('id_jadwal', $request->jadwal_id)->first();
         $isMahasiswaBelumTerdaftarKursus = CourseDetail::where('mahasiswa_id', $mahasiswa->id_mahasiswa)
             ->where('kursus_id', $request->kursus_id)
             ->doesntExist();
-            
-        // Jika mahasiswa belum terdaftar kursus, maka dapat melakukan registrasi.
-        if ($isMahasiswaBelumTerdaftarKursus) {
-            if ($request->hasFile('path_foto_mahasiswa')) { // Jika foto mahasiswa ada
-                CourseDetail::create([
-                    'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-                    'kursus_id' => $request->kursus_id,
-                    'jadwal_id' => $request->jadwal_id,
-                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
-                    'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
-                ]);
-                
-            } 
-            // Jika foto mahasiswa tidak ada
-            else {
-                CourseDetail::create([
-                    'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-                    'kursus_id' => $request->kursus_id,
-                    'jadwal_id' => $request->jadwal_id,
-                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
-                ]);
-            }
 
-            return redirect()->route('registerCourses.index')
-                ->with('success', 'Registrasi berhasil!');
-        } 
-        // Jika mahasiswa sudah terdaftar kursus, maka gagal registrasi.
+
+        // Jika kelas masih belum penuh
+        if ($jadwal->partisipan_saat_ini < $jadwal->batas_partisipan) {
+            // Jika mahasiswa belum terdaftar kursus, maka dapat melakukan registrasi.
+            if ($isMahasiswaBelumTerdaftarKursus) {
+                // Jika foto sertifikat ada
+                if ($request->hasFile('path_foto_sertifikat')) {
+                    // Jika format foto benar
+                    if (
+                        ($request->path_foto_kuitansi->getMimeType() === 'image/jpeg' ||
+                        $request->path_foto_kuitansi->getMimeType() === 'image/png') 
+                        &&
+                        ($request->path_foto_mahasiswa->getMimeType() === 'image/jpeg' ||
+                        $request->path_foto_mahasiswa->getMimeType() === 'image/png')
+                        &&
+                        ($request->path_foto_sertifikat->getMimeType() === 'image/jpeg' ||
+                        $request->path_foto_sertifikat->getMimeType() === 'image/png')
+                    ) {
+                        CourseDetail::create([
+                            'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                            'kursus_id' => $request->kursus_id,
+                            'jadwal_id' => $request->jadwal_id,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                            'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                            'path_foto_sertifikat' => $request->path_foto_sertifikat->store('images/foto-sertifikat/', 'public'),
+                        ]);
+
+                        // Tambahkan jumlah partisipan saat ini
+                        Schedules::where('id_jadwal', $jadwal->id_jadwal)
+                            ->update(['partisipan_saat_ini' => $jadwal->partisipan_saat_ini + 1]);
+                    }
+                    // Jika format foto salah
+                    else {
+                        return redirect()->route('registerCourses.index')
+                            ->with('error', 'Registrasi gagal, format file salah!');
+                    }
+                }
+                // Jika foto sertifikat tidak ada
+                else {
+                    // Jika format foto benar
+                    if (
+                        ($request->path_foto_kuitansi->getMimeType() === 'image/jpeg' ||
+                        $request->path_foto_kuitansi->getMimeType() === 'image/png') 
+                        &&
+                        ($request->path_foto_mahasiswa->getMimeType() === 'image/jpeg' ||
+                        $request->path_foto_mahasiswa->getMimeType() === 'image/png')
+                    ) {
+                        CourseDetail::create([
+                            'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                            'kursus_id' => $request->kursus_id,
+                            'jadwal_id' => $request->jadwal_id,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                            'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                        ]);
+
+                        // Tambahkan jumlah partisipan saat ini
+                        Schedules::where('id_jadwal', $jadwal->id_jadwal)
+                            ->update(['partisipan_saat_ini' => $jadwal->partisipan_saat_ini + 1]);
+                    }
+                    // Jika format foto salah
+                    else {
+                        return redirect()->route('registerCourses.index')
+                            ->with('error', 'Registrasi gagal, format file salah!');
+                    }
+                }
+
+                return redirect()->route('registerCourses.index')
+                    ->with('success', 'Registrasi berhasil!');
+            }
+            // Jika mahasiswa sudah terdaftar kursus, maka gagal registrasi.
+            else {
+                return redirect()->route('registerCourses.index')
+                    ->with('error', 'Registrasi gagal, Anda sudah terdaftar pada kursus ini!');
+            }
+        }
+        // Jika kelas sudah penuh
         else {
             return redirect()->route('registerCourses.index')
-                ->with('error', 'Registrasi gagal, Anda sudah terdaftar pada kursus ini!');
+                ->with('error', 'Registrasi gagal, kelas sudah penuh!');
         }
     }
 

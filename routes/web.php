@@ -28,8 +28,6 @@ use App\Http\Controllers\SuperAdminController;
 
 // FRONTPAGES
 Route::view('/', 'frontpages.home.index')->name("/");
-// Route::view('register', 'frontpages.account.register.index')->name('register');
-// Route::view('sign_in', 'frontpages.account.sign-in.index')->name('sign-in');
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('sign-in', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -37,7 +35,6 @@ Route::post('sign-in', [LoginController::class, 'authenticate'])->name('login.au
 Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 
 // DASHBOARD STUDENT
-// Route::view('student', 'student.main.dashboard')->name('student-index');
 Route::get('student', [MahasiswaController::class, 'index'])->name('student.index');
 Route::resource('profileStudent', ProfileMahasiswaController::class);
 Route::resource('schedules-show', SchedulesStudentController::class);
@@ -45,10 +42,8 @@ Route::resource('registerCourses', CourseStudentController::class);
 Route::get('schedule/{id}/schedules', [SchedulesStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/schedules', [CourseStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'getCourse']);
-// Route::get('courses/{id}/id', [CourseStudentController::class, 'getIdKursus'])->name('getIdKursus');
 
 // DASHBOARD ADMIN
-// Route::view('admin', 'admin.main.dashboard_admin.index')->name('admin.index');
 Route::resource('admin', AdminController::class)->except([
     'create', 'store', 'edit' 
 ]);;
@@ -57,22 +52,9 @@ Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'updat
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
-Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [DashboardAdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
-Route::get('PdfDemo/{id_mahasiswa}/{id_kursus}', [PdfController::class, 'makePDF'])->name('generate.pdf');
+Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
+Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
 Route::resource('addNews', NewsController::class);
 
-// Route::get('/sample-pdf{insteadOf}', [PdfController::class, 'downloadPDF'])->name('download');
-// Route::view('coursesType', 'admin.main.courses_admin.courses_type.index');
-// Route::view('addSchedules','admin.main.schedules_admin.create');
-
-
-
-//COURSES TEST VIEW
-// Route::view('addCourse/create', 'admin.main.courses_admin.courses.create');
-// Route::view('coursesType/create', 'admin.main.courses_admin.courses_type.create');
-// Route::view('admin/show', 'admin.main.dashboard_admin.show');
-
 // SUPER ADMIN
-// Route::get('super-admin', [SuperAdminController::class, 'index'])->name('super-admin.index');
 Route::resource('super-admin', SuperAdminController::class);
-// Route::resource('super-admin', SuperAdminController::class);

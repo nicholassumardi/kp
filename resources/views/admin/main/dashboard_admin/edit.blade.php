@@ -39,33 +39,40 @@ Students Data
                         <tr>
                             <th>Name</th>
                             <th>Year</th>
-                            <th>Course Name</th>
+                            {{-- <th>Nomor Kartu</th> --}}
                             <th>Status</th>
-                            {!! $kursus->bukti_pembayaran == 1 ? '<th>Photo</th>' : '' !!}
                             <th>Payment Proof (Receipt)</th>
-                            <th>Action</th>
+                            <th>Student</th>
+                            {!! $kursus->sertifikat === 1 ? '<th>English Course Certificate</th>' : '' !!}
+                            <th colspan="2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kursus->mahasiswa as $mahasiswa)
+                        @foreach ($kursus->mahasiswa as $key => $mahasiswa)
                         <tr>
-                            <td>{{$mahasiswa->nama}}</td>
-                            <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
+                            <td class="align-middle">{{$mahasiswa->nama}}</td>
+
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
                             </td>
-                            <td class="text-center">{{$kursus->nama_kursus}}</td>
-                            <td class="text-center"><i
+
+                            <td class="text-center align-middle"><i
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            @if ($kursus->bukti_pembayaran === 1)
-                            <td><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa)}}"
+                            <td align-middle><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                                    class="text-center custombuktipembayaran"></td>
+
+                            <td align-middle><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                                class="text-center customfotoprofile"></td>
+
+                            @if ($kursus->sertifikat === 1)
+                            <td><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
-                            <td><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
-                                    class="text-center custombuktipembayaran"></td>
-                            <td class="text-center">
+
+                            <td class="text-center align-middle">
                                 <form
-                                    action="{{route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}"
+                                    action="{{ route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')
@@ -75,16 +82,27 @@ Students Data
 
                                     <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                                         data-toggle="modal" data-target="#modal-komentar"
-                                        data-action="{{route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}">
+                                        data-action="{{ route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>
-
-
-                                    <a href="{{route('generate.pdf', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus])}}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
                                 </form>
                             </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $mahasiswa_count))
+                                <td class="align-middle" rowspan="2">
+                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $mahasiswa_count))
+                                <td class="align-middle">
+                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            @endif
                         </tr>
                         @endforeach
 

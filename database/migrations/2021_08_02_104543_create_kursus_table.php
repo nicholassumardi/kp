@@ -20,7 +20,7 @@ class CreateKursusTable extends Migration
             $table->string('nama_kursus');
             $table->text('deskripsi')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1 = Aktif, 0 = Tidak Aktif');
-            $table->tinyInteger('bukti_pembayaran')->default(1)->comment('1 = Ya, 0 = Tidak');
+            $table->tinyInteger('sertifikat')->default(1)->comment('1 = Ya, 0 = Tidak');
             $table->timestamps();
         });
     }

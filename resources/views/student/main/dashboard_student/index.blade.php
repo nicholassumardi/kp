@@ -28,24 +28,25 @@ Dashboard
                             <tr>
                                 <th scope="row">
                                     <div class="media-body">
-                                        <span class="name mb-0 text-sm">{{ $k->nama_kursus }} - {{$k->tipe_kursus}}</span>
+                                        <span class="name mb-0 text-sm">{{ $k->nama_kursus }}</span>
                                     </div>
                                 </th>
-                                <td class="budget">
-                                    <i
-                                    class="btn btn-sm {{$k->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
+
+                                <td>
+                                    <i class="btn btn-sm {{$k->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$k->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i>
                                 </td>
+
                                 @foreach ($k->jadwal as $j)
                                     @if ($k->pivot->jadwal_id === $j->id_jadwal)
-                                    <td class="budget">
-                                        {{ $j->jadwal_mulai }}
+                                    <td>
+                                        {{\Carbon\Carbon::createFromFormat('H:i:s',$j->jadwal_mulai)->format('H:i')}}
+                                        - 
+                                        {{\Carbon\Carbon::createFromFormat('H:i:s',$j->jadwal_selesai)->format('H:i')}}
                                      </td>
                                     @endif
                                 @endforeach
-                                {{-- <td class="budget">
-                                   {{$k->}}
-                                </td> --}}
+
                                 <td>
                                     <span class="badge badge-dot mr-4">
                                         <span class="status">

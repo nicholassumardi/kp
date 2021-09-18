@@ -29,7 +29,8 @@ class CreateDetailKursusTable extends Migration
             $table->bigInteger('jadwal_id')->unsigned();
             $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal')->cascadeOnDelete();
             $table->string('path_foto_kuitansi');
-            $table->string('path_foto_mahasiswa')->nullable();
+            $table->string('path_foto_mahasiswa');
+            $table->string('path_foto_sertifikat')->nullable();
             $table->tinyInteger('status_verifikasi')->default(0)->comment('Jika 1 maka Sudah terverifikasi || Jika 0 Belum terverifikasi');
             $table->text('komentar')->nullable();
             $table->timestamps();

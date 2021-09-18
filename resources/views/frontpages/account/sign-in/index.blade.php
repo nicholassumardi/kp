@@ -71,7 +71,7 @@
                             </div>
                             <div class="row text-center">
                                 <div class="col-2"></div>
-                                <p class="col-8 fs-5 customtext">Dont have a account? <a class="text-register"
+                                <p class="col-8 fs-5 customtext">Don't have an account? <a class="text-register"
                                         href="{{ route('register.create') }}">Register Now</a></p>
                                 <div class="col-2"></div>
                             </div>

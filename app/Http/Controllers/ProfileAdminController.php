@@ -136,7 +136,7 @@ class ProfileAdminController extends Controller
         }
 
         return redirect()->back()
-            ->with('success', 'Post updated successfully.');
+            ->with('success', 'Profile updated successfully.');
     }
 
     /**
