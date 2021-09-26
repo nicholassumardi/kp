@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AbstrakAdminController;
+use App\Http\Controllers\AbstrakStudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -42,6 +44,7 @@ Route::resource('registerCourses', CourseStudentController::class);
 Route::get('schedule/{id}/schedules', [SchedulesStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/schedules', [CourseStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'getCourse']);
+Route::resource('abstract-student', AbstrakStudentController::class);
 
 // DASHBOARD ADMIN
 Route::resource('admin', AdminController::class)->except([
@@ -55,6 +58,7 @@ Route::resource('addCourse', CourseAdminController::class);
 Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
 Route::resource('addNews', NewsController::class);
+Route::resource('abstract-admin', AbstrakAdminController::class);
 
 // SUPER ADMIN
 Route::resource('super-admin', SuperAdminController::class);

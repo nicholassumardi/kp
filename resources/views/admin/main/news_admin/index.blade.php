@@ -10,7 +10,7 @@ News
             <h3 class="mb-0">News</h3>
             <a href="{{route('addNews.create')}}" class="btn btn-primary btn-sm">Add News</a>
         </div>
-        
+
 
         <div class="card-body">
             <div class="table-responsive">
@@ -23,19 +23,68 @@ News
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data_berita as $berita)
                         <tr>
-                            <td>20-12-2021</td>
-                            <td>New Register Open Now</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pen-fill text-green"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-trash2-fill text-red"></i></a>
+                                {{$berita->tanggal_berita}}
                             </td>
+
+                            <td class="text-center">
+                                {{$berita->judul_berita}}
+                            </td>
+
+                            <td class="d-flex justify-content-center">
+                                <a href="{{route('addNews.edit', $berita->id_berita)}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-pen-fill text-green"></i></a>
+                                <form action="{{route('addNews.destroy', $berita->id_berita)}}" method="POST"
+                                    class="formDeleteBerita">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary button-delete"><i
+                                            class="bi bi-trash2-fill text-red"
+                                           ></i></button>
+                                </form>
+                            </td>
+
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </div>
 @endsection
+
+@push('js')
+<script>
+    $(function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+
+        // Button Delete
+        $("#dataTable").on("click", ".button-delete", function () {
+            swalWithBootstrapButtons.fire({
+                title: "Delete berita?",
+                text: "Apakah anda yakin ingin melakukan delete pada berita ini?",
+                icon: "warning",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Ya!",
+                cancelButtonText: "Batal!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

@@ -38,6 +38,12 @@
                             <span class="nav-link-text">Register Course</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {{request()->is('abstract-student') ? ' active' : ''}}" href="{{route('abstract-student.index')}}">
+                            <i class="ni ni-sound-wave text-teal"></i>
+                            <span class="nav-link-text">Abstract</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

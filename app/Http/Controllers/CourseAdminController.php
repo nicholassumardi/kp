@@ -11,7 +11,7 @@ class CourseAdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.admin')->only(['index','create','edit']);
+        $this->middleware('auth.admin')->only(['index', 'create', 'edit']);
     }
 
     /**
@@ -45,16 +45,14 @@ class CourseAdminController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        
         $request->validate([
-            'nama_kursus'=>'required',
-            'status'=>'required',
+            'nama_kursus' => 'required',
+            'status' => 'required',
             'sertifikat' => 'required',
         ]);
 
         $idAdmin = Admin::where('user_id', Auth::id())->first();
-        
+
         Course::create([
             'admin_id' => $idAdmin->id_admin,
             'nama_kursus' => $request->nama_kursus,
@@ -86,7 +84,7 @@ class CourseAdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['dataKursus'] = Course::where('id_kursus', $id)->first();
         return view('admin.main.courses_admin.courses.edit', $this->dataView);
@@ -102,12 +100,12 @@ class CourseAdminController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_kursus'=>'required',
-            'status'=>'required',
+            'nama_kursus' => 'required',
+            'status' => 'required',
             'sertifikat' => 'required',
         ]);
         $idAdmin = Admin::where('user_id', Auth::id())->first();
-        
+
         Course::where('id_kursus', $id)->update([
             'admin_id' => $idAdmin->id_admin,
             'nama_kursus' => $request->nama_kursus,
@@ -116,8 +114,7 @@ class CourseAdminController extends Controller
             'sertifikat' => $request->sertifikat
         ]);
         return redirect()->route('addCourse.index')
-        ->with('success','Course updated successfully.');
-        
+            ->with('success', 'Course updated successfully.');
     }
 
     /**

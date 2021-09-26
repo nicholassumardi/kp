@@ -1,10 +1,10 @@
 @extends('admin/layouts/app')
 @section('path')
-Schedules
+News
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
-    <form action="" method="post">
+    <form action="{{route('addNews.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card shadow mb-4">
@@ -37,7 +37,8 @@ Schedules
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control datepicker" placeholder="Select date" type="text">
+                                <input class="form-control datepicker" placeholder="Select date" type="text"
+                                    name="tanggal_berita">
                             </div>
                         </div>
 
@@ -59,7 +60,7 @@ Schedules
                             <h4>News Content <span class="text-danger">*</span></h4>
                         </label>
                         <div class="col-sm-7">
-                            <div id="summernote"></div>
+                            <textarea name="isi_berita" id="summernote"></textarea>
                         </div>
                     </div>
 
@@ -81,22 +82,9 @@ Schedules
 <script>
     $('#summernote').summernote({
             tabsize: 2,
-            height: 120,
-        })
-        $("#hint").summernote({
-            height: 100,
-            toolbar: false,
-            placeholder: 'type with apple, orange, watermelon and lemon',
-            hint: {
-                words: ['apple', 'orange', 'watermelon', 'lemon'],
-                match: /\b(\w{1,})$/,
-                search: function (keyword, callback) {
-                    callback($.grep(this.words, function (item) {
-                        return item.indexOf(keyword) === 0;
-                    }));
-                }
-            }
+            height: 350,
         });
+        
 
         $('body').on('focus',".datepicker", function(){
             $(this).datepicker();

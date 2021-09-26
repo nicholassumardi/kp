@@ -35,7 +35,7 @@ Register Courses
                             <div class="row mt-3 mb-4 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="session">Session</label>
-                                    <select class="form-control" id="courses-session" name="jadwal_id">
+                                    <select class="form-control bg-white" id="courses-session" name="jadwal_id">
                                         @foreach ($jadwal as $jdwl)
                                         <option value="{{$jdwl->id_jadwal}}">{{$jdwl->hari}},
                                             {{\Carbon\Carbon::createFromFormat('H:i:s',$jdwl->jadwal_mulai)->format('H:i')}}
@@ -51,7 +51,7 @@ Register Courses
                                 id="container-foto-bukti-pembayaran">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Pembayaran (Kuitansi)</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_kuitansi">
+                                    <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
@@ -65,7 +65,7 @@ Register Courses
                                 id="container-foto-mahasiswa">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Mahasiswa</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_mahasiswa">
+                                    <input class="form-control customicon" type="file" name="path_foto_mahasiswa" required>
                                     <small class="form-text text-muted">
                                         * Foto harus 3x4 dengan background merah.
                                         <br>
@@ -79,8 +79,8 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'd-none' : '' }}"
                                 id="container-sertifikat">
                                 <div class="col-xl-10">
-                                    <label for="form-control">Foto Bukti Seritifkat English Course</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat">
+                                    <label for="form-control">Foto Bukti Sertifikat English Course</label>
+                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
@@ -107,9 +107,12 @@ Register Courses
     @push('js')
     <script>
         $(function() {
-            $("#courses-dropdown").on("change", function() {
+            $("#courses-dropdown").on("change", async function() {
+                // Disable dropdown session saat JSON masih diload.
+                $("#courses-session").attr("disabled", "disabled");
+                
                 // Ubah dropdown schedules
-                $.getJSON(
+                await $.getJSON(
                     `api/courses/${ $(this).val() }/schedules`, 
                     function(jsonData) {  
                         let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
@@ -123,6 +126,9 @@ Register Courses
                         $("#courses-session").html(select);
                     }
                 );
+
+                // Enable dropdown session saat JSON selesai diload.
+                $("#courses-session").removeAttr("disabled");
 
                 // Hide dan show foto mahasiswa
                 $.getJSON(

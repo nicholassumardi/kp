@@ -39,24 +39,17 @@
                         </a>
                     </li>
                    
-                    {{-- <li class="nav-item sidebar-item  has-sub">
-                        <a class="sidebar-link nav-link  {{request()->is('addCourse') ? ' active' : ''}} sidebar-link " href="">
-                            <i class="ni ni-ruler-pencil text-pink"></i>
-                            <span class="nav-link-text">Courses</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item">
-                                <a href="{{route('addCourse.index')}}" class="ultext">Courses</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="/coursesType" class="ultext">Courses Type</a>
-                            </li>
-                        </ul>
-                    </li> --}}
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('addNews') ? ' active' : ''}}" href="/addNews">
+                        <a class="nav-link  {{request()->is('addNews') ? ' active' : ''}}" href="{{route('addNews.index')}}">
                             <i class="bi bi-newspaper text-gray"></i>
                             <span class="nav-link-text">News</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link  {{request()->is('abstract-admin') ? ' active' : ''}}" href="{{route('abstract-admin.index')}}">
+                            <i class="ni ni-sound-wave text-teal"></i>
+                            <span class="nav-link-text">Abstract</span>
                         </a>
                     </li>
                 </ul>

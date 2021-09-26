@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{asset('argon/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}"
         type="text/css">
 
-    <link rel="stylesheet" href="{{asset('css/customprofileadmin.css')}}">
+    
 
 
     <!-- Argon CSS -->

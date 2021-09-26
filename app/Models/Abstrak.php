@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class Abstrak extends Model
 {
     use HasFactory;
-    protected $table = 'berita';
-    protected $primaryKey = 'id_berita';
+    protected $table = 'abstrak';
+    protected $primaryKey = 'id_abstrak';
     protected $guarded = [];
 }

@@ -14,7 +14,7 @@ class CreateKursusTable extends Migration
     public function up()
     {
         Schema::create('kursus', function (Blueprint $table) {
-            $table->bigIncrements('id_kursus');
+            $table->id('id_kursus');
             $table->bigInteger('admin_id')->unsigned();
             $table->foreign('admin_id')->references('id_admin')->on('admin')->cascadeOnDelete();
             $table->string('nama_kursus');

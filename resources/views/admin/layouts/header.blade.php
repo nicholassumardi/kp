@@ -14,6 +14,7 @@
                     </nav>
                 </div>
             </div>
+            @include('admin/layouts/flash-messages')
         </div>
     </div>
 </div>

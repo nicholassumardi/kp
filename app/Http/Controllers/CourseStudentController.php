@@ -68,16 +68,14 @@ class CourseStudentController extends Controller
                 // Jika foto sertifikat ada
                 if ($request->hasFile('path_foto_sertifikat')) {
                     // Jika format foto benar
-                    if (
-                        ($request->path_foto_kuitansi->getMimeType() === 'image/jpeg' ||
-                        $request->path_foto_kuitansi->getMimeType() === 'image/png') 
-                        &&
-                        ($request->path_foto_mahasiswa->getMimeType() === 'image/jpeg' ||
-                        $request->path_foto_mahasiswa->getMimeType() === 'image/png')
-                        &&
-                        ($request->path_foto_sertifikat->getMimeType() === 'image/jpeg' ||
-                        $request->path_foto_sertifikat->getMimeType() === 'image/png')
-                    ) {
+                    if ($this->isMimeFileMatches(
+                        [
+                            $request->path_foto_kuitansi,
+                            $request->path_foto_mahasiswa,
+                            $request->path_foto_sertifikat
+                        ],
+                        ['image/jpeg', 'image/png']
+                    )) {
                         CourseDetail::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'kursus_id' => $request->kursus_id,
@@ -100,13 +98,13 @@ class CourseStudentController extends Controller
                 // Jika foto sertifikat tidak ada
                 else {
                     // Jika format foto benar
-                    if (
-                        ($request->path_foto_kuitansi->getMimeType() === 'image/jpeg' ||
-                        $request->path_foto_kuitansi->getMimeType() === 'image/png') 
-                        &&
-                        ($request->path_foto_mahasiswa->getMimeType() === 'image/jpeg' ||
-                        $request->path_foto_mahasiswa->getMimeType() === 'image/png')
-                    ) {
+                    if ($this->isMimeFileMatches(
+                        [
+                            $request->path_foto_kuitansi,
+                            $request->path_foto_mahasiswa
+                        ],
+                        ['image/jpeg', 'image/png']
+                    )) {
                         CourseDetail::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'kursus_id' => $request->kursus_id,

@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="{{asset('argon/assets/css/custom.css')}}" type="text/css">
+    {{-- Datatables --}}
+    <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -50,7 +52,13 @@
     <script src="{{asset('argon/assets/js/argon.js?v=1.2.0')}}"></script>
     <!-- Custom Script -->
     <script src="{{asset('js/register/register.js')}}"></script>
+    <!-- Page level plugins -->
+    <script src="{{asset('datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('datatables/dataTables.bootstrap4.js')}}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
     <script>
+        
         $(document).ready(function () {
         $(document).click(function (event) {
             var click = $(event.target);
