@@ -15,6 +15,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Admin::class, 'user_id', 'id_user');
     }
+    
     public function mahasiswa()
     {
         return $this->hasMany(Mahasiswa::class, 'user_id', 'id_user');

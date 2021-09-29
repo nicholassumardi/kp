@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbstrakAdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseStudentController;
@@ -19,7 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Courses
 Route::prefix('courses')->group(function () {
     Route::get('{id}/schedules', [CourseStudentController::class, 'getSchedules']);
     Route::get('{id}', [CourseStudentController::class, 'getCourse']);
 });
+
+// Abstrak
+Route::post('abstrak/{id}', [AbstrakAdminController::class, 'changeStatusToPending']);

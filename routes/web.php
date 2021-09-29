@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseAdminController;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
@@ -29,7 +30,7 @@ use App\Http\Controllers\SuperAdminController;
 */
 
 // FRONTPAGES
-Route::view('/', 'frontpages.home.index')->name("/");
+Route::get('/', [HomeController::class, 'index'])->name("/");
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('sign-in', [LoginController::class, 'showLoginForm'])->name('login.form');
@@ -59,6 +60,8 @@ Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
 Route::resource('addNews', NewsController::class);
 Route::resource('abstract-admin', AbstrakAdminController::class);
+Route::get('abstract-admin/{id_abstrak}/{id_mahasiswa}', [AbstrakAdminController::class, 'editPage'])->name('abstract-admin.editPage');
+Route::patch('abstract-admin/{id_abstrak}/{id_mahasiswa}', [AbstrakAdminController::class, 'updatePartial'])->name('abstract-admin.updatePartial');
 
 // SUPER ADMIN
 Route::resource('super-admin', SuperAdminController::class);

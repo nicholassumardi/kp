@@ -21,4 +21,9 @@ class Mahasiswa extends Model
         return $this->belongsToMany(Course::class, 'detail_kursus', 'mahasiswa_id', 'kursus_id')
             ->withPivot('jadwal_id','path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
     }
+
+    public function abstrak()
+    {
+        return $this->hasMany(Abstrak::class, 'mahasiswa_id', 'id_mahasiswa');
+    }
 }

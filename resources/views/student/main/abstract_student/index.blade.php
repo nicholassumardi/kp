@@ -15,20 +15,32 @@ Abstract
                 <table class="table table-bordered invisible" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Status</th>
-                            <th>File</th>
-                            <th>Action</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">File Anda</th>
+                            <th class="text-center">File Admin</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data_abstract as $abstract)
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center">
+                                <li
+                                    class="btn btn-sm {{ $abstract->status === 'unverified' ?'btn-danger' : ($abstract->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    {{ $abstract->status }}
+                                </li>
+                            </td>
+                            <td class="text-center">
+                                {{ basename($abstract->path_file_abstrak_mahasiswa) }}
+                            </td>
+                            <td class="text-center">{{ basename($abstract->path_file_abstrak_admin) }} </td>
                             <td class="d-flex justify-content-center">
-                                <a href="" class="btn btn-sm btn-outline-secondary"><i
+                                <a href="{{ asset('storage/' . $abstract->path_file_abstrak_admin) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-download text-gray"></i></a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

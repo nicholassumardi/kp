@@ -19,7 +19,7 @@ class CreateAbstrakTable extends Migration
             $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->cascadeOnDelete();
             $table->string('path_foto_kuitansi');
             $table->string('path_file_abstrak_mahasiswa');
-            $table->string('path_file_abstrak_admin');
+            $table->string('path_file_abstrak_admin')->nullable();
             $table->enum('status', ['unverified', 'pending','verified']);
             $table->timestamps();
         });

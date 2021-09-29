@@ -13,6 +13,7 @@ class AbstrakAdminController extends Controller
     {
         $this->middleware('auth.admin')->only(['index', 'create']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +22,8 @@ class AbstrakAdminController extends Controller
     public function index()
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        // $this->dataView['data_abstrak'] = Abstrak::all();
+        $this->dataView['data_abstract'] = Abstrak::all();
+
         return view('admin.main.abstract_admin.index', $this->dataView);
     }
 
@@ -32,7 +34,6 @@ class AbstrakAdminController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -66,7 +67,7 @@ class AbstrakAdminController extends Controller
     public function edit($id)
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        // $this->dataView['data_abstrak'] = Abstrak::all();
+
         return view('admin.main.abstract_admin.edit', $this->dataView);
     }
 
@@ -91,5 +92,42 @@ class AbstrakAdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function editPage(Request $request, $id_abstrak, $id_mahasiswa)
+    {
+
+        $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
+        $this->dataView['data_abstract'] = Abstrak::where('id_abstrak', $id_abstrak)->where('mahasiswa_id', $id_mahasiswa)->first();
+        return view('admin.main.abstract_admin.edit', $this->dataView);
+    }
+
+    public function updatePartial(Request $request, $id_abstrak, $id_mahasiswa)
+    {
+
+        Abstrak::where('id_abstrak', $id_abstrak)
+            ->where('mahasiswa_id', $id_mahasiswa)
+            ->update([
+                'path_file_abstrak_admin' => $request->path_file_abstrak_admin->storeAs(
+                    'dokumen/dokumen-abstrak/admin/', 
+                    $request->path_file_abstrak_admin->getClientOriginalName(), 
+                    'public'
+                ),
+                'status' => 'verified',
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Abstract has been sent.');
+    }
+
+    public function changeStatusToPending(Request $request, $id)
+    {
+        // Jika request ajax
+        if ($request->ajax()) {
+            Abstrak::where('id_abstrak', $id)
+                ->update(['status' => 'pending']);
+        }
+        // Jika request bukan ajax, throw halaman 403.
+        return abort(403);
     }
 }

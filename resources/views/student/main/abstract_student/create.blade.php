@@ -15,21 +15,8 @@ Register Courses
                             class="bi bi-arrow-left"></i> Back</a>
                 </div>
 
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('abstract-student.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
-                        <div class="col-xl-10">
-                            <label for="form-control">File Abstract</label>
-                            <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
-                            <small class="form-text text-muted">
-                                * File format must be in word (doc, docx).
-                                <br>
-
-                            </small>
-                        </div>
-                    </div>
-
-
 
                     <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
                         <div class="col-xl-10">
@@ -43,7 +30,18 @@ Register Courses
                             </small>
                         </div>
                     </div>
-
+                    
+                    <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
+                        <div class="col-xl-10">
+                            <label for="form-control">File Abstract</label>
+                            <input class="form-control customicon" type="file" name="path_file_abstrak_mahasiswa" required>
+                            <small class="form-text text-muted">
+                                * File harus dalam format word (doc, docx).
+                                <br>
+                                * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
+                            </small>
+                        </div>
+                    </div>
 
                     <div class="row justify-content-center mb-5">
                         <div class="col-xl-10">

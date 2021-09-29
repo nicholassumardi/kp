@@ -48,7 +48,7 @@ Students Data
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kursus->mahasiswa as $key => $mahasiswa)
+                        @foreach ($jadwal->mahasiswa as $key => $mahasiswa)
                         <tr>
                             <td class="align-middle">{{$mahasiswa->nama}}</td>
 

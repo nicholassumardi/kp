@@ -49,10 +49,8 @@ class NewsController extends Controller
 
         if ($request->hasFile('path_foto_berita')) { // Jika foto ada
             if ($this->isMimeFileMatches(
-                    [
-                        $request->path_foto_berita
-                    ],
-                    ['image/jpeg', 'image/png']
+                [$request->path_foto_berita],
+                ['image/jpeg', 'image/png']
             )) {
                 $request->validate([
                     'judul_berita' => 'required',

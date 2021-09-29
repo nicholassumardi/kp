@@ -11,4 +11,9 @@ class Abstrak extends Model
     protected $table = 'abstrak';
     protected $primaryKey = 'id_abstrak';
     protected $guarded = [];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id_mahasiswa');
+    }
 }

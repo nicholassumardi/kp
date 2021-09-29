@@ -18,6 +18,12 @@ class Schedules extends Model
         return $this->belongsTo(Course::class, 'kursus_id', 'id_kursus');
     }
 
+    public function mahasiswa()
+    {
+        return $this->belongsToMany(Mahasiswa::class, 'detail_kursus', 'jadwal_id', 'mahasiswa_id')
+            ->withPivot('kursus_id', 'path_foto_kuitansi', 'path_foto_mahasiswa', 'path_foto_sertifikat', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+    }
+
     // public function krs()
     // {
     //     return $this->belongsToMany(Course::class, 'detail_kursus', 'jadwal_id', 'kursus_id')

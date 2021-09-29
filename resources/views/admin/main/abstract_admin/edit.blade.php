@@ -15,7 +15,8 @@ Register Courses
                         class="bi bi-arrow-left"></i> Back</a>
                 </div>
 
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{route('abstract-admin.updatePartial', ['id_abstrak' => $data_abstract->id_abstrak, 'id_mahasiswa' => $data_abstract->mahasiswa_id])}}" method="POST" enctype="multipart/form-data">
+                    @method('PATCH')
                     @csrf
 
                     <!-- Light table -->
@@ -25,7 +26,7 @@ Register Courses
                             <div class="row mt-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">Student Name</label>
-                                    <input type="text" class="form-control" placeholder="asu kerek jembud" disabled>
+                                    <input type="text" class="form-control" placeholder="{{ $data_abstract->mahasiswa->nama }}" disabled>
                                 </div>
                             </div>
 
@@ -33,7 +34,7 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
                                 <div class="col-xl-10">
                                     <label for="form-control">File Abstract</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_kuitansi"
+                                    <input class="form-control customicon" type="file" name="path_file_abstrak_admin"
                                         required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).

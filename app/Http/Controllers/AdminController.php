@@ -13,20 +13,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.admin')->only(['index']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth.admin')->only(['index']);
-    }
-
     public function index()
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        $this->dataView['data_kursus'] = Schedules::get();  
+        $this->dataView['data_kursus'] = Schedules::get();
         $this->dataView['kursus_count'] = Course::count();
         $this->dataView['kursus_aktif_count'] = Course::where('status', 1)->count();
         $this->dataView['mahasiswa_count'] = Mahasiswa::count();
@@ -44,7 +44,6 @@ class AdminController extends Controller
      */
     public function create()
     {
- 
     }
 
     /**
@@ -79,9 +78,9 @@ class AdminController extends Controller
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['kursus'] = Course::where('id_kursus', $id_kursus)->first();
-        $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id_jadwal)->first(); 
-        $this->dataView['mahasiswa_count'] = count($this->dataView['kursus']->mahasiswa); 
-        
+        $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id_jadwal)->where('kursus_id', $id_kursus)->first();
+        $this->dataView['mahasiswa_count'] = count($this->dataView['kursus']->mahasiswa);
+
         return view('admin.main.dashboard_admin.edit', $this->dataView);
     }
 
@@ -98,7 +97,7 @@ class AdminController extends Controller
         CourseDetail::where('mahasiswa_id', $id_mahasiswa)
             ->where('kursus_id', $id_kursus)
             ->update(['status_verifikasi' => 1]);
-      
+
         return redirect()->back()
             ->with('success', 'Status updated successfully.');
     }
@@ -123,7 +122,7 @@ class AdminController extends Controller
         CourseDetail::where('mahasiswa_id', $id_mahasiswa)
             ->where('kursus_id', $id_kursus)
             ->update(['komentar' => $request->komentar]);
-      
+
         return redirect()->back()
             ->with('success', 'Comment has been sent.');
     }
