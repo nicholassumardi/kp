@@ -30,13 +30,26 @@ class LoginController extends Controller
 
     public function isAdmin($username, $password)
     {
-        // True jika data login benar.
-        return Auth::attempt([
+        // Jika data login benar (admin PUSBA).
+        if (Auth::attempt([
             'email' => $username,
             'password' => $password,
             'status' => 1,
             'tipe_user_id' => 2
-        ]);
+        ])) {
+            return true;
+        }
+        // Jika data login benar (admin abstrak).
+        elseif (Auth::attempt([
+            'email' => $username,
+            'password' => $password,
+            'status' => 1,
+            'tipe_user_id' => 3
+        ])) {
+            return true;
+        }
+
+        return false;
     }
 
     public function isMahasiswa($username, $password)
@@ -46,7 +59,7 @@ class LoginController extends Controller
             'email' => $username,
             'password' => $password,
             'status' => 1,
-            'tipe_user_id' => 3
+            'tipe_user_id' => 4
         ])) {
             return true;
         } else { // True jika data login menggunakan NPM benar.
@@ -59,7 +72,7 @@ class LoginController extends Controller
                     'email' => $user->email,
                     'password' => $password,
                     'status' => 1,
-                    'tipe_user_id' => 3
+                    'tipe_user_id' => 4
                 ])) {
                     return true;
                 }

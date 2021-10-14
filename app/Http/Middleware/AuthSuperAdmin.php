@@ -22,9 +22,12 @@ class AuthSuperAdmin
             // True jika user yang login adalah Super Admin.
             if (Auth::user()->tipe_user_id === 1) {
                 return $next($request);
-            } elseif (Auth::user()->tipe_user_id === 2) {
+            } elseif (
+                Auth::user()->tipe_user_id === 2 ||
+                Auth::user()->tipe_user_id === 3
+            ) {
                 return redirect()->route('admin.index');
-            } elseif (Auth::user()->tipe_user_id === 3) {
+            } elseif (Auth::user()->tipe_user_id === 4) {
                 return redirect()->route('student.index');
             }
         } else {

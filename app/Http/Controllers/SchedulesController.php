@@ -25,7 +25,7 @@ class SchedulesController extends Controller
     public function index()
     {
         
-        $this->dataView['nama_kursus'] = Course::select('nama_kursus')
+        $this->dataView['nama_kursus'] = Course::select('nama_kursus', 'deskripsi')
             ->join('jadwal', 'jadwal.kursus_id', '=', 'kursus.id_kursus')
             ->get();
         $this->dataView['jadwal'] = Schedules::all();

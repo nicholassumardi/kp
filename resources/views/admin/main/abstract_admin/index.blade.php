@@ -30,7 +30,7 @@ Abstract
                                 <img src="{{ asset('storage/' . $abstract->path_foto_kuitansi) }}"
                                     class="custombuktipembayaran">
                             </td>
-                            <td class="text-center js-td-status">
+                            <td class="text-center">
                                 <li
                                     class="btn btn-sm js-status {{ $abstract->status === 'unverified' ?'btn-danger' : ($abstract->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
                                     {{ $abstract->status }}
@@ -78,16 +78,21 @@ Abstract
     $(function () {
         // Button download
         $("#dataTable").on("click", ".js-btn-download", function () {
-            let jsStatus = $(this).parent().siblings(".js-td-status").find(".js-status");
+            const jsStatus = $(this).closest("tr").find(".js-status");
+            const postData = { id: $(this).data("id") };
 
-            $.post(`api/abstrak/${ $(this).data("id") }`, function(data) {
-
-            }); 
-
-            jsStatus
-                    .removeClass("btn-danger")
-                    .addClass("btn-warning")
-                    .text("pending");
+            $.post(
+                "api/abstrak-change-status", 
+                postData,
+                function(jsonData) {
+                    const abstrak = jsonData;
+                    
+                    jsStatus
+                        .removeClass("btn-danger")
+                        .addClass("btn-warning")
+                        .text(abstrak.status);
+                }
+            ); 
         });
 
         // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.

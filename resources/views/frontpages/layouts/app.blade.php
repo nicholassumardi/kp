@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    @include('frontpages/home/layouts/header')
+    @include('frontpages/layouts/header')
 
     @yield('content')
 

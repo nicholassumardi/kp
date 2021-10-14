@@ -8,7 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseAdminController;
 use App\Http\Controllers\CourseStudentController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FrontPages;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
@@ -30,7 +30,9 @@ use App\Http\Controllers\SuperAdminController;
 */
 
 // FRONTPAGES
-Route::get('/', [HomeController::class, 'index'])->name("/");
+Route::get('/', [FrontPages::class, 'index'])->name("/");
+Route::get('news', [FrontPages::class, 'NewsIndex'])->name("news.index");
+Route::Get('news-show/{id}', [FrontPages::class, 'ShowNews'])->name("news.show");
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('sign-in', [LoginController::class, 'showLoginForm'])->name('login.form');

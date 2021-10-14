@@ -19,6 +19,7 @@ Schedules
                     <thead>
                         <tr>
                             <th>Course Name</th>
+                            <th>Description</th>
                             <th>Schedules</th>
                             <th>Maximum Participants</th>
                             <th>Action</th>
@@ -29,6 +30,7 @@ Schedules
 
                         <tr>
                             <td>{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</td>
+                            <td>{{ $nk->deskripsi }}</td>
                             <td>{{$jadwal[$key]->hari}},
                                 {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal[$key]->jadwal_mulai)->format('H:i')}}
                                 -

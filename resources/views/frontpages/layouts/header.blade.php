@@ -6,8 +6,8 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav" data-aos="zoom-in" data-aos-duration="2000" data-aos-delay="200">
-          <a class="nav-link {{request()->is('/') ? ' active' : ''}}" aria-current="page" href="#">About</a>
-          <a class="nav-link {{request()->is('/news') ? ' active' : ''}}" href="#">News</a>
+          <a class="nav-link {{request()->is('/') ? ' active' : ''}}" aria-current="page" href="{{route('/')}}">About</a>
+          <a class="nav-link {{request()->is('/news') ? ' active' : ''}}" href="{{route('news.index')}}">News</a>
           <a class="nav-link" href="/register">Register</a>
           <a class="nav-link" href="/sign-in">Sign In</a>
         </div>

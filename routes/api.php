@@ -27,4 +27,4 @@ Route::prefix('courses')->group(function () {
 });
 
 // Abstrak
-Route::post('abstrak/{id}', [AbstrakAdminController::class, 'changeStatusToPending']);
+Route::post('abstrak-change-status', [AbstrakAdminController::class, 'changeStatusToPending']);

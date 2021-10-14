@@ -39,12 +39,12 @@ Students Data
                         <tr>
                             <th>Name</th>
                             <th>Year</th>
-                            {{-- <th>Nomor Kartu</th> --}}
                             <th>Status</th>
                             <th>Payment Proof (Receipt)</th>
-                            <th>Student</th>
+                            <th class="text-center">Student Picture</th>
                             {!! $kursus->sertifikat === 1 ? '<th>English Course Certificate</th>' : '' !!}
-                            <th colspan="2">Action</th>
+                            <th class="text-center">Action</th>
+                            <th>Print</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +66,7 @@ Students Data
                                 class="text-center customfotoprofile"></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                            <td align-middle class="text-center"><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
 

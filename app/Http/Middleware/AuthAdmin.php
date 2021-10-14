@@ -19,12 +19,15 @@ class AuthAdmin
     {
         // True jika ada user yang login.
         if (Auth::check()) {
-            // True jika user yang login adalah admin.
-            if (Auth::user()->tipe_user_id === 2) {
+            // True jika user yang login adalah jenis admin.
+            if (
+                Auth::user()->tipe_user_id === 2 ||
+                Auth::user()->tipe_user_id === 3
+            ) {
                 return $next($request);
             } elseif (Auth::user()->tipe_user_id === 1) {
                 return redirect()->route('super-admin.index');
-            } elseif (Auth::user()->tipe_user_id === 3) {
+            } elseif (Auth::user()->tipe_user_id === 4) {
                 return redirect()->route('student.index');
             }
         } else {

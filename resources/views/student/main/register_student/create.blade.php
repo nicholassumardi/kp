@@ -80,7 +80,7 @@ Register Courses
                                 id="container-sertifikat">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Sertifikat English Course</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
+                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
@@ -138,15 +138,20 @@ Register Courses
                         const containerFotoBuktiPembayaran = $("#container-foto-bukti-pembayaran");
                         const containerFotoMahasiswa = $("#container-foto-mahasiswa");
                         const containerSertifikat = $("#container-sertifikat");
+                        const jsPathFotoSertifikat = $("#js-path-foto-sertifikat");
+                        
                         
                         if (kursus.sertifikat === 1) {
                             containerFotoBuktiPembayaran.removeClass("mb-5").addClass("mb-4");
                             containerFotoMahasiswa.removeClass("mb-5").addClass("mb-4");
                             containerSertifikat.removeClass("d-none");
+                            jsPathFotoSertifikat.attr('required', 'required');
                         } else {
                             containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
                             containerFotoMahasiswa.removeClass("mb-4").addClass("mb-5");
                             containerSertifikat.addClass("d-none");
+                            jsPathFotoSertifikat.removeAttr('required');
+
                             
                         }
                     }

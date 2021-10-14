@@ -20,9 +20,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('tipe_user')->insert([
-            'nama' => 'admin'
+            'nama' => 'admin pusba'
         ]);
 
+        DB::table('tipe_user')->insert([
+            'nama' => 'admin abstrak'
+        ]);
+        
         DB::table('tipe_user')->insert([
             'nama' => 'mahasiswa'
         ]);
@@ -44,11 +48,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('user')->insert([
+            'nama' => 'Admin Abstrak',
+            'email' => 'adminabstrak@gmail.com',
+            'password' => Hash::make('adminabstrak'),
+            'status' => 1,
+            'tipe_user_id' => 3
+        ]);
+
+        DB::table('user')->insert([
             'nama' => 'Bima Kurnia Adam',
             'email' => 'nggocal@gmail.com',
             'password' => Hash::make('bima'),
             'status' => 1,
-            'tipe_user_id' => 3
+            'tipe_user_id' => 4
         ]);
 
         DB::table('user')->insert([
@@ -56,18 +68,27 @@ class DatabaseSeeder extends Seeder
             'email' => 'rokudo500@gmail.com',
             'password' => Hash::make('nicholas'),
             'status' => 1,
-            'tipe_user_id' => 3
+            'tipe_user_id' => 4
         ]);
 
         DB::table('admin')->insert([
-            'nama' => 'Admin Nicholas',
-            'umur' => 21,
-            'alamat' => 'Grand Delta Sari',
-            'kota' => 'Sidoarjo',
+            'nama' => 'Admin PUSBA',
+            'umur' => 40,
+            'alamat' => 'Semolowaru',
+            'kota' => 'Surabaya',
             'negara' => 'Indonesia',
             'user_id' => 2
         ]);
 
+        DB::table('admin')->insert([
+            'nama' => 'Admin Abstrak',
+            'umur' => 43,
+            'alamat' => 'Dukuh Kupang',
+            'kota' => 'Surabaya',
+            'negara' => 'Indonesia',
+            'user_id' => 3
+        ]);
+        
         DB::table('mahasiswa')->insert([
             'nama' => 'Bima Kurnia Adam',
             'umur' => 21,
@@ -75,7 +96,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Delta Sari Indah AH-2',
             'kota' => 'Sidoarjo',
             'negara' => 'Indonesia',
-            'user_id' => 3
+            'user_id' => 4
         ]);
 
         DB::table('mahasiswa')->insert([
@@ -85,7 +106,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Grand Delta Sari',
             'kota' => 'Sidoarjo',
             'negara' => 'Indonesia',
-            'user_id' => 4
+            'user_id' => 5
         ]);
     }
 }

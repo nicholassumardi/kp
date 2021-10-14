@@ -120,12 +120,15 @@ class AbstrakAdminController extends Controller
             ->with('success', 'Abstract has been sent.');
     }
 
-    public function changeStatusToPending(Request $request, $id)
+    public function changeStatusToPending(Request $request)
     {
         // Jika request ajax
         if ($request->ajax()) {
-            Abstrak::where('id_abstrak', $id)
-                ->update(['status' => 'pending']);
+            $abstrak = tap(Abstrak::where('id_abstrak', $request->id))
+                ->update(['status' => 'pending'])
+                ->first();
+            
+            return response()->json($abstrak);
         }
         // Jika request bukan ajax, throw halaman 403.
         return abort(403);

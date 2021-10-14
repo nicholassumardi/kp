@@ -14,6 +14,8 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav menu">
+                    {{-- Jika user yang login adalah admin PUSBA. --}}
+                    @if (Auth::user()->tipe_user_id === 2)
                     <li class="nav-item">
                         <a class="nav-link {{request()->is('admin') ? ' active' : ''}}" href="/admin">
                             <i class="ni ni-tv-2 text-primary"></i>
@@ -45,6 +47,7 @@
                             <span class="nav-link-text">News</span>
                         </a>
                     </li>
+                    @endif
 
                     <li class="nav-item">
                         <a class="nav-link  {{request()->is('abstract-admin') ? ' active' : ''}}" href="{{route('abstract-admin.index')}}">

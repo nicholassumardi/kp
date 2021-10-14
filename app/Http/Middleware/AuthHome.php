@@ -25,9 +25,12 @@ class AuthHome
         else {
             if (Auth::user()->tipe_user_id === 1) {
                 return redirect()->route('super-admin.index');
-            } elseif (Auth::user()->tipe_user_id === 2) {
+            } elseif (
+                Auth::user()->tipe_user_id === 2 ||
+                Auth::user()->tipe_user_id === 3
+            ) {
                 return redirect()->route('admin.index');
-            } elseif (Auth::user()->tipe_user_id === 3) {
+            } elseif (Auth::user()->tipe_user_id === 4) {
                 return redirect()->route('student.index');
             }
         }

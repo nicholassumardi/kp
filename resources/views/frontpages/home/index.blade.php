@@ -1,4 +1,4 @@
-@extends('frontpages/home/layouts/app')
+@extends('frontpages/layouts/app')
 
 @section('content')
 

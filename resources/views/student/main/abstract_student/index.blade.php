@@ -35,9 +35,11 @@ Abstract
                             </td>
                             <td class="text-center">{{ basename($abstract->path_file_abstrak_admin) }} </td>
                             <td class="d-flex justify-content-center">
+                                @if ($abstract->path_file_abstrak_admin !== null)
                                 <a href="{{ asset('storage/' . $abstract->path_file_abstrak_admin) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-download text-gray"></i></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
