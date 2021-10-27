@@ -23,7 +23,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{request()->is('profileAdmin') ? ' active' : ''}}" href="{{route('profileAdmin.show', Auth::id())}}">
+                        <a class="nav-link {{request()->is('profileAdmin/' . Auth::id()) ? ' active' : ''}}" href="{{route('profileAdmin.show', Auth::id())}}">
                             <i class="ni ni-single-02 text-yellow"></i>
                             <span class="nav-link-text">Profile</span>
                         </a>
@@ -34,12 +34,12 @@
                             <span class="nav-link-text">Course</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link  {{request()->is('schedules') ? ' active' : ''}}" href="{{route('schedules.index')}}">
                             <i class="ni ni-calendar-grid-58 text-green"></i>
                             <span class="nav-link-text">Schedules</span>
                         </a>
-                    </li>
+                    </li> --}}
                    
                     <li class="nav-item">
                         <a class="nav-link  {{request()->is('addNews') ? ' active' : ''}}" href="{{route('addNews.index')}}">
@@ -50,9 +50,9 @@
                     @endif
 
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('abstract-admin') ? ' active' : ''}}" href="{{route('abstract-admin.index')}}">
+                        <a class="nav-link  {{request()->is('penerjemahan-admin') ? ' active' : ''}}" href="{{route('penerjemahan-admin.index')}}">
                             <i class="ni ni-sound-wave text-teal"></i>
-                            <span class="nav-link-text">Abstract</span>
+                            <span class="nav-link-text">Penerjemahan</span>
                         </a>
                     </li>
                 </ul>

@@ -31,10 +31,10 @@ Register Courses
                             </div>
 
 
-                            <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
+                            <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File Abstract</label>
-                                    <input class="form-control customicon" type="file" name="path_file_abstrak_admin"
+                                    <input class="form-control customicon" type="file" name="path_file_abstrak_admin_word"
                                         required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
@@ -44,8 +44,18 @@ Register Courses
                                 </div>
                             </div>
 
+                            <div class="row mt-3 mb-5 justify-content-center">
+                                <div class="col-xl-10">
+                                    <label for="form-control">File Abstract</label>
+                                    <input class="form-control customicon" type="file" name="path_file_abstrak_admin_pdf"
+                                        required>
+                                    <small class="form-text text-muted">
+                                        * File format must be in pdf.
+                                        <br>
 
-
+                                    </small>
+                                </div>
+                            </div>
 
                             <div class="row justify-content-center mb-5">
                                 <div class="col-xl-10">

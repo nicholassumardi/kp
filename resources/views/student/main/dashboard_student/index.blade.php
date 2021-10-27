@@ -21,6 +21,7 @@ Dashboard
                                 <th scope="col" class="sort" data-sort="budget">Status</th>
                                 <th scope="col" class="sort" data-sort="schedule">Schedule</th>
                                 <th scope="col" class="sort" data-sort="status">Comment</th>
+                                <th scope="col" class="sort" data-sort="status">Group Link</th>
                             </tr>
                         </thead>
                         <tbody class="list">
@@ -53,6 +54,9 @@ Dashboard
                                             {{$k->pivot->komentar}}
                                         </span>
                                     </span>
+                                </td>
+                                <td>
+                                    <a href=""></a>
                                 </td>
                             </tr>
                             @endforeach

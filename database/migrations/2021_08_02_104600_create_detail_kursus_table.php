@@ -26,8 +26,8 @@ class CreateDetailKursusTable extends Migration
             $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->cascadeOnDelete();
             $table->bigInteger('kursus_id')->unsigned();
             $table->foreign('kursus_id')->references('id_kursus')->on('kursus')->cascadeOnDelete();
-            $table->bigInteger('jadwal_id')->unsigned();
-            $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal')->cascadeOnDelete();
+            // $table->bigInteger('jadwal_id')->unsigned();
+            // $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal')->cascadeOnDelete();
             $table->string('path_foto_kuitansi');
             $table->string('path_foto_mahasiswa');
             $table->string('path_foto_sertifikat')->nullable();

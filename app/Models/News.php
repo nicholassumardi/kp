@@ -11,4 +11,10 @@ class News extends Model
     protected $table = 'berita';
     protected $primaryKey = 'id_berita';
     protected $guarded = [];
+
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id', 'id_admin');
+    }
 }

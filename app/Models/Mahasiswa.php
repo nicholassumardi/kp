@@ -19,11 +19,19 @@ class Mahasiswa extends Model
     public function kursus()
     {
         return $this->belongsToMany(Course::class, 'detail_kursus', 'mahasiswa_id', 'kursus_id')
-            ->withPivot('jadwal_id','path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
     }
 
     public function abstrak()
     {
         return $this->hasMany(Abstrak::class, 'mahasiswa_id', 'id_mahasiswa');
+    }
+    public function transkripnilai()
+    {
+        return $this->hasMany(TranskripNilai::class, 'mahasiswa_id', 'id_mahasiswa');
+    }
+    public function ijazah()
+    {
+        return $this->hasMany(ijazah::class, 'mahasiswa_id', 'id_mahasiswa');
     }
 }

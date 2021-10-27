@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AbstrakAdminController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\PenerjemahanAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Courses
 Route::prefix('courses')->group(function () {
-    Route::get('{id}/schedules', [CourseStudentController::class, 'getSchedules']);
+    // Route::get('{id}/schedules', [CourseStudentController::class, 'getSchedules']);
     Route::get('{id}', [CourseStudentController::class, 'getCourse']);
 });
 
 // Abstrak
-Route::post('abstrak-change-status', [AbstrakAdminController::class, 'changeStatusToPending']);
+Route::post('abstrak-change-status', [PenerjemahanAdminController::class, 'changeStatusToPending']);
+Route::post('transkrip-ijazah-change-status', [PenerjemahanAdminController::class, 'changeStatusToChecked']);

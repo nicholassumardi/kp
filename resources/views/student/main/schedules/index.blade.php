@@ -79,16 +79,16 @@ Schedules
             $(function() {
                 $(".view-schedules").on("click", function() {
                     $.getJSON(
-                        `/api/courses/${ $(this).val() }/schedules`, 
+                        `/api/courses/${ $(this).val() }`, 
                         function(jsonData) {
                             let div = "<div class='modal-body' id='modal-body'>";
-                            $.each(jsonData, function(i, jadwal) {
+                            $.each(jsonData, function(i, kursus) {
                                 div += "<p>"
-                                + `<b> ${jadwal.hari} `
-                                + `, ${jadwal.jadwal_mulai.substring(0, 5)} - `
-                                + `${jadwal.jadwal_selesai.substring(0, 5)}</b> | `
-                                + `<b>${jadwal.partisipan_saat_ini} / `
-                                + `${jadwal.batas_partisipan}</b>`
+                                // + `<b> ${jadwal.hari} `
+                                // + `, ${jadwal.jadwal_mulai.substring(0, 5)} - `
+                                // + `${jadwal.jadwal_selesai.substring(0, 5)}</b> | `
+                                + `<b>${kursus.partisipan_saat_ini} / `
+                                + `${kursus.batas_partisipan}</b>`
                                 + "</p>";
                             });
                             div += "</div>";

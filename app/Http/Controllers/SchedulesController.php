@@ -28,7 +28,7 @@ class SchedulesController extends Controller
         $this->dataView['nama_kursus'] = Course::select('nama_kursus', 'deskripsi')
             ->join('jadwal', 'jadwal.kursus_id', '=', 'kursus.id_kursus')
             ->get();
-        $this->dataView['jadwal'] = Schedules::all();
+        // $this->dataView['jadwal'] = Schedules::all();
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
 
         return view('admin.main.schedules_admin.index', $this->dataView);
@@ -57,19 +57,21 @@ class SchedulesController extends Controller
     {
         $request->validate([
             'kursus_id'=>'required',
-            'hari'=>'required',
-            'jadwal_mulai' => 'required',
-            'jadwal_selesai' => 'required',
-            'batas_partisipan'=>'required'
+            // 'hari'=>'required',
+            // 'jadwal_mulai' => 'required',
+            // 'jadwal_selesai' => 'required',
+            'batas_partisipan'=>'required',
+            'group_link' =>'required'
         ]);
       
-        Schedules::create([
-            'kursus_id' => $request->kursus_id,
-            'hari' => $request->hari,
-            'jadwal_mulai' => $request->jadwal_mulai,
-            'jadwal_selesai' => $request->jadwal_selesai,
-            'batas_partisipan'=> $request->batas_partisipan,
-        ]);
+        // Schedules::create([
+        //     'kursus_id' => $request->kursus_id,
+        //     // 'hari' => $request->hari,
+        //     // 'jadwal_mulai' => $request->jadwal_mulai,
+        //     // 'jadwal_selesai' => $request->jadwal_selesai,
+        //     'batas_partisipan'=> $request->batas_partisipan,
+        //     'group_link' =>$request->group_link,
+        // ]);
 
         return redirect()->route('schedules.index')
             ->with('success','Schedule created successfully.');
@@ -98,7 +100,7 @@ class SchedulesController extends Controller
             ->join('jadwal', 'jadwal.kursus_id', '=', 'kursus.id_kursus')
             ->where('id_jadwal', $id)
             ->first();
-        $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id)->first();
+        // $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id)->first();
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
 
         return view('admin.main.schedules_admin.edit',  $this->dataView);
@@ -114,18 +116,18 @@ class SchedulesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'hari' => 'required',
-            'jadwal_mulai'=>'required',
-            'jadwal_selesai' => 'required',
-            'batas_partisipan'=>'required'
+      
+            'batas_partisipan'=>'required',
+            'group_link' =>'required'
         ]);
         
-        Schedules::where('id_jadwal', $id)->update([
-            'hari' => $request->hari,
-            'jadwal_mulai'=>$request->jadwal_mulai,
-            'jadwal_selesai' => $request->jadwal_selesai,
-            'batas_partisipan'=> $request->batas_partisipan,
-        ]);
+        // Schedules::where('id_jadwal', $id)->update([
+        //     // 'hari' => $request->hari,
+        //     // 'jadwal_mulai'=>$request->jadwal_mulai,
+        //     // 'jadwal_selesai' => $request->jadwal_selesai,
+        //     'batas_partisipan'=> $request->batas_partisipan,
+        //     'group_link' =>$request->group_link,
+        // ]);
 
         return redirect()->route('schedules.index')
             ->with('success','Schedule updated successfully.');
@@ -139,7 +141,7 @@ class SchedulesController extends Controller
      */
     public function destroy($id)
     {
-        Schedules::where('id_jadwal', $id)->delete();
+        // Schedules::where('id_jadwal', $id)->delete();
 
         return redirect()->route('schedules.index')
             ->with('success','Schedule deleted successfully .');

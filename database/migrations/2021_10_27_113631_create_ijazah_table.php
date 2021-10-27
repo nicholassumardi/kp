@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbstrakTable extends Migration
+class CreateIjazahTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateAbstrakTable extends Migration
      */
     public function up()
     {
-        Schema::create('abstrak', function (Blueprint $table) {
-            $table->id('id_abstrak');
+        Schema::create('ijazah', function (Blueprint $table) {
+            $table->id('id_ijazah');
             $table->bigInteger('mahasiswa_id')->unsigned();
             $table->foreign('mahasiswa_id')->references('id_mahasiswa')->on('mahasiswa')->cascadeOnDelete();
             $table->string('path_foto_kuitansi');
-            $table->string('path_file_abstrak_mahasiswa');
-            $table->string('path_file_abstrak_admin_word')->nullable();
-            $table->string('path_file_abstrak_admin_pdf')->nullable();
+            $table->string('path_file_ijazah');
             $table->string('email');
             $table->string('no_hp');
-            $table->enum('status', ['unverified', 'pending','verified']);
+            $table->enum('status', ['unchecked', 'checked']);
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateAbstrakTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('abstrak');
+        Schema::dropIfExists('ijazah');
     }
 }

@@ -10,15 +10,48 @@ Register Courses
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0 d-flex justify-content-between">
-                    <h3 class="mb-0">Send Abstract</h3>
-                    <a href="{{route('abstract-student.index')}}" class="btn btn-outline-success btn-sm"><i
+                    <h3 class="mb-0">Penerjemahan</h3>
+                    <a href="{{route('penerjemahan-student.index')}}" class="btn btn-outline-success btn-sm"><i
                             class="bi bi-arrow-left"></i> Back</a>
                 </div>
 
-                <form action="{{ route('abstract-student.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('penerjemahan-student.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
+                    <div class="row mt-3 mb-2 justify-content-center">
+                        <div class="col-xl-10">
+                            <label for="form-control">Layanan</label>
+
+                            <select class="form-control" id="layanan-dropdown" name="layanan">
+                                <option value="abstrak">Abstrak</option>
+                                <option value="transkripnilai">Transkrip Nilai</option>
+                                <option value="ijazah">Ijazah</option>
+                                <option value="transkripnilai_ijazah">Transkrip Nilai dan Ijazah</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-2 justify-content-center">
+                        <div class="col-xl-10">
+                            <label for="form-control">Email</label>
+                            <input class="form-control customicon" type="email" name="email" required>
+                            <small class="form-text text-muted">
+                                * Email yang bisa di hubungi.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-2 justify-content-center">
+                        <div class="col-xl-10">
+                            <label for="form-control">No. HP</label>
+                            <input class="form-control customicon" type="number" name="no_hp" required>
+                            <small class="form-text text-muted">
+                                * No. HP yang bisa di hubungi.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-2 justify-content-center" id="div-bukti-pembayaran">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran</label>
                             <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
@@ -30,8 +63,34 @@ Register Courses
                             </small>
                         </div>
                     </div>
+
+                    <div class="row mt-3 mb-2 justify-content-center d-none" id="div-bukti-pembayaran-transkrip-nilai">
+                        <div class="col-xl-10">
+                            <label for="form-control">Foto Bukti Pembayaran Transkrip Nilai</label>
+                            <input class="form-control customicon" type="file" name="path_foto_kuitansi_transkrip_nilai">
+                            <small class="form-text text-muted">
+                                * Foto harus discan dan dalam keadaan
+                                landscape.
+                                <br>
+                                * Foto harus dalam format JPEG atau PNG.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-2 justify-content-center d-none" id="div-bukti-pembayaran-ijazah">
+                        <div class="col-xl-10">
+                            <label for="form-control">Foto Bukti Pembayaran Ijazah</label>
+                            <input class="form-control customicon" type="file" name="path_foto_kuitansi_ijazah">
+                            <small class="form-text text-muted">
+                                * Foto harus discan dan dalam keadaan
+                                landscape.
+                                <br>
+                                * Foto harus dalam format JPEG atau PNG.
+                            </small>
+                        </div>
+                    </div>
                     
-                    <div class="row mt-3 mb-5 justify-content-center" id="container-foto-bukti-pembayaran">
+                    <div class="row mt-3 mb-5 justify-content-center" id="div-abstrak">
                         <div class="col-xl-10">
                             <label for="form-control">File Abstract</label>
                             <input class="form-control customicon" type="file" name="path_file_abstrak_mahasiswa" required>
@@ -39,6 +98,26 @@ Register Courses
                                 * File harus dalam format word (doc, docx).
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-5 justify-content-center d-none" id="div-transkrip-nilai">
+                        <div class="col-xl-10">
+                            <label for="form-control">File Transkrip</label>
+                            <input class="form-control customicon" type="file" name="path_file_transkrip_nilai">
+                            <small class="form-text text-muted">
+                                * File harus dalam format PDF atau foto (JPEG atau PNG).
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-5 justify-content-center d-none" id="div-ijazah">
+                        <div class="col-xl-10">
+                            <label for="form-control">File Ijazah</label>
+                            <input class="form-control customicon" type="file" name="path_file_ijazah">
+                            <small class="form-text text-muted">
+                                * File harus dalam format PDF atau foto (JPEG atau PNG).
                             </small>
                         </div>
                     </div>
@@ -58,54 +137,85 @@ Register Courses
 @endsection
 
 @push('js')
-{{-- <script>
-        $(function() {
-            $("#courses-dropdown").on("change", async function() {
-                // Disable dropdown session saat JSON masih diload.
-                $("#courses-session").attr("disabled", "disabled");
+<script>
+    $(function() {
+        $("#layanan-dropdown").on("change", async function() {
+            const layananDropdown = $(this);
+            const divAbstrak = $("#div-abstrak");
+            const divBuktiPembayaran = $("#div-bukti-pembayaran");
+            const divTranskripNilai = $("#div-transkrip-nilai");
+            const divIjazah = $("#div-ijazah");
+            const divBuktiPembayaranTranskripNilai = $("#div-bukti-pembayaran-transkrip-nilai");
+            const divBuktiPembayaranIjazah = $("#div-bukti-pembayaran-ijazah");
+
+            if (layananDropdown.val() === "abstrak") {
+
+                divAbstrak.removeClass("d-none");
+                divAbstrak.find("input").attr("required", "required");
                 
-                // Ubah dropdown schedules
-                await $.getJSON(
-                    `api/courses/${ $(this).val() }/schedules`, 
-                    function(jsonData) {  
-                        let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
-                        $.each(jsonData, function(i, jadwal) {
-                            select += `<option value='${jadwal.id_jadwal}'>`
-                            + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
-                            + `${jadwal.jadwal_selesai.substring(0, 5)}`
-                            + "</option>";
-                        });
-                        select += "</select>";
-                        $("#courses-session").html(select);
-                    }
-                );
+                divTranskripNilai.addClass("d-none");
+                divTranskripNilai.find("input").removeAttr("required");
+                divIjazah.addClass("d-none");
+                divIjazah.find("input").removeAttr("required");
+                divBuktiPembayaranTranskripNilai.addClass("d-none");
+                divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
+                divBuktiPembayaranIjazah.addClass("d-none");
+                divBuktiPembayaranIjazah.find("input").removeAttr("required");
 
-                // Enable dropdown session saat JSON selesai diload.
-                $("#courses-session").removeAttr("disabled");
+            } else if (layananDropdown.val() === "transkripnilai") {
 
-                // Hide dan show foto mahasiswa
-                $.getJSON(
-                    `api/courses/${ $(this).val() }`, 
-                    function(jsonData) {
-                        const kursus = jsonData[0];
-                        const containerFotoBuktiPembayaran = $("#container-foto-bukti-pembayaran");
-                        const containerFotoMahasiswa = $("#container-foto-mahasiswa");
-                        const containerSertifikat = $("#container-sertifikat");
-                        
-                        if (kursus.sertifikat === 1) {
-                            containerFotoBuktiPembayaran.removeClass("mb-5").addClass("mb-4");
-                            containerFotoMahasiswa.removeClass("mb-5").addClass("mb-4");
-                            containerSertifikat.removeClass("d-none");
-                        } else {
-                            containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
-                            containerFotoMahasiswa.removeClass("mb-4").addClass("mb-5");
-                            containerSertifikat.addClass("d-none");
-                            
-                        }
-                    }
-                );
-            });
-           
+                divTranskripNilai.removeClass("d-none");
+                divTranskripNilai.removeClass("mb-3");
+                divTranskripNilai.addClass("mb-5");
+                divTranskripNilai.find("input").attr("required", "required");
+                divBuktiPembayaran.removeClass("d-none");
+                divBuktiPembayaran.find("input").attr("required", "required");
+                
+                divBuktiPembayaranTranskripNilai.addClass("d-none");
+                divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
+                divAbstrak.addClass("d-none");
+                divAbstrak.find("input").removeAttr("required");
+                divIjazah.addClass("d-none");
+                divIjazah.find("input").removeAttr("required");
+                divBuktiPembayaranIjazah.addClass("d-none");
+                divBuktiPembayaranIjazah.find("input").removeAttr("required");
+
+            } else if (layananDropdown.val() === "ijazah") {
+
+                divIjazah.removeClass("d-none");
+                divIjazah.find("input").attr("required", "required");
+                divBuktiPembayaran.removeClass("d-none");
+                divBuktiPembayaran.find("input").attr("required", "required");
+
+                divBuktiPembayaranIjazah.addClass("d-none");
+                divBuktiPembayaranIjazah.find("input").removeAttr("required");
+                divAbstrak.addClass("d-none");
+                divAbstrak.find("input").removeAttr("required");
+                divTranskripNilai.addClass("d-none");
+                divTranskripNilai.find("input").removeAttr("required");
+                divBuktiPembayaranTranskripNilai.addClass("d-none");
+                divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
+
+            } else if (layananDropdown.val() === "transkripnilai_ijazah") {
+
+                divTranskripNilai.removeClass("d-none");
+                divTranskripNilai.removeClass("mb-5");
+                divTranskripNilai.addClass("mb-2");
+                divTranskripNilai.find("input").attr("required", "required");
+                divIjazah.removeClass("d-none");
+                divIjazah.find("input").attr("required", "required");
+                divBuktiPembayaranTranskripNilai.removeClass("d-none");
+                divBuktiPembayaranTranskripNilai.find("input").attr("required", "required");
+                divBuktiPembayaranIjazah.removeClass("d-none");
+                divBuktiPembayaranIjazah.find("input").attr("required", "required");
+
+                divAbstrak.addClass("d-none");
+                divAbstrak.find("input").removeAttr("required");
+                divBuktiPembayaran.addClass("d-none");
+                divBuktiPembayaran.find("input").removeAttr("required");
+
+            }
         });
-    </script> --}}
+    });
+</script>
 @endpush

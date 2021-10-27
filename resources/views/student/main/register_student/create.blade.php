@@ -32,7 +32,7 @@ Register Courses
                                 </div>
                             </div>
 
-                            <div class="row mt-3 mb-4 justify-content-center">
+                            {{-- <div class="row mt-3 mb-4 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="session">Session</label>
                                     <select class="form-control bg-white" id="courses-session" name="jadwal_id">
@@ -45,7 +45,7 @@ Register Courses
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'mb-4' : 'mb-4' }}"
                                 id="container-foto-bukti-pembayaran">
@@ -109,26 +109,26 @@ Register Courses
         $(function() {
             $("#courses-dropdown").on("change", async function() {
                 // Disable dropdown session saat JSON masih diload.
-                $("#courses-session").attr("disabled", "disabled");
+                // $("#courses-session").attr("disabled", "disabled");
                 
-                // Ubah dropdown schedules
-                await $.getJSON(
-                    `api/courses/${ $(this).val() }/schedules`, 
-                    function(jsonData) {  
-                        let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
-                        $.each(jsonData, function(i, jadwal) {
-                            select += `<option value='${jadwal.id_jadwal}'>`
-                            + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
-                            + `${jadwal.jadwal_selesai.substring(0, 5)}`
-                            + "</option>";
-                        });
-                        select += "</select>";
-                        $("#courses-session").html(select);
-                    }
-                );
+                // // Ubah dropdown schedules
+                // await $.getJSON(
+                //     `api/courses/${ $(this).val() }/schedules`, 
+                //     function(jsonData) {  
+                //         let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
+                //         $.each(jsonData, function(i, jadwal) {
+                //             select += `<option value='${jadwal.id_jadwal}'>`
+                //             + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
+                //             + `${jadwal.jadwal_selesai.substring(0, 5)}`
+                //             + "</option>";
+                //         });
+                //         select += "</select>";
+                //         $("#courses-session").html(select);
+                //     }
+                // );
 
-                // Enable dropdown session saat JSON selesai diload.
-                $("#courses-session").removeAttr("disabled");
+                // // Enable dropdown session saat JSON selesai diload.
+                // $("#courses-session").removeAttr("disabled");
 
                 // Hide dan show foto mahasiswa
                 $.getJSON(

@@ -23,7 +23,7 @@ class SchedulesStudentController extends Controller
     public function index()
     {
         $this->dataView['nama_kursus'] = Course::paginate(4);
-        $this->dataView['id_kursus'] = Schedules::all();
+        // $this->dataView['id_kursus'] = Course::all();
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
         
         return view('student.main.schedules.index', $this->dataView);

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Abstrak;
 use App\Models\Admin;
+use App\Models\Ijazah;
+use App\Models\TranskripNilai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AbstrakAdminController extends Controller
+class PenerjemahanAdminController extends Controller
 {
     public function __construct()
     {
@@ -23,6 +25,8 @@ class AbstrakAdminController extends Controller
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['data_abstract'] = Abstrak::all();
+        $this->dataView['data_transkrip_nilai'] = TranskripNilai::all();
+        $this->dataView['data_ijazah'] = Ijazah::all();
 
         return view('admin.main.abstract_admin.index', $this->dataView);
     }
@@ -108,9 +112,14 @@ class AbstrakAdminController extends Controller
         Abstrak::where('id_abstrak', $id_abstrak)
             ->where('mahasiswa_id', $id_mahasiswa)
             ->update([
-                'path_file_abstrak_admin' => $request->path_file_abstrak_admin->storeAs(
+                'path_file_abstrak_admin_word' => $request->path_file_abstrak_admin_word->storeAs(
                     'dokumen/dokumen-abstrak/admin/', 
-                    $request->path_file_abstrak_admin->getClientOriginalName(), 
+                    $request->path_file_abstrak_admin_word->getClientOriginalName(), 
+                    'public'
+                ),
+                'path_file_abstrak_admin_pdf' => $request->path_file_abstrak_admin_pdf->storeAs(
+                    'dokumen/dokumen-abstrak/admin/', 
+                    $request->path_file_abstrak_admin_pdf->getClientOriginalName(), 
                     'public'
                 ),
                 'status' => 'verified',
@@ -129,6 +138,28 @@ class AbstrakAdminController extends Controller
                 ->first();
             
             return response()->json($abstrak);
+        }
+        // Jika request bukan ajax, throw halaman 403.
+        return abort(403);
+    }
+
+    public function changeStatusToChecked(Request $request)
+    {
+        // Jika request ajax
+        if ($request->ajax()) {
+            if ($request->layanan === 'transkrip_nilai') {
+                $transkripNilai = tap(TranskripNilai::where('id_transkrip_nilai', $request->id))
+                ->update(['status' => 'checked'])
+                ->first();
+            
+                return response()->json($transkripNilai);
+            } elseif ($request->layanan === 'ijazah') {
+                $ijazah = tap(Ijazah::where('id_ijazah', $request->id))
+                ->update(['status' => 'checked'])
+                ->first();
+            
+                return response()->json($ijazah);
+            }
         }
         // Jika request bukan ajax, throw halaman 403.
         return abort(403);

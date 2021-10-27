@@ -15,4 +15,9 @@ class Admin extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'user_id');
     }
+
+    public function berita()
+    {
+        return $this->hasMany(News::class, 'admin_id', 'id_admin');
+    }
 }

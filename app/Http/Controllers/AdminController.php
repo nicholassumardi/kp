@@ -6,7 +6,7 @@ use App\Models\Admin;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Mahasiswa;
-use App\Models\Schedules;
+// use App\Models\Schedules;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +26,8 @@ class AdminController extends Controller
     public function index()
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
-        $this->dataView['data_kursus'] = Schedules::get();
+        // $this->dataView['data_kursus'] = Schedules::get();
+        $this->dataView['data_kursus'] = Course::all();
         $this->dataView['kursus_count'] = Course::count();
         $this->dataView['kursus_aktif_count'] = Course::where('status', 1)->count();
         $this->dataView['mahasiswa_count'] = Mahasiswa::count();
@@ -74,11 +75,12 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_jadwal, $id_kursus)
+    // public function edit($id_jadwal, $id_kursus)
+    public function edit($id_kursus)
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['kursus'] = Course::where('id_kursus', $id_kursus)->first();
-        $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id_jadwal)->where('kursus_id', $id_kursus)->first();
+        // $this->dataView['jadwal'] = Schedules::where('id_jadwal', $id_jadwal)->where('kursus_id', $id_kursus)->first();
         $this->dataView['mahasiswa_count'] = count($this->dataView['kursus']->mahasiswa);
 
         return view('admin.main.dashboard_admin.edit', $this->dataView);
@@ -93,7 +95,6 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id_mahasiswa, $id_kursus)
     {
-
         CourseDetail::where('mahasiswa_id', $id_mahasiswa)
             ->where('kursus_id', $id_kursus)
             ->update(['status_verifikasi' => 1]);

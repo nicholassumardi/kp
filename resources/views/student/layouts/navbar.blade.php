@@ -21,7 +21,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{request()->is('profile') ? ' active' : ''}}" href={{route('profileStudent.show', Auth::id())}}>
+                        <a class="nav-link {{request()->is('profileStudent/' . Auth::id()) ? ' active' : ''}}" href={{route('profileStudent.show', Auth::id())}}>
                             <i class="ni ni-single-02 text-yellow"></i>
                             <span class="nav-link-text">Profile</span>
                         </a>
@@ -33,15 +33,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('register_test') ? ' active' : ''}}" href="/registerCourses">
+                        <a class="nav-link  {{request()->is('registerCourses') ? ' active' : ''}}" href="/registerCourses">
                             <i class="ni ni-ruler-pencil text-pink"></i>
                             <span class="nav-link-text">Register Course</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('abstract-student') ? ' active' : ''}}" href="{{route('abstract-student.index')}}">
+                        <a class="nav-link  {{request()->is('penerjemahan-student') ? ' active' : ''}}" href="{{route('penerjemahan-student.index')}}">
                             <i class="ni ni-sound-wave text-teal"></i>
-                            <span class="nav-link-text">Abstract</span>
+                            <span class="nav-link-text">Penerjemahan</span>
                         </a>
                     </li>
                 </ul>

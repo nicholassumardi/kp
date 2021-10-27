@@ -60,6 +60,28 @@ Course
                         </div>
 
                     </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>Number of Participant <span class="text-danger">*</span></h4>
+                        </label>
+    
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control" name="batas_partisipan" required>
+                        </div>
+    
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h4>WA/ Telegram/ GC Link <span class="text-danger"></span></h4>
+                        </label>
+    
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="group_link">
+                        </div>
+    
+                    </div>
                 </div>
 
                 <div class="card-footer">

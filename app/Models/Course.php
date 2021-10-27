@@ -21,7 +21,7 @@ class Course extends Model
     public function mahasiswa()
     {
         return $this->belongsToMany(Mahasiswa::class, 'detail_kursus', 'kursus_id', 'mahasiswa_id')
-            ->withPivot('jadwal_id', 'path_foto_kuitansi', 'path_foto_mahasiswa', 'path_foto_sertifikat', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'path_foto_sertifikat', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
     }
 
     // public function jdwl()

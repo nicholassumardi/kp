@@ -21,13 +21,13 @@ Students Data
                     <h3>{{$kursus->nama_kursus}}</h3>
                 </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col">
                     <p>{{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_mulai)->format('H:i')}}
                         -
                         {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_selesai)->format('H:i')}}</p>                    
                 </div>
-            </div>
+            </div> --}}
         </div>
 
 
@@ -48,7 +48,7 @@ Students Data
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($jadwal->mahasiswa as $key => $mahasiswa)
+                        @foreach ($kursus->mahasiswa as $key => $mahasiswa)
                         <tr>
                             <td class="align-middle">{{$mahasiswa->nama}}</td>
 

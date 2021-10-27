@@ -49,6 +49,8 @@ class CourseAdminController extends Controller
             'nama_kursus' => 'required',
             'status' => 'required',
             'sertifikat' => 'required',
+            'batas_partisipan' => 'required',
+            'group_link' => 'required'
         ]);
 
         $idAdmin = Admin::where('user_id', Auth::id())->first();
@@ -58,8 +60,9 @@ class CourseAdminController extends Controller
             'nama_kursus' => $request->nama_kursus,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'sertifikat' => $request->sertifikat
-
+            'sertifikat' => $request->sertifikat,
+            'batas_partisipan' => $request->batas_partisipan,
+            'group_link' => $request->group_link
         ]);
 
         return redirect()->route('addCourse.index')
@@ -87,6 +90,7 @@ class CourseAdminController extends Controller
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         $this->dataView['dataKursus'] = Course::where('id_kursus', $id)->first();
+
         return view('admin.main.courses_admin.courses.edit', $this->dataView);
     }
 
@@ -103,7 +107,10 @@ class CourseAdminController extends Controller
             'nama_kursus' => 'required',
             'status' => 'required',
             'sertifikat' => 'required',
+            'batas_partisipan' => 'required',
+            'group_link' => 'required'
         ]);
+
         $idAdmin = Admin::where('user_id', Auth::id())->first();
 
         Course::where('id_kursus', $id)->update([
@@ -111,8 +118,11 @@ class CourseAdminController extends Controller
             'nama_kursus' => $request->nama_kursus,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'sertifikat' => $request->sertifikat
+            'sertifikat' => $request->sertifikat,
+            'batas_partisipan' => $request->batas_partisipan,
+            'group_link' => $request->group_link
         ]);
+
         return redirect()->route('addCourse.index')
             ->with('success', 'Course updated successfully.');
     }

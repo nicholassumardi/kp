@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use Illuminate\Http\Request;
 
-class FrontPages extends Controller
+class FrontpagesController extends Controller
 {
     public function __construct()
     {

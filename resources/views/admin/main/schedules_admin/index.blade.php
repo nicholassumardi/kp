@@ -20,7 +20,7 @@ Schedules
                         <tr>
                             <th>Course Name</th>
                             <th>Description</th>
-                            <th>Schedules</th>
+                            {{-- <th>Schedules</th> --}}
                             <th>Maximum Participants</th>
                             <th>Action</th>
                         </tr>
@@ -29,15 +29,15 @@ Schedules
                         @foreach ($nama_kursus as $key => $nk)
 
                         <tr>
-                            <td>{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</td>
-                            <td>{{ $nk->deskripsi }}</td>
-                            <td>{{$jadwal[$key]->hari}},
+                            <td class="text-center">{{$nk->nama_kursus}} @if (isset($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</td>
+                            <td class="text-center">{{ $nk->deskripsi }}</td>
+                            {{-- <td>{{$jadwal[$key]->hari}},
                                 {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal[$key]->jadwal_mulai)->format('H:i')}}
                                 -
                                 {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal[$key]->jadwal_selesai)->format('H:i')}}
-                            </td>
+                            </td> --}}
 
-                            <td>{{ $jadwal[$key]->batas_partisipan }}</td>
+                            <td class="text-center">{{ $jadwal[$key]->batas_partisipan }}</td>
 
                             <td class="d-flex justify-content-center">
                                 <a href="{{route('schedules.edit',$jadwal[$key]->id_jadwal)}}"
@@ -46,7 +46,7 @@ Schedules
                                 <form action="{{route('schedules.destroy',$jadwal[$key]->id_jadwal)}}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary"><i
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary button-delete"><i
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form>
                             </td>
@@ -64,6 +64,34 @@ Schedules
     $(function () {
         // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
         $("#dataTable").removeClass("invisible");
+    });
+
+    $(function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+
+        // Button Delete
+        $("#dataTable").on("click", ".button-delete", function () {
+            swalWithBootstrapButtons.fire({
+                title: "Delete berita?",
+                text: "Apakah anda yakin ingin melakukan delete pada jadwal ini?",
+                icon: "warning",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Ya!",
+                cancelButtonText: "Batal!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
     });
 </script>
 @endpush
