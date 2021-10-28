@@ -27,6 +27,9 @@ class PenerjemahanAdminController extends Controller
         $this->dataView['data_abstract'] = Abstrak::all();
         $this->dataView['data_transkrip_nilai'] = TranskripNilai::all();
         $this->dataView['data_ijazah'] = Ijazah::all();
+        $this->dataView['abstrak_count'] = count($this->dataView['data_abstract']);
+        $this->dataView['transkrip_nilai_count'] = count($this->dataView['data_transkrip_nilai']);
+        $this->dataView['ijazah_count'] = count($this->dataView['data_ijazah']);
 
         return view('admin.main.abstract_admin.index', $this->dataView);
     }

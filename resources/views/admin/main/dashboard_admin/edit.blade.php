@@ -38,6 +38,7 @@ Students Data
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Card Number</th>
                             <th>Year</th>
                             <th>Status</th>
                             <th>Payment Proof (Receipt)</th>
@@ -52,6 +53,8 @@ Students Data
                         <tr>
                             <td class="align-middle">{{$mahasiswa->nama}}</td>
 
+                            <td class="align-middle">{{$mahasiswa->pivot->nomor_kartu_mahasiswa}}</td>
+
                             <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
                             </td>
 
@@ -59,14 +62,14 @@ Students Data
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td align-middle><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
 
-                            <td align-middle><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
                                 class="text-center customfotoprofile"></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td align-middle class="text-center"><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                            <td class="align-middle text-center"><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
 

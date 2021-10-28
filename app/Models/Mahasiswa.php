@@ -26,10 +26,12 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(Abstrak::class, 'mahasiswa_id', 'id_mahasiswa');
     }
+
     public function transkripnilai()
     {
         return $this->hasMany(TranskripNilai::class, 'mahasiswa_id', 'id_mahasiswa');
     }
+    
     public function ijazah()
     {
         return $this->hasMany(ijazah::class, 'mahasiswa_id', 'id_mahasiswa');

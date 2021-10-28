@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Mahasiswa;
-use App\Models\ProofOfPayment;
 use App\Models\Schedules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +26,7 @@ class CourseStudentController extends Controller
         // $this->dataView['jadwal'] = Schedules::where('kursus_id', Course::min('id_kursus'))->get();
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
         $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();
+
         return view('student.main.register_student.create', $this->dataView);
     }
 
@@ -76,17 +76,35 @@ class CourseStudentController extends Controller
                         ],
                         ['image/jpeg', 'image/png']
                     )) {
-                        CourseDetail::create([
-                            'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-                            'kursus_id' => $request->kursus_id,
-                            // 'jadwal_id' => $request->jadwal_id,
-                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
-                            'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
-                            'path_foto_sertifikat' => $request->path_foto_sertifikat->store('images/foto-sertifikat/', 'public'),
-                        ]);
+                        $nomorKartuMahasiswa = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        
+                        // Jika kursus belum memiliki mahasiswa yang mendaftar
+                        if ($nomorKartuMahasiswa !== null) {
+                            CourseDetail::create([
+                                'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                                'kursus_id' => $request->kursus_id,
+                                'no_kartu_mahasiswa' => $nomorKartuMahasiswa + 1,
+                                // 'jadwal_id' => $request->jadwal_id,
+                                'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                                'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                                'path_foto_sertifikat' => $request->path_foto_sertifikat->store('images/foto-sertifikat/', 'public'),
+                            ]);
+                        } 
+                        // Jika kursus sudah memiliki mahasiswa yang mendaftar
+                        else {
+                            CourseDetail::create([
+                                'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                                'kursus_id' => $request->kursus_id,
+                                'no_kartu_mahasiswa' => 1,
+                                // 'jadwal_id' => $request->jadwal_id,
+                                'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                                'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                                'path_foto_sertifikat' => $request->path_foto_sertifikat->store('images/foto-sertifikat/', 'public'),
+                            ]);
+                        }
 
                         // Tambahkan jumlah partisipan saat ini
-                        Schedules::where('id_kursus', $request->kursus_id)
+                        Course::where('id_kursus', $request->kursus_id)
                             ->update(['partisipan_saat_ini' => $kursus->partisipan_saat_ini + 1]);
                     }
                     // Jika format foto salah
@@ -105,16 +123,33 @@ class CourseStudentController extends Controller
                         ],
                         ['image/jpeg', 'image/png']
                     )) {
-                        CourseDetail::create([
-                            'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-                            'kursus_id' => $request->kursus_id,
-                            // 'jadwal_id' => $request->jadwal_id,
-                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
-                            'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
-                        ]);
+                        $nomorKartuMahasiswa = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        
+                        // Jika kursus belum memiliki mahasiswa yang mendaftar
+                        if ($nomorKartuMahasiswa !== null) {
+                            CourseDetail::create([
+                                'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                                'kursus_id' => $request->kursus_id,
+                                'no_kartu_mahasiswa' => $nomorKartuMahasiswa + 1,
+                                // 'jadwal_id' => $request->jadwal_id,
+                                'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                                'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                            ]);
+                        } 
+                        // Jika kursus sudah memiliki mahasiswa yang mendaftar
+                        else {
+                            CourseDetail::create([
+                                'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                                'kursus_id' => $request->kursus_id,
+                                'no_kartu_mahasiswa' => 1,
+                                // 'jadwal_id' => $request->jadwal_id,
+                                'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
+                                'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
+                            ]);
+                        }
 
                         // Tambahkan jumlah partisipan saat ini
-                        Schedules::where('id_kursus', $request->kursus_id)
+                        Course::where('id_kursus', $request->kursus_id)
                             ->update(['partisipan_saat_ini' => $kursus->partisipan_saat_ini + 1]);
                     }
                     // Jika format foto salah

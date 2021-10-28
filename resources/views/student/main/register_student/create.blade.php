@@ -13,6 +13,9 @@ Register Courses
                     <h2 class="mb-0">Register</h2>
                 </div>
 
+                {{-- Jika admin sudah membuat kursus --}}
+                @if ($kursus_index_pertama !== null)
+
                 <form action="{{ route('registerCourses.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
@@ -98,6 +101,15 @@ Register Courses
                         </div>
                     </div>
                 </form>
+
+                {{-- Jika admin belum membuat kursus --}}
+                @else
+                <div class="card-body">
+                    <h3 class="text-center">Maaf, belum ada kursus yang terdaftar saat ini.</h3>                    
+                </div>
+                @endif
+                
+               
             </div>
         </div>
     </div>
@@ -150,9 +162,7 @@ Register Courses
                             containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
                             containerFotoMahasiswa.removeClass("mb-4").addClass("mb-5");
                             containerSertifikat.addClass("d-none");
-                            jsPathFotoSertifikat.removeAttr('required');
-
-                            
+                            jsPathFotoSertifikat.removeAttr('required');                            
                         }
                     }
                 );

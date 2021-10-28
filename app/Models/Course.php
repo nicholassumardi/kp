@@ -13,10 +13,10 @@ class Course extends Model
     protected $guarded = [];
 
 
-    public function jadwal()
-    {
-        return $this->hasMany(Schedules::class, 'kursus_id', 'id_kursus');
-    }
+    // public function jadwal()
+    // {
+    //     return $this->hasMany(Schedules::class, 'kursus_id', 'id_kursus');
+    // }
 
     public function mahasiswa()
     {

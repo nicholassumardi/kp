@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileMahasiswaController;
 use App\Http\Controllers\SchedulesController;
 use App\Http\Controllers\SchedulesStudentController;
+use App\Http\Controllers\StudentListController;
 use App\Http\Controllers\SuperAdminController;
 
 /*
@@ -59,6 +60,8 @@ Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'updat
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
+Route::get('studentList', [StudentListController::class, 'index'])->name('studentList.index');
+Route::get('studentList/{year}', [StudentListController::class, 'changeYear'])->name('studentList.changeYear');
 Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
 Route::resource('addNews', NewsController::class);

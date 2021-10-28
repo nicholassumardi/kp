@@ -24,10 +24,11 @@ Penerjemahan
                             <th>Status</th>
                             <th>File</th>
                             <th>Action</th>
+                            <th>asd</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data_abstract as $abstract)
+                        @foreach ($data_abstract as $key => $abstract)
                         <tr>
                             <td class="text-center">Abstract</td>
                             <td class="text-center">{{ $abstract->mahasiswa->nama }}</td>
@@ -46,34 +47,59 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($abstract->path_file_abstrak_mahasiswa) }}
                             </td>
-                            <td class="d-flex justify-content-center">
+                            <td class="">
                                 {{-- <form
                                     action="{{route('abstract-admin.changeStatus', ['id_abstrak' => $abstract->id_abstrak, 'id_mahasiswa' => $abstract->mahasiswa_id])}}"
-                                method="POST">
-                                @method('PATCH')
-                                @csrf --}}
+                                    method="POST">
+                                    @method('PATCH')
+                                    @csrf --}}
 
-                                <a href="{{ asset('storage/' . $abstract->path_file_abstrak_mahasiswa) }}"
-                                    class="btn btn-sm btn-outline-secondary js-btn-download-abstrak"
-                                    data-id="{{ $abstract->id_abstrak }}"><i class="bi bi-download text-gray"></i></a>
+                                    <a href="{{ asset('storage/' . $abstract->path_file_abstrak_mahasiswa) }}"
+                                        class="btn btn-sm btn-outline-secondary js-btn-download-abstrak"
+                                        data-id="{{ $abstract->id_abstrak }}"><i
+                                            class="bi bi-download text-gray"></i></a>
 
 
 
-                                <a href="{{route('penerjemahan-admin.editPage', ['id_penerjemahan' => $abstract->id_abstrak, 'id_mahasiswa' => $abstract->mahasiswa_id])}}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-pen-fill text-green"></i></a>
+                                    <a href="{{route('penerjemahan-admin.editPage', ['id_penerjemahan' => $abstract->id_abstrak, 'id_mahasiswa' => $abstract->mahasiswa_id])}}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-pen-fill text-green"></i></a>
 
-                                <form action="" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-trash2-fill text-red"></i></button>
-                                </form>
+                                    <form action="" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary"><i
+                                                class="bi bi-trash2-fill text-red"></i></button>
+                                    </form>
                             </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $abstrak_count))
+                            <td class="align-middle" rowspan="2">
+                                {{-- <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                                        asd
+
+                            </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_count))
+                            <td class="align-middle">
+                                {{-- <a
+                                    href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                                qwe
+                            </td>
+                            {{-- Jika data berada pada index ganjil. --}}
+                            @else
+                            <td class="d-none"></td>
+                            @endif
                         </tr>
+
                         @endforeach
 
-                        @foreach ($data_transkrip_nilai as $transkrip_nilai)
+                        @foreach ($data_transkrip_nilai as $key => $transkrip_nilai)
                         <tr>
                             <td class="text-center">Transkrip Nilai</td>
                             <td class="text-center">{{ $transkrip_nilai->mahasiswa->nama }}</td>
@@ -95,7 +121,8 @@ Penerjemahan
                             <td class="d-flex justify-content-center">
                                 <a href="{{ asset('storage/' . $transkrip_nilai->path_file_transkrip_nilai) }}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai"
-                                    data-id="{{ $transkrip_nilai->id_transkrip_nilai}}"><i class="bi bi-download text-gray"></i></a>
+                                    data-id="{{ $transkrip_nilai->id_transkrip_nilai}}"><i
+                                        class="bi bi-download text-gray"></i></a>
 
 
                                 <form action="" method="POST">
@@ -105,10 +132,35 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form>
                             </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $transkrip_nilai_count))
+                            <td class="align-middle" rowspan="2">
+                                {{-- <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                                        asd
+
+                            </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $transkrip_nilai_count))
+                            <td class="align-middle">
+                                {{-- <a
+                                    href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                                qwe
+                            </td>
+                            {{-- Jika data berada pada index ganjil. --}}
+                            @else
+                            <td class="d-none"></td>
+                            @endif
                         </tr>
+
+
                         @endforeach
 
-                        @foreach ($data_ijazah as $ijazah)
+                        @foreach ($data_ijazah as $key=> $ijazah)
                         <tr>
                             <td class="text-center">Ijazah</td>
                             <td class="text-center">{{ $ijazah->mahasiswa->nama }}</td>
@@ -140,6 +192,29 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form>
                             </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $ijazah_count))
+                            <td class="align-middle" rowspan="2">
+                                {{-- <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                                        asd
+
+                            </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $ijazah_count))
+                            <td class="align-middle">
+                                {{-- <a
+                                    href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                                qwe
+                            </td>
+                            {{-- Jika data berada pada index ganjil. --}}
+                            @else
+                            <td class="d-none"></td>
+                            @endif
                         </tr>
                         @endforeach
 

@@ -34,13 +34,18 @@
                             <span class="nav-link-text">Course</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {{request()->is('studentList') ? ' active' : ''}}" href="{{route('studentList.index')}}">
+                            <i class="bi bi-people text-green"></i>
+                            <span class="nav-link-text">Student List</span>
+                        </a>
+                    </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link  {{request()->is('schedules') ? ' active' : ''}}" href="{{route('schedules.index')}}">
                             <i class="ni ni-calendar-grid-58 text-green"></i>
                             <span class="nav-link-text">Schedules</span>
                         </a>
                     </li> --}}
-                   
                     <li class="nav-item">
                         <a class="nav-link  {{request()->is('addNews') ? ' active' : ''}}" href="{{route('addNews.index')}}">
                             <i class="bi bi-newspaper text-gray"></i>
