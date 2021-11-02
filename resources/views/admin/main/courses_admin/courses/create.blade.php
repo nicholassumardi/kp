@@ -78,7 +78,7 @@ Course
                         </label>
     
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="group_link">
+                            <input type="text" class="form-control" name="group_link" required>
                         </div>
     
                     </div>

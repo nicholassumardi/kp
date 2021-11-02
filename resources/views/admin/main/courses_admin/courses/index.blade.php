@@ -1,6 +1,6 @@
 @extends('admin/layouts/app')
 @section('path')
-Profile
+Course
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
@@ -39,12 +39,17 @@ Profile
                                     {{$da->status==1?'Active':'Inactive'}}</li>
                             </td>
 
-                            <td class="text-center">
+                            <td class="d-flex justify-content-center">
                                 <a href="{{route('addCourse.edit',$da->id_kursus)}}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-pen-fill text-green"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-trash2-fill text-red"></i></a>
+                                <form action="{{route('addCourse.deactive',$da->id_kursus)}}" method="post">
+                                    @method('PATCH')
+                                    @csrf
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
+
                             </td>
                         </tr>
                         @endforeach
@@ -63,6 +68,35 @@ Profile
     $(function () {
         // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
         $("#dataTable").removeClass("invisible");
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+
+        // Button Delete
+        $("#dataTable").on("click", ".js-button-submit", function () {
+            swalWithBootstrapButtons.fire({
+                title: "Deactive Course?",
+                text: "Are you sure want to make change to this course ?",
+                icon: "warning",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes!",
+                cancelButtonText: "Cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
     });
+   
+       
+
 </script>
 @endpush

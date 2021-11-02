@@ -60,14 +60,19 @@ Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'updat
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
+Route::patch('deactive-course/{id_kursus}', [CourseAdminController::class, 'deactiveCourse'])->name('addCourse.deactive');
 Route::get('studentList', [StudentListController::class, 'index'])->name('studentList.index');
-Route::get('studentList/{year}', [StudentListController::class, 'changeYear'])->name('studentList.changeYear');
+Route::get('studentList/{year}/{id_kursus}', [StudentListController::class, 'changeYear'])->name('studentList.changeYear');
 Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
+Route::get('PdfDemo/{id_abstract}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF2'])->name('generate2.pdf');
+Route::get('PdfDemo/{id_transkrip_nilai}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF3'])->name('generate3.pdf');
+Route::get('PdfDemo/{id_ijazah}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF4'])->name('generate4.pdf');
 Route::resource('addNews', NewsController::class);
 Route::resource('penerjemahan-admin', PenerjemahanAdminController::class);
 Route::get('penerjemahan-admin/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPage'])->name('penerjemahan-admin.editPage');
 Route::patch('penerjemahan-admin/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartial'])->name('penerjemahan-admin.updatePartial');
+
 
 // SUPER ADMIN
 Route::resource('super-admin', SuperAdminController::class);

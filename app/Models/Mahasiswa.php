@@ -19,7 +19,7 @@ class Mahasiswa extends Model
     public function kursus()
     {
         return $this->belongsToMany(Course::class, 'detail_kursus', 'mahasiswa_id', 'kursus_id')
-            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar', 'created_at', 'updated_at');
+            ->withPivot('path_foto_kuitansi', 'path_foto_mahasiswa', 'status_verifikasi', 'komentar','no_kartu_mahasiswa', 'created_at', 'updated_at');
     }
 
     public function abstrak()
@@ -34,6 +34,10 @@ class Mahasiswa extends Model
     
     public function ijazah()
     {
-        return $this->hasMany(ijazah::class, 'mahasiswa_id', 'id_mahasiswa');
+        return $this->hasMany(Ijazah::class, 'mahasiswa_id', 'id_mahasiswa');
+    }
+    public function jurnal()
+    {
+        return $this->hasMany(Jurnal::class, 'mahasiswa_id', 'id_mahasiswa');
     }
 }

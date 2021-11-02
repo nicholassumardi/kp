@@ -53,7 +53,7 @@ Students Data
                         <tr>
                             <td class="align-middle">{{$mahasiswa->nama}}</td>
 
-                            <td class="align-middle">{{$mahasiswa->pivot->nomor_kartu_mahasiswa}}</td>
+                            <td class="align-middle">{{$mahasiswa->pivot->no_kartu_mahasiswa}}</td>
 
                             <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
                             </td>

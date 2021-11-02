@@ -137,4 +137,13 @@ class CourseAdminController extends Controller
     {
         //
     }
+
+    public function deactiveCourse($id_kursus)
+    {
+        Course::where('id_kursus', $id_kursus)->update([
+            'status' => 0
+        ]);
+        return redirect()->route('addCourse.index')
+            ->with('success', 'Course deactivated successfully.');
+    }
 }

@@ -17,16 +17,25 @@ Student List
                         @php
                             $min_year = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $min_year)->year;
                             $max_year = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $max_year)->year;
+                            $dropdownSudahTerpilih = [];
                         @endphp
 
-                        <select name="" id="sort-year">
+                        <select class="form-control" name="" id="sort-year">
                             @for ($i = $max_year; $i >= $min_year; $i--)
-                                {
-                                @if (strval($i) === strval($year_selected))
-                                    <option value="{{ $i }}" selected>{{ $i }}</option>
-                                @else
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endif
+                                @foreach ($data_kursus as $kursus)
+                                    @foreach ($data_detail_kursus as $detail_kursus)
+                                        @if (strval($i) === strval(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $detail_kursus->created_at)->year) && strval($detail_kursus->kursus_id) === strval($kursus->id_kursus))
+                                            @if ( ! in_array(strval($i . $detail_kursus->kursus_id), $dropdownSudahTerpilih))
+                                                @php array_push($dropdownSudahTerpilih, strval($i . $detail_kursus->kursus_id)); @endphp
+                                                @if (strval($i) === strval($year_selected) && strval($id_kursus_selected) === strval($kursus->id_kursus))
+                                                    <option value="{{ $i }} {{ $kursus->id_kursus }}" selected>{{ $i }} - {{ $kursus->nama_kursus }}</option>
+                                                @else
+                                                    <option value="{{ $i }} {{ $kursus->id_kursus }}">{{ $i }} - {{ $kursus->nama_kursus }}</option>
+                                                @endif
+                                            @endif
+                                        @endif
+                                    @endforeach                                    
+                                @endforeach
                             @endfor
                         </select>
                     </div>
@@ -44,29 +53,15 @@ Student List
                             </div>
                         </div>
                         @foreach ($data_mahasiswa as $mahasiswa)    
-                        <div class="row">
-                            <div class="col">
-                                <h3 class="mb-0">{{ $mahasiswa->nama }} </h3>
+                            <div class="row">
+                                <div class="col">
+                                    <h3 class="mb-0">{{ $mahasiswa->nama }} </h3>
+                                </div>
+                                <div class="col">
+                                    <h3 class="mb-0">{{ $mahasiswa->npm }}</h3>
+                                </div>
                             </div>
-                            <div class="col">
-                                <h3 class="mb-0">{{ $mahasiswa->npm }}</h3>
-                            </div>
-                        </div>
                         @endforeach
-
-                        {{-- <div class="row mt-5 justify-content-center">
-                            <div class="col-xl-10">
-                                <label for="form-control">Courses</label>
-
-                                <select class="form-control" id="courses-dropdown" name="kursus_id">
-                                    @foreach ($nama_kursus as $nk)
-                                    <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}} @if(isset
-                                        ($nk->tipe_kursus)) {{ '- ' . $nk->tipe_kursus }} @endif</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-
 
                     </div>
                 </div>
@@ -82,9 +77,11 @@ Student List
     $(function() {
         // Ubah dropdown year
         $("#sort-year").on("change", function() {
-            const year = $(this).val();
-            
-            location.href = `/studentList/${ year }`;
+            const params = $(this).val();
+            const year =  params.substring(0,4);
+            const id_kursus = params.substring(5,6);
+        
+            location.href = `/studentList/${year}/${id_kursus}`;
         });
     });
 </script>

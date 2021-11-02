@@ -24,7 +24,7 @@ Penerjemahan
                             <th>Status</th>
                             <th>File</th>
                             <th>Action</th>
-                            <th>asd</th>
+                            <th>Print</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,20 +76,19 @@ Penerjemahan
                             {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
                             @if (($key % 2 === 0) && ($key + 1 !== $abstrak_count))
                             <td class="align-middle" rowspan="2">
-                                {{-- <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                {{-- <a href="{{ route('generate2.pdf', ['id_abstrak' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id, 'id_mahasiswa_dua' => $abstract->get($key + 1)->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a> --}}
-                                        asd
+                             
 
                             </td>
                             {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
                             @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_count))
                             <td class="align-middle">
-                                {{-- <a
-                                    href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                {{-- <a href="{{ route('generate2.pdf', ['id_abstrak' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a> --}}
-                                qwe
+                        
                             </td>
                             {{-- Jika data berada pada index ganjil. --}}
                             @else
@@ -118,11 +117,11 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($transkrip_nilai->path_file_transkrip_nilai) }}
                             </td>
-                            <td class="d-flex justify-content-center">
-                                <a href="{{ asset('storage/' . $transkrip_nilai->path_file_transkrip_nilai) }}"
+                            <td class="">
+                                {{-- <a href="{{ asset('storage/' . $transkrip_nilai->path_file_transkrip_nilai) }}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai"
                                     data-id="{{ $transkrip_nilai->id_transkrip_nilai}}"><i
-                                        class="bi bi-download text-gray"></i></a>
+                                        class="bi bi-download text-gray"></i></a> --}}
 
 
                                 <form action="" method="POST">
@@ -136,20 +135,19 @@ Penerjemahan
                             {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
                             @if (($key % 2 === 0) && ($key + 1 !== $transkrip_nilai_count))
                             <td class="align-middle" rowspan="2">
-                                {{-- <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                {{-- <a href="{{ route('generate3.pdf', ['id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id, 'id_mahasiswa_dua' =>  $transkrip_nilai->get($key + 1)->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a> --}}
-                                        asd
+                               
 
                             </td>
                             {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
                             @elseif (($key % 2 === 0) && ($key + 1 === $transkrip_nilai_count))
                             <td class="align-middle">
-                                {{-- <a
-                                    href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                {{-- <a href="{{ route('generate3.pdf', ['id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a> --}}
-                                qwe
+                             
                             </td>
                             {{-- Jika data berada pada index ganjil. --}}
                             @else
@@ -179,7 +177,7 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($ijazah->path_file_ijazah) }}
                             </td>
-                            <td class="d-flex justify-content-center">
+                            <td class="">
                                 <a href="{{ asset('storage/' . $ijazah->path_file_ijazah) }}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-ijazah"
                                     data-id="{{ $ijazah->id_ijazah}}"><i class="bi bi-download text-gray"></i></a>
@@ -196,20 +194,19 @@ Penerjemahan
                             {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
                             @if (($key % 2 === 0) && ($key + 1 !== $ijazah_count))
                             <td class="align-middle" rowspan="2">
-                                {{-- <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                {{-- <a href="{{ route('generate4.pdf', ['id_ijazah' => $ijazah->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id, 'id_mahasiswa_dua' => $ijazah->get($key + 1)->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a> --}}
-                                        asd
+
 
                             </td>
                             {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
                             @elseif (($key % 2 === 0) && ($key + 1 === $ijazah_count))
                             <td class="align-middle">
-                                {{-- <a
-                                    href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                {{-- <a href="{{ route('generate4.pdf', ['id_kursus' => $ijazah->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a> --}}
-                                qwe
+                    
                             </td>
                             {{-- Jika data berada pada index ganjil. --}}
                             @else
