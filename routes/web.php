@@ -70,8 +70,10 @@ Route::get('PdfDemo/{id_transkrip_nilai}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}
 Route::get('PdfDemo/{id_ijazah}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF4'])->name('generate4.pdf');
 Route::resource('addNews', NewsController::class);
 Route::resource('penerjemahan-admin', PenerjemahanAdminController::class);
-Route::get('penerjemahan-admin/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPage'])->name('penerjemahan-admin.editPage');
-Route::patch('penerjemahan-admin/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartial'])->name('penerjemahan-admin.updatePartial');
+Route::get('penerjemahan-admin-abstrak-edit/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageAbstrak'])->name('penerjemahan-admin.editPageAbstrak');
+Route::get('penerjemahan-admin-jurnal-edit/{id_jurnal}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageJurnal'])->name('penerjemahan-admin.editPageJurnal');
+Route::patch('penerjemahan-admin-abstrak/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartialAbstrak'])->name('penerjemahan-admin.updatePartialAbstrak');
+Route::patch('penerjemahan-admin-jurnal/{id_jurnal}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartialJurnal'])->name('penerjemahan-admin.updatePartialJurnal');
 
 
 // SUPER ADMIN

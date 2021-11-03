@@ -28,5 +28,5 @@ Route::prefix('courses')->group(function () {
 });
 
 // Abstrak
-Route::post('abstrak-change-status', [PenerjemahanAdminController::class, 'changeStatusToPending']);
+Route::post('abstrak-jurnal-change-status', [PenerjemahanAdminController::class, 'changeStatusToPending']);
 Route::post('transkrip-ijazah-change-status', [PenerjemahanAdminController::class, 'changeStatusToChecked']);

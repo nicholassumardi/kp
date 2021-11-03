@@ -27,6 +27,7 @@ Register Courses
                                 <option value="transkripnilai">Transkrip Nilai</option>
                                 <option value="ijazah">Ijazah</option>
                                 <option value="transkripnilai_ijazah">Transkrip Nilai dan Ijazah</option>
+                                <option value="jurnal">Jurnal</option>
                             </select>
                         </div>
                     </div>
@@ -51,6 +52,16 @@ Register Courses
                         </div>
                     </div>
 
+                    <div class="row mt-3 mb-2 justify-content-center d-none" id="div-halaman-jurnal">
+                        <div class="col-xl-10">
+                            <label for="form-control">Jumlah Halaman</label>
+                            <input class="form-control customicon" type="number" name="jumlah_halaman_jurnal">
+                            <small class="form-text text-muted">
+                                * Jumlah halaman jurnal.
+                            </small>
+                        </div>
+                    </div>
+
                     <div class="row mt-3 mb-2 justify-content-center" id="div-bukti-pembayaran">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran</label>
@@ -67,7 +78,8 @@ Register Courses
                     <div class="row mt-3 mb-2 justify-content-center d-none" id="div-bukti-pembayaran-transkrip-nilai">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran Transkrip Nilai</label>
-                            <input class="form-control customicon" type="file" name="path_foto_kuitansi_transkrip_nilai">
+                            <input class="form-control customicon" type="file"
+                                name="path_foto_kuitansi_transkrip_nilai">
                             <small class="form-text text-muted">
                                 * Foto harus discan dan dalam keadaan
                                 landscape.
@@ -89,11 +101,12 @@ Register Courses
                             </small>
                         </div>
                     </div>
-                    
+
                     <div class="row mt-3 mb-5 justify-content-center" id="div-abstrak">
                         <div class="col-xl-10">
                             <label for="form-control">File Abstract</label>
-                            <input class="form-control customicon" type="file" name="path_file_abstrak_mahasiswa" required>
+                            <input class="form-control customicon" type="file" name="path_file_abstrak_mahasiswa"
+                                required>
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
                                 <br>
@@ -118,6 +131,18 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_ijazah">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-5 justify-content-center d-none" id="div-jurnal">
+                        <div class="col-xl-10">
+                            <label for="form-control">File Jurnal</label>
+                            <input class="form-control customicon" type="file" name="path_file_jurnal_mahasiswa">
+                            <small class="form-text text-muted">
+                                * File harus dalam format word (doc, docx).
+                                <br>
+                                * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>
                         </div>
                     </div>
@@ -147,11 +172,15 @@ Register Courses
             const divIjazah = $("#div-ijazah");
             const divBuktiPembayaranTranskripNilai = $("#div-bukti-pembayaran-transkrip-nilai");
             const divBuktiPembayaranIjazah = $("#div-bukti-pembayaran-ijazah");
+            const divJurnal = $("#div-jurnal");
+            const divHalamanJurnal = $("#div-halaman-jurnal");
 
             if (layananDropdown.val() === "abstrak") {
 
                 divAbstrak.removeClass("d-none");
                 divAbstrak.find("input").attr("required", "required");
+                
+                
                 
                 divTranskripNilai.addClass("d-none");
                 divTranskripNilai.find("input").removeAttr("required");
@@ -161,6 +190,10 @@ Register Courses
                 divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
                 divBuktiPembayaranIjazah.addClass("d-none");
                 divBuktiPembayaranIjazah.find("input").removeAttr("required");
+                divJurnal.addClass("d-none");
+                divJurnal.find("input").removeAttr("required");
+                divHalamanJurnal.addClass("d-none");
+                divHalamanJurnal.find("input").removeAttr("required");
 
             } else if (layananDropdown.val() === "transkripnilai") {
 
@@ -171,6 +204,7 @@ Register Courses
                 divBuktiPembayaran.removeClass("d-none");
                 divBuktiPembayaran.find("input").attr("required", "required");
                 
+                
                 divBuktiPembayaranTranskripNilai.addClass("d-none");
                 divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
                 divAbstrak.addClass("d-none");
@@ -179,6 +213,10 @@ Register Courses
                 divIjazah.find("input").removeAttr("required");
                 divBuktiPembayaranIjazah.addClass("d-none");
                 divBuktiPembayaranIjazah.find("input").removeAttr("required");
+                divJurnal.addClass("d-none");
+                divJurnal.find("input").removeAttr("required");
+                divHalamanJurnal.addClass("d-none");
+                divHalamanJurnal.find("input").removeAttr("required");
 
             } else if (layananDropdown.val() === "ijazah") {
 
@@ -195,6 +233,10 @@ Register Courses
                 divTranskripNilai.find("input").removeAttr("required");
                 divBuktiPembayaranTranskripNilai.addClass("d-none");
                 divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
+                divJurnal.addClass("d-none");
+                divJurnal.find("input").removeAttr("required");
+                divHalamanJurnal.addClass("d-none");
+                divHalamanJurnal.find("input").removeAttr("required");
 
             } else if (layananDropdown.val() === "transkripnilai_ijazah") {
 
@@ -213,6 +255,30 @@ Register Courses
                 divAbstrak.find("input").removeAttr("required");
                 divBuktiPembayaran.addClass("d-none");
                 divBuktiPembayaran.find("input").removeAttr("required");
+                divJurnal.addClass("d-none");
+                divJurnal.find("input").removeAttr("required");
+                divHalamanJurnal.addClass("d-none");
+                divHalamanJurnal.find("input").removeAttr("required");
+            }
+             else if (layananDropdown.val() === "jurnal") {
+               
+                divJurnal.removeClass("d-none");
+                divJurnal.find("input").attr("required", "required");
+                divHalamanJurnal.removeClass("d-none");
+                divHalamanJurnal.find("input").attr("required", "required");
+                divBuktiPembayaran.removeClass("d-none");
+                divBuktiPembayaran.find("input").attr("required", "required");
+                
+                divAbstrak.addClass("d-none");
+                divAbstrak.find("input").removeAttr("required");
+                divTranskripNilai.addClass("d-none");
+                divTranskripNilai.find("input").removeAttr("required");
+                divIjazah.addClass("d-none");
+                divIjazah.find("input").removeAttr("required");
+                divBuktiPembayaranTranskripNilai.addClass("d-none");
+                divBuktiPembayaranTranskripNilai.find("input").removeAttr("required");
+                divBuktiPembayaranIjazah.addClass("d-none");
+                divBuktiPembayaranIjazah.find("input").removeAttr("required");
 
             }
         });

@@ -17,20 +17,26 @@ class StudentListController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.admin')->only(['index']);
+        $this->middleware('auth.admin')->only(['index', 'changeYear']);
     }
 
     public function index()
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
+        $this->dataView['detail_kursus_count'] = CourseDetail::count();
+
+        // Jika belum ada mahasiswa yang mendaftar kursus
+        if ($this->dataView['detail_kursus_count'] === 0) {
+            return view('admin.main.student_list_admin.index', $this->dataView);
+        }
 
         $this->dataView['id_kursus_selected'] = Course::min('id_kursus');
         $this->dataView['min_year'] = CourseDetail::min('created_at');
         $this->dataView['max_year'] = CourseDetail::max('created_at');
         $this->dataView['year_selected'] = Carbon::createFromFormat('Y-m-d H:i:s', $this->dataView['max_year'])->year;
+
         $this->dataView['data_kursus'] = Course::all();
         $this->dataView['data_detail_kursus'] = CourseDetail::all();
-        
         $this->dataView['data_mahasiswa'] = Mahasiswa::whereHas(
             'kursus', 
             function (Builder $query) {
@@ -46,13 +52,18 @@ class StudentListController extends Controller
     public function changeYear($year, $id_kursus)
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
+        $this->dataView['detail_kursus_count'] = CourseDetail::count();
+
+        // Jika belum ada mahasiswa yang mendaftar kursus
+        if ($this->dataView['detail_kursus_count'] === 0) {
+            return view('admin.main.student_list_admin.index', $this->dataView);
+        }
 
         $this->dataView['id_kursus_selected'] = $id_kursus;
         $this->dataView['min_year'] = CourseDetail::min('created_at');
         $this->dataView['max_year'] = CourseDetail::max('created_at');
         $this->dataView['year_selected'] = $year;
 
-        $this->dataView['data_kursus'] = Course::all();
         $this->dataView['data_kursus'] = Course::all();
         $this->dataView['data_detail_kursus'] = CourseDetail::all();
         $this->dataView['data_mahasiswa'] = Mahasiswa::whereHas(
@@ -63,6 +74,11 @@ class StudentListController extends Controller
                     ->whereYear('detail_kursus.created_at', '=', $this->dataView['year_selected']);
             }
         )->orderBy('nama')->get();
+
+        // Jika data $year dan $id_kursus tidak ditemukan di database.
+        if ($this->dataView['data_mahasiswa']->isEmpty()) {
+            return redirect()->route('studentList.index');
+        }
 
         return view('admin.main.student_list_admin.index', $this->dataView);
     }

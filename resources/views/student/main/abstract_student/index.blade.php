@@ -35,11 +35,11 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($abstract->path_file_abstrak_mahasiswa) }}
                             </td>
-                            <td class="text-center">{{ basename($abstract->path_file_abstrak_admin) }} </td>
+                            <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_word) }}</td>
                             <td class="d-flex justify-content-center">
-                                @if ($abstract->path_file_abstrak_admin !== null)
-                                <a href="{{ asset('storage/' . $abstract->path_file_abstrak_admin) }}"
-                                class="btn btn-sm btn-outline-secondary"><i
+                                @if ($abstract->path_file_abstrak_admin_word !== null)
+                                <a href="{{ asset('storage/' . $abstract->path_file_abstrak_admin_word) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-download text-gray"></i></a>
                                 @endif
                             </td>
@@ -78,6 +78,29 @@ Penerjemahan
                             </td>
                             <td class="text-center"></td>
                             <td class="d-flex justify-content-center">
+                            </td>
+                        </tr>
+                        @endforeach
+
+                        @foreach ($data_jurnal as $jurnal)
+                        <tr>
+                            <td class="text-center">Jurnal</td>
+                            <td class="text-center">
+                                <li
+                                    class="btn btn-sm {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    {{ $jurnal->status }}
+                                </li>
+                            </td>
+                            <td class="text-center">
+                                {{ basename($jurnal->path_file_jurnal_mahasiswa) }}
+                            </td>
+                            <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_word) }}</td>
+                            <td class="d-flex justify-content-center">
+                                @if ($jurnal->path_file_jurnal_admin_word !== null)
+                                <a href="{{ asset('storage/' . $jurnal->path_file_jurnal_admin_word) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-download text-gray"></i></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -61,7 +61,7 @@ Penerjemahan
 
 
 
-                                    <a href="{{route('penerjemahan-admin.editPage', ['id_penerjemahan' => $abstract->id_abstrak, 'id_mahasiswa' => $abstract->mahasiswa_id])}}"
+                                    <a href="{{route('penerjemahan-admin.editPageAbstrak', ['id_penerjemahan' => $abstract->id_abstrak, 'id_mahasiswa' => $abstract->mahasiswa_id])}}"
                                         class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-pen-fill text-green"></i></a>
 
@@ -215,6 +215,69 @@ Penerjemahan
                         </tr>
                         @endforeach
 
+
+
+                        @foreach ($data_jurnal as $key=> $jurnal)
+                        <tr>
+                            <td class="text-center">Jurnal</td>
+                            <td class="text-center">{{ $jurnal->mahasiswa->nama }}</td>
+                            <td class="text-center">{{ $jurnal->email }}</td>
+                            <td class="text-center">{{ $jurnal->no_hp }}</td>
+                            <td class="text-center">
+                                <img src="{{ asset('storage/' . $jurnal->path_foto_kuitansi) }}"
+                                    class="custombuktipembayaran">
+                            </td>
+                            <td class="text-center">
+                                <li
+                                    class="btn btn-sm js-status {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    {{ $jurnal->status }}
+                                </li>
+                            </td>
+                            <td class="text-center">
+                                {{ basename($jurnal->path_file_jurnal_mahasiswa) }}
+                            </td>
+                            <td class="">
+                                <a href="{{ asset('storage/' . $jurnal->path_file_jurnal_mahasiswa) }}"
+                                    class="btn btn-sm btn-outline-secondary js-btn-download-jurnal"
+                                    data-id="{{ $jurnal->id_jurnal}}"><i class="bi bi-download text-gray"></i></a>
+
+                                    <a href="{{route('penerjemahan-admin.editPageJurnal', ['id_jurnal' => $jurnal->id_jurnal, 'id_mahasiswa' => $jurnal->mahasiswa_id])}}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-pen-fill text-green"></i></a>
+
+                                <form action="" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
+                            </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $jurnal_count))
+                            <td class="align-middle" rowspan="2">
+                                {{-- <a href="{{ route('generate4.pdf', ['id_ijazah' => $jurnal->id_ijazah, 'id_mahasiswa_satu' => $jurnal->mahasiswa_id, 'id_mahasiswa_dua' => $jurnal->get($key + 1)->mahasiswa_id]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+
+
+                            </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $jurnal_count))
+                            <td class="align-middle">
+                                {{-- <a href="{{ route('generate4.pdf', ['id_kursus' => $jurnal->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a> --}}
+                    
+                            </td>
+                            {{-- Jika data berada pada index ganjil. --}}
+                            @else
+                            <td class="d-none"></td>
+                            @endif
+                        </tr>
+                        @endforeach
+
+
                     </tbody>
                 </table>
             </div>
@@ -229,10 +292,13 @@ Penerjemahan
         // Button download abstrak
         $("#dataTable").on("click", ".js-btn-download-abstrak", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
-            const postData = { id: $(this).data("id") };
+            const postData = { 
+                id: $(this).data("id"),
+                layanan: "abstrak"
+            };
 
             $.post(
-                "api/abstrak-change-status", 
+                "api/abstrak-jurnal-change-status", 
                 postData,
                 function(jsonData) {
                     const abstrak = jsonData;
@@ -244,6 +310,28 @@ Penerjemahan
                 }
             ); 
         });
+
+        $("#dataTable").on("click", ".js-btn-download-jurnal", function () {
+            const jsStatus = $(this).closest("tr").find(".js-status");
+            const postData = { 
+                id: $(this).data("id"),
+                layanan: "jurnal"
+            };
+            
+            $.post(
+                "api/abstrak-jurnal-change-status", 
+                postData,
+                function(jsonData) {
+                    const jurnal = jsonData;
+                    console.log(jurnal);
+                    jsStatus
+                        .removeClass("btn-danger")
+                        .addClass("btn-warning")
+                        .text(jurnal.status);
+                }
+            ); 
+        });
+
 
         // Button download transkrip nilai
         $("#dataTable").on("click", ".js-btn-download-transkrip-nilai", function () {

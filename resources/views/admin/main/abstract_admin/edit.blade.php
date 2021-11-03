@@ -10,12 +10,14 @@ Register Courses
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0 d-flex justify-content-between">
-                    <h3 class="mb-0">Send Abstract</h3>
-                    <a href="{{route('abstract-admin.index')}}" class="btn btn-outline-success btn-sm"><i
-                        class="bi bi-arrow-left"></i> Back</a>
+                    <h3 class="mb-0">Send {{$page}}</h3>
+                    <a href="{{route('penerjemahan-admin.index')}}" class="btn btn-outline-success btn-sm"><i
+                            class="bi bi-arrow-left"></i> Back</a>
                 </div>
-
-                <form action="{{route('abstract-admin.updatePartial', ['id_abstrak' => $data_abstract->id_abstrak, 'id_mahasiswa' => $data_abstract->mahasiswa_id])}}" method="POST" enctype="multipart/form-data">
+                @if ($page === 'Abstract')
+                <form
+                    action="{{route('penerjemahan-admin.updatePartialAbstrak', ['id_penerjemahan' => $data_abstract->id_abstrak, 'id_mahasiswa' => $data_abstract->mahasiswa_id])}}"
+                    method="POST" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
 
@@ -26,16 +28,17 @@ Register Courses
                             <div class="row mt-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">Student Name</label>
-                                    <input type="text" class="form-control" placeholder="{{ $data_abstract->mahasiswa->nama }}" disabled>
+                                    <input type="text" class="form-control"
+                                        placeholder="{{ $data_abstract->mahasiswa->nama }}" disabled>
                                 </div>
                             </div>
 
 
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
-                                    <label for="form-control">File Abstract</label>
-                                    <input class="form-control customicon" type="file" name="path_file_abstrak_admin_word"
-                                        required>
+                                    <label for="form-control">File Word {{$page}}</label>
+                                    <input class="form-control customicon" type="file"
+                                        name="path_file_abstrak_admin_word" required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
                                         <br>
@@ -46,9 +49,9 @@ Register Courses
 
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
-                                    <label for="form-control">File Abstract</label>
-                                    <input class="form-control customicon" type="file" name="path_file_abstrak_admin_pdf"
-                                        required>
+                                    <label for="form-control">File PDF {{$page}}</label>
+                                    <input class="form-control customicon" type="file"
+                                        name="path_file_abstrak_admin_pdf" required>
                                     <small class="form-text text-muted">
                                         * File format must be in pdf.
                                         <br>
@@ -65,6 +68,63 @@ Register Courses
                         </div>
                     </div>
                 </form>
+                @else
+                <form
+                    action="{{route('penerjemahan-admin.updatePartialJurnal', ['id_jurnal' => $data_jurnal->id_jurnal, 'id_mahasiswa' => $data_jurnal->mahasiswa_id])}}"
+                    method="POST" enctype="multipart/form-data">
+                    @method('PATCH')
+                    @csrf
+
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <div class="card-body">
+                            <h3 class="mb-0">Please make sure all fields are filled in correctly.</h3>
+                            <div class="row mt-5 justify-content-center">
+                                <div class="col-xl-10">
+                                    <label for="form-control">Student Name</label>
+                                    <input type="text" class="form-control"
+                                        placeholder="{{ $data_jurnal->mahasiswa->nama }}" disabled>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-3 mb-5 justify-content-center">
+                                <div class="col-xl-10">
+                                    <label for="form-control">File Word {{$page}}</label>
+                                    <input class="form-control customicon" type="file"
+                                        name="path_file_jurnal_admin_word" required>
+                                    <small class="form-text text-muted">
+                                        * File format must be in word (doc, docx).
+                                        <br>
+
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3 mb-5 justify-content-center">
+                                <div class="col-xl-10">
+                                    <label for="form-control">File PDF {{$page}}</label>
+                                    <input class="form-control customicon" type="file"
+                                        name="path_file_jurnal_admin_pdf" required>
+                                    <small class="form-text text-muted">
+                                        * File format must be in pdf.
+                                        <br>
+
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center mb-5">
+                                <div class="col-xl-10">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                @endif
+
             </div>
         </div>
     </div>

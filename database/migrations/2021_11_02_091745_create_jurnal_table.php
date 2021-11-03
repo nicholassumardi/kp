@@ -25,6 +25,7 @@ class CreateJurnalTable extends Migration
             $table->string('email');
             $table->string('no_hp');
             $table->enum('status', ['unverified', 'pending','verified']);
+            $table->timestamps();
         });
     }
 

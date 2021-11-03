@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Abstrak;
 use App\Models\Ijazah;
+use App\Models\Jurnal;
 use App\Models\Mahasiswa;
 use App\Models\TranskripNilai;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class PenerjemahanStudentController extends Controller
         $this->dataView['data_abstract'] = Abstrak::where('mahasiswa_id', $this->dataView['mahasiswa']->id_mahasiswa)->get();
         $this->dataView['data_transkrip_nilai'] = TranskripNilai::where('mahasiswa_id', $this->dataView['mahasiswa']->id_mahasiswa)->get();
         $this->dataView['data_ijazah'] = Ijazah::where('mahasiswa_id', $this->dataView['mahasiswa']->id_mahasiswa)->get();
+        $this->dataView['data_jurnal'] = Jurnal::where('mahasiswa_id', $this->dataView['mahasiswa']->id_mahasiswa)->get();
 
         return view('student.main.abstract_student.index', $this->dataView);
     }
@@ -50,6 +52,7 @@ class PenerjemahanStudentController extends Controller
      */
     public function store(Request $request)
     {        
+    
         if ($request->layanan === 'abstrak') {
             $request->validate([
                 'path_foto_kuitansi' => 'required',
@@ -280,6 +283,59 @@ class PenerjemahanStudentController extends Controller
     
             return redirect()->route('penerjemahan-student.index')
                 ->with('success', 'Berhasil terkirim!');
+        }elseif ($request->layanan === 'jurnal') {
+            $request->validate([
+                'path_foto_kuitansi' => 'required',
+                'path_file_jurnal_mahasiswa' => 'required',
+                'email' =>'required|email',
+                'no_hp' => 'required',
+                'jumlah_halaman_jurnal' => 'required',
+            ]);
+    
+            // Variabel
+            $mahasiswa = Mahasiswa::where('user_id', Auth::id())->first();
+    
+            // Jika foto kuitansi dan file jurnal ada.
+            if (
+                $request->hasFile('path_foto_kuitansi') &&
+                $request->hasFile('path_file_jurnal_mahasiswa')
+            ) {
+                // Jika format foto dan file jurnal benar
+                if (
+                    $this->isMimeFileMatches(
+                        [$request->path_foto_kuitansi],
+                        ['image/jpeg', 'image/png']
+                    )
+                    &&
+                    $this->isMimeFileMatches(
+                        [$request->path_file_jurnal_mahasiswa],
+                        ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                    )
+                ) {
+                    Jurnal::create([
+                        'mahasiswa_id' => $mahasiswa->id_mahasiswa,
+                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak/', 'public'),
+                        'path_file_jurnal_mahasiswa' => $request->path_file_jurnal_mahasiswa->storeAs(
+                            'dokumen/dokumen-jurnal/mahasiswa/', 
+                            $request->path_file_jurnal_mahasiswa->getClientOriginalName(), 
+                            'public'
+                        ),
+                        'email' => $request->email,
+                        'no_hp' => $request->no_hp,
+                        'jumlah_halaman_jurnal' => $request->jumlah_halaman_jurnal,
+                        'status' => 'unverified'
+                    ]);
+                }
+                // Jika format foto dan file jurnal salah
+                else {
+                    return redirect()->route('penerjemahan-student.index')
+                        ->with('error', 'Gagal terkirim karena format tidak sesuai!');
+                }
+            }
+    
+            return redirect()->route('penerjemahan-student.index')
+                ->with('success', 'Berhasil terkirim!');
+
         }
     }
 

@@ -13,6 +13,9 @@ Student List
                     <div>
                         <h2 class="mb-0">Student List</h2>
                     </div>
+
+                    {{-- Jika sudah ada mahasiswa yang mendaftar kursus --}}
+                    @if ($detail_kursus_count > 0)                        
                     <div>
                         @php
                             $min_year = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $min_year)->year;
@@ -39,8 +42,11 @@ Student List
                             @endfor
                         </select>
                     </div>
+                    @endif
                 </div>
 
+                {{-- Jika sudah ada mahasiswa yang mendaftar kursus --}}
+                @if ($detail_kursus_count > 0)
                 <!-- Light table -->
                 <div class="table-responsive">
                     <div class="card-body text-center">
@@ -62,9 +68,16 @@ Student List
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
+                @endif
+
+                {{-- Jika belum ada mahasiswa yang mendaftar kursus --}}
+                @if ($detail_kursus_count === 0)
+                    <div class="card-body">
+                        <h3 class="text-center">Belum ada mahasiswa yang mendaftar kursus</h3>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
