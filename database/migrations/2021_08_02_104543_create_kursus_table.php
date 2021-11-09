@@ -17,6 +17,7 @@ class CreateKursusTable extends Migration
             $table->id('id_kursus');
             $table->bigInteger('admin_id')->unsigned();
             $table->foreign('admin_id')->references('id_admin')->on('admin')->cascadeOnDelete();
+            $table->enum('tipe_kursus', ['mahasiswa', 'umum', 'mahasiswa dan umum']);
             $table->string('nama_kursus');
             $table->text('deskripsi')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1 = Aktif, 0 = Tidak Aktif');

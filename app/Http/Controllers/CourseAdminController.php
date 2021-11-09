@@ -46,6 +46,7 @@ class CourseAdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'tipe_kursus' => 'required',
             'nama_kursus' => 'required',
             'status' => 'required',
             'sertifikat' => 'required',
@@ -57,6 +58,7 @@ class CourseAdminController extends Controller
 
         Course::create([
             'admin_id' => $idAdmin->id_admin,
+            'tipe_kursus' => $request->tipe_kursus,
             'nama_kursus' => $request->nama_kursus,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
@@ -104,6 +106,7 @@ class CourseAdminController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'tipe_kursus' => 'required',
             'nama_kursus' => 'required',
             'status' => 'required',
             'sertifikat' => 'required',
@@ -115,6 +118,7 @@ class CourseAdminController extends Controller
 
         Course::where('id_kursus', $id)->update([
             'admin_id' => $idAdmin->id_admin,
+            'tipe_kursus' => $request->tipe_kursus,
             'nama_kursus' => $request->nama_kursus,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
@@ -143,6 +147,7 @@ class CourseAdminController extends Controller
         Course::where('id_kursus', $id_kursus)->update([
             'status' => 0
         ]);
+        
         return redirect()->route('addCourse.index')
             ->with('success', 'Course deactivated successfully.');
     }

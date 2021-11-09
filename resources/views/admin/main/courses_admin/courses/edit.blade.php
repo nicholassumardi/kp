@@ -17,6 +17,21 @@ Course
                 <div class="card-body p-5">
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h3>Course For <span class="text-danger">*</span></h3>
+                        </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="" name="tipe_kursus">
+                                <option value="mahasiswa" @if ($dataKursus->tipe_kursus === 'mahasiswa') {{ 'selected' }} @endif>Student</option>
+                                <option value="umum" @if ($dataKursus->tipe_kursus === 'umum') {{ 'selected' }} @endif>Public
+                                </option>
+                                <option value="mahasiswa dan umum" @if ($dataKursus->tipe_kursus === 'mahasiswa dan umum') {{ 'selected' }} @endif>Student and Public
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
                             <h4>Course
                                 Name <span class="text-danger">*</span></h4>
                         </label>

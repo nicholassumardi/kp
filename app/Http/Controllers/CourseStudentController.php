@@ -22,7 +22,7 @@ class CourseStudentController extends Controller
      */
     public function index()
     {
-        $this->dataView['nama_kursus'] = Course::all();
+        $this->dataView['nama_kursus'] = Course::whereNotIn('tipe_kursus', ['umum'])->get();
         // $this->dataView['jadwal'] = Schedules::where('kursus_id', Course::min('id_kursus'))->get();
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
         $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();

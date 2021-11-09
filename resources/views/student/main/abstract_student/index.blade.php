@@ -84,7 +84,11 @@ Penerjemahan
 
                         @foreach ($data_jurnal as $jurnal)
                         <tr>
-                            <td class="text-center">Jurnal</td>
+                            <td class="text-center">
+                                Jurnal
+                                <br>
+                                <b>Jumlah Halaman: {{ $jurnal->jumlah_halaman_jurnal }}</b>
+                            </td>
                             <td class="text-center">
                                 <li
                                     class="btn btn-sm {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">

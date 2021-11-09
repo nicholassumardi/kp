@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use App\Models\Mahasiswa;
-use App\Models\Schedules;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Response;
 
-class SchedulesStudentController extends Controller
+class UmumController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth.student')->only(['index']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +13,7 @@ class SchedulesStudentController extends Controller
      */
     public function index()
     {
-        $this->dataView['nama_kursus'] = Course::paginate(4);
-        $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
-        
-        return view('student.main.schedules.index', $this->dataView);
+        //
     }
 
     /**

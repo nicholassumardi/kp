@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
         DB::table('tipe_user')->insert([
             'nama' => 'mahasiswa'
         ]);
+        DB::table('tipe_user')->insert([
+            'nama' => 'umum'
+        ]);
 
         DB::table('user')->insert([
             'nama' => 'Super Admin',
@@ -71,6 +74,14 @@ class DatabaseSeeder extends Seeder
             'tipe_user_id' => 4
         ]);
 
+        DB::table('user')->insert([
+            'nama' => 'Umum',
+            'email' => 'umum@gmail.com',
+            'password' => Hash::make('umum'),
+            'status' => 1,
+            'tipe_user_id' => 5
+        ]);
+
         DB::table('admin')->insert([
             'nama' => 'Admin PUSBA',
             'umur' => 40,
@@ -107,6 +118,15 @@ class DatabaseSeeder extends Seeder
             'kota' => 'Sidoarjo',
             'negara' => 'Indonesia',
             'user_id' => 5
+        ]);
+
+        DB::table('umum')->insert([
+            'nama' => 'Umum',
+            'umur' => 21,
+            'alamat' => 'Nirwana',
+            'kota' => 'Jakarta',
+            'negara' => 'Indonesia',
+            'user_id' => 6
         ]);
     }
 }

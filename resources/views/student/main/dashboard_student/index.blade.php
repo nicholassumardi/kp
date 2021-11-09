@@ -22,6 +22,7 @@ Dashboard
                                 {{-- <th scope="col" class="sort" data-sort="schedule">Schedule</th> --}}
                                 <th scope="col" class="sort" data-sort="comment">Comment</th>
                                 <th scope="col" class="sort" data-sort="group-link">Group Link</th>
+                                <th  scope="col" class="sort" data-sort="group-link">Action</th>
                             </tr>
                         </thead>
                         <tbody class="list">
@@ -57,6 +58,12 @@ Dashboard
                                 </td>
                                 <td>
                                     <a href="https://{{$k->group_link}}">{{ $k->group_link }}</a>
+                                </td>
+
+                                <td>
+                                    <a href=""
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-pen-fill text-green"></i></a>
                                 </td>
                             </tr>
                             @endforeach

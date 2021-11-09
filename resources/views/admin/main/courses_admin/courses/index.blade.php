@@ -17,6 +17,7 @@ Course
                 <table class="table table-bordered invisible" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Course Type</th>
                             <th>Course Name</th>
                             <th>Description</th>
                             <th>Status</th>
@@ -27,11 +28,15 @@ Course
                         @foreach ($dataadmin as $da)
                         <tr>
                             <td>
-                                {{$da->nama_kursus}}
+                                {{ ucfirst($da->tipe_kursus) }}
                             </td>
 
                             <td>
-                                {{$da->deskripsi}}
+                                {{ $da->nama_kursus }}
+                            </td>
+
+                            <td>
+                                {{ $da->deskripsi }}
                             </td>
 
                             <td class="text-center">
@@ -49,12 +54,9 @@ Course
                                     <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form>
-
                             </td>
                         </tr>
                         @endforeach
-
-
                     </tbody>
                 </table>
             </div>

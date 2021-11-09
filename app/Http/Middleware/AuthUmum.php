@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthAdmin
+class AuthUmum
 {
     /**
      * Handle an incoming request.
@@ -19,18 +19,18 @@ class AuthAdmin
     {
         // True jika ada user yang login.
         if (Auth::check()) {
-            // True jika user yang login adalah jenis admin.
-            if (
-                Auth::user()->tipe_user_id === 2 ||
-                Auth::user()->tipe_user_id === 3
-            ) {
+            // True jika user yang login adalah jenis umum.
+            if (Auth::user()->tipe_user_id === 5) {
                 return $next($request);
             } elseif (Auth::user()->tipe_user_id === 1) {
                 return redirect()->route('super-admin.index');
+            } elseif (
+                Auth::user()->tipe_user_id === 2 ||
+                Auth::user()->tipe_user_id === 3
+            ) {
+                return redirect()->route('admin.index');
             } elseif (Auth::user()->tipe_user_id === 4) {
                 return redirect()->route('student.index');
-            } elseif (Auth::user()->tipe_user_id === 5) {
-                return redirect()->route('umum.index');
             }
         } else {
             return redirect()->route('/');

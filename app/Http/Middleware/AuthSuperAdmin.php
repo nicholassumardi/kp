@@ -29,7 +29,9 @@ class AuthSuperAdmin
                 return redirect()->route('admin.index');
             } elseif (Auth::user()->tipe_user_id === 4) {
                 return redirect()->route('student.index');
-            }
+            } elseif (Auth::user()->tipe_user_id === 5) {
+                return redirect()->route('umum.index');
+            } 
         } else {
             return redirect()->route('/');
         }

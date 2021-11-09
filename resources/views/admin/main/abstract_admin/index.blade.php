@@ -219,7 +219,11 @@ Penerjemahan
 
                         @foreach ($data_jurnal as $key=> $jurnal)
                         <tr>
-                            <td class="text-center">Jurnal</td>
+                            <td class="text-center">
+                                Jurnal 
+                                <br>
+                                <b>Jumlah Halaman: {{ $jurnal->jumlah_halaman_jurnal }}</b>
+                            </td>
                             <td class="text-center">{{ $jurnal->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $jurnal->email }}</td>
                             <td class="text-center">{{ $jurnal->no_hp }}</td>

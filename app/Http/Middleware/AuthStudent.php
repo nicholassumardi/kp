@@ -29,6 +29,8 @@ class AuthStudent
                 Auth::user()->tipe_user_id === 3
             ) {
                 return redirect()->route('admin.index');
+            } elseif (Auth::user()->tipe_user_id === 5) {
+                return redirect()->route('umum.index');
             }
         } else {
             return redirect()->route('/');

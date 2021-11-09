@@ -9,7 +9,6 @@ class User extends Authenticatable
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     protected $guarded = [];
-    public $timestamps = false;
 
     public function admin()
     {

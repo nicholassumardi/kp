@@ -19,7 +19,7 @@ class CreateUserTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('status')->default(1);
-            $table->unsignedBigInteger('tipe_user_id')->default(3);
+            $table->unsignedBigInteger('tipe_user_id');
             $table->foreign('tipe_user_id')->references('id_tipe_user')->on('tipe_user');
             $table->timestamps();
         });

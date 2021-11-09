@@ -1,6 +1,6 @@
 @extends('student/layouts/app')
 @section('path')
-Schedules
+Quota
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
@@ -9,7 +9,7 @@ Schedules
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0">
-                    <h3 class="mb-0">Schedules</h3>
+                    <h3 class="mb-0">Quota</h3>
                 </div>
                 <!-- Light table -->
                 <div class="table-responsive">
@@ -17,7 +17,7 @@ Schedules
                         <thead class="thead-light text-center">
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">Test Name</th>
-                                <th scope="col" class="sort" data-sort="budget">Schedules</th>
+                                <th scope="col" class="sort" data-sort="budget">Quota</th>
                             </tr>
                         </thead>
                         @foreach ($nama_kursus as $nk)
@@ -29,8 +29,8 @@ Schedules
                             </th>
                             <td class="budget">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="view-schedules btn btn-primary" value="{{$nk->id_kursus}}">
-                                    View Schedules
+                                <button type="button" class="view-quota btn btn-primary" value="{{$nk->id_kursus}}">
+                                    View Quota
                                 </button>
                             </td>
                         </tr>
@@ -51,12 +51,12 @@ Schedules
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="modal-schedules" tabindex="-1" role="dialog"
+        <div class="modal fade" id="modal-quota" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="schedules">Schedules</h5>
+                        <h5 class="modal-title" id="quota">Quota</h5>
                         <button type="button" class="close" data-dismiss="modal"
                             aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -77,7 +77,7 @@ Schedules
         @push('js')
         <script>
             $(function() {
-                $(".view-schedules").on("click", function() {
+                $(".view-quota").on("click", function() {
                     $.getJSON(
                         `/api/courses/${ $(this).val() }`, 
                         function(jsonData) {
@@ -93,7 +93,7 @@ Schedules
                             });
                             div += "</div>";
                             $("#modal-body").html(div);
-                            $("#modal-schedules").modal("show");
+                            $("#modal-quota").modal("show");
                         }
                     );
                 });

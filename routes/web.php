@@ -43,7 +43,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 // DASHBOARD STUDENT
 Route::get('student', [MahasiswaController::class, 'index'])->name('student.index');
 Route::resource('profileStudent', ProfileMahasiswaController::class);
-Route::resource('schedules-show', SchedulesStudentController::class);
+Route::resource('quota-show', SchedulesStudentController::class);
 Route::resource('registerCourses', CourseStudentController::class);
 Route::get('schedule/{id}/schedules', [SchedulesStudentController::class, 'getSchedules']);
 Route::get('courses/{id}/schedules', [CourseStudentController::class, 'getSchedules']);

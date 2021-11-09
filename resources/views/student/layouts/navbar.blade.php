@@ -27,9 +27,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->is('schedules-show') ? ' active' : ''}}" href="{{route('schedules-show.index')}}">
+                        <a class="nav-link  {{request()->is('quota-show') ? ' active' : ''}}" href="{{route('quota-show.index')}}">
                             <i class="ni ni-calendar-grid-58 text-green"></i>
-                            <span class="nav-link-text">Schedules</span>
+                            <span class="nav-link-text">Quota</span>
                         </a>
                     </li>
                     <li class="nav-item">

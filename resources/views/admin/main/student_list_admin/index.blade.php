@@ -52,21 +52,28 @@ Student List
                     <div class="card-body text-center">
                         <div class="row">
                             <div class="col">
+                                <h3 class="mb-0">Card Number  </h3>
+                            </div>
+                            <div class="col">
                                 <h3 class="mb-0">Name  </h3>
                             </div>
                             <div class="col">
                                 <h3 class="mb-0">NPM </h3>
                             </div>
                         </div>
-                        @foreach ($data_mahasiswa as $mahasiswa)    
-                            <div class="row">
-                                <div class="col">
-                                    <h3 class="mb-0">{{ $mahasiswa->nama }} </h3>
-                                </div>
-                                <div class="col">
-                                    <h3 class="mb-0">{{ $mahasiswa->npm }}</h3>
-                                </div>
+                        
+                        @foreach ($data_mahasiswa_terurut as $mahasiswa_terurut)   
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="mb-0">{{ $mahasiswa_terurut[0] }} </h3>
                             </div>
+                            <div class="col">
+                                <h3 class="mb-0">{{ $mahasiswa_terurut[1] }} </h3>
+                            </div>
+                            <div class="col">
+                                <h3 class="mb-0">{{ $mahasiswa_terurut[2] }}</h3>
+                            </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>

@@ -16,6 +16,19 @@ Course
                 <div class="card-body p-5">
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
+                            <h3>Course For <span class="text-danger">*</span></h3>
+                        </label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="" name="tipe_kursus">
+                                <option value="mahasiswa">Student</option>
+                                <option value="umum">Public</option>
+                                <option value="mahasiswa dan umum">Student and Public</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
                             <h3>Course
                                 Name <span class="text-danger">*</span></h3>
                         </label>
@@ -25,6 +38,7 @@ Course
                         </div>
 
                     </div>
+
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
                             <h3>Description</h3>
@@ -33,8 +47,8 @@ Course
                             <textarea class="form-control" name="deskripsi"
                                 placeholder="Description"></textarea>
                         </div>
-
                     </div>
+
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
                             <h3>Course Status <span class="text-danger">*</span></h3>
@@ -45,7 +59,6 @@ Course
                                 <option value="0">Inactive</option>
                             </select>
                         </div>
-
                     </div>
 
                     <div class="form-group row">
@@ -58,7 +71,6 @@ Course
                                 <option value="0">No</option>
                             </select>
                         </div>
-
                     </div>
 
                     <div class="form-group row">
@@ -69,7 +81,6 @@ Course
                         <div class="col-sm-7">
                             <input type="number" class="form-control" name="batas_partisipan" required>
                         </div>
-    
                     </div>
 
                     <div class="form-group row">
@@ -80,7 +91,6 @@ Course
                         <div class="col-sm-7">
                             <input type="text" class="form-control" name="group_link" required>
                         </div>
-    
                     </div>
                 </div>
 

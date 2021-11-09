@@ -38,14 +38,28 @@ class StudentListController extends Controller
         $this->dataView['data_kursus'] = Course::all();
         $this->dataView['data_detail_kursus'] = CourseDetail::all();
         $this->dataView['data_mahasiswa'] = Mahasiswa::whereHas(
-            'kursus', 
+            'kursus',
             function (Builder $query) {
                 $query
-                    ->where('detail_kursus.kursus_id', $this->dataView['id_kursus_selected'])
+                    ->where('detail_kursus.kursus_id', '=', $this->dataView['id_kursus_selected'])
                     ->whereYear('detail_kursus.created_at', '=', $this->dataView['max_year']);
             }
-        )->orderBy('nama')->get();        
-                
+        )->get();
+
+        $this->dataView['data_mahasiswa_terurut'] = [];
+        foreach ($this->dataView['data_mahasiswa'] as $mahasiswa) {
+            foreach ($mahasiswa->kursus as $kursus) {
+                if (strval($kursus->id_kursus) === strval($this->dataView['id_kursus_selected'])) {
+                    array_push($this->dataView['data_mahasiswa_terurut'], [
+                        $kursus->pivot->no_kartu_mahasiswa,
+                        $mahasiswa->nama,
+                        $mahasiswa->npm
+                    ]);
+                }
+            }
+        }
+        asort($this->dataView['data_mahasiswa_terurut']);
+
         return view('admin.main.student_list_admin.index', $this->dataView);
     }
 
@@ -67,18 +81,32 @@ class StudentListController extends Controller
         $this->dataView['data_kursus'] = Course::all();
         $this->dataView['data_detail_kursus'] = CourseDetail::all();
         $this->dataView['data_mahasiswa'] = Mahasiswa::whereHas(
-            'kursus', 
+            'kursus',
             function (Builder $query) {
                 $query
                     ->where('detail_kursus.kursus_id', '=', $this->dataView['id_kursus_selected'])
                     ->whereYear('detail_kursus.created_at', '=', $this->dataView['year_selected']);
             }
-        )->orderBy('nama')->get();
+        )->get();
 
         // Jika data $year dan $id_kursus tidak ditemukan di database.
         if ($this->dataView['data_mahasiswa']->isEmpty()) {
             return redirect()->route('studentList.index');
         }
+
+        $this->dataView['data_mahasiswa_terurut'] = [];
+        foreach ($this->dataView['data_mahasiswa'] as $mahasiswa) {
+            foreach ($mahasiswa->kursus as $kursus) {
+                if (strval($kursus->id_kursus) === strval($this->dataView['id_kursus_selected'])) {
+                    array_push($this->dataView['data_mahasiswa_terurut'], [
+                        $kursus->pivot->no_kartu_mahasiswa,
+                        $mahasiswa->nama,
+                        $mahasiswa->npm
+                    ]);
+                }
+            }
+        }
+        asort($this->dataView['data_mahasiswa_terurut']);
 
         return view('admin.main.student_list_admin.index', $this->dataView);
     }
