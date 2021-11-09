@@ -65,13 +65,13 @@ Student List
                         @foreach ($data_mahasiswa_terurut as $mahasiswa_terurut)   
                         <div class="row">
                             <div class="col">
-                                <h3 class="mb-0">{{ $mahasiswa_terurut[0] }} </h3>
+                                <h3 class="mb-0">{{ $mahasiswa_terurut['no_kartu_mahasiswa'] }} </h3>
                             </div>
                             <div class="col">
-                                <h3 class="mb-0">{{ $mahasiswa_terurut[1] }} </h3>
+                                <h3 class="mb-0">{{ $mahasiswa_terurut['nama_mahasiswa'] }} </h3>
                             </div>
                             <div class="col">
-                                <h3 class="mb-0">{{ $mahasiswa_terurut[2] }}</h3>
+                                <h3 class="mb-0">{{ $mahasiswa_terurut['npm_mahasiswa'] }}</h3>
                             </div>
                         </div>
                         @endforeach

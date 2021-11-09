@@ -51,9 +51,9 @@ class StudentListController extends Controller
             foreach ($mahasiswa->kursus as $kursus) {
                 if (strval($kursus->id_kursus) === strval($this->dataView['id_kursus_selected'])) {
                     array_push($this->dataView['data_mahasiswa_terurut'], [
-                        $kursus->pivot->no_kartu_mahasiswa,
-                        $mahasiswa->nama,
-                        $mahasiswa->npm
+                        'no_kartu_mahasiswa' => $kursus->pivot->no_kartu_mahasiswa,
+                        'nama_mahasiswa' => $mahasiswa->nama,
+                        'npm_mahasiswa' => $mahasiswa->npm
                     ]);
                 }
             }
@@ -99,9 +99,9 @@ class StudentListController extends Controller
             foreach ($mahasiswa->kursus as $kursus) {
                 if (strval($kursus->id_kursus) === strval($this->dataView['id_kursus_selected'])) {
                     array_push($this->dataView['data_mahasiswa_terurut'], [
-                        $kursus->pivot->no_kartu_mahasiswa,
-                        $mahasiswa->nama,
-                        $mahasiswa->npm
+                        'no_kartu_mahasiswa' => $kursus->pivot->no_kartu_mahasiswa,
+                        'nama_mahasiswa' => $mahasiswa->nama,
+                        'npm_mahasiswa' => $mahasiswa->npm
                     ]);
                 }
             }
