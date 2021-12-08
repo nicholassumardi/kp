@@ -30,7 +30,7 @@ class RegisterController extends Controller
         ]);
         
         // Jika tipe user adalah mahasiswa.
-        if (strval($request->id_tipe_user) === strval(3)) {
+        if (strval($request->id_tipe_user) === strval(4)) {
             $request->validate([
                 'id_tipe_user' => 'required',
                 'email' => 'required|email',

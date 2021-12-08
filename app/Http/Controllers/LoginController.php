@@ -82,6 +82,21 @@ class LoginController extends Controller
         return false;
     }
 
+    public function isUmum($username, $password)
+    {
+        // Jika data login benar (Umum/ Public).
+        if (Auth::attempt([
+            'email' => $username,
+            'password' => $password,
+            'status' => 1,
+            'tipe_user_id' => 5
+        ])) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function authenticate(Request $request)
     {
         $request->validate([
@@ -102,6 +117,9 @@ class LoginController extends Controller
 
         if ($this->isMahasiswa($username, $password)) {
             return redirect()->route('student.index');
+        }
+        if ($this->isUmum($username, $password)) {
+            return redirect()->route('umum.index');
         }
 
         return redirect()->back();

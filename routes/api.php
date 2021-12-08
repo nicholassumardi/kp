@@ -4,6 +4,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\CourseUmumController;
 use App\Http\Controllers\PenerjemahanAdminController;
 
 /*
@@ -26,6 +27,12 @@ Route::prefix('courses')->group(function () {
     // Route::get('{id}/schedules', [CourseStudentController::class, 'getSchedules']);
     Route::get('{id}', [CourseStudentController::class, 'getCourse']);
 });
+
+Route::prefix('courses-umum')->group(function () {
+    // Route::get('{id}/schedules', [CourseStudentController::class, 'getSchedules']);
+    Route::get('{id}', [CourseUmumController::class, 'getCourse']);
+});
+
 
 // Abstrak
 Route::post('abstrak-jurnal-change-status', [PenerjemahanAdminController::class, 'changeStatusToPending']);

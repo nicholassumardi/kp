@@ -42,8 +42,8 @@
                                         <span class="input-group-text customicon ">
                                             <i class="bi bi-people-fill"></i>
                                         </span>
-                                        <select class="form-control" name="" id="dropdown-register">
-                                            <option value="Mahasiswa" data-id-tipe-user="3">Mahasiswa</option>
+                                        <select class="form-select" name="" id="dropdown-register">
+                                            <option value="Mahasiswa" data-id-tipe-user="4">Mahasiswa</option>
                                             <option value="Umum" data-id-tipe-user="5">Umum</option>
                                         </select>
                                     </div>
@@ -161,7 +161,7 @@
 
             if ($(this).val() === "Mahasiswa") {
                 containerNPM.removeClass("d-none");
-                inputIdTipeUser.val(3);
+                inputIdTipeUser.val(4);
                 npm.attr("required", "required");
             } else {
                 containerNPM.addClass("d-none");

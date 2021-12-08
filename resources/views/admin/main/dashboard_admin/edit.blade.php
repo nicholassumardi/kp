@@ -8,9 +8,10 @@ Students Data
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-                <div class="col-10">
+                <div class="col-xl-10 col-9">
                     <h3 class="mb-0">Students Data</h3>
                 </div>
+             
                 <div class="col ml-xl-5"> 
                         <a href="{{route('admin.index')}}" class="btn btn-primary btn-sm"><i
                         class="bi bi-arrow-left"></i>Back</a>

@@ -17,36 +17,43 @@ Dashboard
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col" class="sort" data-sort="course-name">Course Name</th>
-                                <th scope="col" class="sort" data-sort="status">Status</th>
+                                <th scope="col" class="sort text-center" data-sort="course-name">Course Name</th>
+                                <th scope="col" class="sort text-center" data-sort="status">No Kartu Mahasiswa</th>
+                                <th scope="col" class="sort text-center" data-sort="status">Status</th>
                                 {{-- <th scope="col" class="sort" data-sort="schedule">Schedule</th> --}}
-                                <th scope="col" class="sort" data-sort="comment">Comment</th>
-                                <th scope="col" class="sort" data-sort="group-link">Group Link</th>
-                                <th  scope="col" class="sort" data-sort="group-link">Action</th>
+                                <th scope="col" class="sort text-center" data-sort="comment">Comment</th>
+                                <th scope="col" class="sort text-center" data-sort="group-link">Group Link</th>
+                                <th scope="col" class="sort text-center" data-sort="group-link">Action</th>
                             </tr>
                         </thead>
                         <tbody class="list">
                             @foreach ($kursus as $k)
                             <tr>
                                 <th scope="row">
-                                    <div class="media-body">
+                                    <div class="media-body text-center">
                                         <span class="name mb-0 text-sm">{{ $k->nama_kursus }}</span>
                                     </div>
                                 </th>
 
                                 <td>
-                                    <i class="btn btn-sm {{$k->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                    {{$k->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i>
+                                    <div class="media-body text-center">
+                                        <span class="name mb-0 text-sm">{{ $k->pivot->no_kartu_mahasiswa }}</span>
+                                    </div>
+                                </td>
+                                <td class= "text-center">
+                                    <i
+                                        class="btn btn-sm {{$k->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
+                                        {{$k->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i>
                                 </td>
 
                                 {{-- @foreach ($k->jadwal as $j)
-                                    @if ($k->pivot->jadwal_id === $j->id_jadwal)
-                                    <td>
-                                        {{\Carbon\Carbon::createFromFormat('H:i:s',$j->jadwal_mulai)->format('H:i')}}
-                                        - 
-                                        {{\Carbon\Carbon::createFromFormat('H:i:s',$j->jadwal_selesai)->format('H:i')}}
-                                     </td>
-                                    @endif
+                                @if ($k->pivot->jadwal_id === $j->id_jadwal)
+                                <td>
+                                    {{\Carbon\Carbon::createFromFormat('H:i:s',$j->jadwal_mulai)->format('H:i')}}
+                                    -
+                                    {{\Carbon\Carbon::createFromFormat('H:i:s',$j->jadwal_selesai)->format('H:i')}}
+                                </td>
+                                @endif
                                 @endforeach --}}
 
                                 <td>
@@ -56,12 +63,12 @@ Dashboard
                                         </span>
                                     </span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a href="https://{{$k->group_link}}">{{ $k->group_link }}</a>
                                 </td>
 
-                                <td>
-                                    <a href=""
+                                <td class="text-center">
+                                    <a href="{{route('student.edit', $k->id_kursus)}}"
                                         class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-pen-fill text-green"></i></a>
                                 </td>
