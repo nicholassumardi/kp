@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\CourseUmumController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MahasiswaUmumListController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PdfUmumController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\SchedulesController;
 use App\Http\Controllers\SchedulesStudentController;
 use App\Http\Controllers\SchedulesUmumController;
 use App\Http\Controllers\StudentListController;
+use App\Http\Controllers\UmumListController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UmumController;
 
@@ -83,6 +85,10 @@ Route::resource('addCourse', CourseAdminController::class);
 Route::patch('deactive-course/{id_kursus}', [CourseAdminController::class, 'deactiveCourse'])->name('addCourse.deactive');
 Route::get('studentList', [StudentListController::class, 'index'])->name('studentList.index');
 Route::get('studentList/{year}/{id_kursus}', [StudentListController::class, 'changeYear'])->name('studentList.changeYear');
+Route::get('umumList', [UmumListController::class, 'index'])->name('umumList.index');
+Route::get('umumList/{year}/{id_kursus}', [UmumListController::class, 'changeYear'])->name('umumList.changeYear');
+Route::get('mahasiswaUmumList', [MahasiswaUmumListController::class, 'index'])->name('mahasiswaUmumList.index');
+Route::get('mahasiswaUmumList/{year}/{id_kursus}', [MahasiswaUmumListController::class, 'changeYear'])->name('mahasiswaUmumList.changeYear');
 Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
 // PDF MAHASISWA
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
