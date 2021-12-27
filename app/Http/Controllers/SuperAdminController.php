@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SuperAdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.super-admin')->only(['index']);
+        $this->middleware('auth.super-admin')->only(['index', 'create']);
     }
 
     /**
@@ -19,7 +21,8 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        $this->dataView['listAdmin'] = User::where('tipe_user_id', 2)->get();
+        $this->dataView['nama'] = 'Super Admin';
+        $this->dataView['listAdmin'] = User::whereIn('tipe_user_id', [2, 3])->get();
 
         return view('superAdmin.main.dashboard.index', $this->dataView);
     }
@@ -31,7 +34,9 @@ class SuperAdminController extends Controller
      */
     public function create()
     {
-        //
+        $this->dataView['nama'] = 'Super Admin';
+
+        return view('superAdmin.main.dashboard.create', $this->dataView);
     }
 
     /**
@@ -42,7 +47,27 @@ class SuperAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_tipe_user' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        
+        $user = User::Create([
+            'email' => $request->email,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'tipe_user_id' => $request->id_tipe_user
+        ]);
+        
+        Admin::create([
+            'nama' => $request->nama,
+            'user_id' => $user->id_user
+        ]);
+
+        return redirect()->route('super-admin.index')
+            ->with('success', 'Admin account created successfully.');
     }
 
     /**

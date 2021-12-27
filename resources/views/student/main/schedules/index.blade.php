@@ -17,6 +17,7 @@ Quota
                         <thead class="thead-light text-center">
                             <tr>
                                 <th scope="col" class="sort" data-sort="name">Test Name</th>
+                                <th scope="col" class="sort" data-sort="name">Description</th>
                                 <th scope="col" class="sort" data-sort="budget">Quota</th>
                             </tr>
                         </thead>
@@ -25,6 +26,11 @@ Quota
                             <th scope="row">
                                 <div class="media-body">
                                     <span class="name mb-0 text-sm">{{$nk->nama_kursus}}</span>
+                                </div>
+                            </th>
+                            <th scope="row">
+                                <div class="media-body">
+                                    <span class="name mb-0 text-sm">{{$nk->deskripsi}}</span>
                                 </div>
                             </th>
                             <td class="budget">

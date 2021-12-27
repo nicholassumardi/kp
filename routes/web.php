@@ -79,6 +79,7 @@ Route::resource('admin', AdminController::class)->except([
 // Route::get('admin-edit/{id_jadwal}/{id_kursus}', [AdminController::class, 'edit'])->name('admin.edit');  
 Route::get('admin-edit/{id_kursus}', [AdminController::class, 'edit'])->name('admin.edit');
 Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'update'])->name('admin.update');
+Route::patch('admin/{id_umum}/{id_kursus}', [AdminController::class, 'update2'])->name('admin.update2');
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
@@ -90,6 +91,7 @@ Route::get('umumList/{year}/{id_kursus}', [UmumListController::class, 'changeYea
 Route::get('mahasiswaUmumList', [MahasiswaUmumListController::class, 'index'])->name('mahasiswaUmumList.index');
 Route::get('mahasiswaUmumList/{year}/{id_kursus}', [MahasiswaUmumListController::class, 'changeYear'])->name('mahasiswaUmumList.changeYear');
 Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
+Route::patch('send-komentar/{id_umum}/{id_kursus}', [AdminController::class, 'sendKomentar2'])->name('admin.sendKomentar2');
 // PDF MAHASISWA
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
 Route::get('PdfDemo1/{id_abstract}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF2'])->name('generate2.pdf');

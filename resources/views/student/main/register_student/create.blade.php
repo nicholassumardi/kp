@@ -29,8 +29,11 @@ Register Courses
 
                                     <select class="form-control" id="courses-dropdown" name="kursus_id">
                                         @foreach ($nama_kursus as $nk)
-                                            <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}}</option>
-                                        @endforeach
+                                        @if ($nk->status === 1)
+                                        <option value="{{$nk->id_kursus}}">{{$nk->nama_kursus}}</option>
+                                        @endif
+                                        @endforeach  
+                                       
                                     </select>
                                 </div>
                             </div>

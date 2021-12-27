@@ -17,6 +17,7 @@ Course
                 <table class="table table-bordered invisible" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Created Date</th>
                             <th>Course Type</th>
                             <th>Course Name</th>
                             <th>Description</th>
@@ -27,6 +28,9 @@ Course
                     <tbody>
                         @foreach ($dataadmin as $da)
                         <tr>
+                            <td>
+                                {{ $da->created_at }}
+                            </td>
                             <td>
                                 {{ ucfirst($da->tipe_kursus) }}
                             </td>

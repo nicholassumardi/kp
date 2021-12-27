@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Abstrak;
-use App\Models\Admin;
 use App\Models\CourseDetail;
 use App\Models\Ijazah;
 use App\Models\Jurnal;
 use App\Models\TranskripNilai;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use PDF;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 

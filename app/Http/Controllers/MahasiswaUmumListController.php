@@ -31,7 +31,7 @@ class MahasiswaUmumListController extends Controller
             
             // Jika belum ada mahasiswa yang mendaftar kursus
         if ($this->dataView['detail_kursus_umum_count'] > 0) {
-            $this->dataView['id_kursus_selected_umum'] = Course::where('tipe_kursus', 'umum')->min('id_kursus');
+            $this->dataView['id_kursus_selected_umum'] = Course::where('tipe_kursus', 'mahasiswa dan umum')->min('id_kursus');
             $this->dataView['min_year_umum'] = CourseDetailUmum::min('created_at');
             $this->dataView['max_year_umum'] = CourseDetailUmum::max('created_at');
             $this->dataView['year_selected_umum'] = Carbon::createFromFormat('Y-m-d H:i:s', $this->dataView['max_year_umum'])->year;
@@ -71,7 +71,7 @@ class MahasiswaUmumListController extends Controller
 
            // Jika belum ada mahasiswa yang mendaftar kursus
         if ($this->dataView['detail_kursus_count'] > 0) {
-            $this->dataView['id_kursus_selected'] = Course::where('tipe_kursus', 'mahasiswa')->min('id_kursus');
+            $this->dataView['id_kursus_selected'] = Course::where('tipe_kursus', 'mahasiswa dan umum')->min('id_kursus');
             $this->dataView['min_year'] = CourseDetail::min('created_at');
             $this->dataView['max_year'] = CourseDetail::max('created_at');
             $this->dataView['year_selected'] = Carbon::createFromFormat('Y-m-d H:i:s', $this->dataView['max_year'])->year;
@@ -104,7 +104,6 @@ class MahasiswaUmumListController extends Controller
             }
             asort($this->dataView['data_mahasiswa_terurut']);
         }
-
 
         return view('admin.main.student_list_admin.index', $this->dataView);
 

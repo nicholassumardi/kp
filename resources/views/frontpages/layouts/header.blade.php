@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
       <div class="navbar-nav" data-aos="zoom-in" data-aos-duration="2000" data-aos-delay="200">
         <a class="nav-link {{request()->is('/') ? ' active' : ''}}" aria-current="page" href="{{route('/')}}">About</a>
-        <a class="nav-link {{request()->is('/news' || 'news-show') ? ' active' : ''}}"
+        <a class="nav-link {{request()->is('news') || request()->is('news-show') ? 'active' : ''}}"
           href="{{route('news.index')}}">News</a>
-        <a class="nav-link" href="/register">Register</a>
-        <a class="nav-link" href="/sign-in">Sign In</a>
+        <a class="nav-link" href="{{route('register.create')}}">Register</a>
+        <a class="nav-link" href="{{route('login.form')}}">Sign In</a>
       </div>
     </div>
   </div>

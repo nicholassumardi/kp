@@ -4,7 +4,7 @@ Profile
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
-    <form action="{{route('profileUmum.update', Auth::id())}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('profilePublic.update', Auth::id())}}" method="POST" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="row">

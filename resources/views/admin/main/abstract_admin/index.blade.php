@@ -350,9 +350,9 @@ Penerjemahan
 
                                 </td>
                                 {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                                @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_count))
+                                @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_umum_count))
                                 <td class="align-middle">
-                                    <a href="{{ route('generateUmum2.pdf', ['id_abstract_umum' => $abstract->id_abstrak_umum, 'id_umum_satu' => $abstract->umum_id]) }}"
+                                    <a href="{{ route('generateUmum2.pdf', ['id_abstract_umum' => $abstract_umum->id_abstrak_umum, 'id_umum_satu' => $abstract_umum->umum_id]) }}"
                                         class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-printer-fill text-indigo"></i></a>
 
@@ -400,7 +400,7 @@ Penerjemahan
                                 </td>
 
                                 {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                                @if (($key % 2 === 0) && ($key + 1 !== $transkrip_nilai_count))
+                                @if (($key % 2 === 0) && ($key + 1 !== $transkrip_nilai_umum_count))
                                 <td class="align-middle" rowspan="2">
                                     <a href="{{ route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum, 'id_umum_satu' => $transkrip_nilai_umum->umum_id, 'id_umum_dua' =>  $transkrip_nilai_umum->get($key + 1)->umum_id]) }}"
                                         class="btn btn-sm btn-outline-secondary"><i
@@ -409,7 +409,7 @@ Penerjemahan
 
                                 </td>
                                 {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                                @elseif (($key % 2 === 0) && ($key + 1 === $transkrip_nilai_count))
+                                @elseif (($key % 2 === 0) && ($key + 1 === $transkrip_nilai_umum_count))
                                 <td class="align-middle">
                                     <a href="{{ route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum, 'id_umum_satu' => $transkrip_nilai_umum->umum_id]) }}"
                                         class="btn btn-sm btn-outline-secondary"><i
@@ -484,7 +484,7 @@ Penerjemahan
 
 
 
-                            @foreach ($data_jurnal as $key=> $jurnal_umum)
+                            @foreach ($data_jurnal_umum as $key=> $jurnal_umum)
                             <tr>
                                 <td class="text-center">
                                     Jurnal
@@ -525,7 +525,7 @@ Penerjemahan
                                 </td>
 
                                 {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                                @if (($key % 2 === 0) && ($key + 1 !== $jurnal_count))
+                                @if (($key % 2 === 0) && ($key + 1 !== $jurnal_umum_count))
                                 <td class="align-middle" rowspan="2">
                                     <a
                                         href="{{ route('generateUmum5.pdf', ['id_jurnal_umum' => $jurnal_umum->id_jurnal_umum, 'id_umum_satu' => $jurnal_umum->umum_id, 'id_umum_dua' => $jurnal_umum->get($key + 1)->umum_id]) }}"
@@ -535,10 +535,10 @@ Penerjemahan
 
                                 </td>
                                 {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                                @elseif (($key % 2 === 0) && ($key + 1 === $jurnal_count))
+                                @elseif (($key % 2 === 0) && ($key + 1 === $jurnal_umum_count))
                                 <td class="align-middle">
                                     <a
-                                        href="{{ route('generateUmum5.pdf', ['id_jurnal_umum' => $jurnal_umum->id_jurnal_umum, 'id_jurnal_satu' => $jurnal_umum->jurnal_id]) }}"
+                                        href="{{ route('generateUmum5.pdf', ['id_jurnal_umum' => $jurnal_umum->id_jurnal_umum, 'id_umum_satu' => $jurnal_umum->umum_id]) }}"
                                         class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-printer-fill text-indigo"></i></a>
 

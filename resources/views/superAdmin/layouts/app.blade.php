@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{asset('mazer/assets/css/pages/app.css')}}">
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.min.css')}}">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseDetail;
 use App\Models\CourseDetailUmum;
 use App\Models\Umum;
 use Illuminate\Http\Request;
@@ -76,21 +77,31 @@ class CourseUmumController extends Controller
                         ],
                         ['image/jpeg', 'image/png']
                     )) {
+                        $nomorKartuMhs = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
                         $nomorKartuUmum = CourseDetailUmum::where('kursus_id', $request->kursus_id)->max('no_kartu_umum');
+
+                        // Mahasiswa
+                        if ($nomorKartuMhs > $nomorKartuUmum) {
+                            $nomorKartu = $nomorKartuMhs;
+                        } 
+                        // umum
+                        else {
+                            $nomorKartu = $nomorKartuUmum;
+                        }
                         
-                        // Jika kursus belum memiliki umum yang mendaftar
-                        if ($nomorKartuUmum !== null) {
+                        // Jika kursus sudah memiliki mahasiswa dan umum yang mendaftar
+                        if ($nomorKartu !== null) {
                             CourseDetailUmum::create([
                                 'umum_id' => $umum->id_umum,
                                 'kursus_id' => $request->kursus_id,
-                                'no_kartu_umum' => $nomorKartuUmum + 1,
+                                'no_kartu_umum' => $nomorKartu + 1,
                                 // 'jadwal_id' => $request->jadwal_id,
                                 'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
                                 'path_foto_umum' => $request->path_foto_umum->store('images/foto-umum/', 'public'),
                                 'path_foto_sertifikat' => $request->path_foto_sertifikat->store('images/foto-sertifikat/', 'public'),
                             ]);
                         } 
-                        // Jika kursus sudah memiliki umum yang mendaftar
+                        // Jika kursus belum memiliki umum yang mendaftar
                         else {
                             CourseDetailUmum::create([
                                 'umum_id' => $umum->id_umum,
@@ -123,14 +134,25 @@ class CourseUmumController extends Controller
                         ],
                         ['image/jpeg', 'image/png']
                     )) {
+                        // $nomorKartuUmum = CourseDetailUmum::where('kursus_id', $request->kursus_id)->max('no_kartu_umum');
+                        $nomorKartuMhs = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
                         $nomorKartuUmum = CourseDetailUmum::where('kursus_id', $request->kursus_id)->max('no_kartu_umum');
+
+                        // Mahasiswa
+                        if ($nomorKartuMhs > $nomorKartuUmum) {
+                            $nomorKartu = $nomorKartuMhs;
+                        } 
+                        // umum
+                        else {
+                            $nomorKartu = $nomorKartuUmum;
+                        }
                         
                         // Jika kursus belum memiliki umum yang mendaftar
-                        if ($nomorKartuUmum !== null) {
+                        if ($nomorKartu !== null) {
                             CourseDetailUmum::create([
                                 'umum_id' => $umum->id_umum,
                                 'kursus_id' => $request->kursus_id,
-                                'no_kartu_umum' => $nomorKartuUmum + 1,
+                                'no_kartu_umum' => $nomorKartu + 1,
                                 // 'jadwal_id' => $request->jadwal_id,
                                 'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
                                 'path_foto_umum' => $request->path_foto_umum->store('images/foto-umum/', 'public'),

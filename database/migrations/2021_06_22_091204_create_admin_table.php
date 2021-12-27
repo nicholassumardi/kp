@@ -16,10 +16,10 @@ class CreateAdminTable extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->id('id_admin');
             $table->string('nama');
-            $table->integer('umur');
-            $table->string('alamat');
-            $table->string('kota', 100);
-            $table->string('negara', 100);
+            $table->integer('umur')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('kota', 100)->nullable();
+            $table->string('negara', 100)->nullable();
             $table->string('path_foto')->default('images/profile/admin/default.png');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id_user')->on('user');

@@ -99,6 +99,13 @@ Profile
 
                                     </div>
 
+                                   
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-first-name">NPM</label>
+                                                <input type="number" id="age" class="form-control" placeholder="{{$mahasiswa->npm}}"value="{{$mahasiswa->npm}}" disabled>
+                                            </div>
+                                        </div>
 
                                 </div>
                             </div>

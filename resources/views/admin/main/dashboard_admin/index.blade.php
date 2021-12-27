@@ -97,6 +97,7 @@ Dashboard
                                 <th>Maximum Participants</th>
                                 <th>Status</th>
                                 <th>Action</th>
+                                <th>Created Date</th>
                             </tr>
                         </thead>
                         @foreach ($data_kursus as $kursus)
@@ -128,12 +129,23 @@ Dashboard
                                     <a href="{{ route('admin.edit', ['id_kursus' => $kursus->id_kursus]) }}" class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
+                                <td>
+                                    {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $kursus->created_at)->format('Y-m-d')}}
+                                </td>
                             </tr>
 
                         </tbody>
                         @endforeach
                       
                     </table>
+                    <div class="card-footer py-4">
+                        <nav aria-label="">
+                            <ul class="pagination justify-content-end mb-0">
+                                {!! $data_kursus->links() !!}
+                            </ul>
+                        </nav>
+                    </div>
+                   
                 </div>
             </div>
 

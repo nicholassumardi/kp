@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\AbstrakUmum;
 use App\Models\CourseDetailUmum;
 use App\Models\IjazahUmum;
-use App\Models\Jurnal;
 use App\Models\JurnalUmum;
 use App\Models\TranskripNilaiUmum;
 use Illuminate\Http\Request;
+use PDF;
 
 class PdfUmumController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.umum')->only(['makePDF']);
+        $this->middleware('auth.admin')->only(['makePDF']);
     }
 
     public function index()
@@ -23,7 +23,8 @@ class PdfUmumController extends Controller
     }
 
     public function makePDF($id_kursus, $id_umum_satu, $id_umum_dua = null)
-    {
+    {   
+       
         // Jika print 2 umum.
         if ($id_umum_dua !== null) {
             $this->dataView['product'] = CourseDetailUmum::whereIn('umum_id', [$id_umum_satu, $id_umum_dua])
@@ -139,7 +140,7 @@ class PdfUmumController extends Controller
         // Jika print 2 umum.
         if ($id_umum_dua !== null) {
             $this->dataView['product'] = TranskripNilaiUmum::whereIn('umum_id', [$id_umum_satu, $id_umum_dua])
-                ->where('id_transkrip_nilai', $id_transkrip_nilai)
+                ->where('id_transkrip_nilai_umum', $id_transkrip_nilai)
                 ->get();
 
             // Jika data 2 umum ditemukan.
@@ -167,7 +168,7 @@ class PdfUmumController extends Controller
         // Jika print hanya 1 umum.
         else {
             $this->dataView['product'] = TranskripNilaiUmum::where('umum_id', $id_umum_satu)
-                ->where('id_transkrip_nilai', $id_transkrip_nilai)
+                ->where('id_transkrip_nilai_umum', $id_transkrip_nilai)
                 ->get();
 
             // Jika data umum ditemukan.
@@ -195,7 +196,7 @@ class PdfUmumController extends Controller
         // Jika print 2 umum.
         if ($id_umum_dua !== null) {
             $this->dataView['product'] = IjazahUmum::whereIn('umum_id', [$id_umum_satu, $id_umum_dua])
-                ->where('id_ijazah', $id_ijazah)
+                ->where('id_ijazah_umum', $id_ijazah)
                 ->get();
 
             // Jika data 2 umum ditemukan.
@@ -221,7 +222,7 @@ class PdfUmumController extends Controller
         // Jika print hanya 1 umum.
         else {
             $this->dataView['product'] = IjazahUmum::where('umum_id', $id_umum_satu)
-                ->where('id_ijazah', $id_ijazah)
+                ->where('id_ijazah_umum', $id_ijazah)
                 ->get();
 
             // Jika data umum ditemukan.
@@ -251,7 +252,7 @@ class PdfUmumController extends Controller
         // Jika print 2 umum.
         if ($id_umum_dua !== null) {
             $this->dataView['product'] = JurnalUmum::whereIn('umum_id', [$id_umum_satu, $id_umum_dua])
-                ->where('id_jurnal', $id_jurnal)
+                ->where('id_jurnal_umum', $id_jurnal)
                 ->get();
 
             // Jika data 2 umum ditemukan.
@@ -276,7 +277,7 @@ class PdfUmumController extends Controller
         // Jika print hanya 1 umum.
         else {
             $this->dataView['product'] = JurnalUmum::where('umum_id', $id_umum_satu)
-                ->where('id_jurnal', $id_jurnal)
+                ->where('id_jurnal_umum', $id_jurnal)
                 ->get();
 
             // Jika data umum ditemukan.

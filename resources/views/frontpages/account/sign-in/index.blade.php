@@ -9,7 +9,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-6 col-md-8 px-5 mb-4" data-aos="fade-right" data-aos-duration="1500">
                         <h1 class="text-white customheading">Welcome Back!</h1>
-                        <p class="text-lead text-white customtext">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos reprehenderit recusandae natus obcaecati necessitatibus laborum sunt ratione consequatur? Veniam, debitis.</p>
+                        <p class="text-lead text-white customtext">It's nice to see you again! <br> Please Sign In to continue to your account.</p>
                     </div>
                 </div>
             </div>

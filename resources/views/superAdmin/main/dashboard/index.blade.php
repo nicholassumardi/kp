@@ -6,6 +6,10 @@ Dashboard
 <div class="container-fluid mt--6">
 
     <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between">
+            <h3 class="mb-0">Admin</h3>
+            <a href="{{route('super-admin.create')}}" class="btn btn-primary btn-sm">Add Admin</a>
+        </div>
 
         <div class="card-body">
             <div class="table-responsive">
@@ -13,20 +17,22 @@ Dashboard
                     <thead>
                         <tr>
                             <th>Nama Admin</th>
+                            <th>Tipe User</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($listAdmin as $admin)
+                        @foreach ($listAdmin as $user)
                         <tr>
-                            <td>{{$admin->nama}}</td>
+                            <td>{{$user->nama}}</td>
+                            <td class="text-center">{{ $user->tipe_user_id == 2 ? 'Admin PUSBA' : 'Admin Penerjemah' }}</td>
                             <td class="text-center">
-                                <li class="btn btn-sm {{$admin->status==1?'btn-success':'btn-danger'}} disabled">
-                                    {{$admin->status==1?'Active':'Inactive'}}</li>
+                                <li class="btn btn-sm {{$user->status==1?'btn-success':'btn-danger'}} disabled">
+                                    {{$user->status==1?'Active':'Inactive'}}</li>
                             </td>
                             <td class="text-center">
-                                <form action="{{route('super-admin.update', $admin->id_user)}}" enctype="multipart/form-data" method="POST" class="d-inline">
+                                <form action="{{route('super-admin.update', $user->id_user)}}" enctype="multipart/form-data" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" class="js-status" name="status">

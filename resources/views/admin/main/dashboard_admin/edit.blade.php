@@ -50,6 +50,70 @@ Students Data
                         </tr>
                     </thead>
                     <tbody>
+                        @if ($kursus->tipe_kursus === 'mahasiswa')
+                        @foreach ($kursus->mahasiswa as $key => $mahasiswa)
+                        <tr>
+                            <td class="align-middle">{{$mahasiswa->nama}}</td>
+
+                            <td class="align-middle">{{$mahasiswa->pivot->no_kartu_mahasiswa}}</td>
+
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
+                            </td>
+
+                            <td class="text-center align-middle"><i
+                                    class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
+                                    {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
+
+                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                                    class="text-center custombuktipembayaran"></td>
+
+                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                                class="text-center customfotoprofile"></td>
+
+                            @if ($kursus->sertifikat === 1)
+                            <td class="align-middle text-center"><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                                    class='text-center customfotoprofile'></td>
+                            @endif
+
+                            <td class="text-center align-middle">
+                                <form
+                                    action="{{ route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
+                                        <i class="bi bi-check-square text-green"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $mahasiswa_count))
+                                <td class="align-middle" rowspan="2">
+                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $mahasiswa_count))
+                                <td class="align-middle">
+                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            @endif
+                        </tr>
+                        @endforeach
+                        @endif
+                        
+                        @if ($kursus->tipe_kursus === 'mahasiswa dan umum')
+
                         @foreach ($kursus->mahasiswa as $key => $mahasiswa)
                         <tr>
                             <td class="align-middle">{{$mahasiswa->nama}}</td>
@@ -110,6 +174,128 @@ Students Data
                         </tr>
                         @endforeach
 
+                        @foreach ($kursus->umum as $key => $umum)
+                        <tr>
+                            <td class="align-middle">{{$umum->nama}}</td>
+
+                            <td class="align-middle">{{$umum->pivot->no_kartu_umum}}</td>
+
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $umum->pivot->created_at)->year}}
+                            </td>
+
+                            <td class="text-center align-middle"><i
+                                    class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
+                                    {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
+
+                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
+                                    class="text-center custombuktipembayaran"></td>
+
+                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}" alt=""
+                                class="text-center customfotoprofile"></td>
+
+                            @if ($kursus->sertifikat === 1)
+                            <td class="align-middle text-center"><img src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
+                                    class='text-center customfotoprofile'></td>
+                            @endif
+
+                            <td class="text-center align-middle">
+                                <form
+                                    action="{{ route('admin.update2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
+                                        <i class="bi bi-check-square text-green"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('admin.sendKomentar2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $umum_count))
+                                <td class="align-middle" rowspan="2">
+                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum, 'id_umum_dua' => $kursus->umum->get($key + 1)->id_umum]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $umum_count))
+                                <td class="align-middle">
+                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            @endif
+                        </tr>
+                        @endforeach
+                        @endif
+
+                        @if ($kursus->tipe_kursus === 'mahasiswa umum')
+                        @foreach ($kursus->umum as $key => $umum)
+                        <tr>
+                            <td class="align-middle">{{$umum->nama}}</td>
+
+                            <td class="align-middle">{{$umum->pivot->no_kartu_umum}}</td>
+
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $umum->pivot->created_at)->year}}
+                            </td>
+
+                            <td class="text-center align-middle"><i
+                                    class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
+                                    {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
+
+                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
+                                    class="text-center custombuktipembayaran"></td>
+
+                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}" alt=""
+                                class="text-center customfotoprofile"></td>
+
+                            @if ($kursus->sertifikat === 1)
+                            <td class="align-middle text-center"><img src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
+                                    class='text-center customfotoprofile'></td>
+                            @endif
+
+                            <td class="text-center align-middle">
+                                <form
+                                    action="{{ route('admin.update2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
+                                        <i class="bi bi-check-square text-green"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('admin.sendKomentar2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
+                            @if (($key % 2 === 0) && ($key + 1 !== $umum_count))
+                                <td class="align-middle" rowspan="2">
+                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum, 'id_umum_dua' => $kursus->umum->get($key + 1)->id_umum]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $umum_count))
+                                <td class="align-middle">
+                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
+                                        class="btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-printer-fill text-indigo"></i></a>
+                                </td>
+                            @endif
+                        </tr>
+                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

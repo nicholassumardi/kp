@@ -20,7 +20,7 @@ class SchedulesUmumController extends Controller
      */
     public function index()
     {
-        $this->dataView['nama_kursus'] = Course::paginate(4);
+        $this->dataView['nama_kursus'] = Course::where('status', 1)->paginate(4);
         $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
         
         return view('public.main.quota.index', $this->dataView);

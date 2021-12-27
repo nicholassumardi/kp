@@ -62,10 +62,7 @@ class UmumListController extends Controller
             asort($this->dataView['data_umum_terurut']);
         }
 
-
-        return view('admin.main.student_list_admin.index', $this->dataView);
-
-   
+        return view('admin.main.student_list_admin.index', $this->dataView);   
     }
 
     public function changeYear($year, $id_kursus)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseDetail;
+use App\Models\CourseDetailUmum;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,14 +76,25 @@ class CourseStudentController extends Controller
                         ],
                         ['image/jpeg', 'image/png']
                     )) {
-                        $nomorKartuMahasiswa = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        // $nomorKartuMahasiswa = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        $nomorKartuMhs = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        $nomorKartuUmum = CourseDetailUmum::where('kursus_id', $request->kursus_id)->max('no_kartu_umum');
+
+                        // Mahasiswa
+                        if ($nomorKartuMhs > $nomorKartuUmum) {
+                            $nomorKartu = $nomorKartuMhs;
+                        } 
+                        // umum
+                        else {
+                            $nomorKartu = $nomorKartuUmum;
+                        }
                         
                         // Jika kursus belum memiliki mahasiswa yang mendaftar
-                        if ($nomorKartuMahasiswa !== null) {
+                        if ($nomorKartu !== null) {
                             CourseDetail::create([
                                 'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                                 'kursus_id' => $request->kursus_id,
-                                'no_kartu_mahasiswa' => $nomorKartuMahasiswa + 1,
+                                'no_kartu_mahasiswa' => $nomorKartu + 1,
                                 // 'jadwal_id' => $request->jadwal_id,
                                 'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
                                 'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),
@@ -122,14 +134,25 @@ class CourseStudentController extends Controller
                         ],
                         ['image/jpeg', 'image/png']
                     )) {
-                        $nomorKartuMahasiswa = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        // $nomorKartuMahasiswa = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        $nomorKartuMhs = CourseDetail::where('kursus_id', $request->kursus_id)->max('no_kartu_mahasiswa');
+                        $nomorKartuUmum = CourseDetailUmum::where('kursus_id', $request->kursus_id)->max('no_kartu_umum');
+
+                        // Mahasiswa
+                        if ($nomorKartuMhs > $nomorKartuUmum) {
+                            $nomorKartu = $nomorKartuMhs;
+                        } 
+                        // umum
+                        else {
+                            $nomorKartu = $nomorKartuUmum;
+                        }
                         
                         // Jika kursus belum memiliki mahasiswa yang mendaftar
-                        if ($nomorKartuMahasiswa !== null) {
+                        if ($nomorKartu !== null) {
                             CourseDetail::create([
                                 'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                                 'kursus_id' => $request->kursus_id,
-                                'no_kartu_mahasiswa' => $nomorKartuMahasiswa + 1,
+                                'no_kartu_mahasiswa' => $nomorKartu + 1,
                                 // 'jadwal_id' => $request->jadwal_id,
                                 'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/', 'public'),
                                 'path_foto_mahasiswa' => $request->path_foto_mahasiswa->store('images/foto-mahasiswa/', 'public'),

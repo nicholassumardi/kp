@@ -10,11 +10,11 @@ Student List
             <div class="card">
                 <!-- Card header -->
                 <div class="d-flex card-header border-0">
-                    <div class="col-5">
+                    <div class="col-4">
                         <h2 class="mb-0">Student List</h2>
                     </div>
 
-                    <div class="col-2">
+                    <div class="col-3">
                         <select class="form-control" id="tipeUser-dropdown">
                             <option value="Mahasiswa">Mahasiswa</option>
                             <option value="Umum">Umum</option>
@@ -140,7 +140,7 @@ Student List
                                 @endfor
                             </select>
                         </div>
-                        @else
+                        @elseif($detail_kursus_umum_count > 0 )
                             <div>
                                 @php
                                 $min_year_umum = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $min_year_umum)->year;
@@ -334,16 +334,14 @@ Student List
     $(function() {
         // Jika di studentList
         if ( ! $( ".parentMahasiswa" ).hasClass( "d-none" )) {
-            // console.log($( "#parentMahasiswa" ).hasClass( "d-none" ));
             $("#tipeUser-dropdown").val("Mahasiswa");
-            // console.log("MHS");
         } 
         // Jika di studentList
         else if(! $( ".parentUmum" ).hasClass( "d-none" )){
             $("#tipeUser-dropdown").val("Umum");
-            // console.log("UMUM");
-
-        }else if(! $( ".parentMahasiswaUmum" ).hasClass( "d-none" )){
+        } 
+        // Jika di mahasiswaUmumList
+        else if(! $( ".parentMahasiswaUmum" ).hasClass( "d-none" )){
             $("#tipeUser-dropdown").val("MahasiswaUmum");
         }
         
@@ -365,6 +363,7 @@ Student List
             location.href = `/umumList/${year}/${id_kursus}`;
         });
 
+        // Ubah dropdown year mahasiswa dan umum
         $("#sort-year-mahasiswaUmum").on("change", function() {
             const params = $(this).val();
             const year =  params.substring(0,4);
@@ -386,9 +385,8 @@ Student List
             } else if (tipeUserDropdown.val() === "Umum") {
                 location.href = `/umumList`;
 ;
-            }else if (tipeUserDropdown.val() === "MahasiswaUmum") {
+            } else if (tipeUserDropdown.val() === "MahasiswaUmum") {
                 location.href = `/mahasiswaUmumList`;
-;
             }
         }); 
     });

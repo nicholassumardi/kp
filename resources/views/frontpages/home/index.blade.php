@@ -6,17 +6,15 @@
 
     <div class="row text-start mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400">
         <div class="col-sm-9 aboutme">
-            <h2>ITATS</h2>
-            <h2>LANGUAGE CENTER</h2>
+            <h2></h2>
+            <h2>ITATS LANGUAGE CENTRE</h2>
             <hr class="solid">
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-5 aboutmedesc" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi debitis, ex similique est totam
-                temporibus modi sit nemo? Molestiae dolorem obcaecati suscipit id iusto maiores nulla reprehenderit
-                cupiditate, neque recusandae!
+            <p>English is the window of the Global World, join us to develop your self and future career by improving your English.
             </p>
         </div>
     </div>
