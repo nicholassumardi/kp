@@ -68,7 +68,7 @@ class NewsController extends Controller
                     'isi_berita' => $request->isi_berita
                 ]);
             } else {
-                return redirect()->route('addCourse.create')
+                return redirect()->route('addNews.create')
                     ->with('error', 'Failed to create News, Picture in wrong format');
             }
         } else {
@@ -87,6 +87,7 @@ class NewsController extends Controller
                 'isi_berita' => $request->isi_berita
             ]);
         }
+
         return redirect()->route('addNews.index')
             ->with('success', 'News created successfully.');
     }
@@ -110,7 +111,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $this->dataview['data_berita'] = News::where('id_berita', $id)->first();
+        $this->dataView['data_berita'] = News::where('id_berita', $id)->first();
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         return view('admin.main.news_admin.edit', $this->dataView);
     }
@@ -124,7 +125,49 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->hasFile('path_foto_berita')) { // Jika foto ada
+            if ($this->isMimeFileMatches(
+                [$request->path_foto_berita],
+                ['image/jpeg', 'image/png']
+            )) {
+                $request->validate([
+                    'judul_berita' => 'required',
+                    'tanggal_berita' => 'required',
+                    'isi_berita' => 'required',
+                ]);
+
+                $idAdmin = Admin::where('user_id', Auth::id())->first();
+
+                News::where('id_berita', $id)->update([
+                    'admin_id' => $idAdmin->id_admin,
+                    'judul_berita' => $request->judul_berita,
+                    'tanggal_berita' => date('d-m-Y', strtotime($request->tanggal_berita)),
+                    'path_foto_berita' => $request->path_foto_berita->store('images/berita/foto', 'public'),
+                    'isi_berita' => $request->isi_berita
+                ]);
+            } else {
+                return redirect()->route('addNews.edit')
+                    ->with('error', 'Failed to create News, Picture in wrong format');
+            }
+        } else {
+            $request->validate([
+                'judul_berita' => 'required',
+                'tanggal_berita' => 'required',
+                'isi_berita' => 'required',
+            ]);
+
+            $idAdmin = Admin::where('user_id', Auth::id())->first();
+
+            News::where('id_berita', $id)->update([
+                'admin_id' => $idAdmin->id_admin,
+                'judul_berita' => $request->judul_berita,
+                'tanggal_berita' => date('Y-m-d', strtotime($request->tanggal_berita)),
+                'isi_berita' => $request->isi_berita
+            ]);
+        }
+        
+        return redirect()->route('addNews.index')
+            ->with('success', 'News updated successfully.');
     }
 
     /**

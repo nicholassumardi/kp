@@ -22,12 +22,11 @@
     <div class="row mt-2 mb-3" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400"
         data-aos-once="true">
         <div class="col-sm">
-            <a href="/sign-in"><button type="button" class="btn btn-lg col-sm-4 custombutton shadow">Sign
-                    In</button></a>
+            <a href="https://www.instagram.com/pusbaitats/?hl=en"><button type="button" class="btn btn-sm col-sm-3 custombutton shadow d-flex justify-content-center">  <i class="mx-2 fa fa-instagram fa-lg mt-1" style="font-size: 42px;"></i><span class="instagram">More Information On<span style="margin-bottom: 0em;display: block;"></span> <span class="instagram2">Instagram</span></span></button></a>
         </div>
     </div>
 
-    <div class="row col-l" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400" data-aos-once="true">
+    {{-- <div class="row col-l" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="1400" data-aos-once="true">
         <div class="container ms-1 text-center">
             <div class="social mt-2 mb-3">
                 <a target="_blank" href="https://www.instagram.com/pusbaitats/?hl=en" class="aboutmedesc">
@@ -35,7 +34,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
 

@@ -17,12 +17,23 @@ color: #ffff;
     color: #ffff;
     font-size: 13pt;
 }
+.instagram{
+    margin-bottom: 0em;
+    display: block;
+    color: #ffff;
+    font-size: 8pt;
+}
 
+.instagram2{
+    color: #ffff;
+    font-size: 15pt;
+}
 .custombutton{
+    line-height:120%;
     font-family: titiliumlight;
     background-color:#F5B531;
     color: #f4fffb;       
-    border-radius: 50px;
+    border-radius: 20px;
     border: none;
 }
 

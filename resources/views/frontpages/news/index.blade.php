@@ -11,7 +11,7 @@
                     <img src="{{'storage/' . $databerita->path_foto_berita}}" class="card-img-top" alt="...">
                     <h5 class="card-title">{{$databerita->judul_berita}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{$databerita->tanggal_berita}}</h6>
-                    <p class="card-text">{!! Str::limit($databerita->isi_berita, 100) !!}.</p>
+                    
                     <a href="{{route('news.show', $databerita->id_berita)}}" class="btn btn-outline-primary">See
                         More</a>
                 </div>

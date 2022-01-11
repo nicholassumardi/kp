@@ -10,7 +10,7 @@ Course
         <div class="card">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between">
-                    <h3 class="mb-0">Add Course</h3>
+                    <h3 class="mb-0">Edit Course</h3>
                     <a href="{{route('addCourse.index')}}" class="btn btn-outline-success btn-sm"><i
                             class="bi bi-arrow-left"></i> Back</a>
                 </div>

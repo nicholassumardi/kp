@@ -27,7 +27,12 @@ class MahasiswaUmumListController extends Controller
 
         $this->dataView['page'] = 'mahasiswaUmumList';
 
-        $this->dataView['detail_kursus_umum_count'] = CourseDetailUmum::count();
+        $this->dataView['detail_kursus_umum_count'] = DB::table('detail_kursus_umum')
+        ->join('kursus', 'detail_kursus_umum.kursus_id', '=', 'kursus.id_kursus')
+        ->where('tipe_kursus', 'mahasiswa dan umum')
+        ->count();
+            
+   
             
             // Jika belum ada mahasiswa yang mendaftar kursus
         if ($this->dataView['detail_kursus_umum_count'] > 0) {
@@ -65,7 +70,11 @@ class MahasiswaUmumListController extends Controller
         } $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
 
         
-        $this->dataView['detail_kursus_count'] = CourseDetail::count();
+        $this->dataView['detail_kursus_count'] = DB::table('detail_kursus')
+        ->join('kursus', 'detail_kursus.kursus_id', '=', 'kursus.id_kursus')
+        ->where('tipe_kursus', 'mahasiswa dan umum')
+        ->count();
+  
         
 
 
@@ -116,7 +125,10 @@ class MahasiswaUmumListController extends Controller
 
         $this->dataView['page'] = 'mahasiswaUmumList';
 
-        $this->dataView['detail_kursus_umum_count'] = CourseDetailUmum::count();
+        $this->dataView['detail_kursus_umum_count'] = DB::table('detail_kursus_umum')
+        ->join('kursus', 'detail_kursus_umum.kursus_id', '=', 'kursus.id_kursus')
+        ->where('tipe_kursus', 'mahasiswa dan umum')
+        ->count();
             
             // Jika belum ada mahasiswa yang mendaftar kursus
         if ($this->dataView['detail_kursus_umum_count'] > 0) {
@@ -154,7 +166,12 @@ class MahasiswaUmumListController extends Controller
 
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         
-        $this->dataView['detail_kursus_count'] = CourseDetail::count();
+        $this->dataView['detail_kursus_count'] = DB::table('detail_kursus')
+        ->join('kursus', 'detail_kursus.kursus_id', '=', 'kursus.id_kursus')
+        ->where('tipe_kursus', 'mahasiswa dan umum')
+        ->count();
+            
+      
 
 
            // Jika belum ada mahasiswa yang mendaftar kursus

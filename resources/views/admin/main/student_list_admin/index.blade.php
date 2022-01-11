@@ -273,8 +273,7 @@ Student List
                 <div class="parentMahasiswaUmum {{ $page == 'mahasiswaUmumList' ? '' : 'd-none' }}">
                     {{-- Jika sudah ada umum yang mendaftar kursus --}}
                     @if ($page == 'mahasiswaUmumList')
-                    @if (($detail_kursus_count > 0 && $detail_kursus_umum_count > 0) || ($detail_kursus_count > 0 ||
-                    $detail_kursus_umum_count > 0))
+                    @if (($detail_kursus_count > 0 && $detail_kursus_umum_count > 0) || ($detail_kursus_count > 0 ||$detail_kursus_umum_count > 0))
                     <!-- Light table -->
                     <div class="table-responsive">
                         <div class="card-body text-center">
@@ -286,7 +285,7 @@ Student List
                                     <h3 class="mb-0">NPM </h3>
                                 </div>
                             </div>
-
+                          
                             @foreach ($data_mahasiswa_terurut as $mahasiswa_terurut)
                             <div class="row">
                                 <div class="col">
@@ -297,6 +296,9 @@ Student List
                                 </div>
                             </div>
                             @endforeach
+                          
+
+                          
                             @foreach ($data_umum_terurut as $umum_terurut)
                             <div class="row">
                                 <div class="col">
@@ -307,6 +309,7 @@ Student List
                                 </div>
                             </div>
                             @endforeach
+                         
                         </div>
                     </div>
                     @endif
@@ -315,7 +318,7 @@ Student List
 
                     {{-- Jika belum ada mahasiswa yang mendaftar kursus --}}
                     @if ($page == 'mahasiswaUmumList')
-                    @if ($detail_kursus_count === 0 && $detail_kursus_umum_count === 0)
+                    @if (($detail_kursus_count === 0 && $detail_kursus_umum_count === 0) || ($detail_kursus_count > 0 && $detail_kursus_umum_count === 0) || ($detail_kursus_count === 0 && $detail_kursus_umum_count > 0) )
                     <div class="card-body">
                         <h3 class="text-center">Belum ada yang mendaftar kursus</h3>
                     </div>

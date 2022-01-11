@@ -4,12 +4,13 @@ News
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
-    <form action="{{route('addNews.index')}}" method="post">
+    <form action="{{route('addNews.update', $data_berita->id_berita)}}" method="post" enctype="multipart/form-data">
         @csrf
+        @METHOD('PATCH')
         <div class="card">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between">
-                    <h3 class="mb-0">Add News</h3>
+                    <h3 class="mb-0">Edit News</h3>
                     <a href="{{route('addNews.index')}}" class="btn btn-outline-success btn-sm"><i
                             class="bi bi-arrow-left"></i> Back</a>
                 </div>
@@ -21,7 +22,7 @@ News
                         </label>
 
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="judul_berita">
+                            <input type="text" class="form-control" name="judul_berita" value="{{ $data_berita->judul_berita }}">
                         </div>
 
                     </div>
@@ -59,7 +60,7 @@ News
                             <h4>News Content <span class="text-danger">*</span></h4>
                         </label>
                         <div class="col-sm-7">
-                            <div id="summernote"><input type="hidden" name="isi_berita"></div>
+                            <div id="summernote"><input type="hidden" name="isi_berita" value="{{ $data_berita->isi_berita }}"></div>
                         </div>
                     </div>
 
@@ -79,6 +80,8 @@ News
 @endsection
 @push('js')
 <script>
+    $('#summernote').summernote('code', $('input[name="isi_berita"]').val());
+
     $('#summernote').summernote({
             tabsize: 2,
             height: 350,

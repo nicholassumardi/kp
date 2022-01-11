@@ -33,7 +33,7 @@ class AdminController extends Controller
         $this->dataView['kursus_aktif_count'] = Course::where('status', 1)->count();
         $this->dataView['mahasiswa_count'] = Mahasiswa::count();
         $this->dataView['mahasiswa_aktif_count'] = User::where('status', 1)
-            ->where('tipe_user_id', 3)
+            ->where('tipe_user_id', 4)
             ->count();
 
         return view('admin.main.dashboard_admin.index', $this->dataView);
