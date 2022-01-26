@@ -65,7 +65,26 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-pen-fill text-green"></i></a>
                             </td>
+                            @if (($key % 2 === 0) && ($key + 1 !== $abstrak_count))
+                            <td class="align-middle" rowspan="2">
+                                <a href="{{ route('generate2.pdf', ['id_abstract' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id, 'id_mahasiswa_dua' =>  $abstract->get($key + 1)->mahasiswa_id]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a>
 
+
+                            </td>
+                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
+                            @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_count))
+                            <td class="align-middle">
+                                <a href="{{ route('generate2.pdf', ['id_abstract' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a>
+
+                            </td>
+                            {{-- Jika data berada pada index ganjil. --}}
+                            @else
+                            <td class="d-none"></td>
+                            @endif
 
                         </tr>
 
