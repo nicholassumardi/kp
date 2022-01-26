@@ -18,8 +18,8 @@ Penerjemahan
                             <th class="text-center">Jenis File</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">File Anda</th>
-                            <th class="text-center">File Admin</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">File Admin PDF</th>
+                            <th class="text-center">File Admin Word</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,14 +35,24 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($abstract->path_file_abstrak_umum) }}
                             </td>
-                            <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_word) }}</td>
-                            <td class="d-flex justify-content-center">
-                                @if ($abstract->path_file_abstrak_admin_word !== null)
-                                <a href="{{ asset('storage/' . $abstract->path_file_abstrak_admin_word) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-download text-gray"></i></a>
-                                @endif
+                            @if ($abstract->path_file_abstrak_admin_pdf != null)
+                            <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_pdf) }}
+                                <br><br>
+                                <a href="{{route('penerjemahan-public.downloadAbstrakAdminPDF', ['id_umum' => $abstract->umum_id, 'id_abstrak_umum' => $abstract->id_abstrak_umum])}}" class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-download text-gray"></i>Download PDF</a>
                             </td>
+                            @else
+                            <td class="text-center">No File Yet</td>
+                            @endif
+                            @if ($abstract->path_file_abstrak_admin_word != null)
+                            <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_word) }}
+                                <br><br>
+                                <a href="{{route('penerjemahan-public.downloadAbstrakAdminWORD', ['id_umum' => $abstract->umum_id, 'id_abstrak_umum' => $abstract->id_abstrak_umum])}}" class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-download text-gray"></i>Download Word</a>
+                            </td>
+                            @else
+                            <td class="text-center">No File Yet</td>
+                            @endif
                         </tr>
                         @endforeach
 
@@ -98,14 +108,27 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($jurnal->path_file_jurnal_umum) }}
                             </td>
-                            <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_word) }}</td>
-                            <td class="d-flex justify-content-center">
-                                @if ($jurnal->path_file_jurnal_admin_word !== null)
-                                <a href="{{ asset('storage/' . $jurnal->path_file_jurnal_admin_word) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-download text-gray"></i></a>
-                                @endif
+                          
+                            @if ($jurnal->path_file_jurnal_admin_pdf != null)
+                            <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_pdf) }}
+                                <br>
+                                <br>
+                                <a href="{{route('penerjemahan-public.downloadJurnalAdminPDF', ['id_umum' => $jurnal->umum_id, 'id_jurnal_umum' => $jurnal->id_jurnal_umum])}}" class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-download text-gray"></i> Download PDF</a>
                             </td>
+                            @else
+                            <td class="text-center">No File Yet</td>
+                            @endif
+                            @if ($jurnal->path_file_jurnal_admin_word != null)
+                            <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_word) }}
+                                <br>
+                                <br>
+                                <a href="{{route('penerjemahan-public.downloadJurnalAdminWORD', ['id_umum' => $jurnal->umum_id, 'id_jurnal_umum' => $jurnal->id_jurnal_umum])}}" class="btn btn-sm btn-outline-secondary text-center"><i
+                                        class="bi bi-download text-gray"></i> Download Word</a>
+                            </td>
+                            @else
+                            <td class="text-center">No File Yet</td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

@@ -84,7 +84,7 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak-umum/', 'public'),
                         'path_file_abstrak_umum' => $request->path_file_abstrak_umum->storeAs(
-                            'dokumen/dokumen-abstrak/umum/', 
+                            'dokumen/dokumen-abstrak/umum', 
                             $request->path_file_abstrak_umum->getClientOriginalName(), 
                             'public'
                         ),
@@ -135,7 +135,7 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/umum/', 
+                            'dokumen/dokumen-transkrip/umum', 
                             $request->path_file_transkrip_nilai->getClientOriginalName(), 
                             'public'
                         ),
@@ -186,7 +186,7 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/umum/', 
+                            'dokumen/dokumen-ijazah/umum', 
                             $request->path_file_ijazah->getClientOriginalName(), 
                             'public'
                         ),
@@ -251,7 +251,7 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi_transkrip_nilai->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/umum/', 
+                            'dokumen/dokumen-transkrip/umum', 
                             $request->path_file_transkrip_nilai->getClientOriginalName(), 
                             'public'
                         ),
@@ -264,7 +264,7 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi_ijazah->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/umum/', 
+                            'dokumen/dokumen-ijazah/umum', 
                             $request->path_file_ijazah->getClientOriginalName(), 
                             'public'
                         ),
@@ -315,7 +315,7 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak-umum/', 'public'),
                         'path_file_jurnal_umum' => $request->path_file_jurnal_umum->storeAs(
-                            'dokumen/dokumen-jurnal/umum/', 
+                            'dokumen/dokumen-jurnal/umum', 
                             $request->path_file_jurnal_umum->getClientOriginalName(), 
                             'public'
                         ),
@@ -382,4 +382,51 @@ class PenerjemahanUmumController extends Controller
     {
         //
     }
+    public function downloadAbstrakAdminPDF($id_umum, $id_abstrak_umum){
+        $file_name = AbstrakUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_abstrak_umum', '=', $id_abstrak_umum],
+        ])->value('path_file_abstrak_admin_pdf');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+    public function downloadAbstrakAdminWORD($id_umum, $id_abstrak_umum){
+        $file_name = AbstrakUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_abstrak_umum', '=', $id_abstrak_umum],
+        ])->value('path_file_abstrak_admin_word');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+    
+    public function downloadJurnalAdminPDF($id_umum, $id_jurnal_umum){
+        $file_name = JurnalUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_jurnal_umum', '=', $id_jurnal_umum],
+        ])->value('path_file_jurnal_admin_pdf');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+
+    public function downloadJurnalAdminWORD($id_umum, $id_jurnal_umum){
+        $file_name = JurnalUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_jurnal_umum', '=', $id_jurnal_umum],
+        ])->value('path_file_jurnal_admin_word');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+
 }

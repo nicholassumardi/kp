@@ -85,7 +85,7 @@ class PenerjemahanStudentController extends Controller
                         'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak/', 'public'),
                         'path_file_abstrak_mahasiswa' => $request->path_file_abstrak_mahasiswa->storeAs(
-                            'dokumen/dokumen-abstrak/mahasiswa/', 
+                            'dokumen/dokumen-abstrak/mahasiswa', 
                             $request->path_file_abstrak_mahasiswa->getClientOriginalName(), 
                             'public'
                         ),
@@ -136,7 +136,7 @@ class PenerjemahanStudentController extends Controller
                         'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/mahasiswa/', 
+                            'dokumen/dokumen-transkrip/mahasiswa', 
                             $request->path_file_transkrip_nilai->getClientOriginalName(), 
                             'public'
                         ),
@@ -187,7 +187,7 @@ class PenerjemahanStudentController extends Controller
                         'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/mahasiswa/', 
+                            'dokumen/dokumen-ijazah/mahasiswa', 
                             $request->path_file_ijazah->getClientOriginalName(), 
                             'public'
                         ),
@@ -252,7 +252,7 @@ class PenerjemahanStudentController extends Controller
                         'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi_transkrip_nilai->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/mahasiswa/', 
+                            'dokumen/dokumen-transkrip/mahasiswa', 
                             $request->path_file_transkrip_nilai->getClientOriginalName(), 
                             'public'
                         ),
@@ -265,7 +265,7 @@ class PenerjemahanStudentController extends Controller
                         'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi_ijazah->store('images/bukti-pembayaran/ijazah/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/mahasiswa/', 
+                            'dokumen/dokumen-ijazah/mahasiswa', 
                             $request->path_file_ijazah->getClientOriginalName(), 
                             'public'
                         ),
@@ -316,7 +316,7 @@ class PenerjemahanStudentController extends Controller
                         'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak/', 'public'),
                         'path_file_jurnal_mahasiswa' => $request->path_file_jurnal_mahasiswa->storeAs(
-                            'dokumen/dokumen-jurnal/mahasiswa/', 
+                            'dokumen/dokumen-jurnal/mahasiswa', 
                             $request->path_file_jurnal_mahasiswa->getClientOriginalName(), 
                             'public'
                         ),
@@ -382,5 +382,52 @@ class PenerjemahanStudentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function downloadAbstrakAdminPDF($id_mahasiswa, $id_abstrak){
+        $file_name = Abstrak::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_abstrak', '=', $id_abstrak],
+        ])->value('path_file_abstrak_admin_pdf');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+    public function downloadAbstrakAdminWORD($id_mahasiswa, $id_abstrak){
+        $file_name = Abstrak::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_abstrak', '=', $id_abstrak],
+        ])->value('path_file_abstrak_admin_word');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+    
+    public function downloadJurnalAdminPDF($id_mahasiswa, $id_jurnal){
+        $file_name = Jurnal::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_jurnal', '=', $id_jurnal],
+        ])->value('path_file_jurnal_admin_pdf');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
+    }
+
+    public function downloadJurnalAdminWORD($id_mahasiswa, $id_jurnal){
+        $file_name = Jurnal::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_jurnal', '=', $id_jurnal],
+        ])->value('path_file_jurnal_admin_word');
+        $file = public_path('storage/'). $file_name;
+   
+
+        return response()->download($file);
+        
     }
 }

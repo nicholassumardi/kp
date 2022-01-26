@@ -73,7 +73,7 @@ class UmumController extends Controller
         $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();
 
 
-        return view('student.main.dashboard_public.edit',  $this->dataView);
+        return view('public.main.dashboard_public.edit',  $this->dataView);
     }
 
     /**

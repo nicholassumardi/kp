@@ -16,7 +16,7 @@ Dashboard
                 <div class="card-body p-5">
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label col-form-label-sm text-lg-end text-sm-start">
-                            <h3>Tiper User <span class="text-danger">*</span></h3>
+                            <h3>Tipe User <span class="text-danger">*</span></h3>
                         </label>
                         <div class="col-sm-7">
                             <select class="form-control" id="" name="id_tipe_user">

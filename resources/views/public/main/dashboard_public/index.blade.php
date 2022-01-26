@@ -59,7 +59,7 @@ Dashboard
                                 </td>
 
                                 <td class="text-center">
-                                    <a href=""
+                                    <a href="{{route('umum.edit', $k->id_kursus)}}"
                                         class="btn btn-sm btn-outline-secondary"><i
                                             class="bi bi-pen-fill text-green"></i></a>
                                 </td>
@@ -72,7 +72,7 @@ Dashboard
                     <div class="card-footer py-4">
                         <nav aria-label="">
                             <ul class="pagination justify-content-end mb-0">
-                                {{-- {!! $kursus->links() !!} --}}
+                                {!! $kursus->links() !!}
                             </ul>
                         </nav>
                     </div>

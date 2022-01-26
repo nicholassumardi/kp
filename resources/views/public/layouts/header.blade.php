@@ -15,7 +15,7 @@
       
                 </div>
             </div>
-          @include('student/layouts/flash-messages')
+          @include('public/layouts/flash-messages')
         </div>
     </div>
 </div>

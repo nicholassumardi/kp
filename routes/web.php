@@ -59,7 +59,10 @@ Route::get('courses/{id}/bukti_pembayaran', [CourseStudentController::class, 'ge
 Route::resource('penerjemahan-student', PenerjemahanStudentController::class);
 Route::get('student-edit/{id}', [MahasiswaController::class, 'edit'])->name('student.edit');
 Route::patch('student-update/{id_mahasiswa}/{id_kursus}', [MahasiswaController::class, 'update'])->name('student.update');
-
+Route::get('penerjemahan-student-downloadAbstrakAdminPDF/{id_mahasiswa}/{id_abstrak}', [PenerjemahanStudentController::class, 'downloadAbstrakAdminPDF'])->name('penerjemahan-student.downloadAbstrakAdminPDF');
+Route::get('penerjemahan-student-downloadAbstrakAdminWORD/{id_mahasiswa}/{id_abstrak}', [PenerjemahanStudentController::class, 'downloadAbstrakAdminWORD'])->name('penerjemahan-student.downloadAbstrakAdminWORD');
+Route::get('penerjemahan-student-downloadJurnalAdminPDF/{id_mahasiswa}/{id_jurnal}', [PenerjemahanStudentController::class, 'downloadJurnalAdminPDF'])->name('penerjemahan-student.downloadJurnalAdminPDF');
+Route::get('penerjemahan-student-downloadJurnalAdminWORD/{id_mahasiswa}/{id_jurnal}', [PenerjemahanStudentController::class, 'downloadJurnalAdminWORD'])->name('penerjemahan-student.downloadJurnalAdminWORD');
 
 // // DASHBOARD UMUM/ PUBLIC
 Route::get('public', [UmumController::class, 'index'])->name('umum.index');
@@ -70,7 +73,10 @@ Route::get('courses-public/{id}/bukti_pembayaran', [CourseUmumController::class,
 Route::resource('penerjemahan-public', PenerjemahanUmumController::class);
 Route::get('public-edit/{id}', [UmumController::class, 'edit'])->name('umum.edit');
 Route::patch('public-update/{id_umum}/{id_kursus}', [UmumController::class, 'update'])->name('umum.update');
-
+Route::get('penerjemahan-public-downloadAbstrakAdminPDF/{id_umum}/{id_abstrak_umum}', [PenerjemahanUmumController::class, 'downloadAbstrakAdminPDF'])->name('penerjemahan-public.downloadAbstrakAdminPDF');
+Route::get('penerjemahan-public-downloadAbstrakAdminWORD/{id_umum}/{id_abstrak_umum}', [PenerjemahanUmumController::class, 'downloadAbstrakAdminWORD'])->name('penerjemahan-public.downloadAbstrakAdminWORD');
+Route::get('penerjemahan-public-downloadJurnalAdminPDF/{id_umum}/{id_jurnal_umum}', [PenerjemahanUmumController::class, 'downloadJurnalAdminPDF'])->name('penerjemahan-public.downloadJurnalAdminPDF');
+Route::get('penerjemahan-public-downloadJurnalAdminWORD/{id_umum}/{id_jurnal_umum}', [PenerjemahanUmumController::class, 'downloadJurnalAdminWORD'])->name('penerjemahan-public.downloadJurnalAdminWORD');
 
 // DASHBOARD ADMIN
 Route::resource('admin', AdminController::class)->except([
@@ -92,14 +98,28 @@ Route::get('mahasiswaUmumList', [MahasiswaUmumListController::class, 'index'])->
 Route::get('mahasiswaUmumList/{year}/{id_kursus}', [MahasiswaUmumListController::class, 'changeYear'])->name('mahasiswaUmumList.changeYear');
 Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'sendKomentar'])->name('admin.sendKomentar');
 Route::patch('send-komentar/{id_umum}/{id_kursus}', [AdminController::class, 'sendKomentar2'])->name('admin.sendKomentar2');
+Route::resource('addNews', NewsController::class);
+Route::resource('penerjemahan-admin', PenerjemahanAdminController::class);
+
+
+// Download Penerjemahan Mahasiswa
+Route::get('penerjemahan-admin-downloadAbstrakMahasiswa/{id_mahasiswa}/{id_abstrak}', [PenerjemahanAdminController::class, 'downloadAbstrakMahasiswa'])->name('penerjemahan.downloadAbstrakMahasiswa');
+Route::get('penerjemahan-admin-downloadTranskripMahasiswa/{id_mahasiswa}/{id_transkrip_nilai}', [PenerjemahanAdminController::class, 'downloadTranskripMahasiswa'])->name('penerjemahan.downloadTranskripMahasiswa');
+Route::get('penerjemahan-admin-downloadIjazahMahasiswa/{id_mahasiswa}/{id_ijazah}', [PenerjemahanAdminController::class, 'downloadIjazahMahasiswa'])->name('penerjemahan.downloadIjazahMahasiswa');
+Route::get('penerjemahan-admin-downloadJurnalMahasiswa/{id_mahasiswa}/{id_jurnal}', [PenerjemahanAdminController::class, 'downloadJurnalMahasiswa'])->name('penerjemahan.downloadJurnalMahasiswa');
+
+// Download Penerjemahan Umum
+Route::get('penerjemahan-admin-downloadAbstrakUmum/{id_umum}/{id_abstrak_umum}', [PenerjemahanAdminController::class, 'downloadAbstrakUmum'])->name('penerjemahan.downloadAbstrakUmum');
+Route::get('penerjemahan-admin-downloadTranskripUmum/{id_umum}/{id_transkrip_nilai_umum}', [PenerjemahanAdminController::class, 'downloadTranskripUmum'])->name('penerjemahan.downloadTranskripUmum');
+Route::get('penerjemahan-admin-downloadIjazahUmum/{id_umum}/{id_ijazah_umum}', [PenerjemahanAdminController::class, 'downloadIjazahUmum'])->name('penerjemahan.downloadIjazahUmum');
+Route::get('penerjemahan-admin-downloadJurnalUmum/{id_umum}/{id_jurnal_umum}', [PenerjemahanAdminController::class, 'downloadJurnalUmum'])->name('penerjemahan.downloadJurnalUmum');
+
 // PDF MAHASISWA
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
 Route::get('PdfDemo1/{id_abstract}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF2'])->name('generate2.pdf');
 Route::get('PdfDemo2/{id_transkrip_nilai}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF3'])->name('generate3.pdf');
 Route::get('PdfDemo3/{id_ijazah}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF4'])->name('generate4.pdf');
 Route::get('PdfDemo4/{id_jurnal}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF5'])->name('generate5.pdf');
-Route::resource('addNews', NewsController::class);
-Route::resource('penerjemahan-admin', PenerjemahanAdminController::class);
 Route::get('penerjemahan-admin-abstrak-edit/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageAbstrak'])->name('penerjemahan-admin.editPageAbstrak');
 Route::get('penerjemahan-admin-jurnal-edit/{id_jurnal}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageJurnal'])->name('penerjemahan-admin.editPageJurnal');
 Route::patch('penerjemahan-admin-abstrak/{id_abstrak}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartialAbstrak'])->name('penerjemahan-admin.updatePartialAbstrak');
@@ -116,8 +136,22 @@ Route::get('PdfDemoUmum3/{id_ijazah_umum}/{id_umum_satu}/{id_umum_dua?}', [PdfUm
 Route::get('PdfDemoUmum4/{id_jurnal_umum}/{id_umum_satu}/{id_umum_dua?}', [PdfUmumController::class, 'makePDF5'])->name('generateUmum5.pdf');
 Route::get('penerjemahan-admin-abstrak-umum-edit/{id_penerjemahan_umum}/{id_umum}', [PenerjemahanAdminController::class, 'editPageAbstrakUmum'])->name('penerjemahan-admin.editPageAbstrakUmum');
 Route::get('penerjemahan-admin-jurnal-umum-edit/{id_jurnal_umum}/{id_umum}', [PenerjemahanAdminController::class, 'editPageJurnalUmum'])->name('penerjemahan-admin.editPageJurnalUmum');
-Route::patch('penerjemahan-admin-abstrak/{id_abstrak_umum}/{id_umum}', [PenerjemahanAdminController::class, 'updatePartialAbstrak'])->name('penerjemahan-admin.updatePartialAbstrak');
-Route::patch('penerjemahan-admin-jurnal/{id_jurnal_umum}/{id_umum}', [PenerjemahanAdminController::class, 'updatePartialJurnal'])->name('penerjemahan-admin.updatePartialJurnal');
+Route::patch('penerjemahan-admin-abstrakUmum/{id_abstrak_umum}/{id_umum}', [PenerjemahanAdminController::class, 'updatePartialAbstrakUmum'])->name('penerjemahan-admin.updatePartialAbstrakUmum');
+Route::patch('penerjemahan-admin-jurnalUmum/{id_jurnal_umum}/{id_umum}', [PenerjemahanAdminController::class, 'updatePartialJurnalUmum'])->name('penerjemahan-admin.updatePartialJurnalUmum');
+
+// Delete Penerjemahan Mahasiswa
+// Route::delete('penerjemahan-admin-deleteAbstrakMahasiswa/{id_mahasiswa}/{id_abstrak}', [PenerjemahanAdminController::class, 'deleteAbstrakMahasiswa'])->name('penerjemahan.deleteAbstrakMahasiswa');
+// Route::delete('penerjemahan-admin-deleteTranskripMahasiswa/{id_mahasiswa}/{id_transkrip_nilai}', [PenerjemahanAdminController::class, 'deleteTranskripMahasiswa'])->name('penerjemahan.deleteTranskripMahasiswa');
+// Route::delete('penerjemahan-admin-deleteIjazahMahasiswa/{id_mahasiswa}/{id_ijazah}', [PenerjemahanAdminController::class, 'deleteIjazahMahasiswa'])->name('penerjemahan.deleteIjazahMahasiswa');
+// Route::delete('penerjemahan-admin-deleteJurnalMahasiswa/{id_mahasiswa}/{id_jurnal}', [PenerjemahanAdminController::class, 'deleteJurnalMahasiswa'])->name('penerjemahan.deleteJurnalMahasiswa');
+
+// // Delete Penerjemahan Umum
+// Route::delete('penerjemahan-admin-deleteAbstrakUmum/{id_umum}/{id_abstrak_umum}', [PenerjemahanAdminController::class, 'deleteAbstrakUmum'])->name('penerjemahan.deleteAbstrakUmum');
+// Route::delete('penerjemahan-admin-deleteTranskripUmum/{id_umum}/{id_transkrip_nilai_umum}', [PenerjemahanAdminController::class, 'deleteTranskripUmum'])->name('penerjemahan.deleteTranskripUmum');
+// Route::delete('penerjemahan-admin-deleteIjazahUmum/{id_umum}/{id_ijazah_umum}', [PenerjemahanAdminController::class, 'deleteIjazahUmum'])->name('penerjemahan.deleteIjazahUmum');
+// Route::delete('penerjemahan-admin-deleteJurnalUmum/{id_umum}/{id_jurnal_umum}', [PenerjemahanAdminController::class, 'deleteJurnalUmum'])->name('penerjemahan.deleteJurnalUmum');
+
+
 
 // SUPER ADMIN
 Route::resource('super-admin', SuperAdminController::class);

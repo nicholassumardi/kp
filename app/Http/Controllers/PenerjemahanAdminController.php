@@ -13,6 +13,7 @@ use App\Models\TranskripNilai;
 use App\Models\TranskripNilaiUmum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PenerjemahanAdminController extends Controller
 {
@@ -249,7 +250,7 @@ class PenerjemahanAdminController extends Controller
         return abort(403);
     }
 
-    public function editPageAbstrakUmmum(Request $request, $id_abstrak_umum, $id_umum)
+    public function editPageAbstrakUmum(Request $request, $id_abstrak_umum, $id_umum)
     {
 
         $this->dataView['page'] = 'AbstractUmum';
@@ -258,7 +259,7 @@ class PenerjemahanAdminController extends Controller
         return view('admin.main.abstract_admin.edit', $this->dataView);
     }
 
-    public function editPageJurnalumum(Request $request, $id_jurnal_umum, $id_umum)
+    public function editPageJurnalUmum(Request $request, $id_jurnal_umum, $id_umum)
     {
         $this->dataView['page'] = 'JournalUmum';
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
@@ -284,6 +285,7 @@ class PenerjemahanAdminController extends Controller
                 ),
                 'status' => 'verified',
             ]);
+
 
         return redirect()->back()
             ->with('success', 'Abstract has been sent.');
@@ -311,4 +313,187 @@ class PenerjemahanAdminController extends Controller
         return redirect()->back()
             ->with('success', 'Journal has been sent.');
     }
+
+
+
+
+    public function downloadAbstrakMahasiswa($id_mahasiswa, $id_abstrak)
+    {
+        $file_name = Abstrak::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_abstrak', '=', $id_abstrak],
+        ])->value('path_file_abstrak_mahasiswa');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+
+    public function downloadTranskripMahasiswa($id_mahasiswa, $id_transkrip_nilai)
+    {
+        $file_name = TranskripNilai::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_transkrip_nilai', '=', $id_transkrip_nilai],
+        ])->value('path_file_transkrip_nilai');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+    public function downloadIjazahMahasiswa($id_mahasiswa, $id_ijazah)
+    {
+        $file_name = Ijazah::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_ijazah', '=', $id_ijazah],
+        ])->value('path_file_ijazah');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+    public function downloadJurnalMahasiswa($id_mahasiswa, $id_jurnal)
+    {
+        $file_name = Jurnal::where([
+            ['mahasiswa_id', '=', $id_mahasiswa],
+            ['id_jurnal', '=', $id_jurnal],
+        ])->value('path_file_jurnal_mahasiswa');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+
+
+    public function downloadAbstrakUmum($id_umum, $id_abstrak_umum)
+    {
+        $file_name = AbstrakUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_abstrak_umum', '=', $id_abstrak_umum],
+        ])->value('path_file_abstrak_umum');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+
+    public function downloadTranskripUmum($id_umum, $id_transkrip_nilai_umum)
+    {
+        $file_name = TranskripNilaiUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_transkrip_nilai_umum', '=', $id_transkrip_nilai_umum],
+        ])->value('path_file_transkrip_nilai');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+    public function downloadIjazahUmum($id_umum, $id_ijazah_umum)
+    {
+        $file_name = IjazahUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_ijazah_umum', '=', $id_ijazah_umum],
+        ])->value('path_file_ijazah');
+        $file = public_path('storage/') . $file_name;
+
+
+        return response()->download($file);
+    }
+    public function downloadJurnalUmum($id_umum, $id_jurnal_umum)
+    {
+        $file_name = JurnalUmum::where([
+            ['umum_id', '=', $id_umum],
+            ['id_jurnal_umum', '=', $id_jurnal_umum],
+        ])->value('path_file_jurnal_umum');
+        $file = public_path('storage/') . $file_name;
+        $headers = ['Content-Type: application/msword'];
+        $fileName = $file_name . '.doc';
+
+        return response()->download($file);
+    }
+
+
+    // // Delete File Mahasiswa
+    // public function deleteAbstrakMahasiswa($id_mahasiswa, $id_abstrak)
+    // {
+    //     Abstrak::where([
+    //         ['mahasiswa_id', '=', $id_mahasiswa],
+    //         ['id_abstrak', '=', $id_abstrak],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Abstract deleted successfully .');
+    // }
+    // public function deleteTranskripMahasiswa($id_mahasiswa, $id_transkrip_nilai)
+    // {
+    //     TranskripNilai::where([
+    //         ['mahasiswa_id', '=', $id_mahasiswa],
+    //         ['id_transkrip_nilai', '=', $id_transkrip_nilai],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Transkrip Nilai deleted successfully .');
+    // }
+    // public function deleteIjazahMahasiswa($id_mahasiswa, $id_ijazah)
+    // {
+    //     Ijazah::where([
+    //         ['mahasiswa_id', '=', $id_mahasiswa],
+    //         ['id_ijazah', '=', $id_ijazah],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Ijazah deleted successfully .');
+    // }
+    // public function deleteJurnalMahasiswa($id_mahasiswa, $id_jurnal)
+    // {
+    //     Jurnal::where([
+    //         ['mahasiswa_id', '=', $id_mahasiswa],
+    //         ['id_jurnal', '=', $id_jurnal],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Journal deleted successfully .');
+    // }
+
+
+    // // Delete File Public (Umum)
+    // public function deleteAbstrakUmum($id_umum, $id_abstrak_umum)
+    // {
+    //     AbstrakUmum::where([
+    //         ['umum_id', '=', $id_umum],
+    //         ['id_abstrak_umum', '=', $id_abstrak_umum],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Abstract deleted successfully .');
+    // }
+    // public function deleteTranskripUmum($id_umum, $id_transkrip_umum)
+    // {
+    //     TranskripNilaiUmum::where([
+    //         ['umum_id', '=', $id_umum],
+    //         ['id_transkrip_nilai_umum', '=', $id_transkrip_umum],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Transkrip Nilai deleted successfully .');
+    // }
+    // public function deleteIjazahUmum($id_umum, $id_ijazah_umum)
+    // {
+    //     IjazahUmum::where([
+    //         ['umum_id', '=', $id_umum],
+    //         ['id_ijazah_umum', '=', $id_ijazah_umum],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Ijazah deleted successfully .');
+    // }
+    // public function deleteJurnalUmum($id_umum, $id_jurnal_umum)
+    // {
+    //     JurnalUmum::where([
+    //         ['umum_id', '=', $id_umum],
+    //         ['id_jurnal_umum', '=', $id_jurnal_umum],
+    //     ])->delete();
+
+    //     return redirect()->route('penerjemahan-admin.index')
+    //         ->with('success', 'Journal deleted successfully .');
+    // }
 }

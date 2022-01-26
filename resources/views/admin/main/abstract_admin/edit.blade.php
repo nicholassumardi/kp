@@ -146,7 +146,7 @@ Register Courses
                                 <div class="col-xl-10">
                                     <label for="form-control">File Word {{$page}}</label>
                                     <input class="form-control customicon" type="file"
-                                        name="path_file_jurnal_admin_word" required>
+                                        name="path_file_abstrak_admin_word" required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
                                         <br>
@@ -159,7 +159,7 @@ Register Courses
                                 <div class="col-xl-10">
                                     <label for="form-control">File PDF {{$page}}</label>
                                     <input class="form-control customicon" type="file"
-                                        name="path_file_jurnal_admin_pdf" required>
+                                        name="path_file_abstrak_admin_pdf" required>
                                     <small class="form-text text-muted">
                                         * File format must be in pdf.
                                         <br>

@@ -15,7 +15,7 @@ Dashboard
                             class="bi bi-arrow-left"></i> Back</a>
                 </div>
                 <form
-                    action="{{route('umum.update',['id_mahasiswa' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus])}}"
+                    action="{{route('umum.update',['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus])}}"
                     method="POST" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
