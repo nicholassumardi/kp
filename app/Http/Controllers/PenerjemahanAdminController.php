@@ -48,7 +48,7 @@ class PenerjemahanAdminController extends Controller
         $this->dataView['transkrip_nilai_umum_count'] = count($this->dataView['data_transkrip_nilai_umum']);
         $this->dataView['ijazah_umum_count'] = count($this->dataView['data_ijazah_umum']);
         $this->dataView['jurnal_umum_count'] = count($this->dataView['data_jurnal_umum']);
-
+      
         return view('admin.main.abstract_admin.index', $this->dataView);
     }
 

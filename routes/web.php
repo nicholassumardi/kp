@@ -116,10 +116,10 @@ Route::get('penerjemahan-admin-downloadJurnalUmum/{id_umum}/{id_jurnal_umum}', [
 
 // PDF MAHASISWA
 Route::get('PdfDemo/{id_kursus}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF'])->name('generate.pdf');
-Route::get('PdfDemo1/{id_abstract}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF2'])->name('generate2.pdf');
-Route::get('PdfDemo2/{id_transkrip_nilai}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF3'])->name('generate3.pdf');
-Route::get('PdfDemo3/{id_ijazah}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF4'])->name('generate4.pdf');
-Route::get('PdfDemo4/{id_jurnal}/{id_mahasiswa_satu}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF5'])->name('generate5.pdf');
+Route::get('PdfDemo1/{id_abstract_satu}/{id_mahasiswa_satu}/{id_abstract_dua?}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF2'])->name('generate2.pdf');
+Route::get('PdfDemo2/{id_transkrip_nilai_satu}/{id_mahasiswa_satu}/{id_transkrip_nilai_dua?}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF3'])->name('generate3.pdf');
+Route::get('PdfDemo3/{id_ijazah_satu}/{id_mahasiswa_satu}/{id_ijazah_dua?}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF4'])->name('generate4.pdf');
+Route::get('PdfDemo4/{id_jurnal_satu}/{id_mahasiswa_satu}/{id_jurnal_dua?}/{id_mahasiswa_dua?}', [PdfController::class, 'makePDF5'])->name('generate5.pdf');
 Route::get('penerjemahan-admin-abstrak-edit/{id_penerjemahan}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageAbstrak'])->name('penerjemahan-admin.editPageAbstrak');
 Route::get('penerjemahan-admin-jurnal-edit/{id_jurnal}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageJurnal'])->name('penerjemahan-admin.editPageJurnal');
 Route::patch('penerjemahan-admin-abstrak/{id_abstrak}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartialAbstrak'])->name('penerjemahan-admin.updatePartialAbstrak');

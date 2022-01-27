@@ -150,14 +150,14 @@ class PdfController extends Controller
             }
         }
     }
-    public function makePDF2($id_abstrak, $id_mahasiswa_satu, $id_mahasiswa_dua = null)
+    public function makePDF2($id_abstrak_satu, $id_mahasiswa_satu, $id_abstrak_dua = null, $id_mahasiswa_dua = null)
     {
         // Jika print 2 mahasiswa.
         if ($id_mahasiswa_dua !== null) {
             $this->dataView['product'] = Abstrak::whereIn('mahasiswa_id', [$id_mahasiswa_satu, $id_mahasiswa_dua])
-                ->where('id_abstrak', $id_abstrak)
+                ->whereIn('id_abstrak', [$id_abstrak_satu, $id_abstrak_dua])
                 ->get();
-
+            
             // Jika data 2 mahasiswa ditemukan.
             if ($this->dataView['product']->count() === 2) {
                 $view = \View::make('admin.main.pdf_admin.abstract.index', $this->dataView);
@@ -203,7 +203,7 @@ class PdfController extends Controller
         // Jika print hanya 1 mahasiswa.
         else {
             $this->dataView['product'] = Abstrak::where('mahasiswa_id', $id_mahasiswa_satu)
-                ->where('id_abstrak', $id_abstrak)
+                ->where('id_abstrak', $id_abstrak_satu)
                 ->get();
 
             // Jika data mahasiswa ditemukan.
@@ -249,12 +249,12 @@ class PdfController extends Controller
             }
         }
     }
-    public function makePDF3($id_transkrip_nilai, $id_mahasiswa_satu, $id_mahasiswa_dua = null)
+    public function makePDF3($id_transkrip_nilai_satu, $id_mahasiswa_satu, $id_transkrip_nilai_dua = null, $id_mahasiswa_dua = null)
     {
         // Jika print 2 mahasiswa.
         if ($id_mahasiswa_dua !== null) {
             $this->dataView['product'] = TranskripNilai::whereIn('mahasiswa_id', [$id_mahasiswa_satu, $id_mahasiswa_dua])
-                ->where('id_transkrip_nilai', $id_transkrip_nilai)
+                ->whereIn('id_transkrip_nilai', [$id_transkrip_nilai_satu, $id_transkrip_nilai_dua])
                 ->get();
 
             // Jika data 2 mahasiswa ditemukan.
@@ -301,7 +301,7 @@ class PdfController extends Controller
         // Jika print hanya 1 mahasiswa.
         else {
             $this->dataView['product'] = TranskripNilai::where('mahasiswa_id', $id_mahasiswa_satu)
-                ->where('id_transkrip_nilai', $id_transkrip_nilai)
+                ->where('id_transkrip_nilai', $id_transkrip_nilai_satu)
                 ->get();
 
             // Jika data mahasiswa ditemukan.
@@ -346,12 +346,12 @@ class PdfController extends Controller
             }
         }
     }
-    public function makePDF4($id_ijazah, $id_mahasiswa_satu, $id_mahasiswa_dua = null)
+    public function makePDF4($id_ijazah_satu, $id_mahasiswa_satu, $id_ijazah_dua = null, $id_mahasiswa_dua = null)
     {
         // Jika print 2 mahasiswa.
         if ($id_mahasiswa_dua !== null) {
             $this->dataView['product'] = Ijazah::whereIn('mahasiswa_id', [$id_mahasiswa_satu, $id_mahasiswa_dua])
-                ->where('id_ijazah', $id_ijazah)
+                ->whereIn('id_ijazah', [$id_ijazah_satu, $id_ijazah_dua])
                 ->get();
 
             // Jika data 2 mahasiswa ditemukan.
@@ -399,7 +399,7 @@ class PdfController extends Controller
         // Jika print hanya 1 mahasiswa.
         else {
             $this->dataView['product'] = Ijazah::where('mahasiswa_id', $id_mahasiswa_satu)
-                ->where('id_ijazah', $id_ijazah)
+                ->where('id_ijazah', $id_ijazah_satu)
                 ->get();
 
             // Jika data mahasiswa ditemukan.
@@ -445,12 +445,12 @@ class PdfController extends Controller
         }
     }
 
-    public function makePDF5($id_jurnal, $id_mahasiswa_satu, $id_mahasiswa_dua = null)
+    public function makePDF5($id_jurnal_satu, $id_mahasiswa_satu, $id_jurnal_dua = null, $id_mahasiswa_dua = null)
     {
         // Jika print 2 mahasiswa.
         if ($id_mahasiswa_dua !== null) {
             $this->dataView['product'] = Jurnal::whereIn('mahasiswa_id', [$id_mahasiswa_satu, $id_mahasiswa_dua])
-                ->where('id_jurnal', $id_jurnal)
+                ->whereIn('id_jurnal', [$id_jurnal_satu, $id_jurnal_dua])
                 ->get();
 
             // Jika data 2 mahasiswa ditemukan.
@@ -498,7 +498,7 @@ class PdfController extends Controller
         // Jika print hanya 1 mahasiswa.
         else {
             $this->dataView['product'] = Jurnal::where('mahasiswa_id', $id_mahasiswa_satu)
-                ->where('id_jurnal', $id_jurnal)
+                ->where('id_jurnal', $id_jurnal_satu)
                 ->get();
 
             // Jika data mahasiswa ditemukan.

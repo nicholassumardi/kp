@@ -27,8 +27,6 @@ class MahasiswaController extends Controller
     {
         $this->dataView['kursus'] = Course::where('id_kursus', $id)->first();
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
-        $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();
-
 
         return view('student.main.dashboard_student.edit',  $this->dataView);
     }

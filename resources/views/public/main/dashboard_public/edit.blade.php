@@ -55,11 +55,11 @@ Dashboard
                                 </div>
                             </div>
 
-                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'd-none' : '' }}"
+                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus->sertifikat !== 1 ? 'd-none' : '' }}"
                                 id="container-sertifikat">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Sertifikat English Course</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
+                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{ $kursus->sertifikat === 1 ? 'required' : '' }}>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.

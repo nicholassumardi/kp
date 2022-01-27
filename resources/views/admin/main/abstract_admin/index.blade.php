@@ -24,7 +24,6 @@ Penerjemahan
                 <table class="table table-bordered invisible" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-
                             <th>File Type</th>
                             <th>Student Name</th>
                             <th>Student Email</th>
@@ -65,27 +64,12 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-pen-fill text-green"></i></a>
                             </td>
-                            @if (($key % 2 === 0) && ($key + 1 !== $abstrak_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generate2.pdf', ['id_abstract' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id, 'id_mahasiswa_dua' =>  $abstract->get($key + 1)->mahasiswa_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_count))
                             <td class="align-middle">
-                                <a href="{{ route('generate2.pdf', ['id_abstract' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id]) }}"
+                                <a href="{{ route('generate2.pdf', ['id_abstract_satu' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
-
                         </tr>
 
                         @endforeach
@@ -125,28 +109,12 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $transkrip_nilai_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generate3.pdf', ['id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id, 'id_mahasiswa_dua' =>  $transkrip_nilai->get($key + 1)->mahasiswa_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $transkrip_nilai_count))
                             <td class="align-middle">
                                 <a href="{{ route('generate3.pdf', ['id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
 
 
@@ -177,28 +145,12 @@ Penerjemahan
                                     data-id="{{ $ijazah->id_ijazah}}"><i class="bi bi-download text-gray"></i></a>
 
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $ijazah_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generate4.pdf', ['id_ijazah' => $ijazah->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id, 'id_mahasiswa_dua' => $ijazah->get($key + 1)->mahasiswa_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $ijazah_count))
                             <td class="align-middle">
-                                <a href="{{ route('generate4.pdf', ['id_ijazah' => $ijazah->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id]) }}"
+                                <a href="{{ route('generate4.pdf', ['id_ijazah_satu' => $ijazah->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
                         @endforeach
 
@@ -206,6 +158,7 @@ Penerjemahan
 
                         @foreach ($data_jurnal as $key=> $jurnal)
                         <tr>
+
                             <td class="text-center">
                                 Jurnal
                                 <br>
@@ -245,28 +198,12 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $jurnal_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generate5.pdf', ['id_jurnal' => $jurnal->id_jurnal, 'id_mahasiswa_satu' => $jurnal->mahasiswa_id, 'id_mahasiswa_dua' => $jurnal->get($key + 1)->mahasiswa_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $jurnal_count))
                             <td class="align-middle">
-                                <a href="{{ route('generate5.pdf', ['id_jurnal' => $jurnal->id_jurnal, 'id_mahasiswa_satu' => $jurnal->mahasiswa_id]) }}"
+                                <a href="{{ route('generate5.pdf', ['id_jurnal_satu' => $jurnal->id_jurnal, 'id_mahasiswa_satu' => $jurnal->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
                         @endforeach
 
@@ -314,28 +251,12 @@ Penerjemahan
                                                 class="bi bi-trash2-fill text-red"></i></button>
                                     </form> --}}
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $abstrak_umum_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generateUmum2.pdf', ['id_abstract_umum' => $abstract_umum->id_abstrak_umum, 'id_umum_satu' => $abstract->umum_id, 'id_umum_dua' => $abstract->get($key + 1)->umum_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $abstrak_umum_count))
                             <td class="align-middle">
                                 <a href="{{ route('generateUmum2.pdf', ['id_abstract_umum' => $abstract_umum->id_abstrak_umum, 'id_umum_satu' => $abstract_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
 
                         @endforeach
@@ -375,28 +296,12 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $transkrip_nilai_umum_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum, 'id_umum_satu' => $transkrip_nilai_umum->umum_id, 'id_umum_dua' =>  $transkrip_nilai_umum->get($key + 1)->umum_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $transkrip_nilai_umum_count))
                             <td class="align-middle">
                                 <a href="{{ route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum, 'id_umum_satu' => $transkrip_nilai_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
 
 
@@ -437,28 +342,12 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $ijazah_umum_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generateUmum4.pdf', ['id_ijazah_umum' => $ijazah_umum->id_ijazah_umum, 'id_umum_satu' => $ijazah_umum->umum_id, 'id_umum_dua' => $ijazah_umum->get($key + 1)->umum_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $ijazah_umum_count))
                             <td class="align-middle">
                                 <a href="{{ route('generateUmum4.pdf', ['id_ijazah_umum' => $ijazah_umum->id_ijazah_umum, 'id_umum_satu' => $ijazah_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
                         @endforeach
 
@@ -506,28 +395,12 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $jurnal_umum_count))
-                            <td class="align-middle" rowspan="2">
-                                <a href="{{ route('generateUmum5.pdf', ['id_jurnal_umum' => $jurnal_umum->id_jurnal_umum, 'id_umum_satu' => $jurnal_umum->umum_id, 'id_umum_dua' => $jurnal_umum->get($key + 1)->umum_id]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-
-
-                            </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $jurnal_umum_count))
                             <td class="align-middle">
                                 <a href="{{ route('generateUmum5.pdf', ['id_jurnal_umum' => $jurnal_umum->id_jurnal_umum, 'id_umum_satu' => $jurnal_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            {{-- Jika data berada pada index ganjil. --}}
-                            @else
-                            <td class="d-none"></td>
-                            @endif
                         </tr>
                         @endforeach
 
