@@ -24,6 +24,7 @@ Penerjemahan
                 <table class="table table-bordered invisible" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Year</th>
                             <th>File Type</th>
                             <th>Student Name</th>
                             <th>Student Email</th>
@@ -38,6 +39,8 @@ Penerjemahan
                     <tbody id="div-mahasiswaParent">
                         @foreach ($data_abstract as $key => $abstract)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $abstract->created_at)->year}}</td>
                             <td class="text-center">Abstract</td>
                             <td class="text-center">{{ $abstract->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $abstract->email }}</td>
@@ -76,6 +79,8 @@ Penerjemahan
 
                         @foreach ($data_transkrip_nilai as $key => $transkrip_nilai)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $transkrip_nilai->created_at)->year}}</td>
                             <td class="text-center">Transkrip Nilai</td>
                             <td class="text-center">{{ $transkrip_nilai->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $transkrip_nilai->email }}</td>
@@ -122,6 +127,8 @@ Penerjemahan
 
                         @foreach ($data_ijazah as $key=> $ijazah)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $ijazah->created_at)->year}}</td>
                             <td class="text-center">Ijazah</td>
                             <td class="text-center">{{ $ijazah->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $ijazah->email }}</td>
@@ -158,7 +165,8 @@ Penerjemahan
 
                         @foreach ($data_jurnal as $key=> $jurnal)
                         <tr>
-
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $jurnal->created_at)->year}}</td>
                             <td class="text-center">
                                 Jurnal
                                 <br>
@@ -212,6 +220,8 @@ Penerjemahan
                     <tbody id="div-umumParent" class="d-none">
                         @foreach ($data_abstract_umum as $key => $abstract_umum)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $abstract_umum->created_at)->year}}</td>
                             <td class="text-center">Abstract</td>
                             <td class="text-center">{{ $abstract_umum->umum->nama }}</td>
                             <td class="text-center">{{ $abstract_umum->email }}</td>
@@ -231,25 +241,25 @@ Penerjemahan
                             </td>
                             <td class="">
 
-                                    <a href="{{route('penerjemahan.downloadAbstrakUmum', ['id_umum' => $abstract_umum->umum_id, 'id_abstrak_umum' => $abstract_umum->id_abstrak_umum])}}"
-                                        class="btn btn-sm btn-outline-secondary js-btn-download-abstrak-umum"
-                                        data-id="{{ $abstract_umum->id_abstrak_umum}}"><i
-                                            class="bi bi-download text-gray"></i></a>
+                                <a href="{{route('penerjemahan.downloadAbstrakUmum', ['id_umum' => $abstract_umum->umum_id, 'id_abstrak_umum' => $abstract_umum->id_abstrak_umum])}}"
+                                    class="btn btn-sm btn-outline-secondary js-btn-download-abstrak-umum"
+                                    data-id="{{ $abstract_umum->id_abstrak_umum}}"><i
+                                        class="bi bi-download text-gray"></i></a>
 
 
 
-                                    <a href="{{route('penerjemahan-admin.editPageAbstrakUmum', ['id_penerjemahan_umum' => $abstract_umum->id_abstrak_umum, 'id_umum' => $abstract_umum->umum_id])}}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-pen-fill text-green"></i></a>
+                                <a href="{{route('penerjemahan-admin.editPageAbstrakUmum', ['id_penerjemahan_umum' => $abstract_umum->id_abstrak_umum, 'id_umum' => $abstract_umum->umum_id])}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-pen-fill text-green"></i></a>
 
-                                    {{-- <form
-                                        action="{{route('penerjemahan.deleteAbstrakUmum', ['id_umum'=> $abstract_umum->umum_id, 'id_abstrak_umum' => $abstract_umum->id_abstrak_umum])}}"
-                                        method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="button" class="js-btn-delete btn btn-sm btn-outline-secondary"><i
-                                                class="bi bi-trash2-fill text-red"></i></button>
-                                    </form> --}}
+                                {{-- <form
+                                    action="{{route('penerjemahan.deleteAbstrakUmum', ['id_umum'=> $abstract_umum->umum_id, 'id_abstrak_umum' => $abstract_umum->id_abstrak_umum])}}"
+                                    method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="button" class="js-btn-delete btn btn-sm btn-outline-secondary"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form> --}}
                             </td>
                             <td class="align-middle">
                                 <a href="{{ route('generateUmum2.pdf', ['id_abstract_umum' => $abstract_umum->id_abstrak_umum, 'id_umum_satu' => $abstract_umum->umum_id]) }}"
@@ -263,6 +273,8 @@ Penerjemahan
 
                         @foreach ($data_transkrip_nilai_umum as $key => $transkrip_nilai_umum)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $transkrip_nilai_umum->created_at)->year}}</td>
                             <td class="text-center">Transkrip Nilai</td>
                             <td class="text-center">{{ $transkrip_nilai_umum->umum->nama }}</td>
                             <td class="text-center">{{ $transkrip_nilai_umum->email }}</td>
@@ -309,6 +321,8 @@ Penerjemahan
 
                         @foreach ($data_ijazah_umum as $key=> $ijazah_umum)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $ijazah_umum->created_at)->year}}</td>
                             <td class="text-center">Ijazah</td>
                             <td class="text-center">{{ $ijazah_umum->umum->nama }}</td>
                             <td class="text-center">{{ $ijazah_umum->email }}</td>
@@ -355,6 +369,8 @@ Penerjemahan
 
                         @foreach ($data_jurnal_umum as $key=> $jurnal_umum)
                         <tr>
+                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $jurnal_umum->created_at)->year}}</td>
                             <td class="text-center">
                                 Jurnal
                                 <br>

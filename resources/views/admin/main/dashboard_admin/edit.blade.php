@@ -11,10 +11,10 @@ Students Data
                 <div class="col-xl-10 col-9">
                     <h3 class="mb-0">Students Data</h3>
                 </div>
-             
-                <div class="col ml-xl-5"> 
-                        <a href="{{route('admin.index')}}" class="btn btn-primary btn-sm"><i
-                        class="bi bi-arrow-left"></i>Back</a>
+
+                <div class="col ml-xl-5">
+                    <a href="{{route('admin.index')}}" class="btn btn-primary btn-sm"><i
+                            class="bi bi-arrow-left"></i>Back</a>
                 </div>
             </div>
             <div class="row">
@@ -26,7 +26,7 @@ Students Data
                 <div class="col">
                     <p>{{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_mulai)->format('H:i')}}
                         -
-                        {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_selesai)->format('H:i')}}</p>                    
+                        {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_selesai)->format('H:i')}}</p>
                 </div>
             </div> --}}
         </div>
@@ -57,21 +57,25 @@ Students Data
 
                             <td class="align-middle">{{$mahasiswa->pivot->no_kartu_mahasiswa}}</td>
 
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $mahasiswa->pivot->created_at)->year}}
                             </td>
 
                             <td class="text-center align-middle"><i
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                            <td class="align-middle"><img
+                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
-                                class="text-center customfotoprofile"></td>
+                            <td class="align-middle"><img
+                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                                    class="text-center customfotoprofile"></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                            <td class="align-middle text-center"><img
+                                    src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
 
@@ -93,25 +97,17 @@ Students Data
                                 </form>
                             </td>
 
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $mahasiswa_count))
-                                <td class="align-middle" rowspan="2">
-                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $mahasiswa_count))
-                                <td class="align-middle">
-                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            @endif
+
+                            <td class="align-middle">
+                                <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a>
+                            </td>
+
                         </tr>
                         @endforeach
                         @endif
-                        
+
                         @if ($kursus->tipe_kursus === 'mahasiswa dan umum')
 
                         @foreach ($kursus->mahasiswa as $key => $mahasiswa)
@@ -120,21 +116,25 @@ Students Data
 
                             <td class="align-middle">{{$mahasiswa->pivot->no_kartu_mahasiswa}}</td>
 
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $mahasiswa->pivot->created_at)->year}}
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $mahasiswa->pivot->created_at)->year}}
                             </td>
 
                             <td class="text-center align-middle"><i
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                            <td class="align-middle"><img
+                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
-                                class="text-center customfotoprofile"></td>
+                            <td class="align-middle"><img
+                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                                    class="text-center customfotoprofile"></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                            <td class="align-middle text-center"><img
+                                    src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
 
@@ -156,21 +156,13 @@ Students Data
                                 </form>
                             </td>
 
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $mahasiswa_count))
-                                <td class="align-middle" rowspan="2">
-                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa, 'id_mahasiswa_dua' => $kursus->mahasiswa->get($key + 1)->id_mahasiswa]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $mahasiswa_count))
-                                <td class="align-middle">
-                                    <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            @endif
+
+                            <td class="align-middle">
+                                <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a>
+                            </td>
+
                         </tr>
                         @endforeach
 
@@ -180,21 +172,24 @@ Students Data
 
                             <td class="align-middle">{{$umum->pivot->no_kartu_umum}}</td>
 
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $umum->pivot->created_at)->year}}
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $umum->pivot->created_at)->year}}
                             </td>
 
                             <td class="text-center align-middle"><i
                                     class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
+                            <td class="align-middle"><img
+                                    src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}" alt=""
-                                class="text-center customfotoprofile"></td>
+                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
+                                    alt="" class="text-center customfotoprofile"></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
+                            <td class="align-middle text-center"><img
+                                    src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
 
@@ -216,47 +211,42 @@ Students Data
                                 </form>
                             </td>
 
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $umum_count))
-                                <td class="align-middle" rowspan="2">
-                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum, 'id_umum_dua' => $kursus->umum->get($key + 1)->id_umum]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $umum_count))
-                                <td class="align-middle">
-                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            @endif
+
+                            <td class="align-middle">
+                                <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a>
+                            </td>
+
                         </tr>
                         @endforeach
                         @endif
 
-                        @if ($kursus->tipe_kursus === 'mahasiswa umum')
+                        @if ($kursus->tipe_kursus === 'umum')
                         @foreach ($kursus->umum as $key => $umum)
                         <tr>
                             <td class="align-middle">{{$umum->nama}}</td>
 
                             <td class="align-middle">{{$umum->pivot->no_kartu_umum}}</td>
 
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $umum->pivot->created_at)->year}}
+                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+                                $umum->pivot->created_at)->year}}
                             </td>
 
                             <td class="text-center align-middle"><i
                                     class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
+                            <td class="align-middle"><img
+                                    src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}" alt=""
-                                class="text-center customfotoprofile"></td>
+                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
+                                    alt="" class="text-center customfotoprofile"></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
+                            <td class="align-middle text-center"><img
+                                    src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
                                     class='text-center customfotoprofile'></td>
                             @endif
 
@@ -278,21 +268,13 @@ Students Data
                                 </form>
                             </td>
 
-                            {{-- Jika data berada pada index genap dan data selanjutnya masih ada. --}}
-                            @if (($key % 2 === 0) && ($key + 1 !== $umum_count))
-                                <td class="align-middle" rowspan="2">
-                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum, 'id_umum_dua' => $kursus->umum->get($key + 1)->id_umum]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            {{-- Jika data berada pada index genap dan data selanjutnya kosong. --}}
-                            @elseif (($key % 2 === 0) && ($key + 1 === $umum_count))
-                                <td class="align-middle">
-                                    <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
-                                        class="btn btn-sm btn-outline-secondary"><i
-                                            class="bi bi-printer-fill text-indigo"></i></a>
-                                </td>
-                            @endif
+
+                            <td class="align-middle">
+                                <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-printer-fill text-indigo"></i></a>
+                            </td>
+
                         </tr>
                         @endforeach
                         @endif

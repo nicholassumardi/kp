@@ -25,8 +25,8 @@ class CourseUmumController extends Controller
         $this->dataView['nama_kursus'] = Course::whereNotIn('tipe_kursus', ['mahasiswa'])->get();
         // $this->dataView['jadwal'] = Schedules::where('kursus_id', Course::min('id_kursus'))->get();
         $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
-        $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();
-        $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->where('tipe_kursus', 'umum')->first();
+        // $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->first();
+        $this->dataView['kursus_index_pertama'] = Course::select('sertifikat')->whereNotIn('tipe_kursus', ['mahasiswa'])->first();
         return view('public.main.register_public.create', $this->dataView);
     }
 

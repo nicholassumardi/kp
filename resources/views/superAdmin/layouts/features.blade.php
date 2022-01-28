@@ -30,7 +30,7 @@
                             aria-expanded="false">
                             <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="argon/assets/img/theme/team-6.jpg">
+                                    <img alt="Image placeholder" src="{{asset('storage/images/profile/admin/default.png')}}">
                                 </span>
                                 <div class="media-body  ml-2  d-none d-lg-block">
                                     <span class="mb-0 text-sm  font-weight-bold">{{ $nama }}</span>
