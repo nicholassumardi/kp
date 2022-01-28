@@ -29,7 +29,7 @@
                         <form action="{{ route('register.store') }}" method="POST">
                             @csrf
 
-                            <input type="hidden" name="id_tipe_user" value="3" id="input-id-tipe-user">
+                            <input type="hidden" name="id_tipe_user" value="4" id="input-id-tipe-user">
 
 
                             <div class="row mb-3">
