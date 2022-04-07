@@ -51,18 +51,18 @@ class PenerjemahanUmumController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         if ($request->layanan === 'abstrak') {
             $request->validate([
                 'path_foto_kuitansi' => 'required',
                 'path_file_abstrak_umum' => 'required',
-                'email' =>'required|email',
+                'email' => 'required|email',
                 'no_hp' => 'required',
             ]);
-    
+
             // Variabel
             $umum = Umum::where('user_id', Auth::id())->first();
-    
+
             // Jika foto kuitansi dan file abstrak ada.
             if (
                 $request->hasFile('path_foto_kuitansi') &&
@@ -84,8 +84,8 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak-umum/', 'public'),
                         'path_file_abstrak_umum' => $request->path_file_abstrak_umum->storeAs(
-                            'dokumen/dokumen-abstrak/umum', 
-                            $request->path_file_abstrak_umum->getClientOriginalName(), 
+                            'dokumen/dokumen-abstrak/umum',
+                            $request->path_file_abstrak_umum->getClientOriginalName(),
                             'public'
                         ),
                         'email' => $request->email,
@@ -99,21 +99,20 @@ class PenerjemahanUmumController extends Controller
                         ->with('error', 'Gagal terkirim karena format tidak sesuai!');
                 }
             }
-    
+
             return redirect()->route('penerjemahan-public.index')
                 ->with('success', 'Berhasil terkirim!');
-
         } elseif ($request->layanan === 'transkripnilai') {
             $request->validate([
                 'path_foto_kuitansi' => 'required',
                 'path_file_transkrip_nilai' => 'required',
-                'email' =>'required|email',
+                'email' => 'required|email',
                 'no_hp' => 'required',
             ]);
-    
+
             // Variabel
             $umum = Umum::where('user_id', Auth::id())->first();
-    
+
             // Jika foto kuitansi dan file transkrip nilai ada.
             if (
                 $request->hasFile('path_foto_kuitansi') &&
@@ -135,8 +134,8 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/umum', 
-                            $request->path_file_transkrip_nilai->getClientOriginalName(), 
+                            'dokumen/dokumen-transkrip/umum',
+                            $request->path_file_transkrip_nilai->getClientOriginalName(),
                             'public'
                         ),
                         'email' => $request->email,
@@ -150,21 +149,20 @@ class PenerjemahanUmumController extends Controller
                         ->with('error', 'Gagal terkirim karena format tidak sesuai!');
                 }
             }
-    
+
             return redirect()->route('penerjemahan-public.index')
                 ->with('success', 'Berhasil terkirim!');
-
         } elseif ($request->layanan === 'ijazah') {
             $request->validate([
                 'path_foto_kuitansi' => 'required',
                 'path_file_ijazah' => 'required',
-                'email' =>'required|email',
+                'email' => 'required|email',
                 'no_hp' => 'required',
             ]);
-    
+
             // Variabel
             $umum = Umum::where('user_id', Auth::id())->first();
-    
+
             // Jika foto kuitansi dan file ijazah ada.
             if (
                 $request->hasFile('path_foto_kuitansi') &&
@@ -186,8 +184,8 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/umum', 
-                            $request->path_file_ijazah->getClientOriginalName(), 
+                            'dokumen/dokumen-ijazah/umum',
+                            $request->path_file_ijazah->getClientOriginalName(),
                             'public'
                         ),
                         'email' => $request->email,
@@ -201,23 +199,22 @@ class PenerjemahanUmumController extends Controller
                         ->with('error', 'Gagal terkirim karena format tidak sesuai!');
                 }
             }
-    
+
             return redirect()->route('penerjemahan-public.index')
                 ->with('success', 'Berhasil terkirim!');
-
         } elseif ($request->layanan === 'transkripnilai_ijazah') {
             $request->validate([
                 'path_foto_kuitansi_transkrip_nilai' => 'required',
                 'path_foto_kuitansi_ijazah' => 'required',
                 'path_file_transkrip_nilai' => 'required',
                 'path_file_ijazah' => 'required',
-                'email' =>'required|email',
+                'email' => 'required|email',
                 'no_hp' => 'required',
             ]);
-    
+
             // Variabel
             $umum = Umum::where('user_id', Auth::id())->first();
-    
+
             // Jika foto kuitansi dan file transkrip nilai dan ijazah ada.
             if (
                 $request->hasFile('path_foto_kuitansi_transkrip_nilai') &&
@@ -251,8 +248,8 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi_transkrip_nilai->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/umum', 
-                            $request->path_file_transkrip_nilai->getClientOriginalName(), 
+                            'dokumen/dokumen-transkrip/umum',
+                            $request->path_file_transkrip_nilai->getClientOriginalName(),
                             'public'
                         ),
                         'email' => $request->email,
@@ -264,8 +261,8 @@ class PenerjemahanUmumController extends Controller
                         'umum_id' => $umum->id_umum,
                         'path_foto_kuitansi' => $request->path_foto_kuitansi_ijazah->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/umum', 
-                            $request->path_file_ijazah->getClientOriginalName(), 
+                            'dokumen/dokumen-ijazah/umum',
+                            $request->path_file_ijazah->getClientOriginalName(),
                             'public'
                         ),
                         'email' => $request->email,
@@ -279,21 +276,21 @@ class PenerjemahanUmumController extends Controller
                         ->with('error', 'Gagal terkirim karena format tidak sesuai!');
                 }
             }
-    
+
             return redirect()->route('penerjemahan-public.index')
                 ->with('success', 'Berhasil terkirim!');
-        }elseif ($request->layanan === 'jurnal') {
+        } elseif ($request->layanan === 'jurnal') {
             $request->validate([
                 'path_foto_kuitansi' => 'required',
                 'path_file_jurnal_umum' => 'required',
-                'email' =>'required|email',
+                'email' => 'required|email',
                 'no_hp' => 'required',
                 'jumlah_halaman_jurnal' => 'required',
             ]);
-    
+
             // Variabel
             $umum = Umum::where('user_id', Auth::id())->first();
-    
+
             // Jika foto kuitansi dan file jurnal ada.
             if (
                 $request->hasFile('path_foto_kuitansi') &&
@@ -313,10 +310,10 @@ class PenerjemahanUmumController extends Controller
                 ) {
                     JurnalUmum::create([
                         'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak-umum/', 'public'),
+                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/jurnal-umum/', 'public'),
                         'path_file_jurnal_umum' => $request->path_file_jurnal_umum->storeAs(
-                            'dokumen/dokumen-jurnal/umum', 
-                            $request->path_file_jurnal_umum->getClientOriginalName(), 
+                            'dokumen/dokumen-jurnal/umum',
+                            $request->path_file_jurnal_umum->getClientOriginalName(),
                             'public'
                         ),
                         'email' => $request->email,
@@ -331,10 +328,9 @@ class PenerjemahanUmumController extends Controller
                         ->with('error', 'Gagal terkirim karena format tidak sesuai!');
                 }
             }
-    
+
             return redirect()->route('penerjemahan-public.index')
                 ->with('success', 'Berhasil terkirim!');
-
         }
     }
 
@@ -382,51 +378,273 @@ class PenerjemahanUmumController extends Controller
     {
         //
     }
-    public function downloadAbstrakAdminPDF($id_umum, $id_abstrak_umum){
+    public function downloadAbstrakAdminPDF($id_umum, $id_abstrak_umum)
+    {
         $file_name = AbstrakUmum::where([
             ['umum_id', '=', $id_umum],
             ['id_abstrak_umum', '=', $id_abstrak_umum],
         ])->value('path_file_abstrak_admin_pdf');
-        $file = public_path('storage/'). $file_name;
-   
+        $file = public_path('storage/') . $file_name;
+
 
         return response()->download($file);
-        
     }
-    public function downloadAbstrakAdminWORD($id_umum, $id_abstrak_umum){
+    public function downloadAbstrakAdminWORD($id_umum, $id_abstrak_umum)
+    {
         $file_name = AbstrakUmum::where([
             ['umum_id', '=', $id_umum],
             ['id_abstrak_umum', '=', $id_abstrak_umum],
         ])->value('path_file_abstrak_admin_word');
-        $file = public_path('storage/'). $file_name;
-   
+        $file = public_path('storage/') . $file_name;
+
 
         return response()->download($file);
-        
     }
-    
-    public function downloadJurnalAdminPDF($id_umum, $id_jurnal_umum){
+
+    public function downloadJurnalAdminPDF($id_umum, $id_jurnal_umum)
+    {
         $file_name = JurnalUmum::where([
             ['umum_id', '=', $id_umum],
             ['id_jurnal_umum', '=', $id_jurnal_umum],
         ])->value('path_file_jurnal_admin_pdf');
-        $file = public_path('storage/'). $file_name;
-   
+        $file = public_path('storage/') . $file_name;
+
 
         return response()->download($file);
-        
     }
 
-    public function downloadJurnalAdminWORD($id_umum, $id_jurnal_umum){
+    public function downloadJurnalAdminWORD($id_umum, $id_jurnal_umum)
+    {
         $file_name = JurnalUmum::where([
             ['umum_id', '=', $id_umum],
             ['id_jurnal_umum', '=', $id_jurnal_umum],
         ])->value('path_file_jurnal_admin_word');
-        $file = public_path('storage/'). $file_name;
-   
+        $file = public_path('storage/') . $file_name;
+
 
         return response()->download($file);
-        
     }
 
+    public function editAbstrakUmum($id_abstrak_umum)
+    {
+        $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
+        $this->dataView['abstrak'] = AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum);
+        return view('public.main.abstract_public.edit-abstrak', $this->dataView);
+    }
+    public function editJurnalUmum($id_jurnal_umum)
+    {
+        $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
+        $this->dataView['jurnal'] = JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum);
+
+        return view('public.main.abstract_public.edit-jurnal', $this->dataView);
+    }
+    public function editIjazahUmum($id_ijazah_umum)
+    {
+        $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
+        $this->dataView['ijazah'] = IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum);
+
+        return view('public.main.abstract_public.edit-ijazah', $this->dataView);
+    }
+    public function editTranskripNilaiUmum($id_transkrip_nilai_umum)
+    {
+        $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
+        $this->dataView['transkrip_nilai'] = TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum);
+
+        return view('public.main.abstract_public.edit-transkip', $this->dataView);
+    }
+
+
+    public function updateAbstrakUmum(Request $request, $id_abstrak_umum)
+    {
+        $request->validate([
+            'path_foto_kuitansi' => 'required',
+            'path_file_abstrak_umum' => 'required',
+            'email' => 'required|email',
+            'no_hp' => 'required',
+        ]);
+
+        // Jika foto kuitansi dan file abstrak ada.
+        if (
+            $request->hasFile('path_foto_kuitansi') &&
+            $request->hasFile('path_file_abstrak_umum')
+        ) {
+            // Jika format foto dan file abstrak benar
+            if (
+                $this->isMimeFileMatches(
+                    [$request->path_foto_kuitansi],
+                    ['image/jpeg', 'image/png']
+                )
+                &&
+                $this->isMimeFileMatches(
+                    [$request->path_file_abstrak_umum],
+                    ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                )
+            ) {
+                AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum)->update([
+                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak/', 'public'),
+                    'path_file_abstrak_umum' => $request->path_file_abstrak_umum->storeAs(
+                        'dokumen/dokumen-abstrak/umum',
+                        $request->path_file_abstrak_umum->getClientOriginalName(),
+                        'public'
+                    ),
+                    'email' => $request->email,
+                    'no_hp' => $request->no_hp,
+                ]);
+            }
+            // Jika format foto dan file abstrak salah
+            else {
+                return redirect()->route('penerjemahan-public.index')
+                    ->with('error', 'Gagal terkirim karena format tidak sesuai!');
+            }
+        }
+
+        return redirect()->route('penerjemahan-public.index')
+            ->with('success', 'Berhasil terkirim!');
+    }
+
+    public function updateJurnalUmum(Request $request, $id_jurnal_umum)
+    {
+        $request->validate([
+            'path_foto_kuitansi' => 'required',
+            'path_file_jurnal_umum' => 'required',
+            'email' => 'required|email',
+            'no_hp' => 'required',
+        ]);
+
+        // Jika foto kuitansi dan file jurnal ada.
+        if (
+            $request->hasFile('path_foto_kuitansi') &&
+            $request->hasFile('path_file_jurnal_umum')
+        ) {
+            // Jika format foto dan file abstrak benar
+            if (
+                $this->isMimeFileMatches(
+                    [$request->path_foto_kuitansi],
+                    ['image/jpeg', 'image/png']
+                )
+                &&
+                $this->isMimeFileMatches(
+                    [$request->path_file_jurnal_umum],
+                    ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                )
+            ) {
+                JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum)->update([
+                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/jurnal-umum/', 'public'),
+                    'path_file_jurnal_umum' => $request->path_file_jurnal_umum->storeAs(
+                        'dokumen/dokumen-jurnal/umum',
+                        $request->path_file_jurnal_umum->getClientOriginalName(),
+                        'public'
+                    ),
+                    'jumlah_halaman_jurnal' => $request->jumlah_halaman_jurnal,
+                    'email' => $request->email,
+                    'no_hp' => $request->no_hp,
+                ]);
+            }
+            // Jika format foto dan file jurnal salah
+            else {
+                return redirect()->route('penerjemahan-public.index')
+                    ->with('error', 'Gagal terkirim karena format tidak sesuai!');
+            }
+        }
+
+        return redirect()->route('penerjemahan-public.index')
+            ->with('success', 'Berhasil terkirim!');
+    }
+
+
+    public function updateIjazahUmum(Request $request, $id_ijazah_umum)
+    {
+        $request->validate([
+            'path_foto_kuitansi' => 'required',
+            'path_file_ijazah' => 'required',
+            'email' => 'required|email',
+            'no_hp' => 'required',
+        ]);
+
+        // Jika foto kuitansi dan file jurnal ada.
+        if (
+            $request->hasFile('path_foto_kuitansi') &&
+            $request->hasFile('path_file_ijazah')
+        ) {
+            // Jika format foto dan file abstrak benar
+            if (
+                $this->isMimeFileMatches(
+                    [$request->path_foto_kuitansi],
+                    ['image/jpeg', 'image/png']
+                )
+                &&
+                $this->isMimeFileMatches(
+                    [$request->path_file_ijazah],
+                    ['application/pdf', 'image/jpeg', 'image/png']
+                )
+            ) {
+                IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum)->update([
+                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah/', 'public'),
+                    'path_file_ijazah' => $request->path_file_ijazah->storeAs(
+                        'dokumen/dokumen-ijazah/umum',
+                        $request->path_file_ijazah_umum->getClientOriginalName(),
+                        'public'
+                    ),
+                    'email' => $request->email,
+                    'no_hp' => $request->no_hp,
+                ]);
+            }
+            // Jika format foto dan file jurnal salah
+            else {
+                return redirect()->route('penerjemahan-public.index')
+                    ->with('error', 'Gagal terkirim karena format tidak sesuai!');
+            }
+        }
+
+        return redirect()->route('penerjemahan-public.index')
+            ->with('success', 'Berhasil terkirim!');
+    }
+
+    public function updateTranskripNilaiUmum(Request $request, $id_transkrip_nilai_umum)
+    {
+        $request->validate([
+            'path_foto_kuitansi' => 'required',
+            'path_file_transkrip_nilai' => 'required',
+            'email' => 'required|email',
+            'no_hp' => 'required',
+        ]);
+
+        // Jika foto kuitansi dan file jurnal ada.
+        if (
+            $request->hasFile('path_foto_kuitansi') &&
+            $request->hasFile('path_file_transkrip_nilai')
+        ) {
+            // Jika format foto dan file abstrak benar
+            if (
+                $this->isMimeFileMatches(
+                    [$request->path_foto_kuitansi],
+                    ['image/jpeg', 'image/png']
+                )
+                &&
+                $this->isMimeFileMatches(
+                    [$request->path_file_transkrip_nilai],
+                    ['application/pdf', 'image/jpeg', 'image/png']
+                )
+            ) {
+                TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum)->update([
+                    'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
+                    'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
+                        'dokumen/dokumen-transkrip/umum',
+                        $request->path_file_transkrip_nilai_umum->getClientOriginalName(),
+                        'public'
+                    ),
+                    'email' => $request->email,
+                    'no_hp' => $request->no_hp,
+                ]);
+            }
+            // Jika format foto dan file jurnal salah
+            else {
+                return redirect()->route('penerjemahan-public.index')
+                    ->with('error', 'Gagal terkirim karena format tidak sesuai!');
+            }
+        }
+
+        return redirect()->route('penerjemahan-public.index')
+            ->with('success', 'Berhasil terkirim!');
+    }
 }

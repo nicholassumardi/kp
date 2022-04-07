@@ -110,6 +110,8 @@ Register Courses
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
                                 <br>
+                                * Size Maximum File 5 MB.
+                                <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>
                         </div>
@@ -121,6 +123,8 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_transkrip_nilai">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
+                                <br>
+                                * Size Maximum File 5 MB.
                             </small>
                         </div>
                     </div>
@@ -131,6 +135,8 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_ijazah">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
+                                <br>
+                                * Size Maximum File 5 MB.
                             </small>
                         </div>
                     </div>
@@ -141,6 +147,8 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_jurnal_mahasiswa">
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
+                                <br>
+                                * Size Maximum File 5 MB.
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>

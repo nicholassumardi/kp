@@ -20,6 +20,8 @@ Penerjemahan
                             <th class="text-center">File Anda</th>
                             <th class="text-center">File Admin PDF</th>
                             <th class="text-center">File Admin Word</th>
+                            <th class="text-center">Komentar/ Pesan</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +30,7 @@ Penerjemahan
                             <td class="text-center">Abstrak</td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm {{ $abstract->status === 'unverified' ?'btn-danger' : ($abstract->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    class="btn btn-sm {{ $abstract->status === 'unverified' ?'btn-danger' : ($abstract->status === 'pending' ? 'btn-warning' : ($abstract->status === 'rejected' ? 'btn-danger' : 'btn-success') ) }} disabled">
                                     {{ $abstract->status }}
                                 </li>
                             </td>
@@ -38,7 +40,8 @@ Penerjemahan
                             @if ($abstract->path_file_abstrak_admin_pdf != null)
                             <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_pdf) }}
                                 <br><br>
-                                <a href="{{route('penerjemahan-public.downloadAbstrakAdminPDF', ['id_umum' => $abstract->umum_id, 'id_abstrak_umum' => $abstract->id_abstrak_umum])}}" class="btn btn-sm btn-outline-secondary"><i
+                                <a href="{{route('penerjemahan-public.downloadAbstrakAdminPDF', ['id_umum' => $abstract->umum_id, 'id_abstrak_umum' => $abstract->id_abstrak_umum])}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-download text-gray"></i>Download PDF</a>
                             </td>
                             @else
@@ -47,12 +50,24 @@ Penerjemahan
                             @if ($abstract->path_file_abstrak_admin_word != null)
                             <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_word) }}
                                 <br><br>
-                                <a href="{{route('penerjemahan-public.downloadAbstrakAdminWORD', ['id_umum' => $abstract->umum_id, 'id_abstrak_umum' => $abstract->id_abstrak_umum])}}" class="btn btn-sm btn-outline-secondary"><i
+                                <a href="{{route('penerjemahan-public.downloadAbstrakAdminWORD', ['id_umum' => $abstract->umum_id, 'id_abstrak_umum' => $abstract->id_abstrak_umum])}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-download text-gray"></i>Download Word</a>
                             </td>
                             @else
                             <td class="text-center">No File Yet</td>
                             @endif
+                            <td class="text-center">
+                                <button type="button" class="btn btn-primary openModal" data-toggle="modal"
+                                    data-target="#modal-komentar" data-id="{{$abstract->komentar}}">
+                                    Detail
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{route('penerjemahan-public.editAbstrak', $abstract->id_abstract_umum)}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-pen-fill text-green"></i></a>
+                            </td>
                         </tr>
                         @endforeach
 
@@ -61,7 +76,7 @@ Penerjemahan
                             <td class="text-center">Transkrip Nilai</td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm {{ $transkrip_nilai->status === 'unchecked' ?'btn-danger' : 'btn-success' }} disabled">
+                                    class="btn btn-sm {{ $transkrip_nilai->status === 'unchecked' ?'btn-danger' : ($transkrip_nilai->status === 'rejected' ? 'btn-danger' : 'btn-success') }} disabled">
                                     {{ $transkrip_nilai->status }}
                                 </li>
                             </td>
@@ -71,6 +86,17 @@ Penerjemahan
                             <td class="text-center"></td>
                             <td class="d-flex justify-content-center">
                             </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-primary openModal" data-toggle="modal"
+                                    data-target="#modal-komentar" data-id="{{$transkrip_nilai->komentar}}">
+                                    Detail
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{route('penerjemahan-public.editTranskripNilai', $transkrip_nilai->id_transkrip_nilai_umum)}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-pen-fill text-green"></i></a>
+                            </td>
                         </tr>
                         @endforeach
 
@@ -79,7 +105,7 @@ Penerjemahan
                             <td class="text-center">Ijazah</td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm {{ $ijazah->status === 'unchecked' ?'btn-danger' : 'btn-success' }} disabled">
+                                    class="btn btn-sm {{ $ijazah->status === 'unchecked' ?'btn-danger' : ( $ijazah->status === 'rejected' ?'btn-danger' : 'btn-success') }} disabled">
                                     {{ $ijazah->status }}
                                 </li>
                             </td>
@@ -88,6 +114,17 @@ Penerjemahan
                             </td>
                             <td class="text-center"></td>
                             <td class="d-flex justify-content-center">
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-primary openModal" data-toggle="modal"
+                                    data-target="#modal-komentar" data-id="{{$ijazah->komentar}}">
+                                    Detail
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{route('penerjemahan-public.editIjazah', $ijazah->id_ijazah_umum)}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-pen-fill text-green"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -101,20 +138,21 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    class="btn btn-sm {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : ($jurnal->status === 'rejected' ? 'btn-danger' : 'btn-success')) }} disabled">
                                     {{ $jurnal->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($jurnal->path_file_jurnal_umum) }}
                             </td>
-                          
+
                             @if ($jurnal->path_file_jurnal_admin_pdf != null)
                             <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_pdf) }}
                                 <br>
                                 <br>
-                                <a href="{{route('penerjemahan-public.downloadJurnalAdminPDF', ['id_umum' => $jurnal->umum_id, 'id_jurnal_umum' => $jurnal->id_jurnal_umum])}}" class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-download text-gray"></i> Download PDF</a>
+                                <a href="{{route('penerjemahan-public.downloadJurnalAdminPDF', ['id_umum' => $jurnal->umum_id, 'id_jurnal_umum' => $jurnal->id_jurnal_umum])}}"
+                                    class="btn btn-sm btn-outline-secondary"><i class="bi bi-download text-gray"></i>
+                                    Download PDF</a>
                             </td>
                             @else
                             <td class="text-center">No File Yet</td>
@@ -123,12 +161,24 @@ Penerjemahan
                             <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_word) }}
                                 <br>
                                 <br>
-                                <a href="{{route('penerjemahan-public.downloadJurnalAdminWORD', ['id_umum' => $jurnal->umum_id, 'id_jurnal_umum' => $jurnal->id_jurnal_umum])}}" class="btn btn-sm btn-outline-secondary text-center"><i
+                                <a href="{{route('penerjemahan-public.downloadJurnalAdminWORD', ['id_umum' => $jurnal->umum_id, 'id_jurnal_umum' => $jurnal->id_jurnal_umum])}}"
+                                    class="btn btn-sm btn-outline-secondary text-center"><i
                                         class="bi bi-download text-gray"></i> Download Word</a>
                             </td>
                             @else
                             <td class="text-center">No File Yet</td>
                             @endif
+                            <td class="text-center">
+                                <button type="button" class="btn btn-primary openModal" data-toggle="modal"
+                                    data-target="#modal-komentar" data-id="{{$jurnal->komentar}}">
+                                    Detail
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{route('penerjemahan-public.editJurnal', $jurnal->id_jurnal_umum)}}"
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-pen-fill text-green"></i></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -137,6 +187,30 @@ Penerjemahan
         </div>
     </div>
 
+    <div class="modal fade" id="modal-komentar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Komentar/ Pesan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-start">
+                        <span class="width:500px;" id="message-text" name="komentar"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 @endsection
 @push('js')
@@ -144,6 +218,10 @@ Penerjemahan
     $(function () {
         // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
         $("#dataTable").removeClass("invisible");
+        $(document).on("click", ".openModal", function () {
+            var eventId = $(this).data('id');
+            $('#message-text').html( eventId );
+        });
     });
 </script>
 @endpush

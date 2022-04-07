@@ -64,6 +64,28 @@ Route::get('penerjemahan-student-downloadAbstrakAdminWORD/{id_mahasiswa}/{id_abs
 Route::get('penerjemahan-student-downloadJurnalAdminPDF/{id_mahasiswa}/{id_jurnal}', [PenerjemahanStudentController::class, 'downloadJurnalAdminPDF'])->name('penerjemahan-student.downloadJurnalAdminPDF');
 Route::get('penerjemahan-student-downloadJurnalAdminWORD/{id_mahasiswa}/{id_jurnal}', [PenerjemahanStudentController::class, 'downloadJurnalAdminWORD'])->name('penerjemahan-student.downloadJurnalAdminWORD');
 
+
+
+// Edit Penerjemahan Student
+Route::get('penerjemahan-student-editAbstrak/{id_abstrak}', [PenerjemahanStudentController::class, 'editAbstrak'])->name('penerjemahan-student.editAbstrak');
+Route::get('penerjemahan-student-editJurnal/{id_jurnal}', [PenerjemahanStudentController::class, 'editJurnal'])->name('penerjemahan-student.editJurnal');
+Route::get('penerjemahan-student-editIjazah/{id_ijazah}', [PenerjemahanStudentController::class, 'editIjazah'])->name('penerjemahan-student.editIjazah');
+Route::get('penerjemahan-student-editTranskripNilai/{id_transkrip_nilai}', [PenerjemahanStudentController::class, 'editTranskripNilai'])->name('penerjemahan-student.editTranskripNilai');
+
+Route::patch('penerjemahan-student-updateAbstrak/{id_abstrak}', [PenerjemahanStudentController::class, 'updateAbstrak'])->name('penerjemahan-student.updateAbstrak');
+Route::patch('penerjemahan-student-updateJurnal/{id_jurnal}', [PenerjemahanStudentController::class, 'updateJurnal'])->name('penerjemahan-student.updateJurnal');
+Route::patch('penerjemahan-student-updateIjazah/{id_ijazah}', [PenerjemahanStudentController::class, 'updateIjazah'])->name('penerjemahan-student.updateIjazah');
+Route::patch('penerjemahan-student-updateTranskripNilai/{id_transkrip_nilai}', [PenerjemahanStudentController::class, 'updateTranskripNilai'])->name('penerjemahan-student.updateTranskripNilai');
+
+
+
+
+
+
+
+
+
+
 // // DASHBOARD UMUM/ PUBLIC
 Route::get('public', [UmumController::class, 'index'])->name('umum.index');
 Route::resource('profilePublic', ProfileUmumController::class);
@@ -77,6 +99,27 @@ Route::get('penerjemahan-public-downloadAbstrakAdminPDF/{id_umum}/{id_abstrak_um
 Route::get('penerjemahan-public-downloadAbstrakAdminWORD/{id_umum}/{id_abstrak_umum}', [PenerjemahanUmumController::class, 'downloadAbstrakAdminWORD'])->name('penerjemahan-public.downloadAbstrakAdminWORD');
 Route::get('penerjemahan-public-downloadJurnalAdminPDF/{id_umum}/{id_jurnal_umum}', [PenerjemahanUmumController::class, 'downloadJurnalAdminPDF'])->name('penerjemahan-public.downloadJurnalAdminPDF');
 Route::get('penerjemahan-public-downloadJurnalAdminWORD/{id_umum}/{id_jurnal_umum}', [PenerjemahanUmumController::class, 'downloadJurnalAdminWORD'])->name('penerjemahan-public.downloadJurnalAdminWORD');
+
+
+
+
+
+
+// Edit Penerjemahan Public
+Route::get('penerjemahan-public-editAbstrak/{id_abstrak_umum}', [PenerjemahanStudentController::class, 'editAbstrakUmum'])->name('penerjemahan-public.editAbstrak');
+Route::get('penerjemahan-public-editJurnal/{id_jurnal_umum}', [PenerjemahanStudentController::class, 'editJurnalUmum'])->name('penerjemahan-public.editJurnal');
+Route::get('penerjemahan-public-editIjazah/{id_ijazah_umum}', [PenerjemahanStudentController::class, 'editIjazahUmum'])->name('penerjemahan-public.editIjazah');
+Route::get('penerjemahan-public-editTranskripNilai/{id_transkrip_nilai_umum}', [PenerjemahanStudentController::class, 'editTranskripNilai'])->name('penerjemahan-public.editTranskripNilai');
+
+Route::patch('penerjemahan-public-updateAbstrak/{id_abstrak_umum}', [PenerjemahanStudentController::class, 'updateAbstrakUmum'])->name('penerjemahan-public.updateAbstrak');
+Route::patch('penerjemahan-public-updateJurnal/{id_jurnal_umum}', [PenerjemahanStudentController::class, 'updateJurnalUmum'])->name('penerjemahan-public.updateJurnal');
+Route::patch('penerjemahan-public-updateIjazah/{id_ijazah_umum}', [PenerjemahanStudentController::class, 'updateIjazahUmum'])->name('penerjemahan-public.updateIjazah');
+Route::patch('penerjemahan-public-updateTranskripNilai/{id_transkrip_nilai_umum}', [PenerjemahanStudentController::class, 'updateTranskripNilaiUmum'])->name('penerjemahan-public.updateTranskripNilai');
+
+
+
+
+
 
 // DASHBOARD ADMIN
 Route::resource('admin', AdminController::class)->except([
@@ -124,6 +167,20 @@ Route::get('penerjemahan-admin-abstrak-edit/{id_penerjemahan}/{id_mahasiswa}', [
 Route::get('penerjemahan-admin-jurnal-edit/{id_jurnal}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'editPageJurnal'])->name('penerjemahan-admin.editPageJurnal');
 Route::patch('penerjemahan-admin-abstrak/{id_abstrak}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartialAbstrak'])->name('penerjemahan-admin.updatePartialAbstrak');
 Route::patch('penerjemahan-admin-jurnal/{id_jurnal}/{id_mahasiswa}', [PenerjemahanAdminController::class, 'updatePartialJurnal'])->name('penerjemahan-admin.updatePartialJurnal');
+
+// SEND KOMENTAR MAHASISWA PENERJEMAHAN
+Route::patch('penerjemahan-send-komentar/{id_abstrak}', [PenerjemahanAdminController::class, 'sendKomentarAbstrak'])->name('penerjemahan.sendKomentarAbstrak');
+Route::patch('penerjemahan-send-komentar2/{id_transkrip_nilai}', [PenerjemahanAdminController::class, 'sendKomentarTranskripNilai'])->name('penerjemahan.sendKomentarTranskripNilai');
+Route::patch('penerjemahan-send-komentar3/{id_ijazah}', [PenerjemahanAdminController::class, 'sendKomentarIjazah'])->name('penerjemahan.sendKomentarIjazah');
+Route::patch('penerjemahan-send-komentar4/{id_jurnal}', [PenerjemahanAdminController::class, 'sendKomentarJurnal'])->name('penerjemahan.sendKomentarJurnal');
+
+
+
+// SEND KOMENTAR UMUM PENERJEMAHAN
+Route::patch('penerjemahan-send-komentar5/{id_abstrak_umum}', [PenerjemahanAdminController::class, 'sendKomentarAbstrakUmum'])->name('penerjemahan.komentarAbstrakUmum');
+Route::patch('penerjemahan-send-komentar6/{id_transkrip_nilai_umum}', [PenerjemahanAdminController::class, 'sendKomentarTranskripNilaiUmum'])->name('penerjemahan.sendKomentarTranskripNilaiUmum');
+Route::patch('penerjemahan-send-komentar7/{id_ijazah_umum}', [PenerjemahanAdminController::class, 'sendKomentarIjazahUmum'])->name('penerjemahan.sendKomentarIjazahUmum');
+Route::patch('penerjemahan-send-komentar8/{id_jurnal_umum}', [PenerjemahanAdminController::class, 'sendKomentarJurnalUmum'])->name('penerjemahan.sendKomentarJurnalUmum');
 
 
 

@@ -23,7 +23,8 @@ class CreateAbstrakUmumTable extends Migration
             $table->string('path_file_abstrak_admin_pdf')->nullable();
             $table->string('email');
             $table->string('no_hp');
-            $table->enum('status', ['unverified', 'pending','verified']);
+            $table->enum('status', ['unverified', 'pending','verified', 'rejected']);
+            $table->text('komentar')->nullable();
             $table->timestamps();
         });
     }

@@ -22,7 +22,8 @@ News
                         </label>
 
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="judul_berita" value="{{ $data_berita->judul_berita }}">
+                            <input type="text" class="form-control" name="judul_berita"
+                                value="{{ $data_berita->judul_berita }}">
                         </div>
 
                     </div>
@@ -38,7 +39,8 @@ News
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control datepicker" placeholder="Select date" type="text" name="tanggal_berita">
+                                <input class="form-control datepicker" placeholder="Select date" type="text"
+                                    name="tanggal_berita">
                             </div>
                         </div>
 
@@ -60,7 +62,7 @@ News
                             <h4>News Content <span class="text-danger">*</span></h4>
                         </label>
                         <div class="col-sm-7">
-                            <div id="summernote"><input type="hidden" name="isi_berita" value="{{ $data_berita->isi_berita }}"></div>
+                            <textarea name="isi_berita" id="summernote" value="{{$data_berita->isi_berita}}"></textarea>
                         </div>
                     </div>
 
@@ -80,7 +82,7 @@ News
 @endsection
 @push('js')
 <script>
-    $('#summernote').summernote('code', $('input[name="isi_berita"]').val());
+    $('#summernote').summernote('code', {!! json_encode($data_berita->isi_berita) !!});
 
     $('#summernote').summernote({
             tabsize: 2,

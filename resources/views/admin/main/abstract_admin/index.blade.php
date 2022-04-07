@@ -32,6 +32,7 @@ Penerjemahan
                             <th>Proof of Payment</th>
                             <th>Status</th>
                             <th>File</th>
+                            <th>Edit Status</th>
                             <th>Action</th>
                             <th>Print</th>
                         </tr>
@@ -51,17 +52,38 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $abstract->status === 'unverified' ?'btn-danger' : ($abstract->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    class="btn btn-sm js-status {{ $abstract->status === 'unverified' ?'btn-danger' : ($abstract->status === 'pending' ? 'btn-warning' : ($abstract->status === 'rejected' ?'btn-danger': 'btn-success')) }} disabled">
                                     {{ $abstract->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($abstract->path_file_abstrak_mahasiswa) }}
                             </td>
+                            <td class="text-center align-middle">
+
+                                <button type="button" class="btn btn-sm btn-outline-secondary js-btn-abstrak-pending"
+                                    data-id="{{ $abstract->id_abstrak }}">
+                                    <i class="bi bi-hourglass-split text-yellow"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary js-btn-abstrak-verified"
+                                    data-id="{{ $abstract->id_abstrak }}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                {{-- <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH') --}}
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{route('penerjemahan.sendKomentarAbstrak', $abstract->id_abstrak)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                    {{--
+                                </form> --}}
+                            </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadAbstrakMahasiswa', ['id_mahasiswa' => $abstract->mahasiswa_id, 'id_abstrak' => $abstract->id_abstrak])}}"
-                                    class="btn btn-sm btn-outline-secondary js-btn-download-abstrak"
-                                    data-id="{{ $abstract->id_abstrak }}"><i class="bi bi-download text-gray"></i></a>
+                                    class="btn btn-sm btn-outline-secondary"><i
+                                        class="bi bi-download text-gray"></i></a>
 
                                 <a href="{{route('penerjemahan-admin.editPageAbstrak', ['id_penerjemahan' => $abstract->id_abstrak, 'id_mahasiswa' => $abstract->mahasiswa_id])}}"
                                     class="btn btn-sm btn-outline-secondary"><i
@@ -91,12 +113,27 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $transkrip_nilai->status === 'unchecked' ?'btn-danger' : 'btn-success' }} disabled">
+                                    class="btn btn-sm js-status {{ $transkrip_nilai->status === 'unchecked' ? 'btn-danger' : ($transkrip_nilai->status === 'rejected' ? 'btn-danger': 'btn-success' ) }} disabled">
                                     {{ $transkrip_nilai->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($transkrip_nilai->path_file_transkrip_nilai) }}
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-outline-secondary js-btn-transkrip-checked"
+                                    data-id="{{ $transkrip_nilai->id_transkrip_nilai}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarTranskripNilai', $transkrip_nilai->id_transkrip_nilai)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                             <td class="text-center">
                                 <a href="{{route('penerjemahan.downloadTranskripMahasiswa', ['id_mahasiswa' => $transkrip_nilai->mahasiswa_id, 'id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai])}}"
@@ -139,12 +176,27 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $ijazah->status === 'unchecked' ?'btn-danger' : 'btn-success' }} disabled">
+                                    class="btn btn-sm js-status {{ $ijazah->status === 'unchecked' ?'btn-danger' : ($ijazah->status === 'unchecked' ? 'btn-danger':'btn-success') }} disabled">
                                     {{ $ijazah->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($ijazah->path_file_ijazah) }}
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-outline-secondary js-btn-ijazah-checked"
+                                    data-id="{{ $ijazah->id_ijazah}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarIjazah', $ijazah->id_ijazah)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                             <td class="text-center">
                                 <a href="{{route('penerjemahan.downloadIjazahMahasiswa', ['id_mahasiswa' => $ijazah->mahasiswa_id, 'id_ijazah' => $ijazah->id_ijazah])}}"
@@ -181,12 +233,32 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    class="btn btn-sm js-status {{ $jurnal->status === 'unverified' ?'btn-danger' : ($jurnal->status === 'pending' ? 'btn-warning' : ($jurnal->status === 'rejected' ? 'btn-danger' : 'btn-success')) }} disabled">
                                     {{ $jurnal->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($jurnal->path_file_jurnal_mahasiswa) }}
+                            </td>
+                            <td class="text-center align-middle">
+
+                                <button type="button" class="btn btn-sm btn-outline-secondary js-btn-jurnal-pending"
+                                    data-id="{{ $jurnal->id_jurnal}}">
+                                    <i class="bi bi-hourglass-split text-yellow"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary js-btn-jurnal-verified"
+                                    data-id="{{ $jurnal->id_jurnal}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarJurnal', $jurnal->id_jurnal)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadJurnalMahasiswa', ['id_mahasiswa' => $jurnal->mahasiswa_id, 'id_jurnal' => $jurnal->id_jurnal])}}"
@@ -232,12 +304,34 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $abstract_umum->status === 'unverified' ?'btn-danger' : ($abstract_umum->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    class="btn btn-sm js-status {{ $abstract_umum->status === 'unverified' ?'btn-danger' : ($abstract_umum->status === 'pending' ? 'btn-warning' : ($abstract_umum->status === 'rejected' ?'btn-danger': 'btn-success')) }} disabled">
                                     {{ $abstract_umum->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($abstract_umum->path_file_abstrak_umum) }}
+                            </td>
+                            <td class="text-center align-middle">
+
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-secondary js-btn-abstrak-umum-pending"
+                                    data-id="{{ $abstract_umum->id_abstrak_umum}}">
+                                    <i class="bi bi-hourglass-split text-yellow"></i>
+                                </button>
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-secondary js-btn-abstrak-umum-verified"
+                                    data-id="{{ $abstract_umum->id_abstrak_umum}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarAbstrakUmum',$abstract_umum->id_abstrak_umum)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                             <td class="">
 
@@ -285,12 +379,28 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $transkrip_nilai_umum->status === 'unchecked' ?'btn-danger' : 'btn-success' }} disabled">
+                                    class="btn btn-sm js-status {{ $transkrip_nilai_umum->status === 'unchecked' ? 'btn-danger' : ($transkrip_nilai_umum->status === 'rejected' ? 'btn-danger' : 'btn-success' ) }} disabled">
                                     {{ $transkrip_nilai_umum->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($transkrip_nilai_umum->path_file_transkrip_nilai) }}
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-secondary js-btn-transkrip-umum-checked"
+                                    data-id="{{ $transkrip_nilai_umum->id_transkrip_nilai_umum}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarTranskripNilaiUmum', $transkrip_nilai_umum->id_transkrip_nilai_umum)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadTranskripUmum', ['id_umum' => $transkrip_nilai_umum->umum_id, 'id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum])}}"
@@ -340,6 +450,22 @@ Penerjemahan
                             <td class="text-center">
                                 {{ basename($ijazah_umum->path_file_ijazah) }}
                             </td>
+                            <td class="text-center align-middle">
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-secondary js-btn-ijazah-umum-checked"
+                                    data-id="{{ $ijazah_umum->id_ijazah_umum}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarIjazahUmum', $ijazah_umum->id_ijazah_umum)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadIjazahUmum', ['id_umum' => $ijazah_umum->umum_id, 'id_ijazah_umum' => $ijazah_umum->id_ijazah_umum])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-ijazah-umum"
@@ -385,12 +511,34 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $jurnal_umum->status === 'unverified' ?'btn-danger' : ($jurnal_umum->status === 'pending' ? 'btn-warning' : 'btn-success') }} disabled">
+                                    class="btn btn-sm js-status {{ $jurnal_umum->status === 'unverified' ?'btn-danger' : ($jurnal_umum->status === 'pending' ? 'btn-warning' : ($jurnal_umum->status === 'rejected' ? 'btn-danger' : 'btn-success')) }} disabled">
                                     {{ $jurnal_umum->status }}
                                 </li>
                             </td>
                             <td class="text-center">
                                 {{ basename($jurnal_umum->path_file_jurnal_umum) }}
+                            </td>
+                            <td class="text-center align-middle">
+
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-secondary js-btn-jurnal-umum-pending"
+                                    data-id="{{ $jurnal_umum->id_jurnal_umum}}">
+                                    <i class="bi bi-hourglass-split text-yellow"></i>
+                                </button>
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-secondary js-btn-jurnal-umum-verified"
+                                    data-id="{{ $jurnal_umum->id_jurnal_umum}}">
+                                    <i class=" bi bi-check-square text-green"></i>
+                                </button>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                        data-toggle="modal" data-target="#modal-komentar"
+                                        data-action="{{ route('penerjemahan.sendKomentarJurnalUmum', $jurnal_umum->id_jurnal_umum)}}">
+                                        <i class="bi bi-x-square text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadJurnalUmum', ['id_umum' => $jurnal_umum->umum_id, 'id_jurnal_umum' => $jurnal_umum->id_jurnal_umum])}}"
@@ -426,41 +574,47 @@ Penerjemahan
         </div>
     </div>
 
+    <div class="modal fade" id="modal-komentar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form-send" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <div class="modal-body">
+                        <div class="form-group text-start">
+                            <label for="message-text" class="col-form-label text-start"><b>Message:</b></label>
+                            <textarea class="form-control width:500px;" id="message-text" name="komentar"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-send">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 @endsection
 @push('js')
 <script>
     $(function () {
-        // JS MAHASISWA
-        // Button download abstrak
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: true
-        });
+       
+     
 
-        // Button activate
-        $("#dataTable").on("click", ".js-btn-delete", function () {
-            swalWithBootstrapButtons.fire({
-                title: "Hapus File Penerjemahan?",
-                text: "Apakah anda yakin menghapus file ini?",
-                icon: "warning",
-                showCloseButton: true,
-                showCancelButton: true,
-                confirmButtonText: "Ya!",
-                cancelButtonText: "Batal!",
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).parent().submit(); // Submit form
-                }
-            });
-        });
-
-
-        $("#dataTable").on("click", ".js-btn-download-abstrak-umum", function () {
+        // JS Umum
+        // Button Pending abstrak umum
+        $("#dataTable").on("click", ".js-btn-abstrak-umum-pending", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -480,8 +634,32 @@ Penerjemahan
                 }
             ); 
         });
+        
+         // Button verified abstrak umum
+         $("#dataTable").on("click", ".js-btn-abstrak-umum-verified", function () {
+            const jsStatus = $(this).closest("tr").find(".js-status");
+            const postData = { 
+                id: $(this).data("id"),
+                layanan: "abstrakUmum"
+            };
 
-        $("#dataTable").on("click", ".js-btn-download-jurnal-umum", function () {
+            $.post(
+                "api/abstrak-jurnal-verified", 
+                postData,
+                function(jsonData) {
+                    const abstrak = jsonData;
+                    
+                    jsStatus
+                        .removeClass("btn-warning")
+                        .removeClass("btn-danger")
+                        .addClass("btn-success")
+                        .text(abstrak.status);
+                }
+            ); 
+        });
+
+         // Button pending jurnal umum
+        $("#dataTable").on("click", ".js-btn-jurnal-umum-pending", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -501,10 +679,32 @@ Penerjemahan
                 }
             ); 
         });
+            // Button verified jurnal umum
+            $("#dataTable").on("click", ".js-btn-jurnal-umum-verified", function () {
+            const jsStatus = $(this).closest("tr").find(".js-status");
+            const postData = { 
+                id: $(this).data("id"),
+                layanan: "jurnalUmum"
+            };
+
+            $.post(
+                "api/abstrak-jurnal-verified", 
+                postData,
+                function(jsonData) {
+                    const jurnal = jsonData;
+                    
+                    jsStatus
+                        .removeClass("btn-warning")
+                        .removeClass("btn-danger")
+                        .addClass("btn-success")
+                        .text(jurnal.status);
+                }
+            ); 
+        });
 
 
-        // Button download transkrip nilai
-        $("#dataTable").on("click", ".js-btn-download-transkrip-nilai-umum", function () {
+        // Button checked transkrip nilai umum
+        $("#dataTable").on("click", ".js-btn-transkrip-umum-checked", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -525,8 +725,8 @@ Penerjemahan
             ); 
         });
 
-        // Button download ijazah
-        $("#dataTable").on("click", ".js-btn-download-ijazah-umum", function () {
+        // Button checked ijazah umum
+        $("#dataTable").on("click", ".js-btn-ijazah-umum-checked", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -549,9 +749,9 @@ Penerjemahan
 
 
 
-          // JS UMUM/ PUBLIC
-        // Button download abstrak
-        $("#dataTable").on("click", ".js-btn-download-abstrak", function () {
+          // JS Mahasiswa
+        // Button Pending abstrak
+        $("#dataTable").on("click", ".js-btn-abstrak-pending", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -571,8 +771,29 @@ Penerjemahan
                 }
             ); 
         });
-
-        $("#dataTable").on("click", ".js-btn-download-jurnal", function () {
+        // Button verified abstrak
+        $("#dataTable").on("click", ".js-btn-abstrak-verified", function () {
+            const jsStatus = $(this).closest("tr").find(".js-status");
+            const postData = { 
+                id: $(this).data("id"),
+                layanan: "abstrak"
+            };
+     
+            $.post(
+                "api/abstrak-jurnal-verified", 
+                postData,
+                function(jsonData) {
+                    const abstrak = jsonData;
+                    jsStatus
+                        .removeClass("btn-warning")
+                        .removeClass("btn-danger")
+                        .addClass("btn-success")
+                        .text(abstrak.status);
+                }
+            ); 
+        });
+        // Button jurnal pending
+        $("#dataTable").on("click", ".js-btn-jurnal-pending", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -592,10 +813,31 @@ Penerjemahan
                 }
             ); 
         });
+          // Button jurnal verified
+        $("#dataTable").on("click", ".js-btn-jurnal-verified", function () {
+            const jsStatus = $(this).closest("tr").find(".js-status");
+            const postData = { 
+                id: $(this).data("id"),
+                layanan: "jurnal"
+            };
 
+            $.post(
+                "api/abstrak-jurnal-verified", 
+                postData,
+                function(jsonData) {
+                    const jurnal = jsonData;
+                    
+                    jsStatus
+                        .removeClass("btn-warning")
+                        .removeClass("btn-danger")
+                        .addClass("btn-success")
+                        .text(jurnal.status);
+                }
+            ); 
+        });
 
-        // Button download transkrip nilai
-        $("#dataTable").on("click", ".js-btn-download-transkrip-nilai", function () {
+        // Button transkrip nilai check
+        $("#dataTable").on("click", ".js-btn-transkrip-checked", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -616,8 +858,8 @@ Penerjemahan
             ); 
         });
 
-        // Button download ijazah
-        $("#dataTable").on("click", ".js-btn-download-ijazah", function () {
+        // Button ijazah checked
+        $("#dataTable").on("click", ".js-btn-ijazah-checked", function () {
             const jsStatus = $(this).closest("tr").find(".js-status");
             const postData = { 
                 id: $(this).data("id"),
@@ -657,6 +899,16 @@ Penerjemahan
                 divUmum.removeClass("d-none");
                 divMahasiswa.addClass("d-none");
             }
+        });
+
+        // Button kirim komentar
+        $("#dataTable").on("click", ".btn-komentar", function () {
+            $("#form-send").attr("action", $(this).data("action")); 
+        });
+
+        $("#modal-komentar").on("hidden.bs.modal", function () {
+            $("#form-send").attr("action", ""); 
+            $("#message-text").val(""); 
         });
     });
 </script>

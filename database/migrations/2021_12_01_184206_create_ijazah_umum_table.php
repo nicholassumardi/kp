@@ -21,7 +21,8 @@ class CreateIjazahUmumTable extends Migration
             $table->string('path_file_ijazah');
             $table->string('email');
             $table->string('no_hp');
-            $table->enum('status', ['unchecked', 'checked']);
+            $table->enum('status',  ['unchecked', 'checked', 'rejected']);
+            $table->text('komentar')->nullable();
             $table->timestamps();
         });
     }

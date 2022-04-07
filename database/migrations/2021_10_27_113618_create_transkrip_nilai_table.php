@@ -22,6 +22,7 @@ class CreateTranskripNilaiTable extends Migration
             $table->string('email');
             $table->string('no_hp');
             $table->enum('status', ['unchecked', 'checked']);
+            $table->text('komentar')->nullable();
             $table->timestamps();
         });
     }

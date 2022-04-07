@@ -105,10 +105,11 @@ Register Courses
                     <div class="row mt-3 mb-5 justify-content-center" id="div-abstrak">
                         <div class="col-xl-10">
                             <label for="form-control">File Abstract</label>
-                            <input class="form-control customicon" type="file" name="path_file_abstrak_umum"
-                                required>
+                            <input class="form-control customicon" type="file" name="path_file_abstrak_umum" required>
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
+                                <br>
+                                * Size Maximum File 5MB
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>
@@ -121,6 +122,8 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_transkrip_nilai">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
+                                <br>
+                                * Size Maximum File 5MB
                             </small>
                         </div>
                     </div>
@@ -131,6 +134,8 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_ijazah">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
+                                <br>
+                                * Size Maximum File 5MB
                             </small>
                         </div>
                     </div>
@@ -141,6 +146,8 @@ Register Courses
                             <input class="form-control customicon" type="file" name="path_file_jurnal_umum">
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
+                                <br>
+                                * Size Maximum File 5MB
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>

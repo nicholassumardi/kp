@@ -48,7 +48,7 @@ class PenerjemahanAdminController extends Controller
         $this->dataView['transkrip_nilai_umum_count'] = count($this->dataView['data_transkrip_nilai_umum']);
         $this->dataView['ijazah_umum_count'] = count($this->dataView['data_ijazah_umum']);
         $this->dataView['jurnal_umum_count'] = count($this->dataView['data_jurnal_umum']);
-      
+
         return view('admin.main.abstract_admin.index', $this->dataView);
     }
 
@@ -152,7 +152,7 @@ class PenerjemahanAdminController extends Controller
                     $request->path_file_abstrak_admin_pdf->getClientOriginalName(),
                     'public'
                 ),
-                'status' => 'verified',
+                // 'status' => 'verified',
             ]);
 
         return redirect()->back()
@@ -175,7 +175,7 @@ class PenerjemahanAdminController extends Controller
                     $request->path_file_jurnal_admin_pdf->getClientOriginalName(),
                     'public'
                 ),
-                'status' => 'verified',
+                // 'status' => 'verified',
             ]);
 
         return redirect()->back()
@@ -215,7 +215,6 @@ class PenerjemahanAdminController extends Controller
         // Jika request bukan ajax, throw halaman 403.
         return abort(403);
     }
-
     public function changeStatusToChecked(Request $request)
     {
         // Jika request ajax
@@ -250,6 +249,100 @@ class PenerjemahanAdminController extends Controller
         return abort(403);
     }
 
+
+    public function changeStatusToVerified(Request $request)
+    {
+        // Jika request ajax
+        if ($request->ajax()) {
+            if ($request->layanan === 'abstrak') {
+                $abstrak = tap(Abstrak::where('id_abstrak', $request->id))
+                    ->update(['status' => 'verified'])
+                    ->first();
+
+                return response()->json($abstrak);
+            } elseif ($request->layanan === 'jurnal') {
+                $jurnal = tap(Jurnal::where('id_jurnal', $request->id))
+                    ->update(['status' => 'verified'])
+                    ->first();
+
+                return response()->json($jurnal);
+            } elseif ($request->layanan === 'abstrakUmum') {
+                $abstrakUmum = tap(AbstrakUmum::where('id_abstrak_umum', $request->id))
+                    ->update(['status' => 'verified'])
+                    ->first();
+
+                return response()->json($abstrakUmum);
+            } elseif ($request->layanan === 'jurnalUmum') {
+                $jurnalUmum = tap(JurnalUmum::where('id_jurnal_umum', $request->id))
+                    ->update(['status' => 'verified'])
+                    ->first();
+
+                return response()->json($jurnalUmum);
+            }
+        }
+        // Jika request bukan ajax, throw halaman 403.
+        return abort(403);
+    }
+
+    // public function changeStatusToRejected(Request $request)
+    // {
+    //     // Jika request ajax
+    //     if ($request->ajax()) {
+    //         if ($request->layanan === 'transkrip_nilai') {
+    //             $transkripNilai = tap(TranskripNilai::where('id_transkrip_nilai', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($transkripNilai);
+    //         } elseif ($request->layanan === 'ijazah') {
+    //             $ijazah = tap(Ijazah::where('id_ijazah', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($ijazah);
+    //         } elseif ($request->layanan === 'transkrip_nilai_umum') {
+    //             $transkripnilaiUmum = tap(TranskripNilaiUmum::where('id_transkrip_nilai_umum', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($transkripnilaiUmum);
+    //         } elseif ($request->layanan === 'ijazah_umum') {
+    //             $ijazahUmum = tap(IjazahUmum::where('id_ijazah_umum', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($ijazahUmum);
+    //         }
+    //         if ($request->layanan === 'abstrak') {
+    //             $abstrak = tap(Abstrak::where('id_absrak', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($abstrak);
+    //         } elseif ($request->layanan === 'jurnal') {
+    //             $jurnal = tap(Ijazah::where('id_jurnal', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($jurnal);
+    //         } elseif ($request->layanan === 'abstrak_umum') {
+    //             $abstrakUmum = tap(AbstrakUmum::where('id_abstrak_umum', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($abstrakUmum);
+    //         } elseif ($request->layanan === 'jurnal_umum') {
+    //             $jurnalUmum = tap(IjazahUmum::where('id_jurnal_umum', $request->id))
+    //                 ->update(['status' => 'rejected'])
+    //                 ->first();
+
+    //             return response()->json($jurnalUmum);
+    //         }
+    //     }
+    //     // Jika request bukan ajax, throw halaman 403.
+    //     return abort(403);
+    // }
+
     public function editPageAbstrakUmum(Request $request, $id_abstrak_umum, $id_umum)
     {
 
@@ -283,7 +376,7 @@ class PenerjemahanAdminController extends Controller
                     $request->path_file_abstrak_admin_pdf->getClientOriginalName(),
                     'public'
                 ),
-                'status' => 'verified',
+                // 'status' => 'verified',
             ]);
 
 
@@ -307,7 +400,7 @@ class PenerjemahanAdminController extends Controller
                     $request->path_file_jurnal_admin_pdf->getClientOriginalName(),
                     'public'
                 ),
-                'status' => 'verified',
+                // 'status' => 'verified',
             ]);
 
         return redirect()->back()
@@ -410,7 +503,127 @@ class PenerjemahanAdminController extends Controller
 
         return response()->download($file);
     }
+    public function sendKomentarAbstrak(Request $request, $id_abstrak)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
 
+        Abstrak::where('id_abstrak', $id_abstrak)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+    public function sendKomentarTranskripNilai(Request $request, $id_transkrip_nilai)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        TranskripNilai::where('id_transkrip_nilai', $id_transkrip_nilai)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+    public function sendKomentarIjazah(Request $request, $id_ijazah)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        Ijazah::where('id_ijazah', $id_ijazah)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+    public function sendKomentarJurnal(Request $request, $id_jurnal)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        Jurnal::where('id_jurnal', $id_jurnal)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+
+    public function sendKomentarAbstrakUmum(Request $request, $id_abstrak_umum)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+    public function sendKomentarTranskripNilaiUmum(Request $request, $id_transkrip_nilai_umum)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+    public function sendKomentarIjazahUmum(Request $request, $id_ijazah_umum)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
+    public function sendKomentarJurnalUmum(Request $request, $id_jurnal_umum)
+    {
+        $request->validate([
+            'komentar' => 'required'
+        ]);
+
+        JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum)
+            ->update([
+                'komentar' => $request->komentar,
+                'status' => 'rejected'
+            ]);
+
+        return redirect()->back()
+            ->with('success', 'Comment has been sent.');
+    }
 
     // // Delete File Mahasiswa
     // public function deleteAbstrakMahasiswa($id_mahasiswa, $id_abstrak)

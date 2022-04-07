@@ -36,4 +36,5 @@ Route::prefix('courses-umum')->group(function () {
 
 // Abstrak
 Route::post('abstrak-jurnal-change-status', [PenerjemahanAdminController::class, 'changeStatusToPending']);
+Route::post('abstrak-jurnal-verified', [PenerjemahanAdminController::class, 'changeStatusToVerified']);
 Route::post('transkrip-ijazah-change-status', [PenerjemahanAdminController::class, 'changeStatusToChecked']);

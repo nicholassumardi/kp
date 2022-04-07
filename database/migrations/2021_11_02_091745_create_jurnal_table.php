@@ -24,7 +24,8 @@ class CreateJurnalTable extends Migration
             $table->integer('jumlah_halaman_jurnal');
             $table->string('email');
             $table->string('no_hp');
-            $table->enum('status', ['unverified', 'pending','verified']);
+            $table->enum('status', ['unverified', 'pending','verified', 'rejected']);
+            $table->text('komentar')->nullable();
             $table->timestamps();
         });
     }
