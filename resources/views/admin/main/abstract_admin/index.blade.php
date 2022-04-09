@@ -152,7 +152,7 @@ Penerjemahan
                                 </form> --}}
                             </td>
                             <td class="align-middle">
-                                <a href="{{ route('generate3.pdf', ['id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id]) }}"
+                                <a href="{{ route('generate3.pdf', ['id_transkrip_nilai_satu' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
@@ -176,7 +176,7 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $ijazah->status === 'unchecked' ?'btn-danger' : ($ijazah->status === 'unchecked' ? 'btn-danger':'btn-success') }} disabled">
+                                    class="btn btn-sm js-status {{ $ijazah->status === 'unchecked' ?'btn-danger' : ($ijazah->status === 'rejected' ? 'btn-danger':'btn-success') }} disabled">
                                     {{ $ijazah->status }}
                                 </li>
                             </td>
@@ -443,7 +443,7 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                    class="btn btn-sm js-status {{ $ijazah_umum->status === 'unchecked' ?'btn-danger' : 'btn-success' }} disabled">
+                                class="btn btn-sm js-status {{ $ijazah_umum->status === 'unchecked' ? 'btn-danger' : ($ijazah_umum->status === 'rejected' ? 'btn-danger' : 'btn-success' ) }} disabled">
                                     {{ $ijazah_umum->status }}
                                 </li>
                             </td>

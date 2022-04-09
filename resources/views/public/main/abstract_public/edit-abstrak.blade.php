@@ -85,3 +85,38 @@ Register Courses
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    $(function() { 
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+        
+        $("input[name='path_file_abstrak_umum']").on("change", function() {
+            // Jika file dipilih (dalam artian tidak membatalkan input file)
+            if (this.files[0] !== undefined) {
+                const oneMegabyteToBytes = 1000000;
+                const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                
+                // Jika ukuran file lebih besar dari 5 MB, reset kolom inputan
+                // atau batalkan inputan dan beri peringatan alert.
+                if (ukuranFileDalamMegabyte > 5) {
+                    this.value = "";
+
+                    swalWithBootstrapButtons.fire({
+                        title: "Peringatan!",
+                        text: "Size maximum file abstract adalah 5 MB. Silahkan upload file Anda kembali!",
+                        icon: "warning",
+                        showCloseButton: true,
+                    });
+                }
+            }
+        });
+    });
+</script>
+@endpush

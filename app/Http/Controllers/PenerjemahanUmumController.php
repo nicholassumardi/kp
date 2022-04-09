@@ -9,6 +9,7 @@ use App\Models\TranskripNilaiUmum;
 use App\Models\Umum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PenerjemahanUmumController extends Controller
 {
@@ -28,7 +29,7 @@ class PenerjemahanUmumController extends Controller
         $this->dataView['data_transkrip_nilai'] = TranskripNilaiUmum::where('umum_id', $this->dataView['umum']->id_umum)->get();
         $this->dataView['data_ijazah'] = IjazahUmum::where('umum_id', $this->dataView['umum']->id_umum)->get();
         $this->dataView['data_jurnal'] = JurnalUmum::where('umum_id', $this->dataView['umum']->id_umum)->get();
-
+        
         return view('public.main.abstract_public.index', $this->dataView);
     }
 
@@ -80,18 +81,33 @@ class PenerjemahanUmumController extends Controller
                         ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
                     )
                 ) {
-                    AbstrakUmum::create([
-                        'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak-umum/', 'public'),
-                        'path_file_abstrak_umum' => $request->path_file_abstrak_umum->storeAs(
-                            'dokumen/dokumen-abstrak/umum',
-                            $request->path_file_abstrak_umum->getClientOriginalName(),
-                            'public'
-                        ),
-                        'email' => $request->email,
-                        'no_hp' => $request->no_hp,
-                        'status' => 'unverified'
+                    $validatorFileSize = Validator::make($request->all(), [
+                        // File maksimum 5 MB / 5000 KB
+                        'path_file_abstrak_umum' => 'max:5000',
                     ]);
+             
+                    // Jika file tidak melebihi 5 MB
+                    if ( ! $validatorFileSize->fails()) {
+                        // dd("BISA");
+                        $a = AbstrakUmum::create([
+                            'umum_id' => $umum->id_umum,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak-umum/', 'public'),
+                            'path_file_abstrak_umum' => $request->path_file_abstrak_umum->storeAs(
+                                'dokumen/dokumen-abstrak/umum',
+                                $request->path_file_abstrak_umum->getClientOriginalName(),
+                                'public'
+                            ),
+                            'email' => $request->email,
+                            'no_hp' => $request->no_hp,
+                            'status' => 'unverified'
+                        ]);
+                        // dd($a);
+                    } 
+                    // Jika file melebihi 5 MB
+                    else {
+                        return redirect()->route('penerjemahan-public.index')
+                            ->with('error', 'Gagal terkirim karena size file abstract melebihi 5 MB!');
+                    }
                 }
                 // Jika format foto dan file abstrak salah
                 else {
@@ -130,18 +146,31 @@ class PenerjemahanUmumController extends Controller
                         ['application/pdf', 'image/jpeg', 'image/png']
                     )
                 ) {
-                    TranskripNilaiUmum::create([
-                        'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
-                        'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/umum',
-                            $request->path_file_transkrip_nilai->getClientOriginalName(),
-                            'public'
-                        ),
-                        'email' => $request->email,
-                        'no_hp' => $request->no_hp,
-                        'status' => 'unchecked'
+                    $validatorFileSize = Validator::make($request->all(), [
+                        // File maksimum 5 MB / 5000 KB
+                        'path_file_transkrip_nilai' => 'max:5000',
                     ]);
+             
+                    // Jika file tidak melebihi 5 MB
+                    if ( ! $validatorFileSize->fails()) {
+                        TranskripNilaiUmum::create([
+                            'umum_id' => $umum->id_umum,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
+                            'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
+                                'dokumen/dokumen-transkrip/umum',
+                                $request->path_file_transkrip_nilai->getClientOriginalName(),
+                                'public'
+                            ),
+                            'email' => $request->email,
+                            'no_hp' => $request->no_hp,
+                            'status' => 'unchecked'
+                        ]);
+                    } 
+                    // Jika file melebihi 5 MB
+                    else {
+                        return redirect()->route('penerjemahan-public.index')
+                            ->with('error', 'Gagal terkirim karena size file transkrip melebihi 5 MB!');
+                    }
                 }
                 // Jika format foto dan file transkrip nilai salah
                 else {
@@ -180,18 +209,31 @@ class PenerjemahanUmumController extends Controller
                         ['application/pdf', 'image/jpeg', 'image/png']
                     )
                 ) {
-                    IjazahUmum::create([
-                        'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
-                        'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/umum',
-                            $request->path_file_ijazah->getClientOriginalName(),
-                            'public'
-                        ),
-                        'email' => $request->email,
-                        'no_hp' => $request->no_hp,
-                        'status' => 'unchecked'
+                    $validatorFileSize = Validator::make($request->all(), [
+                        // File maksimum 5 MB / 5000 KB
+                        'path_file_ijazah' => 'max:5000',
                     ]);
+             
+                    // Jika file tidak melebihi 5 MB
+                    if ( ! $validatorFileSize->fails()) {
+                        IjazahUmum::create([
+                            'umum_id' => $umum->id_umum,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
+                            'path_file_ijazah' => $request->path_file_ijazah->storeAs(
+                                'dokumen/dokumen-ijazah/umum',
+                                $request->path_file_ijazah->getClientOriginalName(),
+                                'public'
+                            ),
+                            'email' => $request->email,
+                            'no_hp' => $request->no_hp,
+                            'status' => 'unchecked'
+                        ]);
+                    } 
+                    // Jika file melebihi 5 MB
+                    else {
+                        return redirect()->route('penerjemahan-public.index')
+                            ->with('error', 'Gagal terkirim karena size file ijazah melebihi 5 MB!');
+                    }
                 }
                 // Jika format foto dan file ijazah salah
                 else {
@@ -244,31 +286,45 @@ class PenerjemahanUmumController extends Controller
                         ['application/pdf', 'image/jpeg', 'image/png']
                     )
                 ) {
-                    TranskripNilaiUmum::create([
-                        'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi_transkrip_nilai->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
-                        'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
-                            'dokumen/dokumen-transkrip/umum',
-                            $request->path_file_transkrip_nilai->getClientOriginalName(),
-                            'public'
-                        ),
-                        'email' => $request->email,
-                        'no_hp' => $request->no_hp,
-                        'status' => 'unchecked'
+                    $validatorFileSize = Validator::make($request->all(), [
+                        // File maksimum 5 MB / 5000 KB
+                        'path_file_transkrip_nilai' => 'max:5000',
+                        'path_file_ijazah' => 'max:5000'
                     ]);
-
-                    IjazahUmum::create([
-                        'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi_ijazah->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
-                        'path_file_ijazah' => $request->path_file_ijazah->storeAs(
-                            'dokumen/dokumen-ijazah/umum',
-                            $request->path_file_ijazah->getClientOriginalName(),
-                            'public'
-                        ),
-                        'email' => $request->email,
-                        'no_hp' => $request->no_hp,
-                        'status' => 'unchecked'
-                    ]);
+             
+                    // Jika file tidak melebihi 5 MB
+                    if ( ! $validatorFileSize->fails()) {
+                        TranskripNilaiUmum::create([
+                            'umum_id' => $umum->id_umum,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi_transkrip_nilai->store('images/bukti-pembayaran/transkrip-nilai-umum/', 'public'),
+                            'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
+                                'dokumen/dokumen-transkrip/umum',
+                                $request->path_file_transkrip_nilai->getClientOriginalName(),
+                                'public'
+                            ),
+                            'email' => $request->email,
+                            'no_hp' => $request->no_hp,
+                            'status' => 'unchecked'
+                        ]);
+    
+                        IjazahUmum::create([
+                            'umum_id' => $umum->id_umum,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi_ijazah->store('images/bukti-pembayaran/ijazah-umum/', 'public'),
+                            'path_file_ijazah' => $request->path_file_ijazah->storeAs(
+                                'dokumen/dokumen-ijazah/umum',
+                                $request->path_file_ijazah->getClientOriginalName(),
+                                'public'
+                            ),
+                            'email' => $request->email,
+                            'no_hp' => $request->no_hp,
+                            'status' => 'unchecked'
+                        ]);
+                    } 
+                    // Jika file melebihi 5 MB
+                    else {
+                        return redirect()->route('penerjemahan-public.index')
+                            ->with('error', 'Gagal terkirim karena size file transkrip atau ijazah melebihi 5 MB!');
+                    }
                 }
                 // Jika format foto dan file transkrip nilai dan ijazah salah
                 else {
@@ -308,19 +364,32 @@ class PenerjemahanUmumController extends Controller
                         ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
                     )
                 ) {
-                    JurnalUmum::create([
-                        'umum_id' => $umum->id_umum,
-                        'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/jurnal-umum/', 'public'),
-                        'path_file_jurnal_umum' => $request->path_file_jurnal_umum->storeAs(
-                            'dokumen/dokumen-jurnal/umum',
-                            $request->path_file_jurnal_umum->getClientOriginalName(),
-                            'public'
-                        ),
-                        'email' => $request->email,
-                        'no_hp' => $request->no_hp,
-                        'jumlah_halaman_jurnal' => $request->jumlah_halaman_jurnal,
-                        'status' => 'unverified'
+                    $validatorFileSize = Validator::make($request->all(), [
+                        // File maksimum 5 MB / 5000 KB
+                        'path_file_jurnal_umum' => 'max:5000',
                     ]);
+             
+                    // Jika file tidak melebihi 5 MB
+                    if ( ! $validatorFileSize->fails()) {
+                        JurnalUmum::create([
+                            'umum_id' => $umum->id_umum,
+                            'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/jurnal-umum/', 'public'),
+                            'path_file_jurnal_umum' => $request->path_file_jurnal_umum->storeAs(
+                                'dokumen/dokumen-jurnal/umum',
+                                $request->path_file_jurnal_umum->getClientOriginalName(),
+                                'public'
+                            ),
+                            'email' => $request->email,
+                            'no_hp' => $request->no_hp,
+                            'jumlah_halaman_jurnal' => $request->jumlah_halaman_jurnal,
+                            'status' => 'unverified'
+                        ]);
+                    } 
+                    // Jika file melebihi 5 MB
+                    else {
+                        return redirect()->route('penerjemahan-public.index')
+                            ->with('error', 'Gagal terkirim karena size file jurnal melebihi 5 MB!');
+                    }
                 }
                 // Jika format foto dan file jurnal salah
                 else {
@@ -428,29 +497,29 @@ class PenerjemahanUmumController extends Controller
     public function editAbstrakUmum($id_abstrak_umum)
     {
         $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
-        $this->dataView['abstrak'] = AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum);
+        $this->dataView['abstrak'] = AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum)->first();
         return view('public.main.abstract_public.edit-abstrak', $this->dataView);
     }
     public function editJurnalUmum($id_jurnal_umum)
     {
         $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
-        $this->dataView['jurnal'] = JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum);
+        $this->dataView['jurnal'] = JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum)->first();
 
         return view('public.main.abstract_public.edit-jurnal', $this->dataView);
     }
     public function editIjazahUmum($id_ijazah_umum)
     {
         $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
-        $this->dataView['ijazah'] = IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum);
+        $this->dataView['ijazah'] = IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum)->first();
 
         return view('public.main.abstract_public.edit-ijazah', $this->dataView);
     }
     public function editTranskripNilaiUmum($id_transkrip_nilai_umum)
     {
         $this->dataView['umum'] = Umum::where('user_id', Auth::id())->first();
-        $this->dataView['transkrip_nilai'] = TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum);
-
-        return view('public.main.abstract_public.edit-transkip', $this->dataView);
+        $this->dataView['transkrip_nilai'] = TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum)->first();
+        // dd($this->dataView);
+        return view('public.main.abstract_public.edit-transkrip', $this->dataView);
     }
 
 
@@ -582,7 +651,7 @@ class PenerjemahanUmumController extends Controller
                     'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah/', 'public'),
                     'path_file_ijazah' => $request->path_file_ijazah->storeAs(
                         'dokumen/dokumen-ijazah/umum',
-                        $request->path_file_ijazah_umum->getClientOriginalName(),
+                        $request->path_file_ijazah->getClientOriginalName(),
                         'public'
                     ),
                     'email' => $request->email,
@@ -630,7 +699,7 @@ class PenerjemahanUmumController extends Controller
                     'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
                     'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
                         'dokumen/dokumen-transkrip/umum',
-                        $request->path_file_transkrip_nilai_umum->getClientOriginalName(),
+                        $request->path_file_transkrip_nilai->getClientOriginalName(),
                         'public'
                     ),
                     'email' => $request->email,

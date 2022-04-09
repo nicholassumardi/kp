@@ -57,7 +57,7 @@ Register Courses
                     </div>
 
 
-                    <div class="row mt-3 mb-5 justify-content-center d-none" id="div-ijazah">
+                    <div class="row mt-3 mb-5 justify-content-center" id="div-ijazah">
                         <div class="col-xl-10">
                             <label for="form-control">File Ijazah</label>
                             <input class="form-control customicon" type="file" name="path_file_ijazah">
@@ -83,3 +83,38 @@ Register Courses
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    $(function() { 
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+        
+        $("input[name='path_file_ijazah']").on("change", function() {
+            // Jika file dipilih (dalam artian tidak membatalkan input file)
+            if (this.files[0] !== undefined) {
+                const oneMegabyteToBytes = 1000000;
+                const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                
+                // Jika ukuran file lebih besar dari 5 MB, reset kolom inputan
+                // atau batalkan inputan dan beri peringatan alert.
+                if (ukuranFileDalamMegabyte > 5) {
+                    this.value = "";
+
+                    swalWithBootstrapButtons.fire({
+                        title: "Peringatan!",
+                        text: "Size maximum file ijazah adalah 5 MB. Silahkan upload file Anda kembali!",
+                        icon: "warning",
+                        showCloseButton: true,
+                    });
+                }
+            }
+        });
+    });
+</script>
+@endpush

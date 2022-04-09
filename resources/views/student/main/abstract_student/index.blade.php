@@ -64,7 +64,7 @@ Penerjemahan
                                 </button>
                             </td>
                             <td class="text-center">
-                                <a href="{{route('penerjemahan-student.editAbstrak', $abstract->id_abstract)}}"
+                                <a href="{{route('penerjemahan-student.editAbstrak', $abstract->id_abstrak)}}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-pen-fill text-green"></i></a>
                             </td>

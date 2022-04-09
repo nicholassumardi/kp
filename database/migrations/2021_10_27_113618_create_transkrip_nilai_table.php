@@ -21,7 +21,7 @@ class CreateTranskripNilaiTable extends Migration
             $table->string('path_file_transkrip_nilai');
             $table->string('email');
             $table->string('no_hp');
-            $table->enum('status', ['unchecked', 'checked']);
+            $table->enum('status', ['unchecked', 'checked', 'rejected']);
             $table->text('komentar')->nullable();
             $table->timestamps();
         });

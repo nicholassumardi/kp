@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="{{asset('argon/assets/css/custom.css')}}" type="text/css">
     {{-- Datatables --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+
+    <!-- Sweet Alert -->
+    <script src="{{asset('mazer/assets/js/extensions/sweetalert2.js')}}"></script>
+    <script src="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
 </head>
 
 <body>
