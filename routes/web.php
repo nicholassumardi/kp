@@ -26,6 +26,16 @@ use App\Http\Controllers\StudentListController;
 use App\Http\Controllers\UmumListController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UmumController;
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('clear-all', function () {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('route:clear');
+    $exitCode = Artisan::call('view:clear');
+    $exitCode = Artisan::call('config:cache');
+
+    return redirect('/');
+});
 
 /*
 |--------------------------------------------------------------------------

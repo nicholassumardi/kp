@@ -44,8 +44,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('user')->insert([
             'nama' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
+            'email' => 'itatslanguagecentre@gmail.com',
+            'password' => Hash::make('pusbaitats'),
             'status' => 1,
             'tipe_user_id' => 2
         ]);
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         DB::table('user')->insert([
             'nama' => 'Admin Abstrak',
             'email' => 'adminabstrak@gmail.com',
-            'password' => Hash::make('adminabstrak'),
+            'password' => Hash::make('pusbaitats'),
             'status' => 1,
             'tipe_user_id' => 3
         ]);
