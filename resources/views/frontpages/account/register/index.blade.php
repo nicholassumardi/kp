@@ -61,6 +61,9 @@
                                         <input type="text" class="form-control" name="nama" id="name"
                                             placeholder="Name" required>
                                     </div>
+                                    <small class="form-text text-muted">
+                                        * Tuliskan nama lengkap.
+                                    </small>
                                 </div>
                                 <div class="col-2"></div>
                             </div>
@@ -90,6 +93,9 @@
                                         </span>
                                         <input type="text" class="form-control" name="npm" id="npm" placeholder="NPM" required> 
                                     </div>
+                                    <small class="form-text text-muted">
+                                        * Contoh: 13.2018.1.07077.
+                                    </small>
                                 </div>
                                 <div class="col-2"></div>
                             </div>
@@ -109,6 +115,11 @@
                                             <i class="fas fa-eye d-none" id="eye"></i>
                                         </span>
                                     </div>
+                                    <small class="form-text text-muted">
+                                        * Password wajib menggunakan tanggal lahir.
+                                        <br>
+                                        Contoh: 2000-01-11 (tahun-bulan-tanggal).
+                                    </small>
                                 </div>
                                 <div class="col-2"></div>
                             </div>

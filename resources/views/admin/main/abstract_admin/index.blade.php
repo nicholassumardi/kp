@@ -40,8 +40,7 @@ Penerjemahan
                     <tbody id="div-mahasiswaParent">
                         @foreach ($data_abstract as $key => $abstract)
                         <tr>
-                            <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                $abstract->created_at)->year}}</td>
+                            <td class="text-center">{{ $abstract->created_at }}</td>
                             <td class="text-center">Abstract</td>
                             <td class="text-center">{{ $abstract->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $abstract->email }}</td>
