@@ -35,6 +35,7 @@ Penerjemahan
                             <th>Edit Status</th>
                             <th>Action</th>
                             <th>Print</th>
+                            <th>Deactive</th>
                         </tr>
                     </thead>
                     <tbody id="div-mahasiswaParent">
@@ -78,6 +79,7 @@ Penerjemahan
                                     </button>
                                     {{--
                                 </form> --}}
+
                             </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadAbstrakMahasiswa', ['id_mahasiswa' => $abstract->mahasiswa_id, 'id_abstrak' => $abstract->id_abstrak])}}"
@@ -93,6 +95,15 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
+                            </td>
+                            <td class="align-middle">
+                                <form action="{{route('penerjemahan.deactiveAbstrak',$abstract->id_abstrak)}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
                             </td>
                         </tr>
 
@@ -124,15 +135,18 @@ Penerjemahan
                                     data-id="{{ $transkrip_nilai->id_transkrip_nilai}}">
                                     <i class=" bi bi-check-square text-green"></i>
                                 </button>
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                {{-- <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    @method('PATCH')
+                                    @method('PATCH') --}}
                                     <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                                         data-toggle="modal" data-target="#modal-komentar"
                                         data-action="{{ route('penerjemahan.sendKomentarTranskripNilai', $transkrip_nilai->id_transkrip_nilai)}}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>
-                                </form>
+                                    {{--
+                                </form> --}}
+
+
                             </td>
                             <td class="text-center">
                                 <a href="{{route('penerjemahan.downloadTranskripMahasiswa', ['id_mahasiswa' => $transkrip_nilai->mahasiswa_id, 'id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai])}}"
@@ -155,6 +169,16 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
+                            </td>
+                            <td class="align-middle">
+                                <form
+                                    action="{{route('penerjemahan.deactiveTranskripNilai',$transkrip_nilai->id_transkrip_nilai)}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
                             </td>
                         </tr>
 
@@ -187,15 +211,17 @@ Penerjemahan
                                     data-id="{{ $ijazah->id_ijazah}}">
                                     <i class=" bi bi-check-square text-green"></i>
                                 </button>
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                {{-- <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    @method('PATCH')
+                                    @method('PATCH') --}}
                                     <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                                         data-toggle="modal" data-target="#modal-komentar"
                                         data-action="{{ route('penerjemahan.sendKomentarIjazah', $ijazah->id_ijazah)}}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>
-                                </form>
+                                    {{--
+                                </form> --}}
+
                             </td>
                             <td class="text-center">
                                 <a href="{{route('penerjemahan.downloadIjazahMahasiswa', ['id_mahasiswa' => $ijazah->mahasiswa_id, 'id_ijazah' => $ijazah->id_ijazah])}}"
@@ -208,6 +234,15 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
+                            </td>
+                            <td class="align-middle">
+                                <form action="{{route('penerjemahan.deactiveIjazah',$ijazah->id_ijazah)}}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -249,15 +284,17 @@ Penerjemahan
                                     data-id="{{ $jurnal->id_jurnal}}">
                                     <i class=" bi bi-check-square text-green"></i>
                                 </button>
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                {{-- <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    @method('PATCH')
+                                    @method('PATCH') --}}
                                     <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                                         data-toggle="modal" data-target="#modal-komentar"
                                         data-action="{{ route('penerjemahan.sendKomentarJurnal', $jurnal->id_jurnal)}}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>
-                                </form>
+                                    {{--
+                                </form> --}}
+
                             </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadJurnalMahasiswa', ['id_mahasiswa' => $jurnal->mahasiswa_id, 'id_jurnal' => $jurnal->id_jurnal])}}"
@@ -282,6 +319,15 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
+                            </td>
+                            <td class="align-middle">
+                                <form action="{{route('penerjemahan.deactiveJurnal',$jurnal->id_jurnal)}}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -360,6 +406,16 @@ Penerjemahan
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
+                            <td class="align-middle">
+                                <form
+                                    action="{{route('penerjemahan.deactiveAbstrakUmum',$abstract_umum->id_abstrak_umum)}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
+                            </td>
                         </tr>
 
                         @endforeach
@@ -423,6 +479,16 @@ Penerjemahan
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
+                            <td class="align-middle">
+                                <form
+                                    action="{{route('penerjemahan.deactiveTranskripNilaiUmum',$transkrip_nilai_umum->id_transkrip_nilai_umum)}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
+                            </td>
                         </tr>
 
 
@@ -442,7 +508,7 @@ Penerjemahan
                             </td>
                             <td class="text-center">
                                 <li
-                                class="btn btn-sm js-status {{ $ijazah_umum->status === 'unchecked' ? 'btn-danger' : ($ijazah_umum->status === 'rejected' ? 'btn-danger' : 'btn-success' ) }} disabled">
+                                    class="btn btn-sm js-status {{ $ijazah_umum->status === 'unchecked' ? 'btn-danger' : ($ijazah_umum->status === 'rejected' ? 'btn-danger' : 'btn-success' ) }} disabled">
                                     {{ $ijazah_umum->status }}
                                 </li>
                             </td>
@@ -487,6 +553,15 @@ Penerjemahan
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
+                            <td class="align-middle">
+                                <form action="{{route('penerjemahan.deactiveIjazahUmum',$ijazah_umum->id_ijazah_umum)}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
 
@@ -529,15 +604,16 @@ Penerjemahan
                                     data-id="{{ $jurnal_umum->id_jurnal_umum}}">
                                     <i class=" bi bi-check-square text-green"></i>
                                 </button>
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                {{-- <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    @method('PATCH')
+                                    @method('PATCH') --}}
                                     <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                                         data-toggle="modal" data-target="#modal-komentar"
                                         data-action="{{ route('penerjemahan.sendKomentarJurnalUmum', $jurnal_umum->id_jurnal_umum)}}">
                                         <i class="bi bi-x-square text-danger"></i>
                                     </button>
-                                </form>
+                                    {{--
+                                </form> --}}
                             </td>
                             <td class="">
                                 <a href="{{route('penerjemahan.downloadJurnalUmum', ['id_umum' => $jurnal_umum->umum_id, 'id_jurnal_umum' => $jurnal_umum->id_jurnal_umum])}}"
@@ -563,6 +639,15 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
+                            </td>
+                            <td class="align-middle">
+                                <form action="{{route('penerjemahan.deactiveJurnalUmum',$jurnal_umum->id_jurnal_umum)}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-sm btn-outline-secondary  js-button-submit" type="button"><i
+                                            class="bi bi-trash2-fill text-red"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -609,7 +694,36 @@ Penerjemahan
 <script>
     $(function () {
        
-     
+      
+        // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
+        $("#dataTable").removeClass("invisible");
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+
+        // Button Delete
+        $("#dataTable").on("click", ".js-button-submit", function () {
+            swalWithBootstrapButtons.fire({
+                title: "Deactive Course?",
+                text: "Are you sure want to make change ?",
+                icon: "warning",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes!",
+                cancelButtonText: "Cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
+ 
 
         // JS Umum
         // Button Pending abstrak umum

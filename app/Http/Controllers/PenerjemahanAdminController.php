@@ -31,19 +31,19 @@ class PenerjemahanAdminController extends Controller
     {
         $this->dataView['admin'] = Admin::where('user_id', Auth::id())->first();
         // data Mahasiswa
-        $this->dataView['data_abstract'] = Abstrak::all();
-        $this->dataView['data_transkrip_nilai'] = TranskripNilai::all();
-        $this->dataView['data_ijazah'] = Ijazah::all();
-        $this->dataView['data_jurnal'] = Jurnal::all();
+        $this->dataView['data_abstract'] = Abstrak::where('file_status', 1)->get();
+        $this->dataView['data_transkrip_nilai'] = TranskripNilai::where('file_status', 1)->get();
+        $this->dataView['data_ijazah'] = Ijazah::where('file_status', 1)->get();
+        $this->dataView['data_jurnal'] = Jurnal::where('file_status', 1)->get();
         $this->dataView['abstrak_count'] = count($this->dataView['data_abstract']);
         $this->dataView['transkrip_nilai_count'] = count($this->dataView['data_transkrip_nilai']);
         $this->dataView['ijazah_count'] = count($this->dataView['data_ijazah']);
         $this->dataView['jurnal_count'] = count($this->dataView['data_jurnal']);
         // data Umum/ Pulic
-        $this->dataView['data_abstract_umum'] = AbstrakUmum::all();
-        $this->dataView['data_transkrip_nilai_umum'] = TranskripNilaiUmum::all();
-        $this->dataView['data_ijazah_umum'] = IjazahUmum::all();
-        $this->dataView['data_jurnal_umum'] = JurnalUmum::all();
+        $this->dataView['data_abstract_umum'] = AbstrakUmum::where('file_status', 1)->get();
+        $this->dataView['data_transkrip_nilai_umum'] = TranskripNilaiUmum::where('file_status', 1)->get();
+        $this->dataView['data_ijazah_umum'] = IjazahUmum::where('file_status', 1)->get();
+        $this->dataView['data_jurnal_umum'] = JurnalUmum::where('file_status', 1)->get();
         $this->dataView['abstrak_umum_count'] = count($this->dataView['data_abstract_umum']);
         $this->dataView['transkrip_nilai_umum_count'] = count($this->dataView['data_transkrip_nilai_umum']);
         $this->dataView['ijazah_umum_count'] = count($this->dataView['data_ijazah_umum']);
@@ -709,4 +709,80 @@ class PenerjemahanAdminController extends Controller
     //     return redirect()->route('penerjemahan-admin.index')
     //         ->with('success', 'Journal deleted successfully .');
     // }
+
+    // MAHASISWA
+    public function deactiveAbstrak($id_abstrak)
+    {
+        Abstrak::where('id_abstrak', $id_abstrak)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+    public function deactiveTranskripNilai($id_transkrip_nilai)
+    {
+        TranskripNilai::where('id_transkrip_nilai', $id_transkrip_nilai)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+    public function deactiveIjazah($id_ijazah)
+    {
+        Ijazah::where('id_ijazah', $id_ijazah)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+    public function deactiveJurnal($id_jurnal)
+    {
+        Jurnal::where('id_jurnal', $id_jurnal)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+
+    // PUBLIC/ UMUM
+    public function deactiveAbstrakUmum($id_abstrak_umum)
+    {
+        AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+    public function deactiveTranskripNilaiUmum($id_transkrip_nilai_umum)
+    {
+        TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+    public function deactiveIjazahUmum($id_ijazah_umum)
+    {
+        IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
+    public function deactiveJurnalUmum($id_jurnal_umum)
+    {
+        JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum)->update([
+            'file_status' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'deactivated successfully.');
+    }
 }

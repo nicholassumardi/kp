@@ -218,6 +218,21 @@ Route::patch('penerjemahan-admin-jurnalUmum/{id_jurnal_umum}/{id_umum}', [Penerj
 // Route::delete('penerjemahan-admin-deleteIjazahUmum/{id_umum}/{id_ijazah_umum}', [PenerjemahanAdminController::class, 'deleteIjazahUmum'])->name('penerjemahan.deleteIjazahUmum');
 // Route::delete('penerjemahan-admin-deleteJurnalUmum/{id_umum}/{id_jurnal_umum}', [PenerjemahanAdminController::class, 'deleteJurnalUmum'])->name('penerjemahan.deleteJurnalUmum');
 
+// DEACTIVE MAHASISWA
+Route::patch('penerjemahan-deactiveAbstrak/{id_abstrak}', [PenerjemahanAdminController::class, 'deactiveAbstrak'])->name('penerjemahan.deactiveAbstrak');
+Route::patch('penerjemahan-deactiveTranskrip/{id_transkrip_nilai}', [PenerjemahanAdminController::class, 'deactiveTranskripNilai'])->name('penerjemahan.deactiveTranskripNilai');
+Route::patch('penerjemahan-deactiveIjazah/{id_ijazah}', [PenerjemahanAdminController::class, 'deactiveIjazah'])->name('penerjemahan.deactiveIjazah');
+Route::patch('penerjemahan-deactiveJurnal/{id_jurnal}', [PenerjemahanAdminController::class, 'deactiveJurnal'])->name('penerjemahan.deactiveJurnal');
+
+
+
+
+// DEACTIVE UMUM
+Route::patch('penerjemahan-deactiveAbstrakUmum/{id_abstrak_umum}', [PenerjemahanAdminController::class, 'deactiveAbstrakUmum'])->name('penerjemahan.deactiveAbstrakUmum');
+Route::patch('penerjemahan-deactiveTranskripUmum/{id_transkrip_nilai_umum}', [PenerjemahanAdminController::class, 'deactiveTranskripNilaiUmum'])->name('penerjemahan.deactiveTranskripNilaiUmum');
+Route::patch('penerjemahan-deactiveIjazahUmum/{id_ijazah_umum}', [PenerjemahanAdminController::class, 'deactiveIjazahUmum'])->name('penerjemahan.deactiveIjazahUmum');
+Route::patch('penerjemahan-deactiveJurnalUmum/{id_jurnal_umum}', [PenerjemahanAdminController::class, 'deactiveJurnalUmum'])->name('penerjemahan.deactiveJurnalUmum');
+
 
 
 // SUPER ADMIN
