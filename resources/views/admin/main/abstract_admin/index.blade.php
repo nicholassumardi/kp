@@ -706,11 +706,11 @@ Penerjemahan
             buttonsStyling: true
         });
 
-        // Button Delete
+        // Button Deactive
         $("#dataTable").on("click", ".js-button-submit", function () {
             swalWithBootstrapButtons.fire({
-                title: "Deactive Course?",
-                text: "Are you sure want to make change ?",
+                title: "Deactive File?",
+                text: "Are you sure want to make change? File will not shown after deactive",
                 icon: "warning",
                 showCloseButton: true,
                 showCancelButton: true,
