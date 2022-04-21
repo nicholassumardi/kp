@@ -81,7 +81,7 @@ Penerjemahan
                                 </form> --}}
 
                             </td>
-                            <td class="">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadAbstrakMahasiswa', ['id_mahasiswa' => $abstract->mahasiswa_id, 'id_abstrak' => $abstract->id_abstrak])}}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-download text-gray"></i></a>
@@ -90,13 +90,13 @@ Penerjemahan
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-pen-fill text-green"></i></a>
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generate2.pdf', ['id_abstract_satu' => $abstract->id_abstrak, 'id_mahasiswa_satu' => $abstract->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form action="{{route('penerjemahan.deactiveAbstrak',$abstract->id_abstrak)}}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -148,7 +148,7 @@ Penerjemahan
 
 
                             </td>
-                            <td class="text-center">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadTranskripMahasiswa', ['id_mahasiswa' => $transkrip_nilai->mahasiswa_id, 'id_transkrip_nilai' => $transkrip_nilai->id_transkrip_nilai])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai"
                                     data-id="{{ $transkrip_nilai->id_transkrip_nilai}}"><i
@@ -164,13 +164,13 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generate3.pdf', ['id_transkrip_nilai_satu' => $transkrip_nilai->id_transkrip_nilai, 'id_mahasiswa_satu' => $transkrip_nilai->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form
                                     action="{{route('penerjemahan.deactiveTranskripNilai',$transkrip_nilai->id_transkrip_nilai)}}"
                                     method="POST" enctype="multipart/form-data">
@@ -223,19 +223,19 @@ Penerjemahan
                                 </form> --}}
 
                             </td>
-                            <td class="text-center">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadIjazahMahasiswa', ['id_mahasiswa' => $ijazah->mahasiswa_id, 'id_ijazah' => $ijazah->id_ijazah])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-ijazah"
                                     data-id="{{ $ijazah->id_ijazah}}"><i class="bi bi-download text-gray"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generate4.pdf', ['id_ijazah_satu' => $ijazah->id_ijazah, 'id_mahasiswa_satu' => $ijazah->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form action="{{route('penerjemahan.deactiveIjazah',$ijazah->id_ijazah)}}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -296,7 +296,7 @@ Penerjemahan
                                 </form> --}}
 
                             </td>
-                            <td class="">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadJurnalMahasiswa', ['id_mahasiswa' => $jurnal->mahasiswa_id, 'id_jurnal' => $jurnal->id_jurnal])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-jurnal"
                                     data-id="{{ $jurnal->id_jurnal}}"><i class="bi bi-download text-gray"></i></a>
@@ -314,13 +314,13 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generate5.pdf', ['id_jurnal_satu' => $jurnal->id_jurnal, 'id_mahasiswa_satu' => $jurnal->mahasiswa_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form action="{{route('penerjemahan.deactiveJurnal',$jurnal->id_jurnal)}}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -378,7 +378,7 @@ Penerjemahan
                                     </button>
                                 </form>
                             </td>
-                            <td class="">
+                            <td class="align-middle text-center">
 
                                 <a href="{{route('penerjemahan.downloadAbstrakUmum', ['id_umum' => $abstract_umum->umum_id, 'id_abstrak_umum' => $abstract_umum->id_abstrak_umum])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-abstrak-umum"
@@ -400,13 +400,13 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generateUmum2.pdf', ['id_abstract_umum' => $abstract_umum->id_abstrak_umum, 'id_umum_satu' => $abstract_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form
                                     action="{{route('penerjemahan.deactiveAbstrakUmum',$abstract_umum->id_abstrak_umum)}}"
                                     method="POST" enctype="multipart/form-data">
@@ -457,7 +457,7 @@ Penerjemahan
                                     </button>
                                 </form>
                             </td>
-                            <td class="">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadTranskripUmum', ['id_umum' => $transkrip_nilai_umum->umum_id, 'id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai-umum"
                                     data-id="{{ $transkrip_nilai_umum->id_transkrip_nilai_umum}}"><i
@@ -473,13 +473,13 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $transkrip_nilai_umum->id_transkrip_nilai_umum, 'id_umum_satu' => $transkrip_nilai_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form
                                     action="{{route('penerjemahan.deactiveTranskripNilaiUmum',$transkrip_nilai_umum->id_transkrip_nilai_umum)}}"
                                     method="POST" enctype="multipart/form-data">
@@ -531,7 +531,7 @@ Penerjemahan
                                     </button>
                                 </form>
                             </td>
-                            <td class="">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadIjazahUmum', ['id_umum' => $ijazah_umum->umum_id, 'id_ijazah_umum' => $ijazah_umum->id_ijazah_umum])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-ijazah-umum"
                                     data-id="{{ $ijazah_umum->id_ijazah_umum}}"><i
@@ -547,13 +547,13 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generateUmum4.pdf', ['id_ijazah_umum' => $ijazah_umum->id_ijazah_umum, 'id_umum_satu' => $ijazah_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form action="{{route('penerjemahan.deactiveIjazahUmum',$ijazah_umum->id_ijazah_umum)}}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -615,7 +615,7 @@ Penerjemahan
                                     {{--
                                 </form> --}}
                             </td>
-                            <td class="">
+                            <td class="align-middle text-center">
                                 <a href="{{route('penerjemahan.downloadJurnalUmum', ['id_umum' => $jurnal_umum->umum_id, 'id_jurnal_umum' => $jurnal_umum->id_jurnal_umum])}}"
                                     class="btn btn-sm btn-outline-secondary js-btn-download-jurnal-umum"
                                     data-id="{{ $jurnal_umum->id_jurnal_umum}}"><i
@@ -634,13 +634,13 @@ Penerjemahan
                                             class="bi bi-trash2-fill text-red"></i></button>
                                 </form> --}}
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <a href="{{ route('generateUmum5.pdf', ['id_jurnal_umum' => $jurnal_umum->id_jurnal_umum, 'id_umum_satu' => $jurnal_umum->umum_id]) }}"
                                     class="btn btn-sm btn-outline-secondary"><i
                                         class="bi bi-printer-fill text-indigo"></i></a>
 
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle text-center">
                                 <form action="{{route('penerjemahan.deactiveJurnalUmum',$jurnal_umum->id_jurnal_umum)}}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
