@@ -65,18 +65,27 @@ Students Data
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img
+                            <td class="align-middle">{{--<img
                                     src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
-                                    class="text-center custombuktipembayaran"></td>
+                                    class="text-center custombuktipembayaran"> --}}
 
-                            <td class="align-middle"><img
-                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
-                                    class="text-center customfotoprofile"></td>
+                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop1"><img
+                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                                        id="imageresource1" class="text-center custombuktipembayaran"></a>
+                            </td>
+
+
+                            <td class="align-middle">
+                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop2"><img
+                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                                        id="imageresource2" class="text-center customfotoprofile"> </a>
+                            </td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img
-                                    src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
-                                    class='text-center customfotoprofile'></td>
+                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
+                                    data-target="#modalKurikulum" class="pop3"><img
+                                        src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                                        id="imageresource3" class='text-center customfotoprofile'></td></a>
                             @endif
 
                             <td class="text-center align-middle">
@@ -124,18 +133,21 @@ Students Data
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img
-                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
-                                    class="text-center custombuktipembayaran"></td>
+                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop1"><img
+                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
+                                        id="imageresource1" class="text-center custombuktipembayaran"></a></td>
 
-                            <td class="align-middle"><img
-                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
-                                    class="text-center customfotoprofile"></td>
-
+                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop2"><img
+                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
+                                        id="imageresource2" class="text-center customfotoprofile"></td>
+                            </a>
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img
-                                    src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
-                                    class='text-center customfotoprofile'></td>
+                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
+                                    data-target="#modalKurikulum" class="pop3"><img
+                                        src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
+                                        id="imageresource3" class='text-center customfotoprofile'></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -180,17 +192,19 @@ Students Data
                                     class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img
-                                    src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
-                                    class="text-center custombuktipembayaran"></td>
+                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop4"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"
+                                        alt="" id="imageresource4" class="text-center custombuktipembayaran"></a></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
-                                    alt="" class="text-center customfotoprofile"></td>
+                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop5"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
+                                        alt="" id="imageresource5" class="text-center customfotoprofile"></a></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img
-                                    src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
-                                    class='text-center customfotoprofile'></td>
+                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
+                                    data-target="#modalKurikulum" class="pop6"><img
+                                        src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
+                                        id="imageresource6" class='text-center customfotoprofile'></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -237,17 +251,19 @@ Students Data
                                     class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><img
-                                    src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}" alt=""
-                                    class="text-center custombuktipembayaran"></td>
+                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop4"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"
+                                        id="imageresource4" alt="" class="text-center custombuktipembayaran"></a></td>
 
-                            <td class="align-middle"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
-                                    alt="" class="text-center customfotoprofile"></td>
+                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop5"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
+                                        alt="" id="imageresource5" class="text-center customfotoprofile"></a></td>
 
                             @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><img
-                                    src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
-                                    class='text-center customfotoprofile'></td>
+                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
+                                    data-target="#modalKurikulum" class="pop6"><img
+                                        src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
+                                        id="imageresource6" class='text-center customfotoprofile'></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -314,6 +330,27 @@ Students Data
     </div>
 </div>
 
+
+
+{{-- Modal Pop UP --}}
+<div class="modal fade" id="modalKurikulum" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="" id="imagepreview" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 @endsection
 
 @push('js')
@@ -354,6 +391,60 @@ Students Data
             $("#form-send").attr("action", ""); 
             $("#message-text").val(""); 
         });
-    });
+
+        $("#dataTable").on("click", ".pop1, .pop2, .pop3, .pop4, .pop5, .pop6", function () {
+            
+           
+            // Ubah value dari input status
+            // $(this)
+            //     .siblings(".js-status")
+            //     .val($(this).val());
+
+            // $(this).parent().submit(); // Submit form
+            console.log();
+            let className = $(this).attr("class");
+            let a = className.substring(className.length-1, className.length);
+            $('#imagepreview').attr('src', $(this).find("img").attr('src'));
+            
+            // $('#imagepreview').attr('src', $('#imageresource1').attr('src'));
+            // $('#imagepreview').attr('src', $('#imageresource2').attr('src'));
+    
+        });
+        // $("#dataTable").on("click", ".pop1", function () {
+            
+           
+        //     // Ubah value dari input status
+        //     // $(this)
+        //     //     .siblings(".js-status")
+        //     //     .val($(this).val());
+
+        //     // $(this).parent().submit(); // Submit form
+        //     $('#imagepreview').attr('src', $('#imageresource1').attr('src'));
+    
+        // });
+        // $("#dataTable").on("click", ".pop2", function () {
+            
+           
+        //     // Ubah value dari input status
+        //     // $(this)
+        //     //     .siblings(".js-status")
+        //     //     .val($(this).val());
+
+        //     // $(this).parent().submit(); // Submit form
+        //     $('#imagepreview').attr('src', $('#imageresource2').attr('src'));
+    
+        // });
+
+        
+
+// $("#pop").on("click", function() {
+// $('#imagepreview').attr('src', $('#imageresource').attr('src'));
+// $('#imagepreview').attr('src', $('#imageresource1').attr('src'));
+// });
+});
 </script>
+
+
+
+
 @endpush

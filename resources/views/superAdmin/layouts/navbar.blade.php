@@ -20,6 +20,12 @@
                             <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{request()->is('listAkunMahasiswa') ? ' active' : ''}}" href="{{route('listAkunMahasiswa.index')}}">
+                            <i class="ni bi-person text-green"></i>
+                            <span class="nav-link-text">List Mahasiswa</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

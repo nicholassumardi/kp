@@ -8,6 +8,7 @@ use App\Http\Controllers\CourseAdminController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\CourseUmumController;
 use App\Http\Controllers\FrontpagesController;
+use App\Http\Controllers\ListAkunMahasiswaController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MahasiswaUmumListController;
 use App\Http\Controllers\NewsController;
@@ -237,3 +238,4 @@ Route::patch('penerjemahan-deactiveJurnalUmum/{id_jurnal_umum}', [PenerjemahanAd
 
 // SUPER ADMIN
 Route::resource('super-admin', SuperAdminController::class);
+Route::resource('listAkunMahasiswa', ListAkunMahasiswaController::class);
