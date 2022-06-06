@@ -8,11 +8,14 @@ Students Data
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-                <div class="col-xl-10 col-9">
+                <div class="col-xl-5 col-4">
                     <h3 class="mb-0">Students Data</h3>
                 </div>
-
-                <div class="col ml-xl-5">
+                <div class="col-xl-5 col-5">
+                    <a href="{{route('admin.exportExcel', ['id_kursus' => $kursus->id_kursus, 'tipe_kursus' => $kursus->tipe_kursus])}}"
+                        class="btn btn-primary btn-sm"><i class="bi-printer-fill"> </i>Export Excel</a>
+                </div>
+                <div class="col">
                     <a href="{{route('admin.index')}}" class="btn btn-primary btn-sm"><i
                             class="bi bi-arrow-left"></i>Back</a>
                 </div>
@@ -22,14 +25,16 @@ Students Data
                     <h3>{{$kursus->nama_kursus}}</h3>
                 </div>
             </div>
-            {{-- <div class="row">
-                <div class="col">
-                    <p>{{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_mulai)->format('H:i')}}
-                        -
-                        {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_selesai)->format('H:i')}}</p>
-                </div>
-            </div> --}}
         </div>
+
+        {{-- <div class="row">
+            <div class="col">
+                <p>{{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_mulai)->format('H:i')}}
+                    -
+                    {{\Carbon\Carbon::createFromFormat('H:i:s',$jadwal->jadwal_selesai)->format('H:i')}}</p>
+            </div>
+        </div> --}}
+
 
 
 

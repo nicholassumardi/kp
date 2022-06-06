@@ -122,7 +122,8 @@ class LoginController extends Controller
             return redirect()->route('umum.index');
         }
 
-        return redirect()->back();
+        return redirect()->back()
+            ->with('error', 'Username atau password salah, silahkan login kembali!');
     }
 
     public function logout()

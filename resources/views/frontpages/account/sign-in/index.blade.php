@@ -9,7 +9,8 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-6 col-md-8 px-5 mb-4" data-aos="fade-right" data-aos-duration="1500">
                         <h1 class="text-white customheading">Welcome Back!</h1>
-                        <p class="text-lead text-white customtext">It's nice to see you again! <br> Please Sign In to continue to your account.</p>
+                        <p class="text-lead text-white customtext">It's nice to see you again! <br> Please Sign In to
+                            continue to your account.</p>
                     </div>
                 </div>
             </div>
@@ -23,13 +24,13 @@
                 <div class="card card-sign-in">
                     <div class="card-header text-center">
                         <a href="/"><img src="{{ asset('images/logo-sign-in.jpg') }}"
-                            class="rounded-circle img-thumbnail logo-sign-in"></a>
+                                class="rounded-circle img-thumbnail logo-sign-in"></a>
                         <h3 class="fw-bold customtext">Sign In</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('login.authenticate') }}" method="POST">
+                        <form action="{{ route('login.authenticate') }}" method="POST" required>
                             @csrf
-                            
+
                             <div class="row mb-3">
                                 <div class="col-2"></div>
                                 <div class="col-8">
@@ -38,7 +39,8 @@
                                         <span class="input-group-text customicon">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" name="username" id="npm" placeholder="NPM/ EMAIL">
+                                        <input type="text" class="form-control" name="username" id="npm"
+                                            placeholder="NPM/ EMAIL" required>
                                     </div>
                                 </div>
                                 <div class="col-2"></div>
@@ -53,7 +55,7 @@
                                             <i class="fas fa-key"></i>
                                         </span>
                                         <input type="password" class="form-control" name="password" id="password"
-                                            placeholder="Password">
+                                            placeholder="Password" required>
                                         <span class="input-group-text customicon" id="show-hide-password">
                                             <i class="fas fa-eye-slash d-block" id="eye-slash"></i>
                                             <i class="fas fa-eye d-none" id="eye"></i>
@@ -86,8 +88,8 @@
 @endsection
 
 @push('js')
-    <script>
-        $(function() {
+<script>
+    $(function() {
             $("#show-hide-password").on("click", function() {
                 const password = $("#password");
                 const eyeSlash = $("#eye-slash");
@@ -104,5 +106,51 @@
                 }
             });
         });
-    </script>
+</script>
+
+@if(session()->has('success'))
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+        
+        const successMessage = "{{ session()->get('success') }}";
+    
+        swalWithBootstrapButtons.fire({
+            title: "Success",
+            text: successMessage,
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonText: "OK",
+            reverseButtons: true
+        });
+</script>
+@endif
+
+@if(session()->has('error'))
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+        
+        const errorMessage = "{{ session()->get('error') }}";
+    
+        swalWithBootstrapButtons.fire({
+            title: "Peringatan",
+            text: errorMessage,
+            icon: "warning",
+            showCloseButton: true,
+            confirmButtonText: "OK",
+            reverseButtons: true
+        });
+</script>
+@endif
 @endpush

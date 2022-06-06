@@ -9,7 +9,8 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-6 col-md-8 px-5 mb-4" data-aos="fade-right" data-aos-duration="1500">
                         <h1 class="text-white customheading">Hi, Welcome!</h1>
-                        <p class="text-lead text-white customtext">Welcome to Itats Language Centre, <br> please kindly fill in the form below to create your account.</p>
+                        <p class="text-lead text-white customtext">Welcome to Itats Language Centre, <br> please kindly
+                            fill in the form below to create your account.</p>
                     </div>
                 </div>
             </div>
@@ -58,8 +59,8 @@
                                         <span class="input-group-text customicon ">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" name="nama" id="name"
-                                            placeholder="Name" required>
+                                        <input type="text" class="form-control" name="nama" id="name" placeholder="Name"
+                                            required>
                                     </div>
                                     <small class="form-text text-muted">
                                         * Tuliskan nama lengkap.
@@ -91,7 +92,8 @@
                                         <span class="input-group-text customicon ">
                                             <i class="fas fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" name="npm" id="npm" placeholder="NPM" required> 
+                                        <input type="text" class="form-control" name="npm" id="npm" placeholder="NPM"
+                                            required>
                                     </div>
                                     <small class="form-text text-muted">
                                         * Contoh: 13.2018.1.07077.
@@ -180,4 +182,27 @@
         });
     });
 </script>
+
+@if(session()->has('error'))
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    });
+    
+    const errorMessage = "{{ session()->get('error') }}";
+
+    swalWithBootstrapButtons.fire({
+        title: "Peringatan",
+        text: errorMessage,
+        icon: "warning",
+        showCloseButton: true,
+        confirmButtonText: "OK",
+        reverseButtons: true
+    });
+</script>
+@endif
 @endpush

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CampuranExport;
+use App\Exports\MahasiswaExport;
+use App\Exports\UmumExport;
 use App\Models\Admin;
 use App\Models\Course;
 use App\Models\CourseDetail;
@@ -18,7 +21,7 @@ class AdminController extends Controller
     {
         $this->middleware('auth.admin')->only(['index']);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -152,5 +155,16 @@ class AdminController extends Controller
 
         return redirect()->back()
             ->with('success', 'Comment has been sent.');
+    }
+    public function exportExcel($id_kursus, $tipe_kursus)
+    {
+
+        if ($tipe_kursus === 'umum') {
+            return (new UmumExport($id_kursus))->download('daftarUmum.xlsx');
+        } elseif ($tipe_kursus === 'mahasiswa') {
+            return (new MahasiswaExport($id_kursus))->download('daftarMahasiswa.xlsx');
+        } else {
+            return (new CampuranExport($id_kursus))->download('daftarPartisipan.xlsx');
+        }
     }
 }

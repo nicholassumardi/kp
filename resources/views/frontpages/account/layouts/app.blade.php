@@ -26,6 +26,9 @@
 
     <title>{{!empty($title_page) ? $title_page:''}} ITATS LANGUAGE CENTER</title>
 
+    <!-- Sweet Alert -->
+    <script src="{{asset('mazer/assets/js/extensions/sweetalert2.js')}}"></script>
+    <script src="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
 </head>
 
 <body>
@@ -38,7 +41,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-     <!-- Argon Scripts -->
+    <!-- Argon Scripts -->
     <!-- Core -->
     <script src="{{asset('argon/assets/vendor/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{asset('argon/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>

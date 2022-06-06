@@ -239,3 +239,6 @@ Route::patch('penerjemahan-deactiveJurnalUmum/{id_jurnal_umum}', [PenerjemahanAd
 // SUPER ADMIN
 Route::resource('super-admin', SuperAdminController::class);
 Route::resource('listAkunMahasiswa', ListAkunMahasiswaController::class);
+
+// EXPORT EXCEL
+Route::get('exportExcel/{id_kursus}/{tipe_kursus}', [AdminController::class, 'exportExcel'])->name('admin.exportExcel');
