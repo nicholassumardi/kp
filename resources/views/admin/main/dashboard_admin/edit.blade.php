@@ -70,27 +70,27 @@ Students Data
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle">{{--<img
+                            <td class="text-center align-middle">{{--<img
                                     src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
                                     class="text-center custombuktipembayaran"> --}}
 
-                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop1"><img
-                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
-                                        id="imageresource1" class="text-center custombuktipembayaran"></a>
+                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a>
                             </td>
 
 
-                            <td class="align-middle">
-                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop2"><img
-                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
-                                        id="imageresource2" class="text-center customfotoprofile"> </a>
+                            <td class="text-center align-middle">
+                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a>
                             </td>
 
                             @if ($kursus->sertifikat === 1)
                             <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop3"><img
-                                        src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
-                                        id="imageresource3" class='text-center customfotoprofile'></td></a>
+                                    data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -138,21 +138,21 @@ Students Data
                                     class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop1"><img
-                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
-                                        id="imageresource1" class="text-center custombuktipembayaran"></a></td>
+                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
 
-                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop2"><img
-                                        src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}" alt=""
-                                        id="imageresource2" class="text-center customfotoprofile"></td>
+                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
                             </a>
                             @if ($kursus->sertifikat === 1)
                             <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop3"><img
-                                        src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"
-                                        id="imageresource3" class='text-center customfotoprofile'></a></td>
+                                    data-target="#modalKurikulum" class="pop" data-img-src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -197,19 +197,21 @@ Students Data
                                     class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop4"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"
-                                        alt="" id="imageresource4" class="text-center custombuktipembayaran"></a></td>
+                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
 
-                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop5"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
-                                        alt="" id="imageresource5" class="text-center customfotoprofile"></a></td>
+                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
 
                             @if ($kursus->sertifikat === 1)
                             <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop6"><img
-                                        src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
-                                        id="imageresource6" class='text-center customfotoprofile'></a></td>
+                                    data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_sertifikat) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -256,19 +258,21 @@ Students Data
                                     class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
                                     {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
 
-                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop4"><img src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"
-                                        id="imageresource4" alt="" class="text-center custombuktipembayaran"></a></td>
+                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
 
-                            <td class="align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop5"><img src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"
-                                        alt="" id="imageresource5" class="text-center customfotoprofile"></a></td>
+                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
+                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
 
                             @if ($kursus->sertifikat === 1)
                             <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop6"><img
-                                        src="{{asset('storage/' . $umum->pivot->path_foto_sertifikat)}}"
-                                        id="imageresource6" class='text-center customfotoprofile'></a></td>
+                                    data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_sertifikat) }}"><button type="button" class="btn btn-primary">
+                                    View Image
+                                </button></a></td>
                             @endif
 
                             <td class="text-center align-middle">
@@ -397,59 +401,9 @@ Students Data
             $("#message-text").val(""); 
         });
 
-        $("#dataTable").on("click", ".pop1, .pop2, .pop3, .pop4, .pop5, .pop6", function () {
-            
-           
-            // Ubah value dari input status
-            // $(this)
-            //     .siblings(".js-status")
-            //     .val($(this).val());
-
-            // $(this).parent().submit(); // Submit form
-            console.log();
-            let className = $(this).attr("class");
-            let a = className.substring(className.length-1, className.length);
-            $('#imagepreview').attr('src', $(this).find("img").attr('src'));
-            
-            // $('#imagepreview').attr('src', $('#imageresource1').attr('src'));
-            // $('#imagepreview').attr('src', $('#imageresource2').attr('src'));
-    
+        $("#dataTable").on("click", ".pop", function () {
+            $('#imagepreview').attr('src', $(this).data('imgSrc'));
         });
-        // $("#dataTable").on("click", ".pop1", function () {
-            
-           
-        //     // Ubah value dari input status
-        //     // $(this)
-        //     //     .siblings(".js-status")
-        //     //     .val($(this).val());
-
-        //     // $(this).parent().submit(); // Submit form
-        //     $('#imagepreview').attr('src', $('#imageresource1').attr('src'));
-    
-        // });
-        // $("#dataTable").on("click", ".pop2", function () {
-            
-           
-        //     // Ubah value dari input status
-        //     // $(this)
-        //     //     .siblings(".js-status")
-        //     //     .val($(this).val());
-
-        //     // $(this).parent().submit(); // Submit form
-        //     $('#imagepreview').attr('src', $('#imageresource2').attr('src'));
-    
-        // });
-
-        
-
-// $("#pop").on("click", function() {
-// $('#imagepreview').attr('src', $('#imageresource').attr('src'));
-// $('#imagepreview').attr('src', $('#imageresource1').attr('src'));
-// });
-});
+    });
 </script>
-
-
-
-
 @endpush
