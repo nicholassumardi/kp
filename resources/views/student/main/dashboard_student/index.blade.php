@@ -43,7 +43,7 @@ Dashboard
                                 <td class= "text-center">
                                     <i
                                         class="btn btn-sm {{$k->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                        {{$k->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i>
+                                        {{$k->pivot->status_verifikasi==1?'Verified':'Unverified'}}</i>
                                 </td>
 
                                 {{-- @foreach ($k->jadwal as $j)

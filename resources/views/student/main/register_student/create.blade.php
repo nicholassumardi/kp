@@ -73,7 +73,7 @@ Register Courses
                                     <label for="form-control">Foto Mahasiswa</label>
                                     <input class="form-control customicon" type="file" name="path_foto_mahasiswa" required>
                                     <small class="form-text text-muted">
-                                        * Foto harus 3x4 dengan background merah.
+                                        * Foto harus 3x4 dengan mengenakan Jas Alamamater dan Pakaian Formal.
                                         <br>
                                         * Foto harus dalam keadaan portrait.
                                         <br>
