@@ -51,6 +51,10 @@ News
                         </label>
                         <div class="col-sm-7">
                             <input class="form-control customicon" type="file" name="path_foto_berita">
+                            <small class="form-text text-muted">
+                                * File size max 2 MB.
+                                <br>
+                            </small>
                         </div>
 
                     </div>
@@ -78,20 +82,49 @@ News
     </form>
 </div>
 @endsection
+
 @push('js')
 <script>
-    $('#summernote').summernote({
+    $(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+        
+        $('#summernote').summernote({
             tabsize: 2,
             height: 350,
         });
-        
+            
 
         $('body').on('focus',".datepicker", function(){
             $(this).datepicker();
-         });
-    
+        });
 
-
+        $("input[name='path_foto_berita']").on("change", function() {
+            // Jika file dipilih (dalam artian tidak membatalkan input file)
+            if (this.files[0] !== undefined) {
+                const oneMegabyteToBytes = 1000000;
+                const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+               
+                // Jika ukuran file lebih besar dari 2 MB, reset kolom inputan
+                // atau batalkan inputan dan beri peringatan alert.
+                if (ukuranFileDalamMegabyte > 2) {
+                    this.value = "";
+                    
+                    swalWithBootstrapButtons.fire({
+                        title: "Peringatan!",
+                        text: `Size maximum news photo adalah 2 MB. Silahkan upload file Anda kembali!`,
+                        icon: "warning",
+                        showCloseButton: true,
+                    });
+                }
+            }
+        });
+    });
 </script>
 
 @endpush

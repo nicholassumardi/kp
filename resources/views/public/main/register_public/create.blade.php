@@ -16,7 +16,7 @@ Register Courses
                 {{-- Jika admin sudah membuat kursus --}}
                 @if ($kursus_index_pertama !== null)
 
-                <form action="{{ route('registerCoursesPublic.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('registerCoursesPublic.store') }}" method="POST" enctype="multipart/form-data" id="form-register">
                     @csrf
 
                     <!-- Light table -->
@@ -56,10 +56,12 @@ Register Courses
                                 id="container-foto-bukti-pembayaran">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Pembayaran (Kuitansi)</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
+                                    <input class="form-control customicon input-file" type="file" name="path_foto_kuitansi" required>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
+                                        <br>
+                                        * Size Maximum File 1 MB.
                                         <br>
                                         * Foto harus dalam format JPEG atau PNG.
                                     </small>
@@ -69,12 +71,14 @@ Register Courses
                             <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'mb-4' : 'mb-4' }}"
                                 id="container-foto-umum">
                                 <div class="col-xl-10">
-                                    <label for="form-control">Foto</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_umum" required>
+                                    <label for="form-control">Foto Peserta</label>
+                                    <input class="form-control customicon input-file" type="file" name="path_foto_umum" required>
                                     <small class="form-text text-muted">
                                         * Foto harus 3x4 dengan mengenakan Jas Alamamater dan Pakaian Formal.
                                         <br>
                                         * Foto harus dalam keadaan portrait.
+                                        <br>
+                                        * Size Maximum File 1 MB.
                                         <br>
                                         * Foto harus dalam format JPEG atau PNG.
                                     </small>
@@ -85,10 +89,12 @@ Register Courses
                                 id="container-sertifikat">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Sertifikat English Course</label>
-                                    <input class="form-control customicon" type="file" name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
+                                    <input class="form-control customicon input-file" type="file" name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
+                                        <br>
+                                        * Size Maximum File 1 MB.
                                         <br>
                                         * Foto harus dalam format JPEG atau PNG.
                                     </small>
@@ -121,6 +127,14 @@ Register Courses
     @push('js')
     <script>
         $(function() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            });
+
             $("#courses-dropdown").on("change", async function() {
              
                 // Hide dan show foto mahasiswa
@@ -149,6 +163,28 @@ Register Courses
                 );
             });
            
+            $("#form-register").on("change", ".input-file", function() {
+                // Jika file dipilih (dalam artian tidak membatalkan input file)
+                if (this.files[0] !== undefined) {
+                    const oneMegabyteToBytes = 1000000;
+                    const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                    
+                    // Jika ukuran file lebih besar dari 1 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 1) {
+                        this.value = "";
+
+                        const labelInputFile = $(this).prev().text().toLowerCase();
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum file ${labelInputFile} adalah 1 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
+                }
+            });
         });
     </script>
     @endpush

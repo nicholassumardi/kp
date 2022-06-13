@@ -17,7 +17,7 @@
 
                 <form
                     action="{{ route('penerjemahan-public.updateTranskripNilai', $transkrip_nilai->id_transkrip_nilai_umum) }}"
-                    method="POST" enctype="multipart/form-data">
+                    method="POST" enctype="multipart/form-data" id="form-transkrip-nilai">
                     @method('PATCH')
                     @csrf
 
@@ -48,10 +48,12 @@
                     <div class="row mt-3 mb-2 justify-content-center" id="div-bukti-pembayaran">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran</label>
-                            <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
+                            <input class="form-control customicon input-file" type="file" name="path_foto_kuitansi" required>
                             <small class="form-text text-muted">
                                 * Foto harus discan dan dalam keadaan
                                 landscape.
+                                <br>
+                                * Size Maximum File 1 MB
                                 <br>
                                 * Foto harus dalam format JPEG atau PNG.
                             </small>
@@ -62,11 +64,11 @@
                     <div class="row mt-3 mb-5 justify-content-center" id="div-transkrip-nilai">
                         <div class="col-xl-10">
                             <label for="form-control">File Transkrip</label>
-                            <input class="form-control customicon" type="file" name="path_file_transkrip_nilai">
+                            <input class="form-control customicon input-file" type="file" name="path_file_transkrip_nilai">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
                                 <br>
-                                * Size Maximum File 5MB
+                                * Size Maximum File 1 MB
                             </small>
                         </div>
                     </div>
@@ -97,20 +99,21 @@
             buttonsStyling: true
         });
         
-        $("input[name='path_file_transkrip_nilai']").on("change", function() {
+        $("#form-transkrip-nilai").on("change", ".input-file", function() {
             // Jika file dipilih (dalam artian tidak membatalkan input file)
             if (this.files[0] !== undefined) {
                 const oneMegabyteToBytes = 1000000;
                 const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
-                
-                // Jika ukuran file lebih besar dari 5 MB, reset kolom inputan
+                const labelInputFile = $(this).prev().text().toLowerCase();
+
+                // Jika ukuran file lebih besar dari 1 MB, reset kolom inputan  
                 // atau batalkan inputan dan beri peringatan alert.
-                if (ukuranFileDalamMegabyte > 5) {
+                if (ukuranFileDalamMegabyte > 1) {
                     this.value = "";
 
                     swalWithBootstrapButtons.fire({
                         title: "Peringatan!",
-                        text: "Size maximum file transkrip adalah 5 MB. Silahkan upload file Anda kembali!",
+                        text: `Size maximum ${labelInputFile} adalah 1 MB. Silahkan upload file Anda kembali!`,
                         icon: "warning",
                         showCloseButton: true,
                     });

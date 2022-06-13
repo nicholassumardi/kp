@@ -7,7 +7,7 @@ Register Courses
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col">
-            <div class="card">
+            <div class="card" id="card-container-form">
                 <!-- Card header -->
                 <div class="card-header border-0 d-flex justify-content-between">
                     <h3 class="mb-0">Send {{$page}}</h3>
@@ -37,12 +37,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File Word {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_abstrak_admin_word" required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
                                         <br>
-
+                                        * File size max 1 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -50,12 +51,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File PDF {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_abstrak_admin_pdf" required>
                                     <small class="form-text text-muted">
                                         * File format must be in pdf.
                                         <br>
-
+                                        * File size max 1 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -91,12 +93,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File Word {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_jurnal_admin_word" required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
                                         <br>
-
+                                        * File size max 2 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -104,12 +107,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File PDF {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_jurnal_admin_pdf" required>
                                     <small class="form-text text-muted">
                                         * File format must be in pdf.
                                         <br>
-
+                                        * File size max 2 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -145,12 +149,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File Word {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_abstrak_admin_word" required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
                                         <br>
-
+                                        * File size max 1 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -158,12 +163,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File PDF {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_abstrak_admin_pdf" required>
                                     <small class="form-text text-muted">
                                         * File format must be in pdf.
                                         <br>
-
+                                        * File size max 1 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -199,12 +205,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File Word {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_jurnal_admin_word" required>
                                     <small class="form-text text-muted">
                                         * File format must be in word (doc, docx).
                                         <br>
-
+                                        * File size max 2 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -212,12 +219,13 @@ Register Courses
                             <div class="row mt-3 mb-5 justify-content-center">
                                 <div class="col-xl-10">
                                     <label for="form-control">File PDF {{$page}}</label>
-                                    <input class="form-control customicon" type="file"
+                                    <input class="form-control customicon input-file" type="file"
                                         name="path_file_jurnal_admin_pdf" required>
                                     <small class="form-text text-muted">
                                         * File format must be in pdf.
                                         <br>
-
+                                        * File size max 2 MB.
+                                        <br>
                                     </small>
                                 </div>
                             </div>
@@ -237,58 +245,105 @@ Register Courses
             </div>
         </div>
     </div>
+</div>
+@endsection
 
-    @endsection
-
-    @push('js')
-    {{-- <script>
-        $(function() {
-            $("#courses-dropdown").on("change", async function() {
-                // Disable dropdown session saat JSON masih diload.
-                $("#courses-session").attr("disabled", "disabled");
-                
-                // Ubah dropdown schedules
-                await $.getJSON(
-                    `api/courses/${ $(this).val() }/schedules`, 
-                    function(jsonData) {  
-                        let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
-                        $.each(jsonData, function(i, jadwal) {
-                            select += `<option value='${jadwal.id_jadwal}'>`
-                            + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
-                            + `${jadwal.jadwal_selesai.substring(0, 5)}`
-                            + "</option>";
-                        });
-                        select += "</select>";
-                        $("#courses-session").html(select);
-                    }
-                );
-
-                // Enable dropdown session saat JSON selesai diload.
-                $("#courses-session").removeAttr("disabled");
-
-                // Hide dan show foto mahasiswa
-                $.getJSON(
-                    `api/courses/${ $(this).val() }`, 
-                    function(jsonData) {
-                        const kursus = jsonData[0];
-                        const containerFotoBuktiPembayaran = $("#container-foto-bukti-pembayaran");
-                        const containerFotoMahasiswa = $("#container-foto-mahasiswa");
-                        const containerSertifikat = $("#container-sertifikat");
-                        
-                        if (kursus.sertifikat === 1) {
-                            containerFotoBuktiPembayaran.removeClass("mb-5").addClass("mb-4");
-                            containerFotoMahasiswa.removeClass("mb-5").addClass("mb-4");
-                            containerSertifikat.removeClass("d-none");
-                        } else {
-                            containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
-                            containerFotoMahasiswa.removeClass("mb-4").addClass("mb-5");
-                            containerSertifikat.addClass("d-none");
-                            
-                        }
-                    }
-                );
-            });
-           
+@push('js')
+<script>
+    $(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
         });
-    </script> --}}
-    @endpush
+        
+        // $("#courses-dropdown").on("change", async function() {
+        //     // Disable dropdown session saat JSON masih diload.
+        //     $("#courses-session").attr("disabled", "disabled");
+            
+        //     // Ubah dropdown schedules
+        //     await $.getJSON(
+        //         `api/courses/${ $(this).val() }/schedules`, 
+        //         function(jsonData) {  
+        //             let select = "<select class='form-control' id='courses-session' name='jadwal_id'>";
+        //             $.each(jsonData, function(i, jadwal) {
+        //                 select += `<option value='${jadwal.id_jadwal}'>`
+        //                 + `${jadwal.hari}, ${jadwal.jadwal_mulai.substring(0, 5)} - `
+        //                 + `${jadwal.jadwal_selesai.substring(0, 5)}`
+        //                 + "</option>";
+        //             });
+        //             select += "</select>";
+        //             $("#courses-session").html(select);
+        //         }
+        //     );
+
+        //     // Enable dropdown session saat JSON selesai diload.
+        //     $("#courses-session").removeAttr("disabled");
+
+        //     // Hide dan show foto mahasiswa
+        //     $.getJSON(
+        //         `api/courses/${ $(this).val() }`, 
+        //         function(jsonData) {
+        //             const kursus = jsonData[0];
+        //             const containerFotoBuktiPembayaran = $("#container-foto-bukti-pembayaran");
+        //             const containerFotoMahasiswa = $("#container-foto-mahasiswa");
+        //             const containerSertifikat = $("#container-sertifikat");
+                    
+        //             if (kursus.sertifikat === 1) {
+        //                 containerFotoBuktiPembayaran.removeClass("mb-5").addClass("mb-4");
+        //                 containerFotoMahasiswa.removeClass("mb-5").addClass("mb-4");
+        //                 containerSertifikat.removeClass("d-none");
+        //             } else {
+        //                 containerFotoBuktiPembayaran.removeClass("mb-4").addClass("mb-5");
+        //                 containerFotoMahasiswa.removeClass("mb-4").addClass("mb-5");
+        //                 containerSertifikat.addClass("d-none");
+                        
+        //             }
+        //         }
+        //     );
+        // });
+
+        $("#card-container-form").on("change", ".input-file", function() {
+            // Jika file dipilih (dalam artian tidak membatalkan input file)
+            if (this.files[0] !== undefined) {
+                const oneMegabyteToBytes = 1000000;
+                const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                const labelInputFile = $(this).prev().text().toLowerCase();
+                
+                // Jika file adalah jurnal.
+                if (labelInputFile.includes("journal")) {
+                    // Jika ukuran file lebih besar dari 2 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 2) {
+                        this.value = "";
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum ${labelInputFile} adalah 2 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
+                } 
+                // Jika file bukan jurnal.
+                else {
+                    // Jika ukuran file lebih besar dari 1 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 1) {
+                        this.value = "";
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum ${labelInputFile} adalah 1 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
+                }
+            }
+        });
+    });
+</script>
+@endpush

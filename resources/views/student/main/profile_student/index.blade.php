@@ -152,7 +152,10 @@ Profile
                                 </div>
                                 <div class="row mb-3 mx-auto">
                                     <div class="col-12">
-                                        <input class="form-control customicon" type="file" id="profile-picture-browse" name="file">
+                                        <input class="form-control customicon" type="file" name="file">
+                                        <small class="form-text text-muted">
+                                            * Size Maximum File 1 MB.
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +170,14 @@ Profile
     @push('js')
     <script>
         $(function() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            });
+            
             $("#show-hide-password").on("click", function() {
                 const newPassword = $("#newpassword");
                 const eyeSlash = $("#eye-slash");
@@ -183,19 +194,38 @@ Profile
                 }
             });
 
-            $("#profile-picture-browse").on("change", function() {
+            $("input[name='file']").on("change", function() {
                 const profilePicture = $("#profile-picture-view");
-                const file = $(this)[0].files[0];
+                const file = this.files[0];
 
                 // Jika memilih file
                 if (file !== undefined) {
-                    const fileReader = new FileReader();
+                    const oneMegabyteToBytes = 1000000;
+                    const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                    
+                    // Jika ukuran file lebih besar dari 1 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 1) {
+                        this.value = "";
+                        profilePicture.attr("src", profilePicture.data("oldSrc"));
 
-                    fileReader.onload = function (e) {
-                        profilePicture.attr("src", e.target.result);
-                    };
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum profile picture adalah 1 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    } 
+                    // Jika ukuran file kurang dari 1 MB.
+                    else {
+                        const fileReader = new FileReader();
 
-                    fileReader.readAsDataURL(file);
+                        fileReader.onload = function (e) {
+                            profilePicture.attr("src", e.target.result);
+                        };
+
+                        fileReader.readAsDataURL(file);
+                    }
                 } else { // Jika tidak memilih file
                     profilePicture.attr("src", profilePicture.data("oldSrc"));
                 }

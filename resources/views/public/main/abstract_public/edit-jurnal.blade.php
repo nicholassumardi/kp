@@ -16,7 +16,7 @@ Register Courses
                 </div>
 
                 <form action="{{ route('penerjemahan-public.updateJurnal', $jurnal->id_jurnal_umum) }}" method="POST"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="form-jurnal">
                     @method('PATCH')
                     @csrf
 
@@ -57,10 +57,12 @@ Register Courses
                     <div class="row mt-3 mb-2 justify-content-center" id="div-bukti-pembayaran">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran</label>
-                            <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
+                            <input class="form-control customicon input-file" type="file" name="path_foto_kuitansi" required>
                             <small class="form-text text-muted">
                                 * Foto harus discan dan dalam keadaan
                                 landscape.
+                                <br>
+                                * Size Maximum File 1 MB
                                 <br>
                                 * Foto harus dalam format JPEG atau PNG.
                             </small>
@@ -71,11 +73,11 @@ Register Courses
                     <div class="row mt-3 mb-5 justify-content-center" id="div-jurnal">
                         <div class="col-xl-10">
                             <label for="form-control">File Jurnal</label>
-                            <input class="form-control customicon" type="file" name="path_file_jurnal_umum">
+                            <input class="form-control customicon input-file" type="file" name="path_file_jurnal_umum">
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
                                 <br>
-                                * Size Maximum File 5MB
+                                * Size Maximum File 2 MB
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>
@@ -107,23 +109,42 @@ Register Courses
             buttonsStyling: true
         });
         
-        $("input[name='path_file_jurnal_umum']").on("change", function() {
+        $("#form-jurnal").on("change", ".input-file", function() {
             // Jika file dipilih (dalam artian tidak membatalkan input file)
             if (this.files[0] !== undefined) {
                 const oneMegabyteToBytes = 1000000;
                 const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                const labelInputFile = $(this).prev().text().toLowerCase();
                 
-                // Jika ukuran file lebih besar dari 5 MB, reset kolom inputan
-                // atau batalkan inputan dan beri peringatan alert.
-                if (ukuranFileDalamMegabyte > 5) {
-                    this.value = "";
-
-                    swalWithBootstrapButtons.fire({
-                        title: "Peringatan!",
-                        text: "Size maximum file jurnal adalah 5 MB. Silahkan upload file Anda kembali!",
-                        icon: "warning",
-                        showCloseButton: true,
-                    });
+                // Jika file adalah jurnal.
+                if (labelInputFile.includes("jurnal")) {
+                    // Jika ukuran file lebih besar dari 2 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 2) {
+                        this.value = "";
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum ${labelInputFile} adalah 2 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
+                } 
+                // Jika file bukan jurnal.
+                else {
+                    // Jika ukuran file lebih besar dari 1 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 1) {
+                        this.value = "";
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum ${labelInputFile} adalah 1 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
                 }
             }
         });

@@ -65,10 +65,12 @@ Register Courses
                     <div class="row mt-3 mb-2 justify-content-center" id="div-bukti-pembayaran">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran</label>
-                            <input class="form-control customicon" type="file" name="path_foto_kuitansi" required>
+                            <input class="form-control customicon input-file" type="file" name="path_foto_kuitansi" required>
                             <small class="form-text text-muted">
                                 * Foto harus discan dan dalam keadaan
                                 landscape.
+                                <br>
+                                * Size Maximum File 1 MB.
                                 <br>
                                 * Foto harus dalam format JPEG atau PNG.
                             </small>
@@ -78,11 +80,13 @@ Register Courses
                     <div class="row mt-3 mb-2 justify-content-center d-none" id="div-bukti-pembayaran-transkrip-nilai">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran Transkrip Nilai</label>
-                            <input class="form-control customicon" type="file"
+                            <input class="form-control customicon input-file" type="file"
                                 name="path_foto_kuitansi_transkrip_nilai">
                             <small class="form-text text-muted">
                                 * Foto harus discan dan dalam keadaan
                                 landscape.
+                                <br>
+                                * Size Maximum File 1 MB.
                                 <br>
                                 * Foto harus dalam format JPEG atau PNG.
                             </small>
@@ -92,10 +96,12 @@ Register Courses
                     <div class="row mt-3 mb-2 justify-content-center d-none" id="div-bukti-pembayaran-ijazah">
                         <div class="col-xl-10">
                             <label for="form-control">Foto Bukti Pembayaran Ijazah</label>
-                            <input class="form-control customicon" type="file" name="path_foto_kuitansi_ijazah">
+                            <input class="form-control customicon input-file" type="file" name="path_foto_kuitansi_ijazah">
                             <small class="form-text text-muted">
                                 * Foto harus discan dan dalam keadaan
                                 landscape.
+                                <br>
+                                * Size Maximum File 1 MB.
                                 <br>
                                 * Foto harus dalam format JPEG atau PNG.
                             </small>
@@ -105,12 +111,12 @@ Register Courses
                     <div class="row mt-3 mb-5 justify-content-center" id="div-abstrak">
                         <div class="col-xl-10">
                             <label for="form-control">File Abstract</label>
-                            <input class="form-control customicon input-file-penerjemahan" type="file" name="path_file_abstrak_mahasiswa"
+                            <input class="form-control customicon input-file" type="file" name="path_file_abstrak_mahasiswa"
                                 required>
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
                                 <br>
-                                * Size Maximum File 5 MB.
+                                * Size Maximum File 1 MB.
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>
@@ -120,11 +126,11 @@ Register Courses
                     <div class="row mt-3 mb-5 justify-content-center d-none" id="div-transkrip-nilai">
                         <div class="col-xl-10">
                             <label for="form-control">File Transkrip</label>
-                            <input class="form-control customicon input-file-penerjemahan" type="file" name="path_file_transkrip_nilai">
+                            <input class="form-control customicon input-file" type="file" name="path_file_transkrip_nilai">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
                                 <br>
-                                * Size Maximum File 5 MB.
+                                * Size Maximum File 1 MB.
                             </small>
                         </div>
                     </div>
@@ -132,11 +138,11 @@ Register Courses
                     <div class="row mt-3 mb-5 justify-content-center d-none" id="div-ijazah">
                         <div class="col-xl-10">
                             <label for="form-control">File Ijazah</label>
-                            <input class="form-control customicon input-file-penerjemahan" type="file" name="path_file_ijazah">
+                            <input class="form-control customicon input-file" type="file" name="path_file_ijazah">
                             <small class="form-text text-muted">
                                 * File harus dalam format PDF atau foto (JPEG atau PNG).
                                 <br>
-                                * Size Maximum File 5 MB.
+                                * Size Maximum File 1 MB.
                             </small>
                         </div>
                     </div>
@@ -144,11 +150,11 @@ Register Courses
                     <div class="row mt-3 mb-5 justify-content-center d-none" id="div-jurnal">
                         <div class="col-xl-10">
                             <label for="form-control">File Jurnal</label>
-                            <input class="form-control customicon input-file-penerjemahan" type="file" name="path_file_jurnal_mahasiswa">
+                            <input class="form-control customicon input-file" type="file" name="path_file_jurnal_mahasiswa">
                             <small class="form-text text-muted">
                                 * File harus dalam format word (doc, docx).
                                 <br>
-                                * Size Maximum File 5 MB.
+                                * Size Maximum File 2 MB.
                                 <br>
                                 * Format file: Nama_NPM. Contoh: Muhammad Iqbal_06.2018.1.07777
                             </small>
@@ -180,25 +186,42 @@ Register Courses
             buttonsStyling: true
         });
         
-        $("#form-penerjemahan").on("change", ".input-file-penerjemahan", function() {
+        $("#form-penerjemahan").on("change", ".input-file", function() {
             // Jika file dipilih (dalam artian tidak membatalkan input file)
             if (this.files[0] !== undefined) {
                 const oneMegabyteToBytes = 1000000;
                 const ukuranFileDalamMegabyte = this.files[0].size / oneMegabyteToBytes;
+                const labelInputFile = $(this).prev().text().toLowerCase();
                 
-                // Jika ukuran file lebih besar dari 5 MB, reset kolom inputan
-                // atau batalkan inputan dan beri peringatan alert.
-                if (ukuranFileDalamMegabyte > 5) {
-                    this.value = "";
-
-                    const labelInputFilePenerjemahan = $(this).prev().text().toLowerCase();
-
-                    swalWithBootstrapButtons.fire({
-                        title: "Peringatan!",
-                        text: `Size maximum ${labelInputFilePenerjemahan} adalah 5 MB. Silahkan upload file Anda kembali!`,
-                        icon: "warning",
-                        showCloseButton: true,
-                    });
+                // Jika file adalah jurnal.
+                if (labelInputFile.includes("jurnal")) {
+                    // Jika ukuran file lebih besar dari 2 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 2) {
+                        this.value = "";
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum ${labelInputFile} adalah 2 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
+                } 
+                // Jika file bukan jurnal.
+                else {
+                    // Jika ukuran file lebih besar dari 1 MB, reset kolom inputan
+                    // atau batalkan inputan dan beri peringatan alert.
+                    if (ukuranFileDalamMegabyte > 1) {
+                        this.value = "";
+                        
+                        swalWithBootstrapButtons.fire({
+                            title: "Peringatan!",
+                            text: `Size maximum ${labelInputFile} adalah 1 MB. Silahkan upload file Anda kembali!`,
+                            icon: "warning",
+                            showCloseButton: true,
+                        });
+                    }
                 }
             }
         });
