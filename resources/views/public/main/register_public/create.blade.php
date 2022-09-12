@@ -94,7 +94,7 @@ Register Courses
                                     <label for="form-control">Foto Bukti Sertifikat English Course</label>
                                     <input class="form-control customicon input-file" type="file"
                                         name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{
-                                        $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
+                                        $kursus_index_pertama===1 ? 'required' : '' }}>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
