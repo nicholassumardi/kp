@@ -16,7 +16,8 @@ Register Courses
                 {{-- Jika admin sudah membuat kursus --}}
                 @if ($kursus_index_pertama !== null)
 
-                <form action="{{ route('registerCoursesPublic.store') }}" method="POST" enctype="multipart/form-data" id="form-register">
+                <form action="{{ route('registerCoursesPublic.store') }}" method="POST" enctype="multipart/form-data"
+                    id="form-register">
                     @csrf
 
                     <!-- Light table -->
@@ -52,11 +53,12 @@ Register Courses
                                 </div>
                             </div> --}}
 
-                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'mb-4' : 'mb-4' }}"
+                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama !== 1 ? 'mb-4' : 'mb-4' }}"
                                 id="container-foto-bukti-pembayaran">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Pembayaran (Kuitansi)</label>
-                                    <input class="form-control customicon input-file" type="file" name="path_foto_kuitansi" required>
+                                    <input class="form-control customicon input-file" type="file"
+                                        name="path_foto_kuitansi" required>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
@@ -68,11 +70,12 @@ Register Courses
                                 </div>
                             </div>
 
-                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'mb-4' : 'mb-4' }}"
+                            <div class="row mt-3 justify-content-center {{ $kursus_index_pertama !== 1 ? 'mb-4' : 'mb-4' }}"
                                 id="container-foto-umum">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Peserta</label>
-                                    <input class="form-control customicon input-file" type="file" name="path_foto_umum" required>
+                                    <input class="form-control customicon input-file" type="file" name="path_foto_umum"
+                                        required>
                                     <small class="form-text text-muted">
                                         * Foto harus 3x4 dengan mengenakan Jas Alamamater dan Pakaian Formal.
                                         <br>
@@ -85,11 +88,13 @@ Register Courses
                                 </div>
                             </div>
 
-                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama->sertifikat !== 1 ? 'd-none' : '' }}"
+                            <div class="row mt-3 mb-5 justify-content-center {{ $kursus_index_pertama !== 1 ? 'd-none' : '' }}"
                                 id="container-sertifikat">
                                 <div class="col-xl-10">
                                     <label for="form-control">Foto Bukti Sertifikat English Course</label>
-                                    <input class="form-control customicon input-file" type="file" name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{ $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
+                                    <input class="form-control customicon input-file" type="file"
+                                        name="path_foto_sertifikat" id="js-path-foto-sertifikat" {{
+                                        $kursus_index_pertama->sertifikat === 1 ? 'required' : '' }}>
                                     <small class="form-text text-muted">
                                         * Foto harus discan dan dalam keadaan
                                         landscape.
@@ -113,11 +118,11 @@ Register Courses
                 {{-- Jika admin belum membuat kursus --}}
                 @else
                 <div class="card-body">
-                    <h3 class="text-center">Maaf, belum ada kursus yang terdaftar saat ini.</h3>                    
+                    <h3 class="text-center">Maaf, belum ada kursus yang terdaftar saat ini.</h3>
                 </div>
                 @endif
-                
-               
+
+
             </div>
         </div>
     </div>
