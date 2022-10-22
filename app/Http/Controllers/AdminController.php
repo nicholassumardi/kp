@@ -203,11 +203,10 @@ class AdminController extends Controller
 
         if ($request->tipeKursus === "mahasiswa") {
             $column = [
+                'mahasiswa_id',
+                'kursus_id',
                 'created_at',
-                'created_at',
-                'created_at',
-                'created_at',
-                'status',
+                'no_kartu_mahasiswa',
             ];
 
             $start  = $request->start;
@@ -313,11 +312,10 @@ class AdminController extends Controller
             return response()->json($response);
         } else if ($request->tipeKursus === "umum") {
             $column = [
+                'umum_id',
+                'kursus_id',
                 'created_at',
-                'created_at',
-                'created_at',
-                'created_at',
-                'status',
+                'no_kartu_umum',
             ];
 
             $start  = $request->start;
@@ -424,11 +422,10 @@ class AdminController extends Controller
         } else {
 
             $column = [
+                
+                'kursus_id',
                 'created_at',
-                'created_at',
-                'created_at',
-                'created_at',
-                'status',
+              
             ];
 
             $start  = $request->start;

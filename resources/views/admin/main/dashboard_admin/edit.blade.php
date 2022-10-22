@@ -193,15 +193,15 @@ Students Data
                     }
                 },
                 columns: [
-                   { name: 'id_abstrak', searchable: false, className: 'text-center align-middle' },
                    { name: 'mahasiswa_id', className: 'text-center align-middle' },
-                   { name: 'created_at', searchable: false, className: 'text-center align-middle'},
-                   { name: 'email', searchable: false, className: 'text-center align-middle'},
-                   { name: 'student_phone', searchable: false, className: 'text-center align-middle'},
-                   { name: 'proof', searchable: false, className: 'text-center align-middle'},
-                   { name: 'status', searchable: false, className: 'text-center align-middle'},
-                   { name: 'file', searchable: false, className: 'text-center align-middle'},
-                   { name: 'edit_status', searchable: false, className: 'text-center align-middle'},
+                   { name: 'no_kartu_mahasiswa', className: 'text-center align-middle' },
+                   { name: 'created_at', orderable:false, searchable: false, className: 'text-center align-middle'},
+                   { name: 'status',  orderable:false, searchable: false, className: 'text-center align-middle'},
+                   { name: 'proof',  orderable:false, searchable: false, className: 'text-center align-middle'},
+                   { name: 'picture',  orderable:false, searchable: false, className: 'text-center align-middle'},
+                   { name: 'certificate',  orderable:false, searchable: false, className: 'text-center align-middle'},
+                   { name: 'action',  orderable:false, searchable: false, className: 'text-center align-middle'},
+                   { name: 'print',  orderable:false, searchable: false, className: 'text-center align-middle'},
                  
                 
                 ]
