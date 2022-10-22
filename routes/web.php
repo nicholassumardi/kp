@@ -9,6 +9,7 @@ use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\CourseUmumController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\ListAkunMahasiswaController;
+use App\Http\Controllers\ListAkunUmumController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MahasiswaUmumListController;
 use App\Http\Controllers\NewsController;
@@ -58,6 +59,8 @@ Route::post('register', [RegisterController::class, 'store'])->name('register.st
 Route::get('sign-in', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('sign-in', [LoginController::class, 'authenticate'])->name('login.authenticate');
 Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
+Route::post('forgot_password', [LoginController::class, 'forgotPassword']);
+Route::match(['get', 'post'], 'reset_password', [LoginController::class, 'resetPassword']);
 
 // DASHBOARD STUDENT
 Route::get('student', [MahasiswaController::class, 'index'])->name('student.index');
@@ -140,6 +143,7 @@ Route::resource('admin', AdminController::class)->except([
 Route::get('admin-edit/{id_kursus}', [AdminController::class, 'edit'])->name('admin.edit');
 Route::patch('admin/{id_mahasiswa}/{id_kursus}', [AdminController::class, 'update'])->name('admin.update');
 Route::patch('admin2/{id_umum}/{id_kursus}', [AdminController::class, 'update2'])->name('admin.update2');
+Route::post('admin-edit/datatable', [AdminController::class, 'datatable']);
 Route::resource('profileAdmin', ProfileAdminController::class);
 Route::resource('schedules', SchedulesController::class);
 Route::resource('addCourse', CourseAdminController::class);
@@ -154,7 +158,7 @@ Route::patch('send-komentar/{id_mahasiswa}/{id_kursus}', [AdminController::class
 Route::patch('send-komentar2/{id_umum}/{id_kursus}', [AdminController::class, 'sendKomentar2'])->name('admin.sendKomentar2');
 Route::resource('addNews', NewsController::class);
 Route::resource('penerjemahan-admin', PenerjemahanAdminController::class);
-
+Route::post('penerjemahan-admin/datatable', [PenerjemahanAdminController::class, 'datatable'])->name('admin.datatable');
 
 // Download Penerjemahan Mahasiswa
 Route::get('penerjemahan-admin-downloadAbstrakMahasiswa/{id_mahasiswa}/{id_abstrak}', [PenerjemahanAdminController::class, 'downloadAbstrakMahasiswa'])->name('penerjemahan.downloadAbstrakMahasiswa');
@@ -237,8 +241,18 @@ Route::patch('penerjemahan-deactiveJurnalUmum/{id_jurnal_umum}', [PenerjemahanAd
 
 
 // SUPER ADMIN
+// Route::prefix('super-admin')->group(functio  n () {
 Route::resource('super-admin', SuperAdminController::class);
 Route::resource('listAkunMahasiswa', ListAkunMahasiswaController::class);
+Route::resource('listAkunUmum', ListAkunUmumController::class);
+Route::post('listAkunMahasiswa/datatable', [ListAkunMahasiswaController::class, 'datatable']);
+Route::patch('listAkunMahasiswa/update/{id}', [ListAkunMahasiswaController::class, 'update']);
+Route::patch('listAkunMahasiswa/update-npm/{id}', [ListAkunMahasiswaController::class, 'updateNPM'])->name('listAkunMahasiswa.updateNPM');
+Route::post('listAkunUmum/datatable', [ListAkunUmumController::class, 'datatable']);
+Route::patch('listAkunUmum/update/{id}', [ListAkunUmumController::class, 'update']);
+// });
+
+
 
 // EXPORT EXCEL
 Route::get('exportExcel/{id_kursus}/{tipe_kursus}', [AdminController::class, 'exportExcel'])->name('admin.exportExcel');

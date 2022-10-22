@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{!empty($title_page) ? $title_page:''}} ITATS LANGUAGE CENTER</title>
 
 
@@ -41,6 +42,11 @@
 
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+
+    {{-- Notif CSS --}}
+    <link href="{{ asset('js/custom/snackbar.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('js/custom/bootstrap-notifications.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('js/custom/waitMe.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -88,6 +94,7 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+
     <script>
         $(document).ready(function () {
         $(document).click(function (event) {
@@ -97,7 +104,15 @@
         });
     });
     </script>
+
     @stack('js')
+
+    {{--Custom, Notif, Loading JS --}}
+    <script src="{{asset('js/custom/custom.js')}}"></script>
+    <script src="{{asset('js/custom/noty.min.js')}}"></script>
+    <script src="{{ asset('js/custom/snackbar.min.js') }}"></script>
+    <script src="{{ asset('js/custom/waitMe.min.js') }}"></script>
+
 </body>
 
 </html>

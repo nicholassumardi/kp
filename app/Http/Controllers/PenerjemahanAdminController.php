@@ -785,4 +785,919 @@ class PenerjemahanAdminController extends Controller
         return redirect()->back()
             ->with('success', 'deactivated successfully.');
     }
+
+    public function datatable(Request $request)
+    {
+
+        if ($request->tipeUser == "Mahasiswa") {
+            if ($request->tipePenerjemahan === "Abstrak") {
+                $column = [
+                    'id_abstrak',
+                    'created_at',
+                    'mahasiswa_id',
+                    'email',
+                    'no_hp',
+                    'path_foto_kuitansi',
+                    'status',
+                    'path_file_abstrak_mahasiswa',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = Abstrak::count();
+
+                $query_data = Abstrak::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = Abstrak::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+                        $getStatus = $val->status === 'unverified' ? 'btn-danger' : ($val->status === 'pending' ? ' btn-warning' : ($val->status === 'rejected' ? 'btn-danger' : 'btn-success'));
+
+                        $status =
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+
+                        $buttonEditStatus =
+                            '<button type="button" class="btn btn-sm btn-outline-secondary js-btn-abstrak-pending"
+                            data-id=" ' . $val->id_abstrak . '">
+                            <i class="bi bi-hourglass-split text-yellow"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary js-btn-abstrak-verified"
+                            data-id="' . $val->id_abstrak . '">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                                data-toggle="modal" data-target="#modal-komentar"
+                                data-action="' . route('penerjemahan.sendKomentarAbstrak',  $val->id_abstrak) . '">
+                                <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                            '<a href="' . route('penerjemahan.downloadAbstrakMahasiswa', ['id_mahasiswa' =>  $val->mahasiswa_id, 'id_abstrak' =>  $val->id_abstrak]) . '"
+                        class="btn btn-sm btn-outline-secondary"><i
+                        class="bi bi-download text-gray"></i></a>
+                        <a href="' . route('penerjemahan-admin.editPageAbstrak', ['id_penerjemahan' => $val->id_abstrak, 'id_mahasiswa' =>  $val->mahasiswa_id]) . '"
+                        class="btn btn-sm btn-outline-secondary"><i
+                        class="bi bi-pen-fill text-green"></i>
+                        </a>';
+
+                        $buttonPrint = '<a href="' . route('generate2.pdf', ['id_abstract_satu' => $val->id_abstrak, 'id_mahasiswa_satu' => $val->mahasiswa_id]) . '"
+                        class="btn btn-sm btn-outline-secondary"><i
+                        class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveAbstract(' . $val->id_abstrak . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            "Abstract",
+                            $val->mahasiswa->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+
+
+
+                            basename($val->path_file_abstrak_mahasiswa),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive,
+
+                        ];
+                    }
+                }
+            } else if ($request->tipePenerjemahan === "Ijazah") {
+                $column = [
+                    'id_ijazah',
+                    'mahasiswa_id',
+                    'created_at',
+                    'status',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = Ijazah::count();
+
+                $query_data = Ijazah::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = Ijazah::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+
+                        $getStatus = $val->status === 'unchecked' ? 'btn-danger' : ($val->status === 'rejected' ? ' btn-danger' : 'btn-success');
+
+                        $status =
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+
+                        $buttonEditStatus =
+                            '<button type="button" class="btn btn-sm btn-outline-secondary js-btn-ijazah-checked"
+                                    data-id="' . $val->id_ijazah . '">
+                                    <i class=" bi bi-check-square text-green"></i>
+                        </button>
+                              
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="' . route('penerjemahan.sendKomentarIjazah', $val->id_ijazah) . '">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                            '<a href="' . route('penerjemahan.downloadIjazahMahasiswa', ['id_mahasiswa' => $val->mahasiswa_id, 'id_ijazah' => $val->id_ijazah]) . '"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-ijazah"
+                        data-id="{{ $ijazah->id_ijazah}}"><i class="bi bi-download text-gray"></i></a>';
+
+                        $buttonPrint =
+                            '<a href="' . route('generate4.pdf', ['id_ijazah_satu' => $val->id_ijazah, 'id_mahasiswa_satu' => $val->mahasiswa_id]) . '"
+                        class="btn btn-sm btn-outline-secondary"><i
+                            class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveIjazah(' . $val->id_ijazah . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            'Ijazah',
+                            $val->mahasiswa->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+                            basename($val->path_file_ijazah),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive
+
+                        ];
+                    }
+                }
+            } else if ($request->tipePenerjemahan === "Transkrip") {
+
+                $column = [
+                    'id_transkrip_nilai',
+                    'mahasiswa_id',
+                    'created_at',
+                    'status',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = TranskripNilai::count();
+
+                $query_data = TranskripNilai::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = TranskripNilai::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+
+                        $getStatus = $val->status === 'unchecked' ? 'btn-danger' : ($val->status === 'rejected' ? ' btn-danger' : 'btn-success');
+
+                        $status =
+                        '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+
+                        $buttonEditStatus =
+                        '<button type="button" class="btn btn-sm btn-outline-secondary js-btn-transkrip-checked"
+                            data-id="'. $val->id_transkrip_nilai .'">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+            
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="'. route('penerjemahan.sendKomentarTranskripNilai', $val->id_transkrip_nilai) .'">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                        '<a href="'. route('penerjemahan.downloadTranskripMahasiswa', ['id_mahasiswa' => $val->mahasiswa_id, 'id_transkrip_nilai' => $val->id_transkrip_nilai]) .'"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai"
+                        data-id="'. $val->id_transkrip_nilai .'"><i
+                            class="bi bi-download text-gray"></i></a>';
+
+                        $buttonPrint =
+                        '<a href="'. route('generate3.pdf', ['id_transkrip_nilai_satu' => $val->id_transkrip_nilai, 'id_mahasiswa_satu' => $val->mahasiswa_id]) .'"
+                        class="btn btn-sm btn-outline-secondary"><i
+                            class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveTranskrip(' . $val->id_transkrip_nilai . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            'Transkrip Nilai',
+                            $val->mahasiswa->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+                            basename($val->path_file_transkrip_nilai),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive
+
+                        ];
+                    }
+                }
+            } else {
+                $column = [
+                    'id_jurnal',
+                    'mahasiswa_id',
+                    'created_at',
+                    'status',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = Jurnal::count();
+
+                $query_data = Jurnal::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = Jurnal::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('mahasiswa', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+                        $getStatus = $val->status === 'unverified' ? 'btn-danger' : ($val->status === 'pending' ? ' btn-warning' : ($val->status === 'rejected' ? 'btn-danger' : 'btn-success'));
+
+                        $status =
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+                        $jumlahHalaman = '<br><b> Jumlah Halaman : ' . $val->jumlah_halaman_jurnal . '</b>';
+                        $buttonEditStatus =
+                            '<button type="button" class="btn btn-sm btn-outline-secondary js-btn-jurnal-pending"
+                            data-id="' . $val->id_jurnal . '">
+                            <i class="bi bi-hourglass-split text-yellow"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary js-btn-jurnal-verified"
+                            data-id="' . $val->id_jurnal . '">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="' . route('penerjemahan.sendKomentarJurnal', $val->id_jurnal) . '">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                            '<a href="' . route('penerjemahan.downloadJurnalMahasiswa', ['id_mahasiswa' => $val->mahasiswa_id, 'id_jurnal' => $val->id_jurnal]) . '"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-jurnal"
+                        data-id="' . $val->id_jurnal . '"><i class="bi bi-download text-gray"></i></a>
+                        <a href="' . route('penerjemahan-admin.editPageJurnal', ['id_jurnal' => $val->id_jurnal, 'id_mahasiswa' => $val->mahasiswa_id]) . '" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-pen-fill text-green"></i></a>';
+
+                        $buttonPrint =
+                            '<a href="' . route('generate5.pdf', ['id_jurnal_satu' => $val->id_jurnal, 'id_mahasiswa_satu' => $val->mahasiswa_id]) . '" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveJurnal(' . $val->id_jurnal . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            'Jurnal' . $jumlahHalaman,
+                            $val->mahasiswa->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+                            basename($val->path_file_jurnal_mahasiswa),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive
+
+                        ];
+                    }
+                }
+            }
+        } else {
+            if ($request->tipePenerjemahan === "Abstrak") {
+                $column = [
+                    'id_abstrak_umum',
+                    'created_at',
+                    'mahasiswa_id',
+                    'email',
+                    'no_hp',
+                    'path_foto_kuitansi',
+                    'status',
+                    'path_file_abstrak_umum',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = AbstrakUmum::count();
+
+                $query_data = AbstrakUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = AbstrakUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+                        $getStatus = $val->status === 'unverified' ? 'btn-danger' : ($val->status === 'pending' ? ' btn-warning' : ($val->status === 'rejected' ? 'btn-danger' : 'btn-success'));
+
+                        $status =
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+
+                        $buttonEditStatus =
+                        '<button type="button"
+                            class="btn btn-sm btn-outline-secondary js-btn-abstrak-umum-pending"
+                            data-id="'. $val->id_abstrak_umum .'">
+                            <i class="bi bi-hourglass-split text-yellow"></i>
+                        </button>
+                        <button type="button"
+                            class="btn btn-sm btn-outline-secondary js-btn-abstrak-umum-verified"
+                            data-id="'. $val->id_abstrak_umum .'">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="'. route('penerjemahan.sendKomentarAbstrakUmum',$val->id_abstrak_umum) .'">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                            
+                        '<a href="'. route('penerjemahan.downloadAbstrakUmum', ['id_umum' => $val->umum_id, 'id_abstrak_umum' => $val->id_abstrak_umum]) .'"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-abstrak-umum"
+                        data-id="'. $val->id_abstrak_umum .'"><i
+                            class="bi bi-download text-gray"></i></a>
+                        <a href="'. route('penerjemahan-admin.editPageAbstrakUmum', ['id_penerjemahan_umum' => $val->id_abstrak_umum, 'id_umum' => $val->umum_id]) .'"
+                            class="btn btn-sm btn-outline-secondary"><i
+                                class="bi bi-pen-fill text-green"></i></a>';
+
+                        $buttonPrint = '<a href="'. route('generateUmum2.pdf', ['id_abstract_umum' => $val->id_abstrak_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                        class="btn btn-sm btn-outline-secondary"><i
+                            class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveAbstractUmum(' . $val->id_abstrak_umum . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            "Abstract",
+                            $val->umum->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+
+
+
+                            basename($val->path_file_abstrak_umum),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive,
+
+                        ];
+                    }
+                }
+
+            } else if ($request->tipePenerjemahan === "Ijazah") {
+                $column = [
+                    'id_ijazah_umum',
+                    'umum_id',
+                    'created_at',
+                    'status',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = IjazahUmum::count();
+
+                $query_data = IjazahUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = IjazahUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+
+                        $getStatus = $val->status === 'unchecked' ? 'btn-danger' : ($val->status === 'rejected' ? ' btn-danger' : 'btn-success');
+
+                        $status =
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+
+                        $buttonEditStatus =
+                        '<button type="button"
+                            class="btn btn-sm btn-outline-secondary js-btn-ijazah-umum-checked"
+                            data-id="'. $val->id_ijazah_umum .'">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+                   
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="'. route('penerjemahan.sendKomentarIjazahUmum', $val->id_ijazah_umum) .'">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                        '<a href="'. route('penerjemahan.downloadIjazahUmum', ['id_umum' => $val->umum_id, 'id_ijazah_umum' => $val->id_ijazah_umum]) .'"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-ijazah-umum"
+                        data-id="'. $val->id_ijazah_umum .'"><i
+                            class="bi bi-download text-gray"></i></a>';
+
+                        $buttonPrint =
+                            '<a href="'. route('generateUmum4.pdf', ['id_ijazah_umum' => $val->id_ijazah_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                            class="btn btn-sm btn-outline-secondary"><i
+                                class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveIjazahUmum(' . $val->id_ijazah_umum . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            'Ijazah',
+                            $val->umum->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+                            basename($val->path_file_ijazah),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive
+
+                        ];
+                    }
+                }
+            } else if ($request->tipePenerjemahan === "Transkrip") {
+                $column = [
+                    'id_transkrip_nilai_umum',
+                    'umum_id',
+                    'created_at',
+                    'status',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = TranskripNilaiUmum::count();
+
+                $query_data = TranskripNilaiUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = TranskripNilaiUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+
+                        $getStatus = $val->status === 'unchecked' ? 'btn-danger' : ($val->status === 'rejected' ? ' btn-danger' : 'btn-success');
+
+                        $status =
+                        '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+
+                        $buttonEditStatus =
+                        '<button type="button"
+                            class="btn btn-sm btn-outline-secondary js-btn-transkrip-umum-checked"
+                            data-id="'. $val->id_transkrip_nilai_umum .'">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+                   
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="'. route('penerjemahan.sendKomentarTranskripNilaiUmum', $val->id_transkrip_nilai_umum) .'">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                        '<a href="'. route('penerjemahan.downloadTranskripUmum', ['id_umum' => $val->umum_id, 'id_transkrip_nilai_umum' => $val->id_transkrip_nilai_umum]) .'"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai-umum"
+                        data-id="'. $val->id_transkrip_nilai_umum .'"><i
+                            class="bi bi-download text-gray"></i></a>';
+
+                        $buttonPrint =
+                        '<a href="'. route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $val->id_transkrip_nilai_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                        class="btn btn-sm btn-outline-secondary"><i
+                            class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveTranskripUmum(' . $val->id_transkrip_nilai_umum . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            'Transkrip Nilai',
+                            $val->umum->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+                            basename($val->path_file_transkrip_nilai),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive
+
+                        ];
+                    }
+                }
+            } else {
+                $column = [
+                    'id_jurnal_umum',
+                    'umum_id',
+                    'created_at',
+                    'status',
+                ];
+
+                $start  = $request->start;
+                $length = $request->length;
+                $order  = $column[$request->input('order.0.column')];
+                $dir    = $request->input('order.0.dir');
+                $search = $request->input('search.value');
+
+
+                $total_data = JurnalUmum::count();
+
+                $query_data = JurnalUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })
+                    ->offset($start)
+                    ->limit($length)
+                    ->orderBy($order, $dir)
+                    ->get();
+
+                $total_filtered = JurnalUmum::where(function ($query) use ($search, $request) {
+                    if ($search) {
+                        $query->where(function ($query) use ($search, $request) {
+                            $query->where('email', 'like', "%$search%")
+                                ->orWhereHas('umum', function ($query) use ($search, $request) {
+                                    $query->where('nama', 'like', "%$search%");
+                                });
+                        });
+                    }
+                })->count();
+
+                $response['data'] = [];
+                if ($query_data <> FALSE) {
+
+                    foreach ($query_data as $val) {
+                        $getStatus = $val->status === 'unverified' ? 'btn-danger' : ($val->status === 'pending' ? ' btn-warning' : ($val->status === 'rejected' ? 'btn-danger' : 'btn-success'));
+
+                        $status =
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                        ' . $val->status . '
+                        </li>';
+                        $jumlahHalaman = '<br><b> Jumlah Halaman : ' . $val->jumlah_halaman_jurnal . '</b>';
+
+                        $buttonEditStatus =
+                        '<button type="button"
+                            class="btn btn-sm btn-outline-secondary js-btn-jurnal-umum-pending"
+                            data-id="'. $val->id_jurnal_umum .'">
+                            <i class="bi bi-hourglass-split text-yellow"></i>
+                        </button>
+                        <button type="button"
+                            class="btn btn-sm btn-outline-secondary js-btn-jurnal-umum-verified"
+                            data-id="'. $val->id_jurnal_umum .'">
+                            <i class=" bi bi-check-square text-green"></i>
+                        </button>
+                
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
+                            data-toggle="modal" data-target="#modal-komentar"
+                            data-action="'. route('penerjemahan.sendKomentarJurnalUmum', $val->id_jurnal_umum) .'">
+                            <i class="bi bi-x-square text-danger"></i>
+                        </button>';
+
+                        $buttonAction =
+                        '<a href="'. route('penerjemahan.downloadJurnalUmum', ['id_umum' => $val->umum_id, 'id_jurnal_umum' => $val->id_jurnal_umum]) .'"
+                        class="btn btn-sm btn-outline-secondary js-btn-download-jurnal-umum"
+                        data-id="'. $val->id_jurnal_umum .'"><i
+                            class="bi bi-download text-gray"></i></a>
+
+                        <a href="'. route('penerjemahan-admin.editPageJurnalUmum', ['id_jurnal_umum' => $val->id_jurnal_umum, 'id_umum' => $val->umum_id]) .'"
+                            class="btn btn-sm btn-outline-secondary"><i
+                                class="bi bi-pen-fill text-green"></i></a>';
+
+                        $buttonPrint =
+                        '<a href="'. route('generateUmum5.pdf', ['id_jurnal_umum' => $val->id_jurnal_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                        class="btn btn-sm btn-outline-secondary"><i
+                            class="bi bi-printer-fill text-indigo"></i></a>';
+
+
+                        $buttonDeactive =
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveJurnalUmum(' . $val->id_jurnal_umum . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+
+
+
+                        $response['data'][] = [
+
+                            date(
+                                'd M Y',
+                                strtotime($val->created_at)
+                            ),
+                            'Jurnal' . $jumlahHalaman,
+                            $val->umum->nama,
+                            $val->email,
+                            $val->no_hp,
+                            '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
+                                    class="custombuktipembayaran">',
+                            $status,
+                            basename($val->path_file_jurnal_umum),
+                            $buttonEditStatus,
+                            $buttonAction,
+                            $buttonPrint,
+                            $buttonDeactive
+
+                        ];
+                    }
+                }
+            
+            }
+        }
+
+
+        $response['recordsTotal'] = 0;
+        if ($total_data <> FALSE) {
+            $response['recordsTotal'] = $total_data;
+        }
+
+        $response['recordsFiltered'] = 0;
+        if ($total_filtered <> FALSE) {
+            $response['recordsFiltered'] = $total_filtered;
+        }
+
+        return response()->json($response);
+    }
 }

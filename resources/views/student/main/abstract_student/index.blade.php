@@ -161,7 +161,7 @@ Penerjemahan
                             <td class="text-center">{{ basename($jurnal->path_file_jurnal_admin_word) }}
                                 <br>
                                 <br>
-                                <a href="{{route('penerjemahan-student.downloadJurnalAdminPDF', ['id_mahasiswa' => $jurnal->mahasiswa_id, 'id_jurnal' => $jurnal->id_jurnal])}}"
+                                <a href="{{route('penerjemahan-student.downloadJurnalAdminWORD', ['id_mahasiswa' => $jurnal->mahasiswa_id, 'id_jurnal' => $jurnal->id_jurnal])}}"
                                     class="btn btn-sm btn-outline-secondary text-center"><i
                                         class="bi bi-download text-gray"></i> Download Word</a>
                             </td>

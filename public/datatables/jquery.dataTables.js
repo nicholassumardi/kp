@@ -5332,7 +5332,10 @@
 	
 		$.each( _fnGetUniqueThs( settings, headerCopy ), function ( i, el ) {
 			idx = _fnVisibleToColumnIndex( settings, i );
-			el.style.width = settings.aoColumns[idx].sWidth;
+			//error when using hidden cols
+			if ( idx != null ){
+				el.style.width = settings.aoColumns[idx].sWidth;
+			}
 		} );
 	
 		if ( footer ) {

@@ -23,6 +23,8 @@ Students Data
             <div class="row">
                 <div class="col">
                     <h3>{{$kursus->nama_kursus}}</h3>
+                    <input type="hidden" id="tipeKursus" value="{{$kursus->tipe_kursus}}">
+                    <input type="hidden" id="idKursus" value="{{$kursus->id_kursus}}">
                 </div>
             </div>
         </div>
@@ -49,261 +51,13 @@ Students Data
                             <th>Status</th>
                             <th>Payment Proof (Receipt)</th>
                             <th class="text-center">Student Picture</th>
-                            {!! $kursus->sertifikat === 1 ? '<th>English Course Certificate</th>' : '' !!}
+                            {{-- {!! $kursus->sertifikat === 1 ? '' : '' !!} --}}
+                            <th>English Course Certificate</th>
                             <th class="text-center">Action</th>
                             <th>Print</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @if ($kursus->tipe_kursus === 'mahasiswa')
-                        @foreach ($kursus->mahasiswa as $key => $mahasiswa)
-                        <tr>
-                            <td class="align-middle">{{$mahasiswa->nama}}</td>
 
-                            <td class="align-middle">{{$mahasiswa->pivot->no_kartu_mahasiswa}}</td>
-
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                $mahasiswa->pivot->created_at)->year}}
-                            </td>
-
-                            <td class="text-center align-middle"><i
-                                    class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                    {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
-
-                            <td class="text-center align-middle">{{--<img
-                                    src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}" alt=""
-                                    class="text-center custombuktipembayaran"> --}}
-
-                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a>
-                            </td>
-
-
-                            <td class="text-center align-middle">
-                                <a href="#" data-toggle="modal" data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a>
-                            </td>
-
-                            @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-                            @endif
-
-                            <td class="text-center align-middle">
-                                <form
-                                    action="{{ route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}"
-                                    method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
-                                        <i class="bi bi-check-square text-green"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
-                                        data-toggle="modal" data-target="#modal-komentar"
-                                        data-action="{{ route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}">
-                                        <i class="bi bi-x-square text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-
-
-                            <td class="align-middle">
-                                <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-                            </td>
-
-                        </tr>
-                        @endforeach
-                        @endif
-
-                        @if ($kursus->tipe_kursus === 'mahasiswa dan umum')
-
-                        @foreach ($kursus->mahasiswa as $key => $mahasiswa)
-                        <tr>
-                            <td class="align-middle">{{$mahasiswa->nama}}</td>
-
-                            <td class="align-middle">{{$mahasiswa->pivot->no_kartu_mahasiswa}}</td>
-
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                $mahasiswa->pivot->created_at)->year}}
-                            </td>
-
-                            <td class="text-center align-middle"><i
-                                    class="btn btn-sm {{$mahasiswa->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                    {{$mahasiswa->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
-
-                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-
-                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop" data-img-src="{{ asset('storage/' . $mahasiswa->pivot->path_foto_mahasiswa) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-                            </a>
-                            @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop" data-img-src="{{asset('storage/' . $mahasiswa->pivot->path_foto_sertifikat)}}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-                            @endif
-
-                            <td class="text-center align-middle">
-                                <form
-                                    action="{{ route('admin.update', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}"
-                                    method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
-                                        <i class="bi bi-check-square text-green"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
-                                        data-toggle="modal" data-target="#modal-komentar"
-                                        data-action="{{ route('admin.sendKomentar', ['id_mahasiswa' => $mahasiswa->id_mahasiswa, 'id_kursus' => $kursus->id_kursus]) }}">
-                                        <i class="bi bi-x-square text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-
-
-                            <td class="align-middle">
-                                <a href="{{ route('generate.pdf', ['id_kursus' => $kursus->id_kursus, 'id_mahasiswa_satu' => $mahasiswa->id_mahasiswa]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-                            </td>
-
-                        </tr>
-                        @endforeach
-
-                        @foreach ($kursus->umum as $key => $umum)
-                        <tr>
-                            <td class="align-middle">{{$umum->nama}}</td>
-
-                            <td class="align-middle">{{$umum->pivot->no_kartu_umum}}</td>
-
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                $umum->pivot->created_at)->year}}
-                            </td>
-
-                            <td class="text-center align-middle"><i
-                                    class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                    {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
-
-                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-
-                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-
-                            @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_sertifikat) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-                            @endif
-
-                            <td class="text-center align-middle">
-                                <form
-                                    action="{{ route('admin.update2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}"
-                                    method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
-                                        <i class="bi bi-check-square text-green"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
-                                        data-toggle="modal" data-target="#modal-komentar"
-                                        data-action="{{ route('admin.sendKomentar2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}">
-                                        <i class="bi bi-x-square text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-
-
-                            <td class="align-middle">
-                                <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-                            </td>
-
-                        </tr>
-                        @endforeach
-                        @endif
-
-                        @if ($kursus->tipe_kursus === 'umum')
-                        @foreach ($kursus->umum as $key => $umum)
-                        <tr>
-                            <td class="align-middle">{{$umum->nama}}</td>
-
-                            <td class="align-middle">{{$umum->pivot->no_kartu_umum}}</td>
-
-                            <td class="align-middle">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
-                                $umum->pivot->created_at)->year}}
-                            </td>
-
-                            <td class="text-center align-middle"><i
-                                    class="btn btn-sm {{$umum->pivot->status_verifikasi==1?'bi bi-check btn-success':'bi bi-x btn-danger'}} disabled">
-                                    {{$umum->pivot->status_verifikasi==1?'Verfied':'Unverified'}}</i></td>
-
-                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_kuitansi) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-
-                            <td class="text-center align-middle"><a href="#" data-toggle="modal" data-target="#modalKurikulum"
-                                    class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_umum) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-
-                            @if ($kursus->sertifikat === 1)
-                            <td class="align-middle text-center"><a href="#" data-toggle="modal"
-                                    data-target="#modalKurikulum" class="pop" data-img-src="{{ asset('storage/' . $umum->pivot->path_foto_sertifikat) }}"><button type="button" class="btn btn-primary">
-                                    View Image
-                                </button></a></td>
-                            @endif
-
-                            <td class="text-center align-middle">
-                                <form
-                                    action="{{ route('admin.update2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}"
-                                    method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="button" class="btn btn-sm btn-outline-secondary js-btn-activate">
-                                        <i class="bi bi-check-square text-green"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
-                                        data-toggle="modal" data-target="#modal-komentar"
-                                        data-action="{{ route('admin.sendKomentar2', ['id_umum' => $umum->id_umum, 'id_kursus' => $kursus->id_kursus]) }}">
-                                        <i class="bi bi-x-square text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-
-
-                            <td class="align-middle">
-                                <a href="{{ route('generateUmum.pdf', ['id_kursus' => $kursus->id_kursus, 'id_umum_satu' => $umum->id_umum]) }}"
-                                    class="btn btn-sm btn-outline-secondary"><i
-                                        class="bi bi-printer-fill text-indigo"></i></a>
-                            </td>
-
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -365,13 +119,9 @@ Students Data
 @push('js')
 <script>
     $(function () {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: true
-        });
+     
+        loadDataTable();
+       
 
         // Button activate
         $("#dataTable").on("click", ".js-btn-activate", function () {
@@ -405,5 +155,132 @@ Students Data
             $('#imagepreview').attr('src', $(this).data('imgSrc'));
         });
     });
+    const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
+    function loadDataTable() {
+     
+            $('#dataTable').DataTable({
+                serverSide: true,
+                deferRender: true,
+                destroy: true,
+                order: [[0, 'asc']],
+                iDisplayInLength: 10,
+                scrollX: true,
+                ajax: {
+                    url: '{{ url("admin-edit/datatable") }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        tipeKursus:$('#tipeKursus').val(),
+                        idKursus:$('#idKursus').val(),
+                    },
+                    beforeSend: function() {
+                        loadingOpen('#dataTable');
+                    },
+                    complete: function() {
+                        loadingClose('#dataTable');
+        
+                    },
+                    error: function() {
+                        loadingClose('#dataTable');
+                    }
+                },
+                columns: [
+                   { name: 'id_abstrak', searchable: false, className: 'text-center align-middle' },
+                   { name: 'mahasiswa_id', className: 'text-center align-middle' },
+                   { name: 'created_at', searchable: false, className: 'text-center align-middle'},
+                   { name: 'email', searchable: false, className: 'text-center align-middle'},
+                   { name: 'student_phone', searchable: false, className: 'text-center align-middle'},
+                   { name: 'proof', searchable: false, className: 'text-center align-middle'},
+                   { name: 'status', searchable: false, className: 'text-center align-middle'},
+                   { name: 'file', searchable: false, className: 'text-center align-middle'},
+                   { name: 'edit_status', searchable: false, className: 'text-center align-middle'},
+                 
+                
+                ]
+            });
+        }
+
+    function updateStatusMahasiswa(idMhs, idKursus){
+
+        swalWithBootstrapButtons.fire({
+                title: "Verify Account?",
+                text: "Verify this account ?",
+                icon: "warning",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes!",
+                cancelButtonText: "Cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                    url: '{{ url("admin") }}' + '/' + idMhs + '/' + idKursus,
+                    type: 'PATCH',
+                    dataType: 'JSON',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if(response.status == 200) {
+                            $('#dataTable').DataTable().ajax.reload(null, false);
+                            notif(response.message, '#198754');
+                        } else {
+                            notif(response.message, '#DC3545');
+                        }
+                    },
+                    error: function() {
+                        notif('Server Error!', '#DC3545');
+                    }
+                });
+                }
+            });
+       
+
+    }
+
+    function updateStatusUmum(idUmum, idKursus){
+    swalWithBootstrapButtons.fire({
+            title: "Verify Account?",
+            text: "Verify this account ?",
+            icon: "warning",
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes!",
+            cancelButtonText: "Cancel!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                url: '{{ url("admin2") }}' + '/' + idUmum + '/' + idKursus,
+                type: 'PATCH',
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if(response.status == 200) {
+                        $('#dataTable').DataTable().ajax.reload(null, false);
+                        notif(response.message, '#198754');
+                    } else {
+                        notif(response.message, '#DC3545');
+                    }
+                },
+                error: function() {
+                    notif('Server Error!', '#DC3545');
+                }
+            });
+            }
+        });
+
+
+    }
 </script>
 @endpush

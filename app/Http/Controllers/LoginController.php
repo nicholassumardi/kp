@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\EmailProcess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\Token;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -124,6 +130,88 @@ class LoginController extends Controller
 
         return redirect()->back()
             ->with('error', 'Username atau password salah, silahkan login kembali!');
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $account = User::where('email', $request->email)->first();
+        if ($account) {
+            // Token::where('tokenable_type', $account->tipe_user_id)
+            //     ->where('tokenable_id', $account->id)
+            //     ->where('type', 2)
+            //     ->update(['status' => 2]);
+
+            $token = Token::create([
+                'tokenable_type' => $account->tipe_user_id,
+                'tokenable_id'   => $account->id_user,
+                'token'          => Str::random(45),
+                'valid'          => date('Y-m-d H:i:s', strtotime('+1 day')),
+            ]);
+
+            $payload = [
+                'name'    => $account->nama,
+                'email'   => $account->email,
+                'link'    => url('reset_password?token=' . base64_encode($token->token)),
+                'view'    => 'reset_password.index',
+                'subject' => 'PUSBA | Reset Password'
+            ];
+
+
+            dispatch(new EmailProcess($payload));
+
+            $response = [
+                'status'  => 200,
+                'message' => 'The password reset link has been successfully sent to your email, valid 1 day'
+            ];
+        } else {
+            $response = [
+                'status'  => 400,
+                'message' => 'Email not registered'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        
+        $token    = base64_decode($request->token);
+        $customer = Token::where('token', $token)
+            ->first();
+
+        if ($customer) {
+            if ($request->has('_token') && session()->token() == $request->_token) {
+                $validation = Validator::make($request->all(), [
+                    'password'              => 'required',
+                    'confirm_password' => 'required|same:password'
+                ], [
+                    'password.required'              => 'Password cannot be empty',
+                    'confirm_password.required' => 'Password confirmation cannot be empty',
+                    'confirm_password.same'     => 'Password confirmation not match with password',
+                ]);
+
+                if ($validation->fails()) {
+                    return redirect()->back()->withErrors($validation);
+                } else {
+                     User::whereHas('token', function($query) use ($request){
+                        $query->where('token', base64_decode($request->token));
+                    }
+                    )->update([
+                        'password' => Hash::make($request->password)
+                    ]);
+
+                    return redirect('/')->with(['success' => 'Password successfully reset']);
+                }
+            } else {
+
+                return view('frontpages.account.reset_password.index');
+            }
+        }
+
+
+
+        return redirect()->route('login.form');
     }
 
     public function logout()

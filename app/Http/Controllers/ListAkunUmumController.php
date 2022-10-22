@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mahasiswa;
+use App\Models\Umum;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
-class ListAkunMahasiswaController extends Controller
+class ListAkunUmumController extends Controller
 {
     public function __construct()
     {
@@ -23,9 +21,8 @@ class ListAkunMahasiswaController extends Controller
     public function index()
     {
         $this->dataView['nama'] = 'Super Admin';
-        $this->dataView['listMahasiswa'] = Mahasiswa::all();
 
-        return view('superAdmin.main.list_mahasiswa.index', $this->dataView);
+        return view('superAdmin.main.list_umum.index', $this->dataView);
     }
 
     /**
@@ -68,9 +65,7 @@ class ListAkunMahasiswaController extends Controller
      */
     public function edit($id)
     {
-        $this->dataView['nama'] = 'Super Admin';
-        $this->dataView['mahasiswa'] = Mahasiswa::where('id_mahasiswa', $id)->first();
-        return view('superAdmin.main.list_mahasiswa.edit', $this->dataView);
+        //
     }
 
     /**
@@ -82,35 +77,23 @@ class ListAkunMahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $query =  User::where('id_user', $id)->update([
+        $query = User::where('id_user', $id)->update([
             'password' => Hash::make('123456'),
         ]);
 
-
-        if ($query) {
+        if($query){
             $response = [
                 'status' => 200,
                 'message' => 'Password reseted successfully',
             ];
-        } else {
+        }else{
             $response = [
                 'status' => 400,
                 'message' => 'Failed to reset password',
             ];
+
         }
-
         return response()->json($response);
-    }
-
-
-    public function updateNPM(Request $request, $id)
-    {
-        $query =  Mahasiswa::where('id_mahasiswa', $id)->update([
-            'npm' => $request->npm,
-        ]);
-
-        return redirect()->back()
-            ->with('success', 'NPM updated successfully.');
     }
 
     /**
@@ -127,9 +110,9 @@ class ListAkunMahasiswaController extends Controller
 
     public function datatable(Request $request)
     {
+
         $column = [
             'nama',
-            'npm',
             'created_at',
             'status',
         ];
@@ -141,9 +124,9 @@ class ListAkunMahasiswaController extends Controller
         $search = $request->input('search.value');
 
 
-        $total_data = Mahasiswa::count();
+        $total_data = Umum::count();
 
-        $query_data = Mahasiswa::where(function ($query) use ($search, $request) {
+        $query_data = Umum::where(function ($query) use ($search, $request) {
             if ($search) {
                 $query->where(function ($query) use ($search, $request) {
                     $query->where('nama', 'like', "%$search%")
@@ -158,7 +141,7 @@ class ListAkunMahasiswaController extends Controller
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = Mahasiswa::where(function ($query) use ($search, $request) {
+        $total_filtered = Umum::where(function ($query) use ($search, $request) {
             if ($search) {
                 $query->where(function ($query) use ($search, $request) {
                     $query->where('nama', 'like', "%$search%")
@@ -168,26 +151,25 @@ class ListAkunMahasiswaController extends Controller
                 });
             }
         })->count();
+        
 
         $response['data'] = [];
         if ($query_data <> FALSE) {
 
             foreach ($query_data as $val) {
-
-                $getStatus =  $val->user->status === 1 ? 'btn-success' : 'btn-danger';
-                $statusConvert = $val->user->status === 1 ? 'Active' : 'Inactive';
+               
+                $getStatus =  $val->user->status === 1 ?'btn-success':'btn-danger';
+                $statusConvert = $val->user->status ===1 ? 'Active' : 'Inactive';
                 $status =
                     '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
-                         ' . $statusConvert . '
+                         '. $statusConvert .'
                         </li>';
 
                 $action =
-                    '  <a href="' . route('listAkunMahasiswa.edit', $val->id_mahasiswa) . '" class="btn btn-outline-success btn-sm"><i class="bi bi-pencil text-success" "></i></a>
-                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="bi bi-key-fill text-danger" onclick="resetPassword(' . $val->user->id_user . ')"></i></button>';
-
+                    '<button type="button" class="btn btn-outline-danger btn-sm"><i class="bi bi-key-fill text-danger" onclick="resetPassword(' . $val->user->id_user . ')"></i></button>';
+         
                 $response['data'][] = [
                     $val->nama,
-                    $val->npm,
                     $val->user->email,
                     $status,
                     $action,

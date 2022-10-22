@@ -1,13 +1,13 @@
 @extends('superAdmin/layouts/app')
 @section('indicator')
-List Akun Mahasiswa
+List Akun Umum
 @endsection
 @section('content')
 <div class="container-fluid mt--6">
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-start">
-            <h3 class="mb-0">Mahasiswa</h3>
+            <h3 class="mb-0">Umum</h3>
         </div>
 
         <div class="card-body">
@@ -16,7 +16,6 @@ List Akun Mahasiswa
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>NPM</th>
                             <th>Email</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -33,7 +32,7 @@ List Akun Mahasiswa
 @endsection
 @push('js')
 <script>
-    $(function () {
+   $(function () {
         loadDataTable();
         // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
         $("#dataTable").removeClass("invisible");
@@ -49,7 +48,7 @@ List Akun Mahasiswa
                 iDisplayInLength: 10,
                 scrollX: true,
                 ajax: {
-                    url: '{{ url("listAkunMahasiswa/datatable") }}',
+                    url: '{{ url("listAkunUmum/datatable") }}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -67,7 +66,6 @@ List Akun Mahasiswa
                 },
                 columns: [
                    { name: 'nama', className: 'text-center align-middle' },
-                   { name: 'npm', className: 'text-center align-middle' },
                    { name: 'email', searchable: false, className: 'text-center align-middle' },
                    { name: 'status', orderable:false, searchable: false, className: 'text-center align-middle' },
                    { name: 'action', orderable:false, searchable: false, className: 'text-center align-middle' },
@@ -95,7 +93,7 @@ List Akun Mahasiswa
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ url("listAkunMahasiswa/update") }}' + '/' + id,
+                        url: '{{ url("listAkunUmum/update") }}' + '/' + id,
                         type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
@@ -116,5 +114,8 @@ List Akun Mahasiswa
                 }
             });
     }
+      
+
+
 </script>
 @endpush

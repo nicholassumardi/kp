@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{!empty($title_page) ? $title_page:''}} ITATS LANGUAGE CENTER</title>
 
 
@@ -25,7 +26,7 @@
     <link rel="stylesheet" href="{{asset('argon/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}"
         type="text/css">
 
-    
+
 
 
     <!-- Argon CSS -->
@@ -42,8 +43,12 @@
 
     {{-- DATATABLES --}}
     <link href="{{asset('datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-    
-        
+
+    {{-- Notif CSS --}}
+    <link href="{{ asset('js/custom/snackbar.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('js/custom/bootstrap-notifications.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('js/custom/waitMe.min.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -72,7 +77,7 @@
     <!-- Argon JS -->
     <script src="{{asset('argon/assets/js/argon.js?v=1.2.0')}}"></script>
     <script src="{{asset('argon/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
-    
+
     <!-- Mazer JS -->
     <script src="{{asset('mazer/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('mazer/assets/vendors/apexcharts/apexcharts.js')}}"></script>
@@ -87,7 +92,7 @@
     <!-- Page level plugins -->
     <script src="{{asset('datatables/jquery.dataTables.js')}}"></script>
     <script src="{{asset('datatables/dataTables.bootstrap4.js')}}"></script>
-   
+
 
 
     <!-- Page level custom scripts -->
@@ -103,6 +108,13 @@
     </script>
 
     @stack('js')
+
+
+    {{--Custom, Notif, Loading JS --}}
+    <script src="{{asset('js/custom/custom.js')}}"></script>
+    <script src="{{asset('js/custom/noty.min.js')}}"></script>
+    <script src="{{ asset('js/custom/snackbar.min.js') }}"></script>
+    <script src="{{ asset('js/custom/waitMe.min.js') }}"></script>
 </body>
 
 </html>

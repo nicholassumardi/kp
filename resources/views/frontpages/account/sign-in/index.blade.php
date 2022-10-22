@@ -73,6 +73,12 @@
                             </div>
                             <div class="row text-center">
                                 <div class="col-2"></div>
+                                <a class="text-register" data-bs-toggle="modal" data-bs-target="#resetPasswordModal"
+                                    href="">Forgot Password?</a></p>
+                                <div class="col-2"></div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-2"></div>
                                 <p class="col-8 fs-5 customtext">Don't have an account? <a class="text-register"
                                         href="{{ route('register.create') }}">Register Now</a></p>
                                 <div class="col-2"></div>
@@ -85,9 +91,53 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="email" class="col-form-label">Email :</label>
+                <input type="email" class="form-control" name="emailForReset" id="emailForReset">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn  bg-warning  shadow button" onclick="forgotPassword()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
+<script>
+    function forgotPassword() {
+			$.ajax({
+				url: '{{ url("forgot_password") }}',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+                        email: $('#emailForReset').val(),
+                },
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				success: function(response) {
+					if(response.status == 200) {
+						notif(response.message, '#198754');
+					} else {
+						notif(response.message, '#DC3545');
+					}
+				},
+				error: function() {
+					notif('Server Error!', '#DC3545');
+				}
+			});
+		}
+</script>
 <script>
     $(function() {
             $("#show-hide-password").on("click", function() {
@@ -151,6 +201,9 @@
             confirmButtonText: "OK",
             reverseButtons: true
         });
+
+      
+
 </script>
 @endif
 @endpush

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- LOCAL CSS --}}
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/customaccount.css')}}">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome-5.0.1/css/all.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('mazer/assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     {{-- lOGO --}}
     <link rel="icon" href="{{asset('images/logo2.png')}}">
 
@@ -29,6 +29,10 @@
     <!-- Sweet Alert -->
     <script src="{{asset('mazer/assets/js/extensions/sweetalert2.js')}}"></script>
     <script src="{{asset('mazer/assets/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
+
+    {{-- Notif CSS --}}
+    <link href="{{ asset('js/custom/snackbar.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('js/custom/bootstrap-notifications.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -55,11 +59,21 @@
     <!-- Argon JS -->
     <script src="{{asset('argon/assets/js/argon.js?v=1.2.0')}}"></script>
 
+    {{-- Custom and Notif --}}
+    
+
+
+
+
     <script>
         AOS.init();
     </script>
 
     @stack('js')
+
+    <script src="{{asset('js/custom/custom.js')}}"></script>
+    <script src="{{asset('js/custom/noty.min.js')}}"></script>
+    <script src="{{ asset('js/custom/snackbar.min.js') }}"></script>
 </body>
 
 </html>
