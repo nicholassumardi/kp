@@ -204,9 +204,9 @@ class AdminController extends Controller
         if ($request->tipeKursus === "mahasiswa") {
             $column = [
                 'mahasiswa_id',
+                'no_kartu_mahasiswa',
                 'kursus_id',
                 'created_at',
-                'no_kartu_mahasiswa',
             ];
 
             $start  = $request->start;
@@ -313,9 +313,9 @@ class AdminController extends Controller
         } else if ($request->tipeKursus === "umum") {
             $column = [
                 'umum_id',
+                'no_kartu_umum',
                 'kursus_id',
                 'created_at',
-                'no_kartu_umum',
             ];
 
             $start  = $request->start;

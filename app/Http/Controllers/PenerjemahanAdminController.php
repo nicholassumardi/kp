@@ -713,77 +713,167 @@ class PenerjemahanAdminController extends Controller
     // MAHASISWA
     public function deactiveAbstrak($id_abstrak)
     {
-        Abstrak::where('id_abstrak', $id_abstrak)->update([
+        $query = Abstrak::where('id_abstrak', $id_abstrak)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
     public function deactiveTranskripNilai($id_transkrip_nilai)
     {
-        TranskripNilai::where('id_transkrip_nilai', $id_transkrip_nilai)->update([
+        $query = TranskripNilai::where('id_transkrip_nilai', $id_transkrip_nilai)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
     public function deactiveIjazah($id_ijazah)
     {
-        Ijazah::where('id_ijazah', $id_ijazah)->update([
+
+        $query = Ijazah::where('id_ijazah', $id_ijazah)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
     public function deactiveJurnal($id_jurnal)
     {
-        Jurnal::where('id_jurnal', $id_jurnal)->update([
+
+        $query = Jurnal::where('id_jurnal', $id_jurnal)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
 
     // PUBLIC/ UMUM
     public function deactiveAbstrakUmum($id_abstrak_umum)
     {
-        AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum)->update([
+
+        $query = AbstrakUmum::where('id_abstrak_umum', $id_abstrak_umum)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
     public function deactiveTranskripNilaiUmum($id_transkrip_nilai_umum)
     {
-        TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum)->update([
+
+        $query =  TranskripNilaiUmum::where('id_transkrip_nilai_umum', $id_transkrip_nilai_umum)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
     public function deactiveIjazahUmum($id_ijazah_umum)
     {
-        IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum)->update([
+        $query =  IjazahUmum::where('id_ijazah_umum', $id_ijazah_umum)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
     public function deactiveJurnalUmum($id_jurnal_umum)
     {
-        JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum)->update([
+        $query =   JurnalUmum::where('id_jurnal_umum', $id_jurnal_umum)->update([
             'file_status' => 0
         ]);
 
-        return redirect()->back()
-            ->with('success', 'deactivated successfully.');
+        if ($query) {
+            $response = [
+                'status' => 200,
+                'message' => 'deactivated successfully'
+            ];
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'deactivated failed'
+            ];
+        }
+        return response()->json($response);
     }
 
     public function datatable(Request $request)
@@ -821,6 +911,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -835,7 +926,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -879,7 +972,7 @@ class PenerjemahanAdminController extends Controller
 
 
                         $buttonDeactive =
-                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onclick="deactiveAbstract(' . $val->id_abstrak . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
+                            '<button class="btn btn-sm btn-outline-secondary js-button-submit" type="button" onClick="deactiveAbstract(' . $val->id_abstrak . ')"><i class="bi bi-trash2-fill text-red"></i></button>';
 
 
 
@@ -935,6 +1028,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -949,7 +1043,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1041,6 +1137,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -1055,7 +1152,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1065,30 +1164,30 @@ class PenerjemahanAdminController extends Controller
                         $getStatus = $val->status === 'unchecked' ? 'btn-danger' : ($val->status === 'rejected' ? ' btn-danger' : 'btn-success');
 
                         $status =
-                        '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
                         ' . $val->status . '
                         </li>';
 
                         $buttonEditStatus =
-                        '<button type="button" class="btn btn-sm btn-outline-secondary js-btn-transkrip-checked"
-                            data-id="'. $val->id_transkrip_nilai .'">
+                            '<button type="button" class="btn btn-sm btn-outline-secondary js-btn-transkrip-checked"
+                            data-id="' . $val->id_transkrip_nilai . '">
                             <i class=" bi bi-check-square text-green"></i>
                         </button>
             
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                             data-toggle="modal" data-target="#modal-komentar"
-                            data-action="'. route('penerjemahan.sendKomentarTranskripNilai', $val->id_transkrip_nilai) .'">
+                            data-action="' . route('penerjemahan.sendKomentarTranskripNilai', $val->id_transkrip_nilai) . '">
                             <i class="bi bi-x-square text-danger"></i>
                         </button>';
 
                         $buttonAction =
-                        '<a href="'. route('penerjemahan.downloadTranskripMahasiswa', ['id_mahasiswa' => $val->mahasiswa_id, 'id_transkrip_nilai' => $val->id_transkrip_nilai]) .'"
+                            '<a href="' . route('penerjemahan.downloadTranskripMahasiswa', ['id_mahasiswa' => $val->mahasiswa_id, 'id_transkrip_nilai' => $val->id_transkrip_nilai]) . '"
                         class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai"
-                        data-id="'. $val->id_transkrip_nilai .'"><i
+                        data-id="' . $val->id_transkrip_nilai . '"><i
                             class="bi bi-download text-gray"></i></a>';
 
                         $buttonPrint =
-                        '<a href="'. route('generate3.pdf', ['id_transkrip_nilai_satu' => $val->id_transkrip_nilai, 'id_mahasiswa_satu' => $val->mahasiswa_id]) .'"
+                            '<a href="' . route('generate3.pdf', ['id_transkrip_nilai_satu' => $val->id_transkrip_nilai, 'id_mahasiswa_satu' => $val->mahasiswa_id]) . '"
                         class="btn btn-sm btn-outline-secondary"><i
                             class="bi bi-printer-fill text-indigo"></i></a>';
 
@@ -1147,6 +1246,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -1161,7 +1261,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1261,6 +1363,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -1275,7 +1378,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1289,34 +1394,34 @@ class PenerjemahanAdminController extends Controller
                         </li>';
 
                         $buttonEditStatus =
-                        '<button type="button"
+                            '<button type="button"
                             class="btn btn-sm btn-outline-secondary js-btn-abstrak-umum-pending"
-                            data-id="'. $val->id_abstrak_umum .'">
+                            data-id="' . $val->id_abstrak_umum . '">
                             <i class="bi bi-hourglass-split text-yellow"></i>
                         </button>
                         <button type="button"
                             class="btn btn-sm btn-outline-secondary js-btn-abstrak-umum-verified"
-                            data-id="'. $val->id_abstrak_umum .'">
+                            data-id="' . $val->id_abstrak_umum . '">
                             <i class=" bi bi-check-square text-green"></i>
                         </button>
 
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                             data-toggle="modal" data-target="#modal-komentar"
-                            data-action="'. route('penerjemahan.sendKomentarAbstrakUmum',$val->id_abstrak_umum) .'">
+                            data-action="' . route('penerjemahan.sendKomentarAbstrakUmum', $val->id_abstrak_umum) . '">
                             <i class="bi bi-x-square text-danger"></i>
                         </button>';
 
                         $buttonAction =
-                            
-                        '<a href="'. route('penerjemahan.downloadAbstrakUmum', ['id_umum' => $val->umum_id, 'id_abstrak_umum' => $val->id_abstrak_umum]) .'"
+
+                            '<a href="' . route('penerjemahan.downloadAbstrakUmum', ['id_umum' => $val->umum_id, 'id_abstrak_umum' => $val->id_abstrak_umum]) . '"
                         class="btn btn-sm btn-outline-secondary js-btn-download-abstrak-umum"
-                        data-id="'. $val->id_abstrak_umum .'"><i
+                        data-id="' . $val->id_abstrak_umum . '"><i
                             class="bi bi-download text-gray"></i></a>
-                        <a href="'. route('penerjemahan-admin.editPageAbstrakUmum', ['id_penerjemahan_umum' => $val->id_abstrak_umum, 'id_umum' => $val->umum_id]) .'"
+                        <a href="' . route('penerjemahan-admin.editPageAbstrakUmum', ['id_penerjemahan_umum' => $val->id_abstrak_umum, 'id_umum' => $val->umum_id]) . '"
                             class="btn btn-sm btn-outline-secondary"><i
                                 class="bi bi-pen-fill text-green"></i></a>';
 
-                        $buttonPrint = '<a href="'. route('generateUmum2.pdf', ['id_abstract_umum' => $val->id_abstrak_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                        $buttonPrint = '<a href="' . route('generateUmum2.pdf', ['id_abstract_umum' => $val->id_abstrak_umum, 'id_umum_satu' => $val->umum_id]) . '"
                         class="btn btn-sm btn-outline-secondary"><i
                             class="bi bi-printer-fill text-indigo"></i></a>';
 
@@ -1352,7 +1457,6 @@ class PenerjemahanAdminController extends Controller
                         ];
                     }
                 }
-
             } else if ($request->tipePenerjemahan === "Ijazah") {
                 $column = [
                     'id_ijazah_umum',
@@ -1380,6 +1484,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -1394,7 +1499,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1409,26 +1516,26 @@ class PenerjemahanAdminController extends Controller
                         </li>';
 
                         $buttonEditStatus =
-                        '<button type="button"
+                            '<button type="button"
                             class="btn btn-sm btn-outline-secondary js-btn-ijazah-umum-checked"
-                            data-id="'. $val->id_ijazah_umum .'">
+                            data-id="' . $val->id_ijazah_umum . '">
                             <i class=" bi bi-check-square text-green"></i>
                         </button>
                    
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                             data-toggle="modal" data-target="#modal-komentar"
-                            data-action="'. route('penerjemahan.sendKomentarIjazahUmum', $val->id_ijazah_umum) .'">
+                            data-action="' . route('penerjemahan.sendKomentarIjazahUmum', $val->id_ijazah_umum) . '">
                             <i class="bi bi-x-square text-danger"></i>
                         </button>';
 
                         $buttonAction =
-                        '<a href="'. route('penerjemahan.downloadIjazahUmum', ['id_umum' => $val->umum_id, 'id_ijazah_umum' => $val->id_ijazah_umum]) .'"
+                            '<a href="' . route('penerjemahan.downloadIjazahUmum', ['id_umum' => $val->umum_id, 'id_ijazah_umum' => $val->id_ijazah_umum]) . '"
                         class="btn btn-sm btn-outline-secondary js-btn-download-ijazah-umum"
-                        data-id="'. $val->id_ijazah_umum .'"><i
+                        data-id="' . $val->id_ijazah_umum . '"><i
                             class="bi bi-download text-gray"></i></a>';
 
                         $buttonPrint =
-                            '<a href="'. route('generateUmum4.pdf', ['id_ijazah_umum' => $val->id_ijazah_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                            '<a href="' . route('generateUmum4.pdf', ['id_ijazah_umum' => $val->id_ijazah_umum, 'id_umum_satu' => $val->umum_id]) . '"
                             class="btn btn-sm btn-outline-secondary"><i
                                 class="bi bi-printer-fill text-indigo"></i></a>';
 
@@ -1487,6 +1594,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -1501,7 +1609,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1511,31 +1621,31 @@ class PenerjemahanAdminController extends Controller
                         $getStatus = $val->status === 'unchecked' ? 'btn-danger' : ($val->status === 'rejected' ? ' btn-danger' : 'btn-success');
 
                         $status =
-                        '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
+                            '<li class="btn btn-sm js-status ' . $getStatus . '  disabled">
                         ' . $val->status . '
                         </li>';
 
                         $buttonEditStatus =
-                        '<button type="button"
+                            '<button type="button"
                             class="btn btn-sm btn-outline-secondary js-btn-transkrip-umum-checked"
-                            data-id="'. $val->id_transkrip_nilai_umum .'">
+                            data-id="' . $val->id_transkrip_nilai_umum . '">
                             <i class=" bi bi-check-square text-green"></i>
                         </button>
                    
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                             data-toggle="modal" data-target="#modal-komentar"
-                            data-action="'. route('penerjemahan.sendKomentarTranskripNilaiUmum', $val->id_transkrip_nilai_umum) .'">
+                            data-action="' . route('penerjemahan.sendKomentarTranskripNilaiUmum', $val->id_transkrip_nilai_umum) . '">
                             <i class="bi bi-x-square text-danger"></i>
                         </button>';
 
                         $buttonAction =
-                        '<a href="'. route('penerjemahan.downloadTranskripUmum', ['id_umum' => $val->umum_id, 'id_transkrip_nilai_umum' => $val->id_transkrip_nilai_umum]) .'"
+                            '<a href="' . route('penerjemahan.downloadTranskripUmum', ['id_umum' => $val->umum_id, 'id_transkrip_nilai_umum' => $val->id_transkrip_nilai_umum]) . '"
                         class="btn btn-sm btn-outline-secondary js-btn-download-transkrip-nilai-umum"
-                        data-id="'. $val->id_transkrip_nilai_umum .'"><i
+                        data-id="' . $val->id_transkrip_nilai_umum . '"><i
                             class="bi bi-download text-gray"></i></a>';
 
                         $buttonPrint =
-                        '<a href="'. route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $val->id_transkrip_nilai_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                            '<a href="' . route('generateUmum3.pdf', ['id_transkrip_nilai_umum' => $val->id_transkrip_nilai_umum, 'id_umum_satu' => $val->umum_id]) . '"
                         class="btn btn-sm btn-outline-secondary"><i
                             class="bi bi-printer-fill text-indigo"></i></a>';
 
@@ -1594,6 +1704,7 @@ class PenerjemahanAdminController extends Controller
                         });
                     }
                 })
+                    ->where('file_status', 1)
                     ->offset($start)
                     ->limit($length)
                     ->orderBy($order, $dir)
@@ -1608,7 +1719,9 @@ class PenerjemahanAdminController extends Controller
                                 });
                         });
                     }
-                })->count();
+                })
+                    ->where('file_status', 1)
+                    ->count();
 
                 $response['data'] = [];
                 if ($query_data <> FALSE) {
@@ -1623,35 +1736,35 @@ class PenerjemahanAdminController extends Controller
                         $jumlahHalaman = '<br><b> Jumlah Halaman : ' . $val->jumlah_halaman_jurnal . '</b>';
 
                         $buttonEditStatus =
-                        '<button type="button"
+                            '<button type="button"
                             class="btn btn-sm btn-outline-secondary js-btn-jurnal-umum-pending"
-                            data-id="'. $val->id_jurnal_umum .'">
+                            data-id="' . $val->id_jurnal_umum . '">
                             <i class="bi bi-hourglass-split text-yellow"></i>
                         </button>
                         <button type="button"
                             class="btn btn-sm btn-outline-secondary js-btn-jurnal-umum-verified"
-                            data-id="'. $val->id_jurnal_umum .'">
+                            data-id="' . $val->id_jurnal_umum . '">
                             <i class=" bi bi-check-square text-green"></i>
                         </button>
                 
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-komentar"
                             data-toggle="modal" data-target="#modal-komentar"
-                            data-action="'. route('penerjemahan.sendKomentarJurnalUmum', $val->id_jurnal_umum) .'">
+                            data-action="' . route('penerjemahan.sendKomentarJurnalUmum', $val->id_jurnal_umum) . '">
                             <i class="bi bi-x-square text-danger"></i>
                         </button>';
 
                         $buttonAction =
-                        '<a href="'. route('penerjemahan.downloadJurnalUmum', ['id_umum' => $val->umum_id, 'id_jurnal_umum' => $val->id_jurnal_umum]) .'"
+                            '<a href="' . route('penerjemahan.downloadJurnalUmum', ['id_umum' => $val->umum_id, 'id_jurnal_umum' => $val->id_jurnal_umum]) . '"
                         class="btn btn-sm btn-outline-secondary js-btn-download-jurnal-umum"
-                        data-id="'. $val->id_jurnal_umum .'"><i
+                        data-id="' . $val->id_jurnal_umum . '"><i
                             class="bi bi-download text-gray"></i></a>
 
-                        <a href="'. route('penerjemahan-admin.editPageJurnalUmum', ['id_jurnal_umum' => $val->id_jurnal_umum, 'id_umum' => $val->umum_id]) .'"
+                        <a href="' . route('penerjemahan-admin.editPageJurnalUmum', ['id_jurnal_umum' => $val->id_jurnal_umum, 'id_umum' => $val->umum_id]) . '"
                             class="btn btn-sm btn-outline-secondary"><i
                                 class="bi bi-pen-fill text-green"></i></a>';
 
                         $buttonPrint =
-                        '<a href="'. route('generateUmum5.pdf', ['id_jurnal_umum' => $val->id_jurnal_umum, 'id_umum_satu' => $val->umum_id]) .'"
+                            '<a href="' . route('generateUmum5.pdf', ['id_jurnal_umum' => $val->id_jurnal_umum, 'id_umum_satu' => $val->umum_id]) . '"
                         class="btn btn-sm btn-outline-secondary"><i
                             class="bi bi-printer-fill text-indigo"></i></a>';
 
@@ -1683,7 +1796,6 @@ class PenerjemahanAdminController extends Controller
                         ];
                     }
                 }
-            
             }
         }
 

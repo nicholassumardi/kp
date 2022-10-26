@@ -91,31 +91,10 @@ Penerjemahan
         // Tampilkan tabel setelah #dataTable telah terload sepenuhnya.
         $("#dataTable").removeClass("invisible");
         loadDataTable();
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: true
-        });
+        
 
         // Button Deactive
-        $("#dataTable").on("click", ".js-button-submit", function () {
-            swalWithBootstrapButtons.fire({
-                title: "Deactive File?",
-                text: "Are you sure want to make change? File will not shown after deactive",
-                icon: "warning",
-                showCloseButton: true,
-                showCancelButton: true,
-                confirmButtonText: "Yes!",
-                cancelButtonText: "Cancel!",
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).parent().submit();
-                }
-            });
-        });
+
  
 
         // JS Umum
@@ -421,7 +400,13 @@ Penerjemahan
 
 
     });
-
+    const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        });
     function deactiveAbstract(id){
         swalWithBootstrapButtons.fire({
                 title: "Deactive File?",
@@ -436,7 +421,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveAbstrak") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -471,7 +456,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveTranskrip") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -507,7 +492,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveIjazah") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -543,7 +528,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveJurnal") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -579,7 +564,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveAbstrakUmum") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -613,7 +598,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveTranskipUmum") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -648,7 +633,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveIjazahUmum") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -683,7 +668,7 @@ Penerjemahan
                 if (result.isConfirmed) {
                     $.ajax({
                         url: '{{ url("penerjemahan-deactiveJurnalUmum") }}' + '/' + id,
-                        type: 'POST',
+                        type: 'PATCH',
                         dataType: 'JSON',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -744,7 +729,7 @@ Penerjemahan
                    { name: 'edit_status', searchable: false, className: 'text-center align-middle'},
                    { name: 'action', searchable: false, className: 'text-center align-middle'},
                    { name: 'print', searchable: false, className: 'text-center align-middle'},
-                   { name: 'deactive', searchable: false, className: 'text-center align-middle'},
+                   { name: 'deactive', orderable:false, searchable: false, className: 'text-center align-middle'},
                 
                 ]
             });
