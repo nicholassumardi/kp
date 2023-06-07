@@ -53,7 +53,7 @@ class PenerjemahanStudentController extends Controller
      */
     public function store(Request $request)
     {
-
+        $randToken = rand(0, 20000);
         if ($request->layanan === 'abstrak') {
             $request->validate([
                 'path_foto_kuitansi' => 'required',
@@ -86,22 +86,22 @@ class PenerjemahanStudentController extends Controller
                         // File maksimum 5 MB / 5000 KB
                         'path_file_abstrak_mahasiswa' => 'max:5000',
                     ]);
-             
+
                     // Jika file tidak melebihi 5 MB
-                    if ( ! $validatorFileSize->fails()) {
+                    if (!$validatorFileSize->fails()) {
                         Abstrak::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak/', 'public'),
                             'path_file_abstrak_mahasiswa' => $request->path_file_abstrak_mahasiswa->storeAs(
                                 'dokumen/dokumen-abstrak/mahasiswa',
-                                $request->path_file_abstrak_mahasiswa->getClientOriginalName(),
+                                $request->path_file_abstrak_mahasiswa->getClientOriginalName() . "{}" . $randToken,
                                 'public'
                             ),
                             'email' => $request->email,
                             'no_hp' => $request->no_hp,
                             'status' => 'unverified'
                         ]);
-                    } 
+                    }
                     // Jika file melebihi 5 MB
                     else {
                         return redirect()->route('penerjemahan-student.index')
@@ -149,22 +149,22 @@ class PenerjemahanStudentController extends Controller
                         // File maksimum 5 MB / 5000 KB
                         'path_file_transkrip_nilai' => 'max:5000',
                     ]);
-             
+
                     // Jika file tidak melebihi 5 MB
-                    if ( ! $validatorFileSize->fails()) {
+                    if (!$validatorFileSize->fails()) {
                         TranskripNilai::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
                             'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
                                 'dokumen/dokumen-transkrip/mahasiswa',
-                                $request->path_file_transkrip_nilai->getClientOriginalName(),
+                                $request->path_file_transkrip_nilai->getClientOriginalName() . "{}" . $randToken,
                                 'public'
                             ),
                             'email' => $request->email,
                             'no_hp' => $request->no_hp,
                             'status' => 'unchecked'
                         ]);
-                    } 
+                    }
                     // Jika file melebihi 5 MB
                     else {
                         return redirect()->route('penerjemahan-student.index')
@@ -212,22 +212,22 @@ class PenerjemahanStudentController extends Controller
                         // File maksimum 5 MB / 5000 KB
                         'path_file_ijazah' => 'max:5000',
                     ]);
-             
+
                     // Jika file tidak melebihi 5 MB
-                    if ( ! $validatorFileSize->fails()) {
+                    if (!$validatorFileSize->fails()) {
                         Ijazah::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah/', 'public'),
                             'path_file_ijazah' => $request->path_file_ijazah->storeAs(
                                 'dokumen/dokumen-ijazah/mahasiswa',
-                                $request->path_file_ijazah->getClientOriginalName(),
+                                $request->path_file_ijazah->getClientOriginalName() . "{}" . $randToken,
                                 'public'
                             ),
                             'email' => $request->email,
                             'no_hp' => $request->no_hp,
                             'status' => 'unchecked'
                         ]);
-                    } 
+                    }
                     // Jika file melebihi 5 MB
                     else {
                         return redirect()->route('penerjemahan-student.index')
@@ -290,35 +290,35 @@ class PenerjemahanStudentController extends Controller
                         'path_file_transkrip_nilai' => 'max:5000',
                         'path_file_ijazah' => 'max:5000'
                     ]);
-                    
+
                     // Jika file tidak melebihi 5 MB
-                    if ( ! $validatorFileSize->fails()) {
+                    if (!$validatorFileSize->fails()) {
                         TranskripNilai::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'path_foto_kuitansi' => $request->path_foto_kuitansi_transkrip_nilai->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
                             'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
                                 'dokumen/dokumen-transkrip/mahasiswa',
-                                $request->path_file_transkrip_nilai->getClientOriginalName(),
+                                $request->path_file_transkrip_nilai->getClientOriginalName() . "{}" . $randToken,
                                 'public'
                             ),
                             'email' => $request->email,
                             'no_hp' => $request->no_hp,
                             'status' => 'unchecked'
                         ]);
-    
+
                         Ijazah::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'path_foto_kuitansi' => $request->path_foto_kuitansi_ijazah->store('images/bukti-pembayaran/ijazah/', 'public'),
                             'path_file_ijazah' => $request->path_file_ijazah->storeAs(
                                 'dokumen/dokumen-ijazah/mahasiswa',
-                                $request->path_file_ijazah->getClientOriginalName(),
+                                $request->path_file_ijazah->getClientOriginalName() . "{}" . $randToken,
                                 'public'
                             ),
                             'email' => $request->email,
                             'no_hp' => $request->no_hp,
                             'status' => 'unchecked'
                         ]);
-                    } 
+                    }
                     // Jika file melebihi 5 MB
                     else {
                         return redirect()->route('penerjemahan-student.index')
@@ -367,15 +367,15 @@ class PenerjemahanStudentController extends Controller
                         // File maksimum 5 MB / 5000 KB
                         'path_file_jurnal_mahasiswa' => 'max:5000',
                     ]);
-             
+
                     // Jika file tidak melebihi 5 MB
-                    if ( ! $validatorFileSize->fails()) {
+                    if (!$validatorFileSize->fails()) {
                         Jurnal::create([
                             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
                             'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/jurnal/', 'public'),
                             'path_file_jurnal_mahasiswa' => $request->path_file_jurnal_mahasiswa->storeAs(
                                 'dokumen/dokumen-jurnal/mahasiswa',
-                                $request->path_file_jurnal_mahasiswa->getClientOriginalName(),
+                                $request->path_file_jurnal_mahasiswa->getClientOriginalName() . "{}" . $randToken,
                                 'public'
                             ),
                             'email' => $request->email,
@@ -383,7 +383,7 @@ class PenerjemahanStudentController extends Controller
                             'jumlah_halaman_jurnal' => $request->jumlah_halaman_jurnal,
                             'status' => 'unverified'
                         ]);
-                    } 
+                    }
                     // Jika file melebihi 5 MB
                     else {
                         return redirect()->route('penerjemahan-student.index')
@@ -508,7 +508,7 @@ class PenerjemahanStudentController extends Controller
 
         return view('student.main.abstract_student.edit-jurnal', $this->dataView);
     }
-    
+
     public function editIjazah($id_ijazah)
     {
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
@@ -521,13 +521,14 @@ class PenerjemahanStudentController extends Controller
     {
         $this->dataView['mahasiswa'] = Mahasiswa::where('user_id', Auth::id())->first();
         $this->dataView['transkrip_nilai'] = TranskripNilai::where('id_transkrip_nilai', $id_transkrip_nilai)->first();
-        
+
         return view('student.main.abstract_student.edit-transkrip', $this->dataView);
     }
 
 
     public function updateAbstrak(Request $request, $id_abstrak)
     {
+        $randToken = rand(0, 20000);
         $request->validate([
             'path_foto_kuitansi' => 'required',
             'path_file_abstrak_mahasiswa' => 'required',
@@ -556,20 +557,20 @@ class PenerjemahanStudentController extends Controller
                     // File maksimum 5 MB / 5000 KB
                     'path_file_abstrak_mahasiswa' => 'max:5000',
                 ]);
-         
+
                 // Jika file tidak melebihi 5 MB
-                if ( ! $validatorFileSize->fails()) {
+                if (!$validatorFileSize->fails()) {
                     Abstrak::where('id_abstrak', $id_abstrak)->update([
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/abstrak/', 'public'),
                         'path_file_abstrak_mahasiswa' => $request->path_file_abstrak_mahasiswa->storeAs(
                             'dokumen/dokumen-abstrak/mahasiswa',
-                            $request->path_file_abstrak_mahasiswa->getClientOriginalName(),
+                            $request->path_file_abstrak_mahasiswa->getClientOriginalName() . "{}" . $randToken,
                             'public'
                         ),
                         'email' => $request->email,
                         'no_hp' => $request->no_hp,
                     ]);
-                } 
+                }
                 // Jika file melebihi 5 MB
                 else {
                     return redirect()->route('penerjemahan-student.index')
@@ -589,6 +590,7 @@ class PenerjemahanStudentController extends Controller
 
     public function updateJurnal(Request $request, $id_jurnal)
     {
+        $randToken = rand(0, 20000);
         $request->validate([
             'path_foto_kuitansi' => 'required',
             'path_file_jurnal_mahasiswa' => 'required',
@@ -617,21 +619,21 @@ class PenerjemahanStudentController extends Controller
                     // File maksimum 5 MB / 5000 KB
                     'path_file_jurnal_mahasiswa' => 'max:5000',
                 ]);
-         
+
                 // Jika file tidak melebihi 5 MB
-                if ( ! $validatorFileSize->fails()) {
+                if (!$validatorFileSize->fails()) {
                     Jurnal::where('id_jurnal', $id_jurnal)->update([
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/jurnal/', 'public'),
                         'path_file_jurnal_mahasiswa' => $request->path_file_jurnal_mahasiswa->storeAs(
                             'dokumen/dokumen-jurnal/mahasiswa',
-                            $request->path_file_jurnal_mahasiswa->getClientOriginalName(),
+                            $request->path_file_jurnal_mahasiswa->getClientOriginalName() . "{}" . $randToken,
                             'public'
                         ),
                         'jumlah_halaman_jurnal' => $request->jumlah_halaman_jurnal,
                         'email' => $request->email,
                         'no_hp' => $request->no_hp,
                     ]);
-                } 
+                }
                 // Jika file melebihi 5 MB
                 else {
                     return redirect()->route('penerjemahan-student.index')
@@ -652,6 +654,7 @@ class PenerjemahanStudentController extends Controller
 
     public function updateIjazah(Request $request, $id_ijazah)
     {
+        $randToken = rand(0, 20000);
         $request->validate([
             'path_foto_kuitansi' => 'required',
             'path_file_ijazah' => 'required',
@@ -680,20 +683,20 @@ class PenerjemahanStudentController extends Controller
                     // File maksimum 5 MB / 5000 KB
                     'path_file_ijazah' => 'max:5000',
                 ]);
-         
+
                 // Jika file tidak melebihi 5 MB
-                if ( ! $validatorFileSize->fails()) {
+                if (!$validatorFileSize->fails()) {
                     Ijazah::where('id_ijazah', $id_ijazah)->update([
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/ijazah/', 'public'),
                         'path_file_ijazah' => $request->path_file_ijazah->storeAs(
                             'dokumen/dokumen-ijazah/mahasiswa',
-                            $request->path_file_ijazah->getClientOriginalName(),
+                            $request->path_file_ijazah->getClientOriginalName() . "{}" . $randToken,
                             'public'
                         ),
                         'email' => $request->email,
                         'no_hp' => $request->no_hp,
                     ]);
-                } 
+                }
                 // Jika file melebihi 5 MB
                 else {
                     return redirect()->route('penerjemahan-student.index')
@@ -713,6 +716,7 @@ class PenerjemahanStudentController extends Controller
 
     public function updateTranskripNilai(Request $request, $id_transkrip_nilai)
     {
+        $randToken = rand(0, 20000);
         $request->validate([
             'path_foto_kuitansi' => 'required',
             'path_file_transkrip_nilai' => 'required',
@@ -741,20 +745,20 @@ class PenerjemahanStudentController extends Controller
                     // File maksimum 5 MB / 5000 KB
                     'path_file_transkrip_nilai' => 'max:5000',
                 ]);
-         
+
                 // Jika file tidak melebihi 5 MB
-                if ( ! $validatorFileSize->fails()) {
+                if (!$validatorFileSize->fails()) {
                     TranskripNilai::where('id_transkrip_nilai', $id_transkrip_nilai)->update([
                         'path_foto_kuitansi' => $request->path_foto_kuitansi->store('images/bukti-pembayaran/transkrip-nilai/', 'public'),
                         'path_file_transkrip_nilai' => $request->path_file_transkrip_nilai->storeAs(
                             'dokumen/dokumen-transkrip/mahasiswa',
-                            $request->path_file_transkrip_nilai->getClientOriginalName(),
+                            $request->path_file_transkrip_nilai->getClientOriginalName() . "{}" . $randToken,
                             'public'
                         ),
                         'email' => $request->email,
                         'no_hp' => $request->no_hp,
                     ]);
-                } 
+                }
                 // Jika file melebihi 5 MB
                 else {
                     return redirect()->route('penerjemahan-student.index')

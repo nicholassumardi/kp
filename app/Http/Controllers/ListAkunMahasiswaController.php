@@ -147,6 +147,7 @@ class ListAkunMahasiswaController extends Controller
             if ($search) {
                 $query->where(function ($query) use ($search, $request) {
                     $query->where('nama', 'like', "%$search%")
+                        ->orWhere('npm', 'like', "%$search%")
                         ->orWhereHas('user', function ($query) use ($search, $request) {
                             $query->where('email', 'like', "%$search%");
                         });
@@ -162,6 +163,7 @@ class ListAkunMahasiswaController extends Controller
             if ($search) {
                 $query->where(function ($query) use ($search, $request) {
                     $query->where('nama', 'like', "%$search%")
+                        ->orWhere('npm', 'like', "%$search%")
                         ->orWhereHas('user', function ($query) use ($search, $request) {
                             $query->where('email', 'like', "%$search%");
                         });

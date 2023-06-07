@@ -35,7 +35,11 @@ Penerjemahan
                                 </li>
                             </td>
                             <td class="text-center">
-                                {{ basename($abstract->path_file_abstrak_umum) }}
+                                {{ basename(substr($abstract->path_file_abstrak_umum
+                                ,0,strpos($abstract->path_file_abstrak_umum ,
+                                "{}"))) ? basename(substr($abstract->path_file_abstrak_umum
+                                ,0,strpos($abstract->path_file_abstrak_umum ,
+                                "{}"))) : basename($abstract->path_file_abstrak_umum) }}
                             </td>
                             @if ($abstract->path_file_abstrak_admin_pdf != null)
                             <td class="text-center">{{ basename($abstract->path_file_abstrak_admin_pdf) }}
@@ -81,7 +85,11 @@ Penerjemahan
                                 </li>
                             </td>
                             <td class="text-center">
-                                {{ basename($transkrip_nilai->path_file_transkrip_nilai) }}
+                                {{basename(substr($transkrip_nilai->path_file_transkrip_nilai
+                                ,0,strpos($transkrip_nilai->path_file_transkrip_nilai ,
+                                "{}"))) ? basename(substr($transkrip_nilai->path_file_transkrip_nilai
+                                ,0,strpos($transkrip_nilai->path_file_transkrip_nilai ,
+                                "{}"))) : basename($transkrip_nilai->path_file_transkrip_nilai) }}
                             </td>
                             <td class="text-center"></td>
                             <td class="d-flex justify-content-center">
@@ -110,7 +118,11 @@ Penerjemahan
                                 </li>
                             </td>
                             <td class="text-center">
-                                {{ basename($ijazah->path_file_ijazah) }}
+                                {{basename(substr($ijazah->path_file_ijazah
+                                ,0,strpos($ijazah->path_file_ijazah ,
+                                "{}"))) ? basename(substr($ijazah->path_file_ijazah
+                                ,0,strpos($ijazah->path_file_ijazah ,
+                                "{}"))) : basename($ijazah->path_file_ijazah) }}
                             </td>
                             <td class="text-center"></td>
                             <td class="d-flex justify-content-center">
@@ -143,7 +155,11 @@ Penerjemahan
                                 </li>
                             </td>
                             <td class="text-center">
-                                {{ basename($jurnal->path_file_jurnal_umum) }}
+                                {{basename(substr($jurnal->path_file_jurnal_umum
+                                ,0,strpos($jurnal->path_file_jurnal_umum ,
+                                "{}"))) ? basename(substr($jurnal->path_file_jurnal_umum
+                                ,0,strpos($jurnal->path_file_jurnal_umum ,
+                                "{}"))) : basename($jurnal->path_file_jurnal_umum) }}
                             </td>
 
                             @if ($jurnal->path_file_jurnal_admin_pdf != null)
