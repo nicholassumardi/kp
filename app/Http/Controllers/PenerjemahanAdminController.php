@@ -412,12 +412,10 @@ class PenerjemahanAdminController extends Controller
 
     public function downloadAbstrakMahasiswa($id_mahasiswa, $id_abstrak)
     {
-
         $file_name = Abstrak::where([
             ['mahasiswa_id', '=', $id_mahasiswa],
             ['id_abstrak', '=', $id_abstrak],
         ])->value('path_file_abstrak_mahasiswa');
-
         $file = public_path('storage/') . $file_name;
 
 
@@ -994,21 +992,7 @@ class PenerjemahanAdminController extends Controller
 
 
 
-                            basename(substr(
-                                $val->path_file_abstrak_mahasiswa,
-                                0,
-                                strpos(
-                                    $val->path_file_abstrak_mahasiswa,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_abstrak_mahasiswa,
-                                0,
-                                strpos(
-                                    $val->path_file_abstrak_mahasiswa,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_abstrak_mahasiswa),
+                            basename($val->path_file_abstrak_mahasiswa),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1116,21 +1100,7 @@ class PenerjemahanAdminController extends Controller
                             '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
                                     class="custombuktipembayaran">',
                             $status,
-                            basename(substr(
-                                $val->path_file_ijazah,
-                                0,
-                                strpos(
-                                    $val->path_file_ijazah,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_ijazah,
-                                0,
-                                strpos(
-                                    $val->path_file_ijazah,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_ijazah),
+                            basename($val->path_file_ijazah),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1240,21 +1210,7 @@ class PenerjemahanAdminController extends Controller
                             '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
                                     class="custombuktipembayaran">',
                             $status,
-                            basename(substr(
-                                $val->path_file_transkrip_nilai,
-                                0,
-                                strpos(
-                                    $val->path_file_transkrip_nilai,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_transkrip_nilai,
-                                0,
-                                strpos(
-                                    $val->path_file_transkrip_nilai,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_transkrip_nilai),
+                            basename($val->path_file_transkrip_nilai),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1365,21 +1321,7 @@ class PenerjemahanAdminController extends Controller
                             '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
                                     class="custombuktipembayaran">',
                             $status,
-                            basename(substr(
-                                $val->path_file_jurnal_mahasiswa,
-                                0,
-                                strpos(
-                                    $val->path_file_jurnal_mahasiswa,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_jurnal_mahasiswa,
-                                0,
-                                strpos(
-                                    $val->path_file_jurnal_mahasiswa,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_jurnal_mahasiswa),
+                            basename($val->path_file_jurnal_mahasiswa),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1506,21 +1448,7 @@ class PenerjemahanAdminController extends Controller
 
 
 
-                            basename(substr(
-                                $val->path_file_abstrak_umum,
-                                0,
-                                strpos(
-                                    $val->path_file_abstrak_umum,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_abstrak_umum,
-                                0,
-                                strpos(
-                                    $val->path_file_abstrak_umum,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_abstrak_umum),
+                            basename($val->path_file_abstrak_umum),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1630,21 +1558,7 @@ class PenerjemahanAdminController extends Controller
                             '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
                                     class="custombuktipembayaran">',
                             $status,
-                            basename(substr(
-                                $val->path_file_ijazah,
-                                0,
-                                strpos(
-                                    $val->path_file_ijazah,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_ijazah,
-                                0,
-                                strpos(
-                                    $val->path_file_ijazah,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_ijazah),
+                            basename($val->path_file_ijazah),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1754,21 +1668,7 @@ class PenerjemahanAdminController extends Controller
                             '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
                                     class="custombuktipembayaran">',
                             $status,
-                            basename(substr(
-                                $val->path_file_transkrip_nilai,
-                                0,
-                                strpos(
-                                    $val->path_file_transkrip_nilai,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_transkrip_nilai,
-                                0,
-                                strpos(
-                                    $val->path_file_transkrip_nilai,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_transkrip_nilai),
+                            basename($val->path_file_transkrip_nilai),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
@@ -1887,21 +1787,7 @@ class PenerjemahanAdminController extends Controller
                             '<img src="' . url('storage/' . $val->path_foto_kuitansi) . '"
                                     class="custombuktipembayaran">',
                             $status,
-                            basename(substr(
-                                $val->path_file_jurnal_umum,
-                                0,
-                                strpos(
-                                    $val->path_file_jurnal_umum,
-                                    "{}"
-                                )
-                            )) ? basename(substr(
-                                $val->path_file_jurnal_umum,
-                                0,
-                                strpos(
-                                    $val->path_file_jurnal_umum,
-                                    "{}"
-                                )
-                            )) : basename($val->path_file_jurnal_umum),
+                            basename($val->path_file_jurnal_umum),
                             $buttonEditStatus,
                             $buttonAction,
                             $buttonPrint,
